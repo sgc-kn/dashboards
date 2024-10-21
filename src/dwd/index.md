@@ -114,10 +114,13 @@ Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jah
 
 <div class="card grid-colspan-1">
 
-## Sponsoren
-### bc
+## Urheber
+<a href="https://smart-green-city-konstanz.de/">
+<h3>Smart Green City Konstanz</h3>
+</a>
 
-abc
+<img title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="../assets/sponsors-wide.png" />
+
 </div>
 
 <div class="card grid-colspan-2">

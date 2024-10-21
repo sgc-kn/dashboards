@@ -11,7 +11,7 @@ Hier entstehen öffentliche Dashboard zu interessanten Daten der Stadt
 Konstanz. Diese Arbeit ist Teil des [Projekts zur Einrichtung einer
 Klimadatenplattform][project] im [Smart Green City Programm][sgc].
 
-Dieses Projekt ist open-source; wir veröffentlichen unseren Code auf
+Dieses Projekt ist open-source: wir veröffentlichen unseren Code auf
 [Github][repo].
 
 [project]: https://smart-green-city-konstanz.de/klimadatenplattform
@@ -96,3 +96,7 @@ function label_klindex(variable) {
       ]
     }))}
 </div>
+
+---
+
+<img style='max-height:15rem' title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="assets/sponsors-wide.png" />
