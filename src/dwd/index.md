@@ -26,6 +26,7 @@ select
   lat,
   lon,
 from typed
+where von >= '1972-01-01'
 group by lat, lon
 order by von asc
 ```
@@ -47,8 +48,8 @@ select
   avg(JA_EISTAGE::double) as eistage,
   avg(JA_FROSTTAGE::double) as frosttage,
 from klindex
-where MESS_DATUM_BEGINN::date >= '1961-01-01'::date
-and MESS_DATUM_ENDE::date <= '1990-12-31'::date
+where MESS_DATUM_BEGINN::date >= '1972-01-01'::date
+and MESS_DATUM_ENDE::date <= '2002-12-31'::date
 ```
 
 ```sql id=klindex_last_tab
@@ -126,14 +127,14 @@ Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jah
 <div class="card grid-colspan-2">
 
 ## Klimakenntage
-### Anzahl im Jahr ${meta['maxYear']} und der Referenzperiode 1961–1990 im Vergleich
+### Anzahl im Jahr ${meta['maxYear']} und der Referenzperiode 1972–2002 im Vergleich
 
 <table>
 <thead>
 <tr>
 <td><span class=muted>Bezeichnung</td>
 <td><span class=muted>Definition</td>
-<td>1961–1990 (⌀)</td>
+<td>1972–2002 (⌀)</td>
 <td>${meta['maxYear']}</td>
 <td><span class=muted>Änderung</td>
 </tr>
@@ -305,9 +306,11 @@ function label_temp(variable) {
 
 </div>
 
-<div class="card">
+<div class="card" style="display:flex; flex-direction:column; justify-content: space-between">
+  <div>
   <h2>Temperatur der Luft</h2>
   <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
+  </div>
   ${resize((width) => Plot.plot({
       width,
       grid: true,

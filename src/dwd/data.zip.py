@@ -47,6 +47,7 @@ long as (
     value for variable in ({", ".join(kl_variables)})
   )
   where value != -999
+  and year >= '1972-01-01'
   union
   select
     MESS_DATUM_BEGINN as year,
@@ -57,6 +58,7 @@ long as (
     value for variable in ({", ".join(klindex_variables)})
   )
   where value != -999
+  and year >= '1972-01-01'
 ),
 ma as (
   select
