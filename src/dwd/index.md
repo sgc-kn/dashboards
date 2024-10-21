@@ -306,9 +306,11 @@ function label_temp(variable) {
 
 </div>
 
-<div class="card">
+<div class="card" style="display:flex; flex-direction:column; justify-content: space-between">
+  <div>
   <h2>Temperatur der Luft</h2>
   <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
+  </div>
   ${resize((width) => Plot.plot({
       width,
       grid: true,
