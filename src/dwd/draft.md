@@ -11,7 +11,7 @@ sql:
 
 - Inspiration: https://klimadashboard.de/auswirkungen/temperatur
 - Datenquelle: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/annual/climate_indices/kl/
-- Code (WIP): https://github.com/sgc-kn/explore-observable-framework/pull/9
+- Code (WIP): https://github.com/sgc-kn/dashboards/pull/9
 
 ```sql id=kl_meta display
 select distinct

@@ -4,9 +4,9 @@ import * as child_process from 'child_process';
 const now = new Date();
 const date = now.toLocaleDateString('de-DE');
 const time = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
-const repo = 'https://github.com/sgc-kn/explore-observable-framework'
+const repo = 'https://github.com/sgc-kn/dashboards'
 
-var footer = `Seite erstellt am ${date} um ${time} Uhr.`
+var footer = `Seite erstellt am ${date} um ${time} UTC.`
 
 if (process.env.GITHUB_SHA) {
   // we're likely in a CI build
