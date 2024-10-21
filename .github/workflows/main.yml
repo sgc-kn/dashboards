@@ -103,15 +103,15 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
 
-#  announce-main-deployment:
-#    needs: deploy-main
-#    permissions:
-#      deployments: write
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: chrnorm/deployment-action@v2
-#        with:
-#          token: '${{ github.token }}'
-#          environment-url: '${{ steps.deployment.outputs.page_url }}"
-#          environment: main
-#          initial-status: success
+ announce-main-deployment:
+   needs: deploy-main
+   permissions:
+     deployments: write
+   runs-on: ubuntu-latest
+   steps:
+     - uses: chrnorm/deployment-action@v2
+       with:
+         token: '${{ github.token }}'
+         environment-url: '${{ steps.deployment.outputs.page_url }}'
+         environment: github-pages
+         initial-status: success
