@@ -48,6 +48,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+    environment:
+      name: github-pages
+      url: "https://sgc-dashboard-preview-d98d665658f0.s3-eu-central-2.ionoscloud.com/pr/${{github.event.number}}/${{github.event.pull_request.head.sha}}/index.html"
     steps:
       - uses: actions/checkout@v4
       - name: Download static HTML artifact
@@ -55,7 +58,6 @@ jobs:
         with:
           name: static-html
           path: dist
-
       - name: Upload website to S3
         uses: ./.github/actions/minio-upload
         with:
@@ -66,49 +68,26 @@ jobs:
           source_dir: dist/
           target_dir: /pr/${{ github.event.number }}/${{github.event.pull_request.head.sha}}
 
-  announce-preview-deployment:
-    needs: deploy-pr-preview
-    permissions:
-      deployments: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: chrnorm/deployment-action@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: "https://sgc-dashboard-preview-d98d665658f0.s3-eu-central-2.ionoscloud.com/pr/${{github.event.number}}/${{github.event.pull_request.head.sha}}/index.html"
-          environment: preview-pr-${{github.event.number}}
-          initial-status: success
-
   deploy-main:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
       - name: Download static HTML artifact
         uses: actions/download-artifact@v4
         with:
           name: static-html
           path: dist
-      - name: Upload website to S3
-        uses: ./.github/actions/minio-upload
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          url: "https://s3-eu-central-2.ionoscloud.com"
-          accessKey:  ${{ secrets.S3_ACCESS_KEY }}
-          secretKey:  ${{ secrets.S3_SECRET_KEY }}
-          bucket: sgc-dashboard-d0cafa4cdadf
-          source_dir: dist/
-          target_dir: /
-
-  announce-main-deployment:
-    needs: deploy-main
-    permissions:
-      deployments: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: chrnorm/deployment-action@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: "https://sgc-dashboard-d0cafa4cdadf.s3-eu-central-2.ionoscloud.com/index.html"
-          environment: main
-          initial-status: success
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
