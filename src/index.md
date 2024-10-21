@@ -16,7 +16,7 @@ Dieses Projekt ist open-source: wir veröffentlichen unseren Code auf
 
 [project]: https://smart-green-city-konstanz.de/klimadatenplattform
 [sgc]: https://smart-green-city-konstanz.de/
-[repo]: https://github.com/sgc-kn/explore-observable-framework/
+[repo]: https://github.com/sgc-kn/dashboards/
 
 ---
 
