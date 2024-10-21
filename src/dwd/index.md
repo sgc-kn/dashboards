@@ -2,6 +2,7 @@
 theme: dashboard
 toc: false
 sql:
+  klindex: ./data/klindex_data.parquet
   long_ma30y: ./data/long_ma30y.parquet
   kl_meta_geo: ./data/kl_meta_geo.parquet
 ---
@@ -29,6 +30,56 @@ group by lat, lon
 order by von asc
 ```
 
+```sql id=meta_tab
+select
+  count(*) as count,
+  extract('year' from min(year))::text as minYear,
+  extract('year' from max(year))::text as maxYear,
+from long_ma30y
+```
+
+```sql id=klindex_ref_tab
+select
+  count(*),
+  avg(JA_TROPENNAECHTE::double) as tropennaechte,
+  avg(JA_HEISSE_TAGE::double) as heisse_tage,
+  avg(JA_SOMMERTAGE::double) as sommertage,
+  avg(JA_EISTAGE::double) as eistage,
+  avg(JA_FROSTTAGE::double) as frosttage,
+from klindex
+where MESS_DATUM_BEGINN::date >= '1961-01-01'::date
+and MESS_DATUM_ENDE::date <= '1990-12-31'::date
+```
+
+```sql id=klindex_last_tab
+select
+  MESS_DATUM_BEGINN as year,
+  JA_TROPENNAECHTE::double as tropennaechte,
+  JA_HEISSE_TAGE::double as heisse_tage,
+  JA_SOMMERTAGE::double as sommertage,
+  JA_EISTAGE::double as eistage,
+  JA_FROSTTAGE::double as frosttage,
+from klindex
+order by MESS_DATUM_BEGINN::date desc
+limit 1
+```
+
+```js
+const klindex_last = klindex_last_tab.toArray()[0]
+const klindex_ref = klindex_ref_tab.toArray()[0]
+
+function klindex_change(v){
+  let x = klindex_last[v]/klindex_ref[v] * 100 - 100;
+  if (x >= 0) {
+    return '+ ' + Plot.formatNumber('de-DE')(x.toFixed(0)) + '%'
+  } else {
+    return '− ' + Plot.formatNumber('de-DE')((-x).toFixed(0)) + '%'
+  }
+}
+
+const meta = meta_tab.toArray()[0]
+```
+
 <div class="grid grid-cols-4">
 <div class="card grid-colspan-2 grid-rowspan-2">
   <h2>Messstation Konstanz</h2>
@@ -42,26 +93,83 @@ map_div.style = "height: 400px;";
 
 <div class="card grid-colspan-1">
 
-## TODO
-### Wichtige Kenndaten 1
 
-abc
+## Datenquelle
+
+<a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/">
+<h3>opendata.dwd.de</h3>
+</a>
+
+Der deutsche Wetterdienst stellt
+<a href="https://www.dwd.de/DE/leistungen/opendata/opendata.html">
+historische Messdaten
+</a>
+zu allen offiziellen Messstationen bereit.
+
+Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jahreswerten zur Station Nummer 2712 in Konstanz. Diese Daten decken die Zeitspanne <span class=blue><b>${meta['minYear']} bis ${meta['maxYear']}</b></span> ab.
+
+</a>
+
 </div>
 
 <div class="card grid-colspan-1">
 
-## TODO
-### Wichtige Kenndaten 2
+## Sponsoren
+### bc
 
 abc
 </div>
 
 <div class="card grid-colspan-2">
 
-## TODO
-### Wichtige Kenndaten 3
+## Klimakenntage
+### Anzahl im Jahr ${meta['maxYear']} und der Referenzperiode 1961–1990 im Vergleich
 
-abc
+<table>
+<thead>
+<tr>
+<td><span class=muted>Bezeichnung</td>
+<td><span class=muted>Definition</td>
+<td>1961–1990 (⌀)</td>
+<td>${meta['maxYear']}</td>
+<td><span class=muted>Änderung</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eistage</td>
+<td>nicht über 0°C</td>
+<td>${Plot.formatNumber('de-DE')(klindex_ref['eistage'].toFixed(2))}</td>
+<td>${klindex_last['eistage']}</td>
+<td>${klindex_change('eistage')}</td>
+</tr>
+
+<tr> <td>Frosttage</td><td>unter 0°C</td>
+<td>${Plot.formatNumber('de-DE')(klindex_ref['frosttage'].toFixed(2))}</td>
+<td>${klindex_last['frosttage']}</td>
+<td>${klindex_change('frosttage')}</td>
+</tr>
+
+<tr><td>Sommertage</td><td>über 25°C</td>
+<td>${Plot.formatNumber('de-DE')(klindex_ref['sommertage'].toFixed(2))}</td>
+<td>${klindex_last['sommertage']}</td>
+<td>${klindex_change('sommertage')}</td>
+</tr>
+
+<tr><td>Heiße Tage</td><td>über 30°C</td>
+<td>${Plot.formatNumber('de-DE')(klindex_ref['heisse_tage'].toFixed(2))}</td>
+<td>${klindex_last['heisse_tage']}</td>
+<td>${klindex_change('heisse_tage')}</td>
+</tr>
+
+<tr><td>Tropennächte</td><td>nicht unter 20°C</td>
+<td>${Plot.formatNumber('de-DE')(klindex_ref['tropennaechte'].toFixed(2))}</td>
+<td>${klindex_last['tropennaechte']}</td>
+<td>${klindex_change('tropennaechte')}</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 
 </div><!-- grid -->
