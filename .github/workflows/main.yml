@@ -68,24 +68,10 @@ jobs:
           source_dir: dist/
           target_dir: /pr/${{ github.event.number }}/${{github.event.pull_request.head.sha}}
 
-#   announce-preview-deployment:
-#     needs: deploy-pr-preview
-#     permissions:
-#       deployments: write
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: chrnorm/deployment-action@v2
-#         with:
-#           token: '${{ github.token }}'
-#           environment-url: "https://sgc-dashboard-preview-d98d665658f0.s3-eu-central-2.ionoscloud.com/pr/${{github.event.number}}/${{github.event.pull_request.head.sha}}/index.html"
-#           environment: preview-pr-${{github.event.number}}
-#           initial-status: success
-
   deploy-main:
     needs: build
     runs-on: ubuntu-latest
-    # if: github.event_name == 'push'
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'push'
     permissions:
       pages: write
       id-token: write
