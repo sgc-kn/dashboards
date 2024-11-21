@@ -91,9 +91,9 @@ export default {
   // search: true, // activate search
   // linkify: true, // convert URLs in Markdown to links
   // typographer: false, // smart quotes and other typographic improvements
-  // cleanUrls: true, // drop .html from URLs
 
   pager: false,
-  cleanUrls: false,
+  preserveIndex: ('FULL_LINKS' in process.env),
+  preserveExtension: ('FULL_LINKS' in process.env),
   footer,
 };

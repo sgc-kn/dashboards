@@ -42,5 +42,6 @@ runs:
     - mc
     - mirror
     - --overwrite
+    - --remove
     - "${{ inputs.source_dir }}"
     - "alias/${{ inputs.bucket }}${{ inputs.target_dir }}"
