@@ -205,7 +205,7 @@ function label(row) {
   }
 }
 
-const points_to_fit = []
+const points_to_fit = [ [47.66033, 9.17582] ]
 
 kl_geo.toArray().forEach(row => {
   const pos = [row['lat'], row['lon']];
@@ -217,6 +217,12 @@ kl_geo.toArray().forEach(row => {
 });
 
 map.fitBounds(points_to_fit, {padding: [10, 10]});
+
+const resizeObserver = new ResizeObserver(() => {
+  map.invalidateSize();
+  map.fitBounds(points_to_fit, {padding: [10, 10]});
+});
+resizeObserver.observe(map_div);
 ```
 
 ```sql id=temp
