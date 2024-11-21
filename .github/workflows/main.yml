@@ -87,10 +87,14 @@ jobs:
           folder: dist
           branch: dist
           single-commit: true
-      - name: Inform prod about new build
+
+  deploy-main-to-prod:
+    needs: deploy-main-to-branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call PROD_DEPLOY_WEBHOOK
         run: |
-          sleep 10
-          curl ${{ secrets.PROD_DEPLOY_WEBHOOK }}
+          curl -X POST ${{ secrets.PROD_DEPLOY_WEBHOOK }}
 
   deploy-main-to-gh-pages:
     needs: build
