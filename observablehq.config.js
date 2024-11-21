@@ -93,7 +93,7 @@ export default {
   // typographer: false, // smart quotes and other typographic improvements
 
   pager: false,
-  preserveIndex: false,
-  preserveExtension: false,
+  preserveIndex: ('FULL_LINKS' in process.env),
+  preserveExtension: ('FULL_LINKS' in process.env),
   footer,
 };

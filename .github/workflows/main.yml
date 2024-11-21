@@ -1,10 +1,11 @@
-name: Build and Deploy
+name: Build and deploy main branch
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # uncomment the following two lines while developing the CI
+  # pull_request:
+  #   branches: [ "main" ]
 
 permissions:
   contents: read
@@ -43,30 +44,6 @@ jobs:
         with:
           name: static-html
           path: dist/
-
-  deploy-pr-preview:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    environment:
-      name: pr-previews
-      url: "https://sgc-dashboard-preview-d98d665658f0.s3-eu-central-2.ionoscloud.com/pr/${{github.event.number}}/${{github.event.pull_request.head.sha}}/index.html"
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download static HTML artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: static-html
-          path: dist
-      - name: Upload website to S3
-        uses: ./.github/actions/minio-upload
-        with:
-          url: "https://s3-eu-central-2.ionoscloud.com"
-          accessKey:  ${{ secrets.S3_ACCESS_KEY }}
-          secretKey:  ${{ secrets.S3_SECRET_KEY }}
-          bucket: sgc-dashboard-preview-d98d665658f0
-          source_dir: dist/
-          target_dir: /pr/${{ github.event.number }}/${{github.event.pull_request.head.sha}}
 
   deploy-main-to-branch:
     needs: build
