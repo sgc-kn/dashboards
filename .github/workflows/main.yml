@@ -68,7 +68,35 @@ jobs:
           source_dir: dist/
           target_dir: /pr/${{ github.event.number }}/${{github.event.pull_request.head.sha}}
 
-  deploy-main:
+  deploy-main-to-branch:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download static HTML artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: static-html
+          path: dist
+      - name: Deploy to branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: dist
+          single-commit: true
+
+  deploy-main-to-prod:
+    needs: deploy-main-to-branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call PROD_DEPLOY_WEBHOOK
+        run: |
+          curl -X POST ${{ secrets.PROD_DEPLOY_WEBHOOK }}
+
+  deploy-main-to-gh-pages:
     needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
