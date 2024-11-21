@@ -88,7 +88,9 @@ jobs:
           branch: dist
           single-commit: true
       - name: Inform prod about new build
-        run: curl ${{ secrets.PROD_DEPLOY_WEBHOOK }}
+        run: |
+          sleep 10
+          curl ${{ secrets.PROD_DEPLOY_WEBHOOK }}
 
   deploy-main-to-gh-pages:
     needs: build
