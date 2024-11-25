@@ -42,8 +42,7 @@ select
   coalesce(value::double, 'NaN'::double) as value,
   coalesce(ma30y::double, 'NaN'::double) as ma30y,
 from long_ma30y
-where variable in ('JA_EISTAGE', 'JA_FROSTTAGE', 'JA_HEISSE_TAGE',
-                   'JA_SOMMERTAGE', 'JA_TROPENNAECHTE')
+where variable in ('JA_HEISSE_TAGE', 'JA_SOMMERTAGE')
 order by year asc, variable asc
 ```
 
@@ -83,7 +82,7 @@ function label_klindex(variable) {
         tickFormat: Plot.formatNumber("de-DE"),
       },
       color: {
-        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE", "JA_TROPENNAECHTE"],
+        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
         legend: true,
         tickFormat: label_klindex,
       },
