@@ -329,6 +329,11 @@ function label_temp(variable) {
       ]
     }))}
 
+Der 30-jährige gleitende Durchschnitt des Jahresmittels aus den
+Maximaltemperaturen jedes Tages ist angestiegen von durchschnittlich x,x
+° Celsius zwischen 1973 und 2003 auf x.x °Celsius zwischen 1993 und
+2023. Das bedeutet eine Steigerung um xx,x%.
+
 </div>
 
 <div class="card" style="display:flex; flex-direction:column; justify-content: space-between">
@@ -346,6 +351,7 @@ function label_temp(variable) {
         labelArrow: 'none',
       },
       y: {
+        domain: [0, 40],
         label: '°C',
         labelArrow: 'none',
         tickFormat: Plot.formatNumber("de-DE"),
@@ -364,6 +370,11 @@ function label_temp(variable) {
         }),
       ]
     }))}
+
+Der 30-jährige gleitende Durchschnitt der Jahreshöchsttemperatur ist
+angestiegen von durchschnittlich x,x ° Celsius zwischen 1973 und 2003
+auf x.x °Celsius zwischen 1993 und 2023. Das bedeutet eine Steigerung um xx,x%.
+
 </div>
 
 </div> <!-- grid -->
