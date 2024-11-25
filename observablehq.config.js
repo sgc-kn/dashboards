@@ -31,7 +31,7 @@ const header = `
     <img style="height: 2rem"
          src="assets/skn-logo.svg"
          alt="Logo der Stadtverwaltung Konstanz"
-         /><b>Stadtdaten Konstanz</b>
+         /><b>Stadt Konstanz | Datenplattform</b>
   </div>
   <div>
     <a href="${repo}">
@@ -49,7 +49,7 @@ const header = `
 
 export default {
   // The project’s title; used in the sidebar and webpage titles.
-  title: "Stadtdaten Konstanz",
+  title: "Datenplattform | Stadt Konstanz",
 
   home: 'Navigation',
   header,
