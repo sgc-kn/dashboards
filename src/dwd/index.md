@@ -81,15 +81,18 @@ function klindex_change(v){
 const meta = meta_tab.toArray()[0]
 ```
 
-<div class="grid grid-cols-4">
-<div class="card grid-colspan-2 grid-rowspan-2">
-  <h2>Messstation Konstanz</h2>
-  <h3>Position der Station im Laufe der Zeit</h3>
-
 ```js
-const map_div = display(document.createElement("div"));
-map_div.style = "height: 400px;";
+const map_div = document.createElement("div");
+map_div.style = "flex-grow:1";
 ```
+
+<div class="grid grid-cols-4">
+<div class="card grid-colspan-2 grid-rowspan-1" style="display:flex; flex-flow:column">
+  <div>
+    <h2>Messstation Konstanz</h2>
+    <h3>Position der Station im Laufe der Zeit</h3>
+  </div>
+  ${map_div}
 </div>
 
 <div class="card grid-colspan-1">
@@ -101,6 +104,8 @@ map_div.style = "height: 400px;";
 <h3>opendata.dwd.de</h3>
 </a>
 
+<div id=map_height>
+
 Der deutsche Wetterdienst stellt
 <a href="https://www.dwd.de/DE/leistungen/opendata/opendata.html">
 historische Messdaten
@@ -108,6 +113,14 @@ historische Messdaten
 zu allen offiziellen Messstationen bereit.
 
 Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jahreswerten zur Station Nummer 2712 in Konstanz. Diese Daten decken die Zeitspanne <span class=blue><b>${meta['minYear']} bis ${meta['maxYear']}</b></span> ab.
+
+Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
+L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
+Richtlinien ist der Standort nahezu ideal – die dort gemessenen Werte
+sind aber nicht repräsentativ für das Stadtklima, denn die Temperaturen
+in der Stadt sind meist höher als im ländlichen Raum.
+
+</div>
 
 </a>
 
@@ -124,6 +137,9 @@ Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jah
 
 </div>
 
+</div><!-- grid -->
+
+<div class="grid grid-cols-4">
 <div class="card grid-colspan-2">
 
 ## Klimakenntage
@@ -176,6 +192,11 @@ Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jah
 
 </div>
 
+<div class="card grid-colspan-1">
+</div>
+<div class="card grid-colspan-1">
+</div>
+
 </div><!-- grid -->
 
 ```js
@@ -216,13 +237,11 @@ kl_geo.toArray().forEach(row => {
    .openTooltip()
 });
 
-map.fitBounds(points_to_fit, {padding: [10, 10]});
-
-const resizeObserver = new ResizeObserver(() => {
+const mapResizeObserver = new ResizeObserver(() => {
   map.invalidateSize();
-  map.fitBounds(points_to_fit, {padding: [10, 10]});
+  map.fitBounds(points_to_fit, {padding: [13, 13]});
 });
-resizeObserver.observe(map_div);
+mapResizeObserver.observe(map_div);
 ```
 
 ```sql id=temp
@@ -522,15 +541,36 @@ order by year asc, variable asc
 
 </div> <!-- grid -->
 
-```sql id=klindex
+```sql id=klindex_kalt
 select
   year,
   variable,
   coalesce(value::double, 'NaN'::double) as value,
   coalesce(ma30y::double, 'NaN'::double) as ma30y,
 from long_ma30y
-where variable in ('JA_EISTAGE', 'JA_FROSTTAGE', 'JA_HEISSE_TAGE',
-                   'JA_SOMMERTAGE', 'JA_TROPENNAECHTE')
+where variable in ('JA_EISTAGE', 'JA_FROSTTAGE')
+order by year asc, variable asc
+```
+
+```sql id=klindex_warm
+select
+  year,
+  variable,
+  coalesce(value::double, 'NaN'::double) as value,
+  coalesce(ma30y::double, 'NaN'::double) as ma30y,
+from long_ma30y
+where variable in ('JA_HEISSE_TAGE', 'JA_SOMMERTAGE')
+order by year asc, variable asc
+```
+
+```sql id=klindex_nacht
+select
+  year,
+  variable,
+  coalesce(value::double, 'NaN'::double) as value,
+  coalesce(ma30y::double, 'NaN'::double) as ma30y,
+from long_ma30y
+where variable in ('JA_TROPENNAECHTE')
 order by year asc, variable asc
 ```
 
@@ -578,12 +618,12 @@ function label_klindex(variable) {
       },
       marks: [
         Plot.frame(),
-        Plot.dot(klindex, {
+        Plot.dot(klindex_kalt, {
           x: "year",
           y: "value",
           stroke: "variable",
         }),
-        Plot.line(klindex, {
+        Plot.line(klindex_kalt, {
           x: "year",
           y: "ma30y",
           stroke: "variable"},
@@ -610,18 +650,56 @@ function label_klindex(variable) {
         tickFormat: Plot.formatNumber("de-DE"),
       },
       color: {
-        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE", "JA_TROPENNAECHTE"],
+        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
         legend: true,
         tickFormat: label_klindex,
       },
       marks: [
         Plot.frame(),
-        Plot.dot(klindex, {
+        Plot.dot(klindex_warm, {
           x: "year",
           y: "value",
           stroke: "variable",
         }),
-        Plot.line(klindex, {
+        Plot.line(klindex_warm, {
+          x: "year",
+          y: "ma30y",
+          stroke: "variable"},
+        ),
+      ]
+    }))}
+</div>
+
+<div class="card">
+  <h2>Klimakenntage</h2>
+  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+  ${resize((width) => Plot.plot({
+      width,
+      grid: true,
+      inset: 10,
+      x: {
+        label: 'Jahr',
+        labelAnchor: 'center',
+        labelArrow: 'none',
+      },
+      y: {
+        label: null,
+        labelArrow: 'none',
+        tickFormat: Plot.formatNumber("de-DE"),
+      },
+      color: {
+        domain: ["JA_TROPENNAECHTE"],
+        legend: true,
+        tickFormat: label_klindex,
+      },
+      marks: [
+        Plot.frame(),
+        Plot.dot(klindex_nacht, {
+          x: "year",
+          y: "value",
+          stroke: "variable",
+        }),
+        Plot.line(klindex_nacht, {
           x: "year",
           y: "ma30y",
           stroke: "variable"},

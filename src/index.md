@@ -7,9 +7,11 @@ sql:
 
 # Willkommen bei den Stadtdaten Konstanz
 
-Hier entstehen öffentliche Dashboard zu interessanten Daten der Stadt
-Konstanz. Diese Arbeit ist Teil des [Projekts zur Einrichtung einer
-Klimadatenplattform][project] im [Smart Green City Programm][sgc].
+Hier entstehen öffentlich zugängliche Auswertungen zu interessanten
+Daten mit Bezug zur Stadt Konstanz. Unser Fokus liegt auf Klima- und
+Umweltdaten. Diese Arbeit ist Teil des Projektes
+[Klimadatenplattform][project] im Rahmen des Programms [Smart Green
+City][sgc] der Stadt Konstanz.
 
 Dieses Projekt ist open-source: wir veröffentlichen unseren Code auf
 [Github][repo].
@@ -22,12 +24,16 @@ Dieses Projekt ist open-source: wir veröffentlichen unseren Code auf
 
 ## Oktober 2024
 
-Wir arbeiten an einem Dashboard zu den Beobachtungsdaten des deutschen
-Wetterdienstes (DWD) in Konstanz.
+Wir arbeiten an einem Dashboard zu den langjährigen Beobachtungsdaten
+des deutschen Wetterdienstes (DWD) in Konstanz.
 
 [➜ Hier geht's zum Dashboard !](dwd/index.html)
 
 Wusstest du, dass es zunehmend mehr heiße Tage in Konstanz gibt?
+Der 30-jährige gleitende Durchschnitt von heißen Tagen über 30° Celsius
+ist angestiegen von durchschnittlich 8,6 heißen Tagen zwischen 1973 und
+2003 auf 15,8 Tagen zwischen 1993 und 2023. Das ist eine Steigerung
+um 83%.
 
 ```sql id=klindex
 select
