@@ -5,7 +5,7 @@ sql:
   long_ma30y: ./dwd/data/long_ma30y.parquet
 ---
 
-# Willkommen bei den Stadtdaten Konstanz
+# Willkommen bei der Datenplattform Konstanz
 
 Hier entstehen öffentlich zugängliche Auswertungen zu interessanten
 Daten mit Bezug zur Stadt Konstanz. Unser Fokus liegt auf Klima- und
