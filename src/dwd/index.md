@@ -54,7 +54,7 @@ and MESS_DATUM_ENDE::date <= '2002-12-31'::date
 
 ```sql id=klindex_last_tab
 select
-  MESS_DATUM_BEGINN as year,
+  extract('year' from MESS_DATUM_BEGINN)::text as year,
   JA_TROPENNAECHTE::double as tropennaechte,
   JA_HEISSE_TAGE::double as heisse_tage,
   JA_SOMMERTAGE::double as sommertage,
@@ -62,20 +62,29 @@ select
   JA_FROSTTAGE::double as frosttage,
 from klindex
 order by MESS_DATUM_BEGINN::date desc
-limit 1
+limit 4
 ```
 
 ```js
-const klindex_last = klindex_last_tab.toArray()[0]
 const klindex_ref = klindex_ref_tab.toArray()[0]
 
-function klindex_change(v){
-  let x = klindex_last[v]/klindex_ref[v] * 100 - 100;
+function klindex_change(X, v){
+  let x = X/klindex_ref[v] * 100 - 100;
   if (x >= 0) {
     return '+ ' + Plot.formatNumber('de-DE')(x.toFixed(0)) + '%'
   } else {
     return '− ' + Plot.formatNumber('de-DE')((-x).toFixed(0)) + '%'
   }
+}
+
+const klindex_tab = []
+for (var r of klindex_last_tab) {
+  const obj = { year: r['year'] };
+  for (var k of ['tropennaechte', 'heisse_tage', 'sommertage', 'eistage', 'frosttage']) {
+    obj[k + '_abs'] = r[k];
+    obj[k + '_rel'] = klindex_change(r[k], k);
+  }
+  klindex_tab.unshift(obj); // add to front
 }
 
 const meta = meta_tab.toArray()[0]
@@ -140,61 +149,108 @@ in der Stadt sind meist höher als im ländlichen Raum.
 </div><!-- grid -->
 
 <div class="grid grid-cols-4">
-<div class="card grid-colspan-2">
+<div class="card grid-colspan-4">
 
 ## Klimakenntage
-### Anzahl im Jahr ${meta['maxYear']} und der Referenzperiode 1972–2002 im Vergleich
+### Anzahl in den letzten Jahren und der Referenzperiode 1972–2002 im Vergleich
 
-<table>
+<table style='max-width:100%'>
 <thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th></th>
+<th colspan=4></th>
+<th><span class=muted>Referenzperiode</span></th>
+<th colspan=4><span class=muted>Änderung zur Referenzperiode</span></th>
+</tr>
 <tr>
-<td><span class=muted>Bezeichnung</td>
-<td><span class=muted>Definition</td>
-<td>1972–2002 (⌀)</td>
-<td>${meta['maxYear']}</td>
-<td><span class=muted>Änderung</td>
+<th><span class=muted>Bezeichnung</th>
+<th><span class=muted>Definition</th>
+<th>${klindex_tab[0]['year']}</th>
+<th>${klindex_tab[1]['year']}</th>
+<th>${klindex_tab[2]['year']}</th>
+<th>${klindex_tab[3]['year']}</th>
+<th>1972–2002 (⌀)</th>
+<th>${klindex_tab[0]['year']}</th>
+<th>${klindex_tab[1]['year']}</th>
+<th>${klindex_tab[2]['year']}</th>
+<th>${klindex_tab[3]['year']}</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Eistage</td>
+<th>Eistage</th>
 <td>nicht über 0°C</td>
+<td>${klindex_tab[0]['eistage_abs']}</td>
+<td>${klindex_tab[1]['eistage_abs']}</td>
+<td>${klindex_tab[2]['eistage_abs']}</td>
+<td>${klindex_tab[3]['eistage_abs']}</td>
 <td>${Plot.formatNumber('de-DE')(klindex_ref['eistage'].toFixed(2))}</td>
-<td>${klindex_last['eistage']}</td>
-<td>${klindex_change('eistage')}</td>
+<td>${klindex_tab[0]['eistage_rel']}</td>
+<td>${klindex_tab[1]['eistage_rel']}</td>
+<td>${klindex_tab[2]['eistage_rel']}</td>
+<td>${klindex_tab[3]['eistage_rel']}</td>
 </tr>
 
-<tr> <td>Frosttage</td><td>unter 0°C</td>
+<tr>
+<th>Frosttage</th>
+<td>unter 0°C</td>
+<td>${klindex_tab[0]['frosttage_abs']}</td>
+<td>${klindex_tab[1]['frosttage_abs']}</td>
+<td>${klindex_tab[2]['frosttage_abs']}</td>
+<td>${klindex_tab[3]['frosttage_abs']}</td>
 <td>${Plot.formatNumber('de-DE')(klindex_ref['frosttage'].toFixed(2))}</td>
-<td>${klindex_last['frosttage']}</td>
-<td>${klindex_change('frosttage')}</td>
+<td>${klindex_tab[0]['frosttage_rel']}</td>
+<td>${klindex_tab[1]['frosttage_rel']}</td>
+<td>${klindex_tab[2]['frosttage_rel']}</td>
+<td>${klindex_tab[3]['frosttage_rel']}</td>
 </tr>
 
-<tr><td>Sommertage</td><td>über 25°C</td>
+<tr>
+<th>Sommertage</th>
+<td>über 25°C</td>
+<td>${klindex_tab[0]['sommertage_abs']}</td>
+<td>${klindex_tab[1]['sommertage_abs']}</td>
+<td>${klindex_tab[2]['sommertage_abs']}</td>
+<td>${klindex_tab[3]['sommertage_abs']}</td>
 <td>${Plot.formatNumber('de-DE')(klindex_ref['sommertage'].toFixed(2))}</td>
-<td>${klindex_last['sommertage']}</td>
-<td>${klindex_change('sommertage')}</td>
+<td>${klindex_tab[0]['sommertage_rel']}</td>
+<td>${klindex_tab[1]['sommertage_rel']}</td>
+<td>${klindex_tab[2]['sommertage_rel']}</td>
+<td>${klindex_tab[3]['sommertage_rel']}</td>
 </tr>
 
-<tr><td>Heiße Tage</td><td>über 30°C</td>
+<tr>
+<th>Heiße Tage</th>
+<td>über 30°C</td>
+<td>${klindex_tab[0]['heisse_tage_abs']}</td>
+<td>${klindex_tab[1]['heisse_tage_abs']}</td>
+<td>${klindex_tab[2]['heisse_tage_abs']}</td>
+<td>${klindex_tab[3]['heisse_tage_abs']}</td>
 <td>${Plot.formatNumber('de-DE')(klindex_ref['heisse_tage'].toFixed(2))}</td>
-<td>${klindex_last['heisse_tage']}</td>
-<td>${klindex_change('heisse_tage')}</td>
+<td>${klindex_tab[0]['heisse_tage_rel']}</td>
+<td>${klindex_tab[1]['heisse_tage_rel']}</td>
+<td>${klindex_tab[2]['heisse_tage_rel']}</td>
+<td>${klindex_tab[3]['heisse_tage_rel']}</td>
 </tr>
 
-<tr><td>Tropennächte</td><td>nicht unter 20°C</td>
+<tr>
+<th>Tropennächte</th>
+<td>nicht unter 20°C</td>
+<td>${klindex_tab[0]['tropennaechte_abs']}</td>
+<td>${klindex_tab[1]['tropennaechte_abs']}</td>
+<td>${klindex_tab[2]['tropennaechte_abs']}</td>
+<td>${klindex_tab[3]['tropennaechte_abs']}</td>
 <td>${Plot.formatNumber('de-DE')(klindex_ref['tropennaechte'].toFixed(2))}</td>
-<td>${klindex_last['tropennaechte']}</td>
-<td>${klindex_change('tropennaechte')}</td>
+<td>${klindex_tab[0]['tropennaechte_rel']}</td>
+<td>${klindex_tab[1]['tropennaechte_rel']}</td>
+<td>${klindex_tab[2]['tropennaechte_rel']}</td>
+<td>${klindex_tab[3]['tropennaechte_rel']}</td>
 </tr>
+
 </tbody>
 </table>
 
-</div>
-
-<div class="card grid-colspan-1">
-</div>
-<div class="card grid-colspan-1">
 </div>
 
 </div><!-- grid -->
