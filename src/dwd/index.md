@@ -7,6 +7,107 @@ sql:
   kl_meta_geo: ./data/kl_meta_geo.parquet
 ---
 
+<style>
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .with-info {
+  /* enable absolute positioning of .info over .body */
+  position: relative;
+
+  /* grow .body to size of grid neighbors */
+  flex-grow: 1;
+
+  /* bottom-align plot in card */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.card .with-info .info {
+  /* position over .body inheriting its size */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.card .with-info .info {
+  visibility: hidden;
+}
+
+.card.flip .with-info .info {
+  visibility: visible;
+}
+
+.card.flip .with-info .body {
+  visibility: hidden;
+}
+
+.card .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card .header .tools {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+}
+
+.card .header .tools button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.card .header .tools button:hover ion-icon {
+  --ionicon-stroke-width: 48px;
+}
+
+.card .header .tools ion-icon {
+  font-size: 1.5rem;
+}
+
+.card .header .tools .close-button,
+.card.flip .header .tools .info-button {
+  display: none;
+}
+
+.card.flip .header .tools .close-button {
+  display: inline;
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const infoButton = card.querySelector('.info-button');
+    const closeButton = card.querySelector('.close-button');
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        card.classList.toggle('flip');
+      });
+    }
+    if (infoButton) {
+      infoButton.addEventListener('click', () => {
+        card.classList.toggle('flip');
+      });
+    }
+  });
+});
+</script>
+
 # Wetterbeobachtungen
 
 ## des Deutschen Wetterdienstes in Konstanz
@@ -117,8 +218,7 @@ map_div.style = "flex-grow:1";
 
 Der deutsche Wetterdienst stellt
 <a href="https://www.dwd.de/DE/leistungen/opendata/opendata.html">
-historische Messdaten
-</a>
+historische Messdaten</a>
 zu allen offiziellen Messstationen bereit.
 
 Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${meta['minYear']} bis ${meta['maxYear']}</b></span> ab.
@@ -348,79 +448,124 @@ function label_temp(variable) {
 ```
 
 <div class="grid grid-cols-2">
+
 <div class="card">
-  <h2>Temperatur der Luft</h2>
-  <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_TN", "JA_TT", "JA_TX"],
-        legend: true,
-        tickFormat: label_temp,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(temp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(temp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: ["JA_TN", "JA_TT", "JA_TX"],
+      legend: true,
+      tickFormat: label_temp,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(temp, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(temp, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable",
+      }),
+    ]
+}))}
+</div> <!-- body -->
+<div class='info'>
 
-</div>
+Hier kann ein Lesebeispiel platziert werden.
 
-<div class="card" style="display:flex; flex-direction:column; justify-content: space-between">
-  <div>
-  <h2>Temperatur der Luft</h2>
-  <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
-  </div>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(maxtemp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(maxtemp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+Auch ein langes.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(maxtemp, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(maxtemp, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable",
+      }),
+    ]
+}))}
+</div> <!-- body -->
+<div class='info'>
+
+Hier kann ein Lesebeispiel platziert werden.
+
+Auch ein langes.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
 
@@ -765,3 +910,6 @@ function label_klindex(variable) {
 </div>
 
 </div> <!-- grid -->
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
