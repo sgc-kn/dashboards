@@ -35,20 +35,20 @@
     npm clean-install
 
     echo install python dependencies from requirements.txt
-    pip install -r requirements.txt
+    pip-sync
   '';
 
   scripts.upgrade.exec = ''
-    # update lock files with newest versions
+    # update lock files with newest versions & install
 
-    echo update devenv.lock
-    devenv update
-
-    echo update package-lock.json
-    npm install --package-lock-only
+    echo update npm packages and package-lock.json
+    npm update
 
     echo update requirements.txt
     pip-compile --upgrade --strip-extras --quiet
+
+    echo install python dependencies from requirements.txt
+    pip-sync
   '';
 
   scripts.build.exec = ''
