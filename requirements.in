@@ -1,0 +1,5 @@
+duckdb
+httpx
+pandas
+pip-tools
+pyarrow
