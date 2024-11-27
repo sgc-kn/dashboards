@@ -43,6 +43,10 @@
     pip-compile --upgrade --strip-extras --quiet
   '';
 
+  scripts.build.exec = ''
+    npm run build
+  '';
+
   enterShell = ''
     update
   '';
@@ -54,10 +58,10 @@
   # };
 
   # https://devenv.sh/tests/
-  enterTest = ''
-    echo "Running tests"
-    git --version | grep --color=auto "${pkgs.git.version}"
-  '';
+  # enterTest = ''
+  #   echo "Running tests"
+  #   git --version | grep --color=auto "${pkgs.git.version}"
+  # '';
 
   # https://devenv.sh/pre-commit-hooks/
   # pre-commit.hooks.shellcheck.enable = true;
