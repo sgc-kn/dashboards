@@ -14,7 +14,15 @@
   languages.python.venv.enable = true;
 
   # https://devenv.sh/processes/
-  # processes.cargo-watch.exec = "cargo-watch";
+  processes.preview = {
+    exec = "npm run dev";
+    process-compose =  {
+      availability = {
+        backoff_seconds = 5;
+        restart = "on_failure";
+      };
+    };
+  };
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
