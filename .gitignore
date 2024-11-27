@@ -9,8 +9,9 @@ node_modules/
 yarn-error.log
 
 # python
-venv
+__pycache__
 .ipynb_checkpoints
+venv
 
 # Devenv
 .devenv*
