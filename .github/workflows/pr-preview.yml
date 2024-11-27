@@ -15,26 +15,16 @@ jobs:
         with:
           lfs: true
 
-      - name: Use Python 3.11
-        uses: actions/setup-python@v5
+      - uses: cachix/install-nix-action@v26
+      - uses: cachix/cachix-action@v14
         with:
-          python-version: "3.11"
-
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          npm install
+          name: devenv
+      - name: Install devenv.sh
+        run: nix profile install nixpkgs#devenv
 
       - name: Build
         run: |
-          FULL_LINKS=1 npm run build
+          FULL_LINKS=1 devenv shell build
 
       - name: Upload static HTML artifact
         uses: actions/upload-artifact@v4
