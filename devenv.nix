@@ -52,10 +52,6 @@
     pip-sync
   '';
 
-  scripts.build.exec = ''
-    npm run build
-  '';
-
   enterShell = ''
     update
   '';

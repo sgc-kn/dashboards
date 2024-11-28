@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          devenv shell build
+          devenv shell npm run build
 
       - name: Upload static HTML artifact
         uses: actions/upload-artifact@v4
