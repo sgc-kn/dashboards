@@ -5,7 +5,7 @@ Preview of `main` branch (latest succesful CI build): https://sgc-kn.github.io/d
 This is an [Observable Framework](https://observablehq.com/framework) project.
 
 Observable Framework is a static website generator designed for data
-intensive website. It supports loading and preparing data during the
+intensive websites. It supports loading and preparing data during the
 build phase using various programming languages (Python, R, etc).
 
 Our data loaders are written in Python. To build this site you'll need:
