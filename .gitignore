@@ -1,6 +1,24 @@
+# OSX
 .DS_Store
+
+# observable framework
 /dist/
+
+# javascript
 node_modules/
 yarn-error.log
-venv
+
+# python
+__pycache__
 .ipynb_checkpoints
+venv
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

@@ -1,0 +1,8 @@
+# dependencies; versions pinned in requirements.txt
+duckdb
+httpx
+pandas
+pyarrow
+
+# dependency management; used in devenv.nix
+pip-tools
