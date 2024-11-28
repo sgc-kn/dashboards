@@ -499,13 +499,27 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-Hier kann ein Lesebeispiel platziert werden.
+### Beschreibung des Plots
 
-Auch ein langes.
+Dieser Plot zeigt den Temperaturverlauf in Form von Jahresmittelwerten der Lufttemperatur über mehrere Jahrzehnte, basierend auf drei unterschiedlichen Berechnungsarten:
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+1. **Jahresmittel aus Tagesminimum (blaue Punkte):** Der Durchschnitt der täglichen Minimaltemperaturen im Jahr.
+2. **Jahresmittel aus Tagesdurchschnitt (gelbe Punkte):** Der Durchschnitt der täglichen Durchschnittstemperaturen im Jahr.
+3. **Jahresmittel aus Tagesmaximum (rote Punkte):** Der Durchschnitt der täglichen Maximaltemperaturen im Jahr.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die Temperaturen in Grad Celsius (°C).
+- **Punkte und Linien:** Die drei Kurven zeigen sowohl die einzelnen Datenpunkte (Punkte) als auch den gleitenden 30-jährigen Durchschnitt (Linien) für die jeweiligen Werte.
+
+#### Beobachtungen:
+- Die **Minimaltemperaturen (blau)** sind die niedrigsten Werte und zeigen einen relativ langsamen Anstieg.
+- Die **Durchschnittstemperaturen (gelb)** liegen zwischen den Minimal- und Maximaltemperaturen und weisen ebenfalls einen deutlichen Aufwärtstrend auf.
+- Die **Maximaltemperaturen (rot)** sind die höchsten Werte und zeigen den steilsten Anstieg, was auf eine Erwärmung der heißeren Tage hinweist.
+- Der **gleitende 30-jährige Durchschnitt** verdeutlicht die langfristigen Trends und minimiert jährliche Schwankungen.
+
+#### Interpretation:
+Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 
 </div> <!-- info -->
 </div> <!-- with-info -->
@@ -555,13 +569,26 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-Hier kann ein Lesebeispiel platziert werden.
+### Beschreibung des Plots
 
-Auch ein langes.
+Dieser Plot zeigt das **absolute Maximum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die maximal erreichten Temperaturen in Grad Celsius (°C).
+- **Punkte:** Repräsentieren die jährlichen absoluten Maximaltemperaturen.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Maximaltemperaturen verdeutlicht.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+#### Beobachtungen:
+- Die jährlichen absoluten Maximaltemperaturen zeigen große Schwankungen zwischen den Jahren.
+- Seit den 1990er-Jahren ist ein deutlicher Trend zu steigenden Maximaltemperaturen erkennbar.
+- Der gleitende 30-jährige Durchschnitt zeigt einen konstanten Anstieg, insbesondere ab den 2000er-Jahren.
+- Die höchsten absoluten Maximaltemperaturen liegen über 36 °C.
+
+#### Interpretation:
+Der Plot verdeutlicht, dass die maximalen Temperaturen in den letzten
+Jahrzehnten deutlich gestiegen sind, was auf eine Zunahme von
+Extremhitze-Ereignissen hindeutet.
 
 </div> <!-- info -->
 </div> <!-- with-info -->
@@ -583,70 +610,143 @@ order by year asc, variable asc
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Temperatur der Luft</h2>
-  <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(mintemp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(mintemp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(mintemp, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(mintemp, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+### Beschreibung des Plots
+
+Dieser Plot zeigt das **absolute Minimum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
+
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die minimal erreichten Temperaturen in Grad Celsius (°C).
+- **Punkte:** Repräsentieren die jährlichen absoluten Minimaltemperaturen.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Minimaltemperaturen verdeutlicht.
+
+#### Beobachtungen:
+- Die jährlichen absoluten Minimaltemperaturen schwanken stark, liegen jedoch durchweg unter 0 °C.
+- In den 1970er- und 1980er-Jahren traten teilweise extrem niedrige Minimaltemperaturen bis unter -18 °C auf.
+- Seit den 2000er-Jahren ist der gleitende 30-jährige Durchschnitt leicht ansteigend, was auf mildere Winter hindeutet.
+- Die absoluten Minimaltemperaturen zeigen eine Tendenz zu weniger extrem kalten Werten.
+
+#### Interpretation:
+Der Plot deutet darauf hin, dass die tiefsten Temperaturen in den
+letzten Jahrzehnten weniger extrem geworden sind, was auf eine
+allgemeine Erwärmung, insbesondere in den kältesten Perioden des Jahres,
+hindeutet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Sonnenstunden</h2>
-  <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(sun, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(sun, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Sonnenstunden</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(sun, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(sun, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+### Beschreibung des Plots
+
+Dieser Plot zeigt die **Jahressumme der Sonnenstunden** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends in der Sonnenscheindauer darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die jährliche Gesamtdauer der Sonnenstunden in Stunden (h) an.
+- **Punkte:** Repräsentieren die jährliche Summe der Sonnenstunden.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die jährliche Summe der Sonnenstunden zeigt im Verlauf der Jahrzehnte Schwankungen.
+- Bis etwa 1995 sind die Sonnenstunden relativ konstant oder leicht rückläufig.
+- Ab den 2000er-Jahren ist ein deutlicher Anstieg in der Anzahl der Sonnenstunden zu erkennen.
+- Der 30-jährige gleitende Durchschnitt zeigt einen kontinuierlichen Anstieg ab den 2000er-Jahren.
+
+#### Interpretation:
+Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedingungen hinweisen, wie beispielsweise eine Abnahme der Bewölkung oder eine längere Dauer von Hochdruckwetterlagen.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
 
