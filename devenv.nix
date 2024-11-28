@@ -12,6 +12,7 @@
   languages.javascript.npm.enable = true;
   languages.python.enable = true;
   languages.python.venv.enable = true;
+  languages.python.venv.requirements = "pip-tools";
 
   # https://devenv.sh/processes/
   processes.preview = {

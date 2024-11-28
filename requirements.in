@@ -1,5 +1,8 @@
+# dependencies; versions pinned in requirements.txt
 duckdb
 httpx
 pandas
-pip-tools
 pyarrow
+
+# dependency management; used in devenv.nix
+pip-tools
