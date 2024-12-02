@@ -130,4 +130,6 @@ def zip_tables_to_buf(tables):
         for (name, df) in tables.items():
             with zf.open(name + '.parquet', 'w') as f:
                 df.to_parquet(f)
+            with zf.open(name + '.csv', 'w') as f:
+                df.to_csv(f)
     return buf.getvalue()

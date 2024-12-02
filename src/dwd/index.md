@@ -1,10 +1,6 @@
 ---
 theme: dashboard
 toc: false
-sql:
-  klindex: ./data/klindex_data.parquet
-  long_ma30y: ./data/long_ma30y.parquet
-  kl_meta_geo: ./data/kl_meta_geo.parquet
 ---
 
 <style>
@@ -112,62 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ## des Deutschen Wetterdienstes in Konstanz
 
-```sql id=kl_geo
-with typed as(
-  select
-    (Von_Datum::date)::text as von,
-    (Bis_Datum::date)::text as bis,
-    "Geogr.Breite" as lat,
-    "Geogr.Laenge" as lon,
-    Stationshoehe as altitude,
-  from kl_meta_geo)
-select
-  min(von) as von,
-  max(bis) as bis,
-  lat,
-  lon,
-from typed
-where von >= '1972-01-01'
-group by lat, lon
-order by von asc
-```
-
-```sql id=meta_tab
-select
-  count(*) as count,
-  extract('year' from min(year))::text as minYear,
-  extract('year' from max(year))::text as maxYear,
-from long_ma30y
-```
-
-```sql id=klindex_ref_tab
-select
-  count(*),
-  avg(JA_TROPENNAECHTE::double) as tropennaechte,
-  avg(JA_HEISSE_TAGE::double) as heisse_tage,
-  avg(JA_SOMMERTAGE::double) as sommertage,
-  avg(JA_EISTAGE::double) as eistage,
-  avg(JA_FROSTTAGE::double) as frosttage,
-from klindex
-where MESS_DATUM_BEGINN::date >= '1972-01-01'::date
-and MESS_DATUM_ENDE::date <= '2002-12-31'::date
-```
-
-```sql id=klindex_last_tab
-select
-  extract('year' from MESS_DATUM_BEGINN)::text as year,
-  JA_TROPENNAECHTE::double as tropennaechte,
-  JA_HEISSE_TAGE::double as heisse_tage,
-  JA_SOMMERTAGE::double as sommertage,
-  JA_EISTAGE::double as eistage,
-  JA_FROSTTAGE::double as frosttage,
-from klindex
-order by MESS_DATUM_BEGINN::date desc
-limit 4
+```js
+const kl_geo = FileAttachment("data/kl_geo.csv").csv({typed: true})
+const meta_tab = FileAttachment("data/meta.csv").csv({typed: true})
+const klindex_ref_tab = FileAttachment("data/klindex_ref.csv").csv({typed: true})
+const klindex_last_tab = FileAttachment("data/klindex_last.csv").csv({typed: true})
 ```
 
 ```js
-const klindex_ref = klindex_ref_tab.toArray()[0]
+const meta = meta_tab[0]
+
+const klindex_ref = klindex_ref_tab[0]
 
 function klindex_change(X, v){
   let x = X/klindex_ref[v] * 100 - 100;
@@ -187,8 +138,6 @@ for (var r of klindex_last_tab) {
   }
   klindex_tab.unshift(obj); // add to front
 }
-
-const meta = meta_tab.toArray()[0]
 ```
 
 ```js
@@ -384,7 +333,7 @@ function label(row) {
 
 const points_to_fit = [ [47.66033, 9.17582] ]
 
-kl_geo.toArray().forEach(row => {
+kl_geo.forEach(row => {
   const pos = [row['lat'], row['lon']];
   points_to_fit.push(pos)
   L.circleMarker(pos, {radius: 5, color: 'var(--theme-foreground-focus)'})
@@ -400,37 +349,10 @@ const mapResizeObserver = new ResizeObserver(() => {
 mapResizeObserver.observe(map_div);
 ```
 
-```sql id=temp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_TT', 'JA_TN', 'JA_TX')
-order by year asc, variable asc
-```
-
-```sql id=maxtemp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_TX')
-order by year asc, variable asc
-```
-
-```sql id=mintemp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_TN')
-order by year asc, variable asc
+```js
+const temp = FileAttachment("data/temp.csv").csv({typed: true})
+const maxtemp = FileAttachment("data/maxtemp.csv").csv({typed: true})
+const mintemp = FileAttachment("data/mintemp.csv").csv({typed: true})
 ```
 
 ```js
@@ -592,15 +514,8 @@ Extremhitze-Ereignissen hindeutet.
 
 </div> <!-- grid -->
 
-```sql id=sun
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_SD_S')
-order by year asc, variable asc
+```js
+const sun = FileAttachment("data/sun.csv").csv({typed: true})
 ```
 
 <div class="grid grid-cols-2">
@@ -742,26 +657,9 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 
 </div> <!-- grid -->
 
-```sql id=rain
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_RR')
-order by year asc, variable asc
-```
-
-```sql id=maxrain
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_RS')
-order by year asc, variable asc
+```js
+const rain = FileAttachment("data/rain.csv").csv({typed: true})
+const maxrain = FileAttachment("data/maxrain.csv").csv({typed: true})
 ```
 
 <div class="grid grid-cols-2">
@@ -898,37 +796,10 @@ Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankun
 
 </div> <!-- grid -->
 
-```sql id=klindex_kalt
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_EISTAGE', 'JA_FROSTTAGE')
-order by year asc, variable asc
-```
-
-```sql id=klindex_warm
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_HEISSE_TAGE', 'JA_SOMMERTAGE')
-order by year asc, variable asc
-```
-
-```sql id=klindex_nacht
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_TROPENNAECHTE')
-order by year asc, variable asc
+```js
+const klindex_kalt = FileAttachment("data/klindex_kalt.csv").csv({typed: true})
+const klindex_warm = FileAttachment("data/klindex_warm.csv").csv({typed: true})
+const klindex_nacht = FileAttachment("data/klindex_nacht.csv").csv({typed: true})
 ```
 
 ```js
