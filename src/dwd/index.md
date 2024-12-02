@@ -197,6 +197,7 @@ map_div.style = "flex-grow:1";
 ```
 
 <div class="grid grid-cols-4">
+
 <div class="card grid-colspan-2 grid-rowspan-1" style="display:flex; flex-flow:column">
   <div>
     <h2>Messstation Konstanz</h2>
@@ -206,7 +207,6 @@ map_div.style = "flex-grow:1";
 </div>
 
 <div class="card grid-colspan-1">
-
 
 ## Datenquelle
 
@@ -499,9 +499,7 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-### Beschreibung des Plots
-
-Dieser Plot zeigt den Temperaturverlauf in Form von Jahresmittelwerten der Lufttemperatur über mehrere Jahrzehnte, basierend auf drei unterschiedlichen Berechnungsarten:
+Dieses Diagramm zeigt den Temperaturverlauf in Form von Jahresmittelwerten der Lufttemperatur über mehrere Jahrzehnte, basierend auf drei unterschiedlichen Berechnungsarten:
 
 1. **Jahresmittel aus Tagesminimum (blaue Punkte):** Der Durchschnitt der täglichen Minimaltemperaturen im Jahr.
 2. **Jahresmittel aus Tagesdurchschnitt (gelbe Punkte):** Der Durchschnitt der täglichen Durchschnittstemperaturen im Jahr.
@@ -569,9 +567,7 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-### Beschreibung des Plots
-
-Dieser Plot zeigt das **absolute Maximum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
+Dieses Diagramm zeigt das **absolute Maximum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
 
 #### Eigenschaften:
 - **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
@@ -586,7 +582,7 @@ Dieser Plot zeigt das **absolute Maximum der Lufttemperatur** im Laufe der Jahre
 - Die höchsten absoluten Maximaltemperaturen liegen über 36 °C.
 
 #### Interpretation:
-Der Plot verdeutlicht, dass die maximalen Temperaturen in den letzten
+Das Diagramm verdeutlicht, dass die maximalen Temperaturen in den letzten
 Jahrzehnten deutlich gestiegen sind, was auf eine Zunahme von
 Extremhitze-Ereignissen hindeutet.
 
@@ -654,9 +650,7 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-### Beschreibung des Plots
-
-Dieser Plot zeigt das **absolute Minimum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
+Dieses Diagramm zeigt das **absolute Minimum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
 
 #### Eigenschaften:
 - **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
@@ -671,7 +665,7 @@ Dieser Plot zeigt das **absolute Minimum der Lufttemperatur** im Laufe der Jahre
 - Die absoluten Minimaltemperaturen zeigen eine Tendenz zu weniger extrem kalten Werten.
 
 #### Interpretation:
-Der Plot deutet darauf hin, dass die tiefsten Temperaturen in den
+Die Daten deutet darauf hin, dass die tiefsten Temperaturen in den
 letzten Jahrzehnten weniger extrem geworden sind, was auf eine
 allgemeine Erwärmung, insbesondere in den kältesten Perioden des Jahres,
 hindeutet.
@@ -725,9 +719,7 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-### Beschreibung des Plots
-
-Dieser Plot zeigt die **Jahressumme der Sonnenstunden** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends in der Sonnenscheindauer darstellt.
+Dieses Diagramm zeigt die **Jahressumme der Sonnenstunden** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends in der Sonnenscheindauer darstellt.
 
 #### Eigenschaften:
 - **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
@@ -775,70 +767,134 @@ order by year asc, variable asc
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Niederschlag</h2>
-  <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: 'Millimeter',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(rain, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(rain, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: 'Millimeter',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(rain, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(rain, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable"},
+      ),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Jahressumme des Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die jährliche Gesamtsumme des Niederschlags in Millimetern (mm) an.
+- **Punkte:** Repräsentieren die jährliche Niederschlagsmenge.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die jährliche Niederschlagsmenge schwankt stark von Jahr zu Jahr, mit Werten zwischen etwa 650 mm und 1.000 mm.
+- Bis Mitte der 1990er-Jahre ist keine klare Tendenz erkennbar.
+- Ab den 2000er-Jahren zeigt der 30-jährige gleitende Durchschnitt einen leichten Rückgang, der sich auf einem stabilen Niveau einzupendeln scheint.
+
+#### Interpretation:
+Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen Niederschlagsmenge hin, wobei die jährlichen Schwankungen weiterhin groß bleiben.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Niederschlag</h2>
-  <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: 'Millimeter',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(maxrain, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(maxrain, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: 'Millimeter',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(maxrain, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(maxrain, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable"},
+      ),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt das **Jahresmaximum des täglichen Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die höchste an einem Tag gemessene Niederschlagsmenge in Millimetern (mm) an.
+- **Punkte:** Repräsentieren das jeweilige Jahresmaximum des täglichen Niederschlags.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die Jahresmaxima des täglichen Niederschlags schwanken stark, mit Spitzenwerten von über 80 mm.
+- Ein leichter Rückgang des gleitenden Durchschnitts ist von den frühen 2000er-Jahren bis etwa 2010 erkennbar.
+- In den letzten Jahren bleibt der gleitende Durchschnitt auf einem relativ konstanten Niveau.
+
+#### Interpretation:
+Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankungen unterliegen, ohne dass ein klarer langfristiger Auf- oder Abwärtstrend erkennbar ist.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
 
@@ -896,118 +952,216 @@ function label_klindex(variable) {
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Klimakenntage</h2>
-  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_EISTAGE", "JA_FROSTTAGE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex_kalt, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex_kalt, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: ["JA_EISTAGE", "JA_FROSTTAGE"],
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(klindex_kalt, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(klindex_kalt, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable"},
+      ),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Tage pro Jahr mit Frost- und Eistagen** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **Gelbe Punkte:** Repräsentieren die Anzahl der Frosttage (Tage mit einem Minimum unter 0 °C).
+- **Blaue Punkte:** Repräsentieren die Anzahl der Eistage (Tage mit einem Maximum unter 0 °C).
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Die Anzahl der Frosttage (gelb) ist deutlich höher als die Anzahl der Eistage (blau).
+- Beide Zeitreihen zeigen eine abnehmende Tendenz im gleitenden Durchschnitt, wobei der Rückgang bei den Eistagen stärker ausgeprägt ist.
+- Besonders ab den 2000er-Jahren ist der Rückgang der Eistage deutlicher sichtbar.
+
+#### Interpretation:
+Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre abnimmt, was auf mildere Winterbedingungen hindeutet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Klimakenntage</h2>
-  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex_warm, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex_warm, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(klindex_warm, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(klindex_warm, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable"},
+      ),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Sommertage und heißen Tage pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **Blaue Punkte:** Repräsentieren die Sommertage (Tage mit einem Maximum über 25 °C).
+- **Gelbe Punkte:** Repräsentieren die heißen Tage (Tage mit einem Maximum über 30 °C).
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Die Anzahl der Sommertage (blau) ist deutlich höher als die der heißen Tage (gelb).
+- Beide Zeitreihen zeigen einen ansteigenden Trend im gleitenden Durchschnitt, besonders deutlich ab den 1990er-Jahren.
+- Der Anstieg der heißen Tage (gelb) ist steiler als der der Sommertage (blau).
+
+#### Interpretation:
+Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf der Jahre häufiger geworden sind.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Klimakenntage</h2>
-  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_TROPENNAECHTE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex_nacht, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex_nacht, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
+<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
+<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: ["JA_TROPENNAECHTE"],
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(klindex_nacht, {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(klindex_nacht, {
+        x: "year",
+        y: "ma30y",
+        stroke: "variable"},
+      ),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Tropennächte pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tropennächte an (Nächte mit einem Minimum über 20 °C).
+- **Blaue Punkte:** Repräsentieren die jährliche Anzahl der Tropennächte.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Tropennächte waren bis in die 1990er-Jahre nahezu nicht vorhanden.
+- Ab den 2000er-Jahren treten Tropennächte häufiger auf, mit einem deutlichen Anstieg nach 2010.
+- Der 30-jährige gleitende Durchschnitt zeigt seit den 2000er-Jahren eine leicht ansteigende Tendenz.
+
+#### Interpretation:
+Das Diagramm zeigt, dass Tropennächte in den letzten Jahrzehnten häufiger geworden sind, obwohl sie insgesamt noch selten auftreten.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
 
