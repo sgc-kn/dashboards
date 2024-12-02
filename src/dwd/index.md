@@ -58,13 +58,14 @@ toc: false
   justify-content: flex-end;
 }
 
-.card .header .tools button {
-  background-color: transparent;
-  border: none;
+.card .header .tools a {
+  padding: 0px 3px;
+  color: var(--theme-foreground-muted);
   cursor: pointer;
 }
 
-.card .header .tools button:hover ion-icon {
+.card .header .tools a:hover ion-icon {
+  color: var(--theme-foreground);
   --ionicon-stroke-width: 48px;
 }
 
@@ -147,13 +148,18 @@ map_div.style = "flex-grow:1";
 
 <div class="grid grid-cols-4">
 
-<div class="card grid-colspan-2 grid-rowspan-1" style="display:flex; flex-flow:column">
-  <div>
-    <h2>Messstation Konstanz</h2>
-    <h3>Position der Station im Laufe der Zeit</h3>
-  </div>
-  ${map_div}
-</div>
+<div class="card grid-colspan-2 grid-rowspan-1">
+<div class="header">
+<div class="title">
+<h2>Messstation Konstanz</h2>
+<h3>Position der Station im Laufe der Zeit</h3>
+</div> <!-- title -->
+<div class="tools">
+<a download href='data/kl_geo.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+${map_div}
+</div> <!-- card -->
 
 <div class="card grid-colspan-1">
 
@@ -378,9 +384,9 @@ function label_temp(variable) {
 <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/temp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -451,9 +457,9 @@ Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/maxtemp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -527,9 +533,9 @@ const sun = FileAttachment("data/sun.csv").csv({typed: true})
 <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/mintemp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -596,9 +602,9 @@ hindeutet.
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/sun.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -671,9 +677,9 @@ const maxrain = FileAttachment("data/maxrain.csv").csv({typed: true})
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/rain.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -736,9 +742,9 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/maxrain.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -829,9 +835,9 @@ function label_klindex(variable) {
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/klindex_kalt.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -900,9 +906,9 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/klindex_warm.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -971,9 +977,9 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf 
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button"><ion-icon name="information-circle-outline"></ion-icon></button>
-<button class="close-button"><ion-icon name="close-circle-outline"></ion-icon></button>
-<button class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></button>
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+<a download href='data/klindex_nacht.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
