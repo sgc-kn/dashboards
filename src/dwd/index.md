@@ -105,24 +105,39 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+```js
+const points = FileAttachment("data/Jahreswerte.csv").csv({typed: true})
+const ma30y = FileAttachment("data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+
+function long_table(wide_table, variables) {
+  return wide_table.flatMap(row =>
+    variables.map(variable => ({
+      year: row['Jahr'],
+      variable,
+      value: row[variable]
+  })))
+};
+```
+
 # Wetterbeobachtungen
 
 ## des Deutschen Wetterdienstes in Konstanz
 
 ```js
-const kl_geo = FileAttachment("data/kl_geo.csv").csv({typed: true})
-const meta_tab = FileAttachment("data/meta.csv").csv({typed: true})
-const klindex_ref_tab = FileAttachment("data/klindex_ref.csv").csv({typed: true})
+const geo = FileAttachment("data/Standort.csv").csv({typed: true})
+const ref_tab = FileAttachment("data/Referenzperiode_1973_2000.csv").csv({typed: true})
 const klindex_last_tab = FileAttachment("data/klindex_last.csv").csv({typed: true})
 ```
 
 ```js
-const meta = meta_tab[0]
+const years = points.map(row => row['Jahr'])
+const minYear = Math.min(...years)
+const maxYear = Math.max(...years)
 
-const klindex_ref = klindex_ref_tab[0]
+const ref = ref_tab[0]
 
 function klindex_change(X, v){
-  let x = X/klindex_ref[v] * 100 - 100;
+  let x = X/ref[v] * 100 - 100;
   if (x >= 0) {
     return '+ ' + Plot.formatNumber('de-DE')(x.toFixed(0)) + '%'
   } else {
@@ -130,14 +145,19 @@ function klindex_change(X, v){
   }
 }
 
-const klindex_tab = []
-for (var r of klindex_last_tab) {
-  const obj = { year: r['year'] };
-  for (var k of ['tropennaechte', 'heisse_tage', 'sommertage', 'eistage', 'frosttage']) {
-    obj[k + '_abs'] = r[k];
-    obj[k + '_rel'] = klindex_change(r[k], k);
+const klindex_abs = []
+const klindex_rel = []
+for (var r of points) {
+  if (r['Jahr'] > maxYear - 4) {
+    const abs = { Jahr: r['Jahr'] };
+    const rel = { Jahr: r['Jahr'] };
+    for (var k of ['Tropennaechte_Anzahl', 'Heisse_Tage_Anzahl', 'Sommertage_Anzahl', 'Eistage_Anzahl', 'Frosttage_Anzahl']) {
+      abs[k] = r[k];
+      rel[k] = klindex_change(r[k], k);
+    }
+    klindex_abs.push(abs);
+    klindex_rel.push(rel);
   }
-  klindex_tab.unshift(obj); // add to front
 }
 ```
 
@@ -148,27 +168,28 @@ map_div.style = "flex-grow:1";
 
 <div class="grid grid-cols-4">
 
-<div class="card grid-colspan-2 grid-rowspan-1">
+<div class="card grid-colspan-2">
 <div class="header">
 <div class="title">
 <h2>Messstation Konstanz</h2>
 <h3>Position der Station im Laufe der Zeit</h3>
 </div> <!-- title -->
-<div class="tools">
-<a download href='data/kl_geo.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
-</div> <!-- tools -->
 </div> <!-- header -->
 ${map_div}
 </div> <!-- card -->
 
 <div class="card grid-colspan-1">
-
-## Datenquelle
-
+<div class="header">
+<div class="title">
+<h2>Datenquelle</h2>
 <a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/">
 <h3>opendata.dwd.de</h3>
 </a>
-
+</div> <!-- title -->
+<div class="tools">
+<a download href='data.zip' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
 <div id=map_height>
 
 Der deutsche Wetterdienst stellt
@@ -176,7 +197,7 @@ Der deutsche Wetterdienst stellt
 historische Messdaten</a>
 zu allen offiziellen Messstationen bereit.
 
-Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${meta['minYear']} bis ${meta['maxYear']}</b></span> ab.
+Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${minYear} bis ${maxYear}</b></span> ab.
 
 Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
 L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
@@ -184,11 +205,8 @@ Richtlinien ist der Standort nahezu ideal – die dort gemessenen Werte
 sind aber nicht repräsentativ für das Stadtklima, denn die Temperaturen
 in der Stadt sind meist höher als im ländlichen Raum.
 
-</div>
-
-</a>
-
-</div>
+</div> <!-- #map_height -->
+</div> <!-- card -->
 
 <div class="card grid-colspan-1">
 
@@ -207,7 +225,7 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <div class="card grid-colspan-4">
 
 ## Klimakenntage
-### Anzahl in den letzten Jahren und der Referenzperiode 1972–2002 im Vergleich
+### Anzahl in den letzten Jahren und der Referenzperiode 1973–2000 im Vergleich
 
 <table style='max-width:100%'>
 <thead>
@@ -221,86 +239,86 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <tr>
 <th><span class=muted>Bezeichnung</th>
 <th><span class=muted>Definition</th>
-<th>${klindex_tab[0]['year']}</th>
-<th>${klindex_tab[1]['year']}</th>
-<th>${klindex_tab[2]['year']}</th>
-<th>${klindex_tab[3]['year']}</th>
-<th>1972–2002 (⌀)</th>
-<th>${klindex_tab[0]['year']}</th>
-<th>${klindex_tab[1]['year']}</th>
-<th>${klindex_tab[2]['year']}</th>
-<th>${klindex_tab[3]['year']}</th>
+<th>${klindex_abs[0]['Jahr']}</th>
+<th>${klindex_abs[1]['Jahr']}</th>
+<th>${klindex_abs[2]['Jahr']}</th>
+<th>${klindex_abs[3]['Jahr']}</th>
+<th>1973–2000 (⌀)</th>
+<th>${klindex_rel[0]['Jahr']}</th>
+<th>${klindex_rel[1]['Jahr']}</th>
+<th>${klindex_rel[2]['Jahr']}</th>
+<th>${klindex_rel[3]['Jahr']}</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>Eistage</th>
 <td>nicht über 0°C</td>
-<td>${klindex_tab[0]['eistage_abs']}</td>
-<td>${klindex_tab[1]['eistage_abs']}</td>
-<td>${klindex_tab[2]['eistage_abs']}</td>
-<td>${klindex_tab[3]['eistage_abs']}</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['eistage'].toFixed(2))}</td>
-<td>${klindex_tab[0]['eistage_rel']}</td>
-<td>${klindex_tab[1]['eistage_rel']}</td>
-<td>${klindex_tab[2]['eistage_rel']}</td>
-<td>${klindex_tab[3]['eistage_rel']}</td>
+<td>${klindex_abs[0]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[1]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[2]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[3]['Eistage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[1]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[2]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[3]['Eistage_Anzahl']}</td>
 </tr>
 
 <tr>
 <th>Frosttage</th>
 <td>unter 0°C</td>
-<td>${klindex_tab[0]['frosttage_abs']}</td>
-<td>${klindex_tab[1]['frosttage_abs']}</td>
-<td>${klindex_tab[2]['frosttage_abs']}</td>
-<td>${klindex_tab[3]['frosttage_abs']}</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['frosttage'].toFixed(2))}</td>
-<td>${klindex_tab[0]['frosttage_rel']}</td>
-<td>${klindex_tab[1]['frosttage_rel']}</td>
-<td>${klindex_tab[2]['frosttage_rel']}</td>
-<td>${klindex_tab[3]['frosttage_rel']}</td>
+<td>${klindex_abs[0]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[1]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[2]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[3]['Frosttage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[1]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[2]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[3]['Frosttage_Anzahl']}</td>
 </tr>
 
 <tr>
 <th>Sommertage</th>
 <td>über 25°C</td>
-<td>${klindex_tab[0]['sommertage_abs']}</td>
-<td>${klindex_tab[1]['sommertage_abs']}</td>
-<td>${klindex_tab[2]['sommertage_abs']}</td>
-<td>${klindex_tab[3]['sommertage_abs']}</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['sommertage'].toFixed(2))}</td>
-<td>${klindex_tab[0]['sommertage_rel']}</td>
-<td>${klindex_tab[1]['sommertage_rel']}</td>
-<td>${klindex_tab[2]['sommertage_rel']}</td>
-<td>${klindex_tab[3]['sommertage_rel']}</td>
+<td>${klindex_abs[0]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[1]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[2]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[3]['Sommertage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[1]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[2]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[3]['Sommertage_Anzahl']}</td>
 </tr>
 
 <tr>
 <th>Heiße Tage</th>
 <td>über 30°C</td>
-<td>${klindex_tab[0]['heisse_tage_abs']}</td>
-<td>${klindex_tab[1]['heisse_tage_abs']}</td>
-<td>${klindex_tab[2]['heisse_tage_abs']}</td>
-<td>${klindex_tab[3]['heisse_tage_abs']}</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['heisse_tage'].toFixed(2))}</td>
-<td>${klindex_tab[0]['heisse_tage_rel']}</td>
-<td>${klindex_tab[1]['heisse_tage_rel']}</td>
-<td>${klindex_tab[2]['heisse_tage_rel']}</td>
-<td>${klindex_tab[3]['heisse_tage_rel']}</td>
+<td>${klindex_abs[0]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[1]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[2]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[3]['Heisse_Tage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[1]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[2]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[3]['Heisse_Tage_Anzahl']}</td>
 </tr>
 
 <tr>
 <th>Tropennächte</th>
 <td>nicht unter 20°C</td>
-<td>${klindex_tab[0]['tropennaechte_abs']}</td>
-<td>${klindex_tab[1]['tropennaechte_abs']}</td>
-<td>${klindex_tab[2]['tropennaechte_abs']}</td>
-<td>${klindex_tab[3]['tropennaechte_abs']}</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['tropennaechte'].toFixed(2))}</td>
-<td>${klindex_tab[0]['tropennaechte_rel']}</td>
-<td>${klindex_tab[1]['tropennaechte_rel']}</td>
-<td>${klindex_tab[2]['tropennaechte_rel']}</td>
-<td>${klindex_tab[3]['tropennaechte_rel']}</td>
+<td>${klindex_abs[0]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[1]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[2]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[3]['Tropennaechte_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[1]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[2]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[3]['Tropennaechte_Anzahl']}</td>
 </tr>
 
 </tbody>
@@ -326,11 +344,11 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
-function label(row) {
+function label_geo(row) {
   const opt = {day: 'numeric', month: 'short', year: 'numeric'};
-  const von = (new Date(row['von'])).toLocaleDateString(undefined, opt);
+  const von = (new Date(row['Von'])).toLocaleDateString(undefined, opt);
   if (row['bis']) {
-    const bis = (new Date(row['bis'])).toLocaleDateString(undefined, opt);
+    const bis = (new Date(row['Bis'])).toLocaleDateString(undefined, opt);
     return `${von} – ${bis}`
   } else {
     return `seit ${von}`
@@ -339,12 +357,15 @@ function label(row) {
 
 const points_to_fit = [ [47.66033, 9.17582] ]
 
-kl_geo.forEach(row => {
-  const pos = [row['lat'], row['lon']];
+geo.forEach(row => {
+  const pos = [
+    row['Geografische_Breite_WGS84_Dezimal'],
+    row['Geografische_Laenge_WGS84_Dezimal'],
+  ];
   points_to_fit.push(pos)
   L.circleMarker(pos, {radius: 5, color: 'var(--theme-foreground-focus)'})
    .addTo(map)
-   .bindTooltip(label(row), {permanent: true})
+   .bindTooltip(label_geo(row), {permanent: true})
    .openTooltip()
 });
 
@@ -356,22 +377,20 @@ mapResizeObserver.observe(map_div);
 ```
 
 ```js
-const temp = FileAttachment("data/temp.csv").csv({typed: true})
-const maxtemp = FileAttachment("data/maxtemp.csv").csv({typed: true})
-const mintemp = FileAttachment("data/mintemp.csv").csv({typed: true})
-```
+const temperature_variables = [
+  'Temperatur_Celsius_Mittel_Tagesminimum',
+  'Temperatur_Celsius_Mittel_Tagesdurchschnitt',
+  'Temperatur_Celsius_Mittel_Tagesmaximum'
+];
 
-```js
-const temp_variables = {
-  "JA_MX_TN": "Absolutes Minimum",
-  "JA_MX_TX": "Absolutes Maximum",
-  "JA_TN": "Jahresmittel aus Tagesminimum",
-  "JA_TT": "Jahresmittel aus Tagesdurchschnitt",
-  "JA_TX": "Jahresmittel aus Tagesmaximum",
+const temperature_lables = {
+  'Temperatur_Celsius_Mittel_Tagesdurchschnitt': "Jahresmittel aus Tagesdurchschnitt",
+  'Temperatur_Celsius_Mittel_Tagesminimum': "Jahresmittel aus Tagesminimum",
+  'Temperatur_Celsius_Mittel_Tagesmaximum': "Jahresmittel aus Tagesmaximum",
 };
 
-function label_temp(variable) {
-  return temp_variables[variable]
+function label_temperature(variable) {
+  return temperature_lables[variable]
 };
 ```
 
@@ -386,7 +405,6 @@ function label_temp(variable) {
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/temp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -399,6 +417,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: '°C',
@@ -406,20 +425,20 @@ ${resize((width) => Plot.plot({
       tickFormat: Plot.formatNumber("de-DE"),
     },
     color: {
-      domain: ["JA_TN", "JA_TT", "JA_TX"],
+      domain: temperature_variables,
       legend: true,
-      tickFormat: label_temp,
+      tickFormat: label_temperature,
     },
     marks: [
       Plot.frame(),
-      Plot.dot(temp, {
+      Plot.dot(long_table(points, temperature_variables), {
         x: "year",
         y: "value",
         stroke: "variable",
       }),
-      Plot.line(temp, {
+      Plot.line(long_table(ma30y, temperature_variables), {
         x: "year",
-        y: "ma30y",
+        y: "value",
         stroke: "variable",
       }),
     ]
@@ -459,7 +478,6 @@ Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/maxtemp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -472,6 +490,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: '°C',
@@ -480,15 +499,15 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(maxtemp, {
-        x: "year",
-        y: "value",
-        stroke: "variable",
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Maximum",
+        stroke: () => "", // use first color of pallette
       }),
-      Plot.line(maxtemp, {
-        x: "year",
-        y: "ma30y",
-        stroke: "variable",
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Maximum",
+        stroke: () => "", // use first color of pallette
       }),
     ]
 }))}
@@ -520,10 +539,6 @@ Extremhitze-Ereignissen hindeutet.
 
 </div> <!-- grid -->
 
-```js
-const sun = FileAttachment("data/sun.csv").csv({typed: true})
-```
-
 <div class="grid grid-cols-2">
 
 <div class="card">
@@ -535,7 +550,6 @@ const sun = FileAttachment("data/sun.csv").csv({typed: true})
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/mintemp.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -548,6 +562,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: '°C',
@@ -556,15 +571,15 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(mintemp, {
-        x: "year",
-        y: "value",
-        stroke: "variable",
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Minimum",
+        stroke: () => "", // use first color of pallette
       }),
-      Plot.line(mintemp, {
-        x: "year",
-        y: "ma30y",
-        stroke: "variable",
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Minimum",
+        stroke: () => "", // use first color of pallette
       }),
     ]
   }))}
@@ -604,7 +619,6 @@ hindeutet.
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/sun.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -617,6 +631,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: null,
@@ -625,15 +640,15 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(sun, {
-        x: "year",
-        y: "value",
-        stroke: "variable",
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Sonnenscheindauer_Stunden_Summe",
+        stroke: () => "", // use first color of pallette
       }),
-      Plot.line(sun, {
-        x: "year",
-        y: "ma30y",
-        stroke: "variable",
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Sonnenscheindauer_Stunden_Summe",
+        stroke: () => "", // use first color of pallette
       }),
     ]
   }))}
@@ -663,11 +678,6 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 
 </div> <!-- grid -->
 
-```js
-const rain = FileAttachment("data/rain.csv").csv({typed: true})
-const maxrain = FileAttachment("data/maxrain.csv").csv({typed: true})
-```
-
 <div class="grid grid-cols-2">
 
 <div class="card">
@@ -679,7 +689,6 @@ const maxrain = FileAttachment("data/maxrain.csv").csv({typed: true})
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/rain.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -692,6 +701,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: 'Millimeter',
@@ -700,16 +710,16 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(rain, {
-        x: "year",
-        y: "value",
-        stroke: "variable",
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Summe",
+        stroke: () => "", // use first color of pallette
       }),
-      Plot.line(rain, {
-        x: "year",
-        y: "ma30y",
-        stroke: "variable"},
-      ),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Summe",
+        stroke: () => "", // use first color of pallette
+      }),
     ]
   }))}
 </div> <!-- body -->
@@ -744,7 +754,6 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/maxrain.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -757,6 +766,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: 'Millimeter',
@@ -765,16 +775,16 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(maxrain, {
-        x: "year",
-        y: "value",
-        stroke: "variable",
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
+        stroke: () => "", // use first color of pallette
       }),
-      Plot.line(maxrain, {
-        x: "year",
-        y: "ma30y",
-        stroke: "variable"},
-      ),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
+        stroke: () => "", // use first color of pallette
+      }),
     ]
   }))}
 </div> <!-- body -->
@@ -803,23 +813,31 @@ Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankun
 </div> <!-- grid -->
 
 ```js
-const klindex_kalt = FileAttachment("data/klindex_kalt.csv").csv({typed: true})
-const klindex_warm = FileAttachment("data/klindex_warm.csv").csv({typed: true})
-const klindex_nacht = FileAttachment("data/klindex_nacht.csv").csv({typed: true})
-```
+const klindex_kalt_variables = [
+  'Eistage_Anzahl',
+  'Frosttage_Anzahl',
+]
 
-```js
-const klindex_variables = {
-  "JA_EISTAGE": "Eistage (Maximum unter 0°C)",
-  "JA_FROSTTAGE": "Frosttage (Minimum unter 0°C)",
-  "JA_HEISSE_TAGE": "Heiße Tage (Maximum über 30°C)",
-  "JA_SOMMERTAGE": "Sommertage (Maximum über 25°C)",
-  "JA_TROPENNAECHTE": "Tropennächte (Minimum über 20°C)",
+const klindex_warm_variables = [
+  'Sommertage_Anzahl',
+  'Heisse_Tage_Anzahl',
+]
+
+const klindex_nacht_variables = [
+  'Tropennaechte_Anzahl',
+]
+
+const klindex_labels = {
+  "Eistage_Anzahl": "Eistage (Maximum unter 0°C)",
+  "Frosttage_Anzahl": "Frosttage (Minimum unter 0°C)",
+  "Heisse_Tage_Anzahl": "Heiße Tage (Maximum über 30°C)",
+  "Sommertage_Anzahl": "Sommertage (Maximum über 25°C)",
+  "Tropennaechte_Anzahl": "Tropennächte (Minimum über 20°C)",
 };
 
 function label_klindex(variable) {
-  if (variable in klindex_variables) {
-    return klindex_variables[variable]
+  if (variable in klindex_labels) {
+    return klindex_labels[variable]
   } else {
     return variable
   }
@@ -837,7 +855,6 @@ function label_klindex(variable) {
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/klindex_kalt.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -850,6 +867,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: null,
@@ -857,22 +875,22 @@ ${resize((width) => Plot.plot({
       tickFormat: Plot.formatNumber("de-DE"),
     },
     color: {
-      domain: ["JA_EISTAGE", "JA_FROSTTAGE"],
+      domain: klindex_kalt_variables,
       legend: true,
       tickFormat: label_klindex,
     },
     marks: [
       Plot.frame(),
-      Plot.dot(klindex_kalt, {
+      Plot.dot(long_table(points, klindex_kalt_variables), {
         x: "year",
         y: "value",
         stroke: "variable",
       }),
-      Plot.line(klindex_kalt, {
+      Plot.line(long_table(ma30y, klindex_kalt_variables), {
         x: "year",
-        y: "ma30y",
-        stroke: "variable"},
-      ),
+        y: "value",
+        stroke: "variable",
+      }),
     ]
   }))}
 </div> <!-- body -->
@@ -908,7 +926,6 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/klindex_warm.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -921,6 +938,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: null,
@@ -928,22 +946,22 @@ ${resize((width) => Plot.plot({
       tickFormat: Plot.formatNumber("de-DE"),
     },
     color: {
-      domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
+      domain: klindex_warm_variables,
       legend: true,
       tickFormat: label_klindex,
     },
     marks: [
       Plot.frame(),
-      Plot.dot(klindex_warm, {
+      Plot.dot(long_table(points, klindex_warm_variables), {
         x: "year",
         y: "value",
         stroke: "variable",
       }),
-      Plot.line(klindex_warm, {
+      Plot.line(long_table(ma30y, klindex_warm_variables), {
         x: "year",
-        y: "ma30y",
-        stroke: "variable"},
-      ),
+        y: "value",
+        stroke: "variable",
+      }),
     ]
   }))}
 </div> <!-- body -->
@@ -979,7 +997,6 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf 
 <div class="tools">
 <a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
 <a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-<a download href='data/klindex_nacht.csv' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
 </div> <!-- tools -->
 </div> <!-- header -->
 <div class='with-info'>
@@ -992,6 +1009,7 @@ ${resize((width) => Plot.plot({
       label: 'Jahr',
       labelAnchor: 'center',
       labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
     },
     y: {
       label: null,
@@ -999,22 +1017,22 @@ ${resize((width) => Plot.plot({
       tickFormat: Plot.formatNumber("de-DE"),
     },
     color: {
-      domain: ["JA_TROPENNAECHTE"],
+      domain: klindex_nacht_variables,
       legend: true,
       tickFormat: label_klindex,
     },
     marks: [
       Plot.frame(),
-      Plot.dot(klindex_nacht, {
+      Plot.dot(long_table(points, klindex_nacht_variables), {
         x: "year",
         y: "value",
         stroke: "variable",
       }),
-      Plot.line(klindex_nacht, {
+      Plot.line(long_table(ma30y, klindex_nacht_variables), {
         x: "year",
-        y: "ma30y",
-        stroke: "variable"},
-      ),
+        y: "value",
+        stroke: "variable",
+      }),
     ]
   }))}
 </div> <!-- body -->

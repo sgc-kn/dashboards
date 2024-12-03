@@ -8,7 +8,6 @@ sql:
 
 # DWD Dashboard
 
-
 - Inspiration: https://klimadashboard.de/auswirkungen/temperatur
 - Datenquelle: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/annual/climate_indices/kl/
 - Code (WIP): https://github.com/sgc-kn/dashboards/pull/9
