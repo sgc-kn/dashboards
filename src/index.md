@@ -1,8 +1,6 @@
 ---
 toc:
   label: 'Neuigkeiten'
-sql:
-  long_ma30y: ./dwd/data/long_ma30y.parquet
 ---
 
 # Willkommen bei der Datenplattform Konstanz
@@ -35,29 +33,37 @@ ist angestiegen von durchschnittlich 8,6 heißen Tagen zwischen 1973 und
 2003 auf 15,8 Tagen zwischen 1993 und 2023. Das ist eine Steigerung
 um 83%.
 
-```sql id=klindex
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_HEISSE_TAGE', 'JA_SOMMERTAGE')
-order by year asc, variable asc
+```js
+const dwd_points = FileAttachment("dwd/data/Jahreswerte.csv").csv({typed: true})
+const dwd_ma30y = FileAttachment("dwd/data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+
+function long_table(wide_table, variables) {
+  return wide_table.flatMap(row =>
+    variables.map(variable => ({
+      year: row['Jahr'],
+      variable,
+      value: row[variable]
+  })))
+};
 ```
 
 ```js
-const klindex_variables = {
-  "JA_EISTAGE": "Eistage (Maximum unter 0°C)",
-  "JA_FROSTTAGE": "Frosttage (Minimum unter 0°C)",
-  "JA_HEISSE_TAGE": "Heiße Tage (Maximum über 30°C)",
-  "JA_SOMMERTAGE": "Sommertage (Maximum über 25°C)",
-  "JA_TROPENNAECHTE": "Tropennächte (Minimum über 20°C)",
+const klindex_warm_variables = [
+  'Sommertage_Anzahl',
+  'Heisse_Tage_Anzahl',
+];
+
+const klindex_labels = {
+  "Eistage_Anzahl": "Eistage (Maximum unter 0°C)",
+  "Frosttage_Anzahl": "Frosttage (Minimum unter 0°C)",
+  "Heisse_Tage_Anzahl": "Heiße Tage (Maximum über 30°C)",
+  "Sommertage_Anzahl": "Sommertage (Maximum über 25°C)",
+  "Tropennaechte_Anzahl": "Tropennächte (Minimum über 20°C)",
 };
 
 function label_klindex(variable) {
-  if (variable in klindex_variables) {
-    return klindex_variables[variable]
+  if (variable in klindex_labels) {
+    return klindex_labels[variable]
   } else {
     return variable
   }
@@ -67,40 +73,41 @@ function label_klindex(variable) {
 <div class="card">
   <h2>Klimakenntage</h2>
   <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: klindex_warm_variables,
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(long_table(dwd_points, klindex_warm_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(dwd_ma30y, klindex_warm_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- card -->
 
 ---
 
