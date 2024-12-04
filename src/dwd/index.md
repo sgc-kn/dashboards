@@ -1,76 +1,140 @@
 ---
 theme: dashboard
 toc: false
-sql:
-  klindex: ./data/klindex_data.parquet
-  long_ma30y: ./data/long_ma30y.parquet
-  kl_meta_geo: ./data/kl_meta_geo.parquet
 ---
+
+<style>
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .with-info {
+  /* enable absolute positioning of .info over .body */
+  position: relative;
+
+  /* grow .body to size of grid neighbors */
+  flex-grow: 1;
+
+  /* bottom-align plot in card */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.card .with-info .info {
+  /* position over .body inheriting its size */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.card .with-info .info {
+  visibility: hidden;
+}
+
+.card.flip .with-info .info {
+  visibility: visible;
+}
+
+.card.flip .with-info .body {
+  visibility: hidden;
+}
+
+.card .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card .header .tools {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+}
+
+.card .header .tools a {
+  padding: 0px 3px;
+  color: var(--theme-foreground-muted);
+  cursor: pointer;
+}
+
+.card .header .tools a:hover ion-icon {
+  color: var(--theme-foreground);
+  --ionicon-stroke-width: 48px;
+}
+
+.card .header .tools ion-icon {
+  font-size: 1.5rem;
+}
+
+.card .header .tools .close-button,
+.card.flip .header .tools .info-button {
+  display: none;
+}
+
+.card.flip .header .tools .close-button {
+  display: inline;
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    const infoButton = card.querySelector('.info-button');
+    const closeButton = card.querySelector('.close-button');
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        card.classList.toggle('flip');
+      });
+    }
+    if (infoButton) {
+      infoButton.addEventListener('click', () => {
+        card.classList.toggle('flip');
+      });
+    }
+  });
+});
+</script>
 
 # Wetterbeobachtungen
 
 ## des Deutschen Wetterdienstes in Konstanz
 
-```sql id=kl_geo
-with typed as(
-  select
-    (Von_Datum::date)::text as von,
-    (Bis_Datum::date)::text as bis,
-    "Geogr.Breite" as lat,
-    "Geogr.Laenge" as lon,
-    Stationshoehe as altitude,
-  from kl_meta_geo)
-select
-  min(von) as von,
-  max(bis) as bis,
-  lat,
-  lon,
-from typed
-where von >= '1972-01-01'
-group by lat, lon
-order by von asc
-```
+```js
+const geo = FileAttachment("data/Standort.csv").csv({typed: true})
+const ref_tab = FileAttachment("data/Referenzperiode_1973_2000.csv").csv({typed: true})
 
-```sql id=meta_tab
-select
-  count(*) as count,
-  extract('year' from min(year))::text as minYear,
-  extract('year' from max(year))::text as maxYear,
-from long_ma30y
-```
+const ma30y = FileAttachment("data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const points = FileAttachment("data/Jahreswerte.csv").csv({typed: true})
 
-```sql id=klindex_ref_tab
-select
-  count(*),
-  avg(JA_TROPENNAECHTE::double) as tropennaechte,
-  avg(JA_HEISSE_TAGE::double) as heisse_tage,
-  avg(JA_SOMMERTAGE::double) as sommertage,
-  avg(JA_EISTAGE::double) as eistage,
-  avg(JA_FROSTTAGE::double) as frosttage,
-from klindex
-where MESS_DATUM_BEGINN::date >= '1972-01-01'::date
-and MESS_DATUM_ENDE::date <= '2002-12-31'::date
-```
-
-```sql id=klindex_last_tab
-select
-  MESS_DATUM_BEGINN as year,
-  JA_TROPENNAECHTE::double as tropennaechte,
-  JA_HEISSE_TAGE::double as heisse_tage,
-  JA_SOMMERTAGE::double as sommertage,
-  JA_EISTAGE::double as eistage,
-  JA_FROSTTAGE::double as frosttage,
-from klindex
-order by MESS_DATUM_BEGINN::date desc
-limit 1
+function long_table(wide_table, variables) {
+  return wide_table.flatMap(row =>
+    variables.map(variable => ({
+      year: row['Jahr'],
+      variable,
+      value: row[variable]
+  })))
+};
 ```
 
 ```js
-const klindex_last = klindex_last_tab.toArray()[0]
-const klindex_ref = klindex_ref_tab.toArray()[0]
+const years = points.map(row => row['Jahr'])
+const minYear = Math.min(...years)
+const maxYear = Math.max(...years)
 
-function klindex_change(v){
-  let x = klindex_last[v]/klindex_ref[v] * 100 - 100;
+const ref = ref_tab[0]
+
+function klindex_change(X, v){
+  let x = X/ref[v] * 100 - 100;
   if (x >= 0) {
     return '+ ' + Plot.formatNumber('de-DE')(x.toFixed(0)) + '%'
   } else {
@@ -78,40 +142,68 @@ function klindex_change(v){
   }
 }
 
-const meta = meta_tab.toArray()[0]
+const klindex_abs = []
+const klindex_rel = []
+for (var r of points) {
+  if (r['Jahr'] > maxYear - 4) {
+    const abs = { Jahr: r['Jahr'] };
+    const rel = { Jahr: r['Jahr'] };
+    for (var k of ['Tropennaechte_Anzahl', 'Heisse_Tage_Anzahl', 'Sommertage_Anzahl', 'Eistage_Anzahl', 'Frosttage_Anzahl']) {
+      abs[k] = r[k];
+      rel[k] = klindex_change(r[k], k);
+    }
+    klindex_abs.push(abs);
+    klindex_rel.push(rel);
+  }
+}
+```
+
+```js
+const map_div = document.createElement("div");
+map_div.style = "flex-grow:1";
 ```
 
 <div class="grid grid-cols-4">
-<div class="card grid-colspan-2 grid-rowspan-2">
-  <h2>Messstation Konstanz</h2>
-  <h3>Position der Station im Laufe der Zeit</h3>
 
-```js
-const map_div = display(document.createElement("div"));
-map_div.style = "height: 400px;";
-```
-</div>
+<div class="card grid-colspan-2">
+<div class="header">
+<div class="title">
+<h2>Messstation Konstanz</h2>
+<h3>Position der Station im Laufe der Zeit</h3>
+</div> <!-- title -->
+</div> <!-- header -->
+${map_div}
+</div> <!-- card -->
 
 <div class="card grid-colspan-1">
-
-
-## Datenquelle
-
+<div class="header">
+<div class="title">
+<h2>Datenquelle</h2>
 <a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/">
 <h3>opendata.dwd.de</h3>
 </a>
+</div> <!-- title -->
+<div class="tools">
+<a download href='data.zip' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div id=map_height>
 
 Der deutsche Wetterdienst stellt
 <a href="https://www.dwd.de/DE/leistungen/opendata/opendata.html">
-historische Messdaten
-</a>
+historische Messdaten</a>
 zu allen offiziellen Messstationen bereit.
 
-Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jahreswerten zur Station Nummer 2712 in Konstanz. Diese Daten decken die Zeitspanne <span class=blue><b>${meta['minYear']} bis ${meta['maxYear']}</b></span> ab.
+Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${minYear} bis ${maxYear}</b></span> ab.
 
-</a>
+Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
+L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
+Richtlinien ist der Standort nahezu ideal – die dort gemessenen Werte
+sind aber nicht repräsentativ für das Stadtklima, denn die Temperaturen
+in der Stadt sind meist höher als im ländlichen Raum.
 
-</div>
+</div> <!-- #map_height -->
+</div> <!-- card -->
 
 <div class="card grid-colspan-1">
 
@@ -124,53 +216,108 @@ Dieses Dashboard basiert auf <span class=blue><b>${meta['count']}</b></span> Jah
 
 </div>
 
-<div class="card grid-colspan-2">
+</div><!-- grid -->
+
+<div class="grid grid-cols-4">
+<div class="card grid-colspan-4">
 
 ## Klimakenntage
-### Anzahl im Jahr ${meta['maxYear']} und der Referenzperiode 1972–2002 im Vergleich
+### Anzahl in den letzten Jahren und der Referenzperiode 1973–2000 im Vergleich
 
-<table>
+<table style='max-width:100%'>
 <thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th></th>
+<th colspan=4></th>
+<th><span class=muted>Referenzperiode</span></th>
+<th colspan=4><span class=muted>Änderung zur Referenzperiode</span></th>
+</tr>
 <tr>
-<td><span class=muted>Bezeichnung</td>
-<td><span class=muted>Definition</td>
-<td>1972–2002 (⌀)</td>
-<td>${meta['maxYear']}</td>
-<td><span class=muted>Änderung</td>
+<th><span class=muted>Bezeichnung</th>
+<th><span class=muted>Definition</th>
+<th>${klindex_abs[0]['Jahr']}</th>
+<th>${klindex_abs[1]['Jahr']}</th>
+<th>${klindex_abs[2]['Jahr']}</th>
+<th>${klindex_abs[3]['Jahr']}</th>
+<th>1973–2000 (⌀)</th>
+<th>${klindex_rel[0]['Jahr']}</th>
+<th>${klindex_rel[1]['Jahr']}</th>
+<th>${klindex_rel[2]['Jahr']}</th>
+<th>${klindex_rel[3]['Jahr']}</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Eistage</td>
+<th>Eistage</th>
 <td>nicht über 0°C</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['eistage'].toFixed(2))}</td>
-<td>${klindex_last['eistage']}</td>
-<td>${klindex_change('eistage')}</td>
+<td>${klindex_abs[0]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[1]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[2]['Eistage_Anzahl']}</td>
+<td>${klindex_abs[3]['Eistage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[1]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[2]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[3]['Eistage_Anzahl']}</td>
 </tr>
 
-<tr> <td>Frosttage</td><td>unter 0°C</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['frosttage'].toFixed(2))}</td>
-<td>${klindex_last['frosttage']}</td>
-<td>${klindex_change('frosttage')}</td>
+<tr>
+<th>Frosttage</th>
+<td>unter 0°C</td>
+<td>${klindex_abs[0]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[1]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[2]['Frosttage_Anzahl']}</td>
+<td>${klindex_abs[3]['Frosttage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[1]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[2]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[3]['Frosttage_Anzahl']}</td>
 </tr>
 
-<tr><td>Sommertage</td><td>über 25°C</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['sommertage'].toFixed(2))}</td>
-<td>${klindex_last['sommertage']}</td>
-<td>${klindex_change('sommertage')}</td>
+<tr>
+<th>Sommertage</th>
+<td>über 25°C</td>
+<td>${klindex_abs[0]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[1]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[2]['Sommertage_Anzahl']}</td>
+<td>${klindex_abs[3]['Sommertage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[1]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[2]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[3]['Sommertage_Anzahl']}</td>
 </tr>
 
-<tr><td>Heiße Tage</td><td>über 30°C</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['heisse_tage'].toFixed(2))}</td>
-<td>${klindex_last['heisse_tage']}</td>
-<td>${klindex_change('heisse_tage')}</td>
+<tr>
+<th>Heiße Tage</th>
+<td>über 30°C</td>
+<td>${klindex_abs[0]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[1]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[2]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_abs[3]['Heisse_Tage_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[1]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[2]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[3]['Heisse_Tage_Anzahl']}</td>
 </tr>
 
-<tr><td>Tropennächte</td><td>nicht unter 20°C</td>
-<td>${Plot.formatNumber('de-DE')(klindex_ref['tropennaechte'].toFixed(2))}</td>
-<td>${klindex_last['tropennaechte']}</td>
-<td>${klindex_change('tropennaechte')}</td>
+<tr>
+<th>Tropennächte</th>
+<td>nicht unter 20°C</td>
+<td>${klindex_abs[0]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[1]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[2]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_abs[3]['Tropennaechte_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[1]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[2]['Tropennaechte_Anzahl']}</td>
+<td>${klindex_rel[3]['Tropennaechte_Anzahl']}</td>
 </tr>
+
 </tbody>
 </table>
 
@@ -194,352 +341,500 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
-function label(row) {
+function label_geo(row) {
   const opt = {day: 'numeric', month: 'short', year: 'numeric'};
-  const von = (new Date(row['von'])).toLocaleDateString(undefined, opt);
+  const von = (new Date(row['Von'])).toLocaleDateString(undefined, opt);
   if (row['bis']) {
-    const bis = (new Date(row['bis'])).toLocaleDateString(undefined, opt);
+    const bis = (new Date(row['Bis'])).toLocaleDateString(undefined, opt);
     return `${von} – ${bis}`
   } else {
     return `seit ${von}`
   }
 }
 
-const points_to_fit = []
+const points_to_fit = [ [47.66033, 9.17582] ]
 
-kl_geo.toArray().forEach(row => {
-  const pos = [row['lat'], row['lon']];
+geo.forEach(row => {
+  const pos = [
+    row['Geografische_Breite_WGS84_Dezimal'],
+    row['Geografische_Laenge_WGS84_Dezimal'],
+  ];
   points_to_fit.push(pos)
   L.circleMarker(pos, {radius: 5, color: 'var(--theme-foreground-focus)'})
    .addTo(map)
-   .bindTooltip(label(row), {permanent: true})
+   .bindTooltip(label_geo(row), {permanent: true})
    .openTooltip()
 });
 
-map.fitBounds(points_to_fit, {padding: [10, 10]});
-```
-
-```sql id=temp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_TT', 'JA_TN', 'JA_TX')
-order by year asc, variable asc
-```
-
-```sql id=maxtemp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_TX')
-order by year asc, variable asc
-```
-
-```sql id=mintemp
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_TN')
-order by year asc, variable asc
+const mapResizeObserver = new ResizeObserver(() => {
+  map.invalidateSize();
+  map.fitBounds(points_to_fit, {padding: [13, 13]});
+});
+mapResizeObserver.observe(map_div);
 ```
 
 ```js
-const temp_variables = {
-  "JA_MX_TN": "Absolutes Minimum",
-  "JA_MX_TX": "Absolutes Maximum",
-  "JA_TN": "Jahresmittel aus Tagesminimum",
-  "JA_TT": "Jahresmittel aus Tagesdurchschnitt",
-  "JA_TX": "Jahresmittel aus Tagesmaximum",
+const temperature_variables = [
+  'Temperatur_Celsius_Mittel_Tagesminimum',
+  'Temperatur_Celsius_Mittel_Tagesdurchschnitt',
+  'Temperatur_Celsius_Mittel_Tagesmaximum'
+];
+
+const temperature_lables = {
+  'Temperatur_Celsius_Mittel_Tagesdurchschnitt': "Jahresmittel aus Tagesdurchschnitt",
+  'Temperatur_Celsius_Mittel_Tagesminimum': "Jahresmittel aus Tagesminimum",
+  'Temperatur_Celsius_Mittel_Tagesmaximum': "Jahresmittel aus Tagesmaximum",
 };
 
-function label_temp(variable) {
-  return temp_variables[variable]
+function label_temperature(variable) {
+  return temperature_lables[variable]
 };
 ```
 
 <div class="grid grid-cols-2">
+
 <div class="card">
-  <h2>Temperatur der Luft</h2>
-  <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_TN", "JA_TT", "JA_TX"],
-        legend: true,
-        tickFormat: label_temp,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(temp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(temp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: temperature_variables,
+      legend: true,
+      tickFormat: label_temperature,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(long_table(points, temperature_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(ma30y, temperature_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+    ]
+}))}
+</div> <!-- body -->
+<div class='info'>
 
-</div>
+Dieses Diagramm zeigt den Temperaturverlauf in Form von Jahresmittelwerten der Lufttemperatur über mehrere Jahrzehnte, basierend auf drei unterschiedlichen Berechnungsarten:
 
-<div class="card" style="display:flex; flex-direction:column; justify-content: space-between">
-  <div>
-  <h2>Temperatur der Luft</h2>
-  <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
-  </div>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(maxtemp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(maxtemp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+1. **Jahresmittel aus Tagesminimum (blaue Punkte):** Der Durchschnitt der täglichen Minimaltemperaturen im Jahr.
+2. **Jahresmittel aus Tagesdurchschnitt (gelbe Punkte):** Der Durchschnitt der täglichen Durchschnittstemperaturen im Jahr.
+3. **Jahresmittel aus Tagesmaximum (rote Punkte):** Der Durchschnitt der täglichen Maximaltemperaturen im Jahr.
+
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die Temperaturen in Grad Celsius (°C).
+- **Punkte und Linien:** Die drei Kurven zeigen sowohl die einzelnen Datenpunkte (Punkte) als auch den gleitenden 30-jährigen Durchschnitt (Linien) für die jeweiligen Werte.
+
+#### Beobachtungen:
+- Die **Minimaltemperaturen (blau)** sind die niedrigsten Werte und zeigen einen relativ langsamen Anstieg.
+- Die **Durchschnittstemperaturen (gelb)** liegen zwischen den Minimal- und Maximaltemperaturen und weisen ebenfalls einen deutlichen Aufwärtstrend auf.
+- Die **Maximaltemperaturen (rot)** sind die höchsten Werte und zeigen den steilsten Anstieg, was auf eine Erwärmung der heißeren Tage hinweist.
+- Der **gleitende 30-jährige Durchschnitt** verdeutlicht die langfristigen Trends und minimiert jährliche Schwankungen.
+
+#### Interpretation:
+Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Maximum",
+        stroke: () => "", // use first color of pallette
+      }),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Maximum",
+        stroke: () => "", // use first color of pallette
+      }),
+    ]
+}))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt das **absolute Maximum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
+
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die maximal erreichten Temperaturen in Grad Celsius (°C).
+- **Punkte:** Repräsentieren die jährlichen absoluten Maximaltemperaturen.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Maximaltemperaturen verdeutlicht.
+
+#### Beobachtungen:
+- Die jährlichen absoluten Maximaltemperaturen zeigen große Schwankungen zwischen den Jahren.
+- Seit den 1990er-Jahren ist ein deutlicher Trend zu steigenden Maximaltemperaturen erkennbar.
+- Der gleitende 30-jährige Durchschnitt zeigt einen konstanten Anstieg, insbesondere ab den 2000er-Jahren.
+- Die höchsten absoluten Maximaltemperaturen liegen über 36 °C.
+
+#### Interpretation:
+Das Diagramm verdeutlicht, dass die maximalen Temperaturen in den letzten
+Jahrzehnten deutlich gestiegen sind, was auf eine Zunahme von
+Extremhitze-Ereignissen hindeutet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
-
-```sql id=sun
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_SD_S')
-order by year asc, variable asc
-```
 
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Temperatur der Luft</h2>
-  <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: '°C',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(mintemp, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(mintemp, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: '°C',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Minimum",
+        stroke: () => "", // use first color of pallette
+      }),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Temperatur_Celsius_Minimum",
+        stroke: () => "", // use first color of pallette
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt das **absolute Minimum der Lufttemperatur** im Laufe der Jahre, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, um langfristige Trends darzustellen.
+
+#### Eigenschaften:
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die minimal erreichten Temperaturen in Grad Celsius (°C).
+- **Punkte:** Repräsentieren die jährlichen absoluten Minimaltemperaturen.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Minimaltemperaturen verdeutlicht.
+
+#### Beobachtungen:
+- Die jährlichen absoluten Minimaltemperaturen schwanken stark, liegen jedoch durchweg unter 0 °C.
+- In den 1970er- und 1980er-Jahren traten teilweise extrem niedrige Minimaltemperaturen bis unter -18 °C auf.
+- Seit den 2000er-Jahren ist der gleitende 30-jährige Durchschnitt leicht ansteigend, was auf mildere Winter hindeutet.
+- Die absoluten Minimaltemperaturen zeigen eine Tendenz zu weniger extrem kalten Werten.
+
+#### Interpretation:
+Die Daten deutet darauf hin, dass die tiefsten Temperaturen in den
+letzten Jahrzehnten weniger extrem geworden sind, was auf eine
+allgemeine Erwärmung, insbesondere in den kältesten Perioden des Jahres,
+hindeutet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Sonnenstunden</h2>
-  <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(sun, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(sun, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable",
-        }),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Sonnenstunden</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Sonnenscheindauer_Stunden_Summe",
+        stroke: () => "", // use first color of pallette
+      }),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Sonnenscheindauer_Stunden_Summe",
+        stroke: () => "", // use first color of pallette
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Jahressumme der Sonnenstunden** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends in der Sonnenscheindauer darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die jährliche Gesamtdauer der Sonnenstunden in Stunden (h) an.
+- **Punkte:** Repräsentieren die jährliche Summe der Sonnenstunden.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die jährliche Summe der Sonnenstunden zeigt im Verlauf der Jahrzehnte Schwankungen.
+- Bis etwa 1995 sind die Sonnenstunden relativ konstant oder leicht rückläufig.
+- Ab den 2000er-Jahren ist ein deutlicher Anstieg in der Anzahl der Sonnenstunden zu erkennen.
+- Der 30-jährige gleitende Durchschnitt zeigt einen kontinuierlichen Anstieg ab den 2000er-Jahren.
+
+#### Interpretation:
+Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedingungen hinweisen, wie beispielsweise eine Abnahme der Bewölkung oder eine längere Dauer von Hochdruckwetterlagen.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
-
-```sql id=rain
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_RR')
-order by year asc, variable asc
-```
-
-```sql id=maxrain
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_MX_RS')
-order by year asc, variable asc
-```
 
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Niederschlag</h2>
-  <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: 'Millimeter',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(rain, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(rain, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: 'Millimeter',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Summe",
+        stroke: () => "", // use first color of pallette
+      }),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Summe",
+        stroke: () => "", // use first color of pallette
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Jahressumme des Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die jährliche Gesamtsumme des Niederschlags in Millimetern (mm) an.
+- **Punkte:** Repräsentieren die jährliche Niederschlagsmenge.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die jährliche Niederschlagsmenge schwankt stark von Jahr zu Jahr, mit Werten zwischen etwa 650 mm und 1.000 mm.
+- Bis Mitte der 1990er-Jahre ist keine klare Tendenz erkennbar.
+- Ab den 2000er-Jahren zeigt der 30-jährige gleitende Durchschnitt einen leichten Rückgang, der sich auf einem stabilen Niveau einzupendeln scheint.
+
+#### Interpretation:
+Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen Niederschlagsmenge hin, wobei die jährlichen Schwankungen weiterhin groß bleiben.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Niederschlag</h2>
-  <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: 'Millimeter',
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(maxrain, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(maxrain, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: 'Millimeter',
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(points, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
+        stroke: () => "", // use first color of pallette
+      }),
+      Plot.line(ma30y, {
+        x: "Jahr",
+        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
+        stroke: () => "", // use first color of pallette
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt das **Jahresmaximum des täglichen Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die höchste an einem Tag gemessene Niederschlagsmenge in Millimetern (mm) an.
+- **Punkte:** Repräsentieren das jeweilige Jahresmaximum des täglichen Niederschlags.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+
+#### Beobachtungen:
+- Die Jahresmaxima des täglichen Niederschlags schwanken stark, mit Spitzenwerten von über 80 mm.
+- Ein leichter Rückgang des gleitenden Durchschnitts ist von den frühen 2000er-Jahren bis etwa 2010 erkennbar.
+- In den letzten Jahren bleibt der gleitende Durchschnitt auf einem relativ konstanten Niveau.
+
+#### Interpretation:
+Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankungen unterliegen, ohne dass ein klarer langfristiger Auf- oder Abwärtstrend erkennbar ist.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
-
-```sql id=klindex
-select
-  year,
-  variable,
-  coalesce(value::double, 'NaN'::double) as value,
-  coalesce(ma30y::double, 'NaN'::double) as ma30y,
-from long_ma30y
-where variable in ('JA_EISTAGE', 'JA_FROSTTAGE', 'JA_HEISSE_TAGE',
-                   'JA_SOMMERTAGE', 'JA_TROPENNAECHTE')
-order by year asc, variable asc
-```
 
 ```js
-const klindex_variables = {
-  "JA_EISTAGE": "Eistage (Maximum unter 0°C)",
-  "JA_FROSTTAGE": "Frosttage (Minimum unter 0°C)",
-  "JA_HEISSE_TAGE": "Heiße Tage (Maximum über 30°C)",
-  "JA_SOMMERTAGE": "Sommertage (Maximum über 25°C)",
-  "JA_TROPENNAECHTE": "Tropennächte (Minimum über 20°C)",
+const klindex_kalt_variables = [
+  'Eistage_Anzahl',
+  'Frosttage_Anzahl',
+]
+
+const klindex_warm_variables = [
+  'Sommertage_Anzahl',
+  'Heisse_Tage_Anzahl',
+]
+
+const klindex_nacht_variables = [
+  'Tropennaechte_Anzahl',
+]
+
+const klindex_labels = {
+  "Eistage_Anzahl": "Eistage (Maximum unter 0°C)",
+  "Frosttage_Anzahl": "Frosttage (Minimum unter 0°C)",
+  "Heisse_Tage_Anzahl": "Heiße Tage (Maximum über 30°C)",
+  "Sommertage_Anzahl": "Sommertage (Maximum über 25°C)",
+  "Tropennaechte_Anzahl": "Tropennächte (Minimum über 20°C)",
 };
 
 function label_klindex(variable) {
-  if (variable in klindex_variables) {
-    return klindex_variables[variable]
+  if (variable in klindex_labels) {
+    return klindex_labels[variable]
   } else {
     return variable
   }
@@ -549,79 +844,218 @@ function label_klindex(variable) {
 <div class="grid grid-cols-2">
 
 <div class="card">
-  <h2>Klimakenntage</h2>
-  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_EISTAGE", "JA_FROSTTAGE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: klindex_kalt_variables,
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(long_table(points, klindex_kalt_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(ma30y, klindex_kalt_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Tage pro Jahr mit Frost- und Eistagen** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **Gelbe Punkte:** Repräsentieren die Anzahl der Frosttage (Tage mit einem Minimum unter 0 °C).
+- **Blaue Punkte:** Repräsentieren die Anzahl der Eistage (Tage mit einem Maximum unter 0 °C).
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Die Anzahl der Frosttage (gelb) ist deutlich höher als die Anzahl der Eistage (blau).
+- Beide Zeitreihen zeigen eine abnehmende Tendenz im gleitenden Durchschnitt, wobei der Rückgang bei den Eistagen stärker ausgeprägt ist.
+- Besonders ab den 2000er-Jahren ist der Rückgang der Eistage deutlicher sichtbar.
+
+#### Interpretation:
+Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre abnimmt, was auf mildere Winterbedingungen hindeutet.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 <div class="card">
-  <h2>Klimakenntage</h2>
-  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
-  ${resize((width) => Plot.plot({
-      width,
-      grid: true,
-      inset: 10,
-      x: {
-        label: 'Jahr',
-        labelAnchor: 'center',
-        labelArrow: 'none',
-      },
-      y: {
-        label: null,
-        labelArrow: 'none',
-        tickFormat: Plot.formatNumber("de-DE"),
-      },
-      color: {
-        domain: ["JA_SOMMERTAGE", "JA_HEISSE_TAGE", "JA_TROPENNAECHTE"],
-        legend: true,
-        tickFormat: label_klindex,
-      },
-      marks: [
-        Plot.frame(),
-        Plot.dot(klindex, {
-          x: "year",
-          y: "value",
-          stroke: "variable",
-        }),
-        Plot.line(klindex, {
-          x: "year",
-          y: "ma30y",
-          stroke: "variable"},
-        ),
-      ]
-    }))}
-</div>
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: klindex_warm_variables,
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(long_table(points, klindex_warm_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(ma30y, klindex_warm_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Sommertage und heißen Tage pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **Blaue Punkte:** Repräsentieren die Sommertage (Tage mit einem Maximum über 25 °C).
+- **Gelbe Punkte:** Repräsentieren die heißen Tage (Tage mit einem Maximum über 30 °C).
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Die Anzahl der Sommertage (blau) ist deutlich höher als die der heißen Tage (gelb).
+- Beide Zeitreihen zeigen einen ansteigenden Trend im gleitenden Durchschnitt, besonders deutlich ab den 1990er-Jahren.
+- Der Anstieg der heißen Tage (gelb) ist steiler als der der Sommertage (blau).
+
+#### Interpretation:
+Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf der Jahre häufiger geworden sind.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools">
+<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
+<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
+</div> <!-- tools -->
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => Plot.plot({
+    width,
+    grid: true,
+    inset: 10,
+    x: {
+      label: 'Jahr',
+      labelAnchor: 'center',
+      labelArrow: 'none',
+      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
+    },
+    y: {
+      label: null,
+      labelArrow: 'none',
+      tickFormat: Plot.formatNumber("de-DE"),
+    },
+    color: {
+      domain: klindex_nacht_variables,
+      legend: true,
+      tickFormat: label_klindex,
+    },
+    marks: [
+      Plot.frame(),
+      Plot.dot(long_table(points, klindex_nacht_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(ma30y, klindex_nacht_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+    ]
+  }))}
+</div> <!-- body -->
+<div class='info'>
+
+Dieses Diagramm zeigt die **Anzahl der Tropennächte pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+
+#### Eigenschaften:
+- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Gibt die Anzahl der Tropennächte an (Nächte mit einem Minimum über 20 °C).
+- **Blaue Punkte:** Repräsentieren die jährliche Anzahl der Tropennächte.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+
+#### Beobachtungen:
+- Tropennächte waren bis in die 1990er-Jahre nahezu nicht vorhanden.
+- Ab den 2000er-Jahren treten Tropennächte häufiger auf, mit einem deutlichen Anstieg nach 2010.
+- Der 30-jährige gleitende Durchschnitt zeigt seit den 2000er-Jahren eine leicht ansteigende Tendenz.
+
+#### Interpretation:
+Das Diagramm zeigt, dass Tropennächte in den letzten Jahrzehnten häufiger geworden sind, obwohl sie insgesamt noch selten auftreten.
+
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
 
 </div> <!-- grid -->
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

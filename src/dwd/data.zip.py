@@ -25,15 +25,14 @@ kl_tables = read_tables_from_zip(r)
 
 # ---
 
-tables = { 'kl_' + k: v for k, v in kl_tables.items() }
-tables |= { 'klindex_' + k: v for k, v in klindex_tables.items() }
+tables = {}
 
 # ---
 
-kl_data = tables['kl_data']
-kl_variables = tables['kl_meta_parameter']['Parameter'].drop_duplicates()
-klindex_data = tables['klindex_data']
-klindex_variables = tables['klindex_meta_parameter']['Parameter'].drop_duplicates()
+kl_data = kl_tables['data']
+kl_variables = kl_tables['meta_parameter']['Parameter'].drop_duplicates()
+klindex_data = klindex_tables['data']
+klindex_variables = klindex_tables['meta_parameter']['Parameter'].drop_duplicates()
 
 sql_long_ma30y = f"""
 with
@@ -47,7 +46,7 @@ long as (
     value for variable in ({", ".join(kl_variables)})
   )
   where value != -999
-  and year >= '1972-01-01'
+  and year >= '1973-01-01'
   union
   select
     MESS_DATUM_BEGINN as year,
@@ -58,7 +57,7 @@ long as (
     value for variable in ({", ".join(klindex_variables)})
   )
   where value != -999
-  and year >= '1972-01-01'
+  and year >= '1973-01-01'
 ),
 ma as (
   select
@@ -82,7 +81,85 @@ left join ma as b
 on a.variable = b.variable and a.year = b.year
 """
 
-tables['long_ma30y'] = duckdb.query(sql_long_ma30y).df()
+long_ma30y = duckdb.query(sql_long_ma30y).df()
+
+# ---
+
+kl_meta_geo = kl_tables['meta_geo']
+
+sql_geo = """
+with typed as(
+  select
+    (Von_Datum::date)::text as Von,
+    (Bis_Datum::date)::text as Bis,
+    "Geogr.Breite" as Geografische_Breite_WGS84_Dezimal,
+    "Geogr.Laenge" as Geografische_Laenge_WGS84_Dezimal,
+  from kl_meta_geo)
+select
+  min(von) as Von,
+  max(bis) as Bis,
+  Geografische_Breite_WGS84_Dezimal,
+  Geografische_Laenge_WGS84_Dezimal,
+from typed
+where Von >= '1972-01-01'
+group by
+  Geografische_Breite_WGS84_Dezimal,
+  Geografische_Laenge_WGS84_Dezimal,
+order by Von asc
+"""
+
+tables['Standort'] = duckdb.query(sql_geo).df()
+
+# ---
+
+def pivot(column):
+    return f"""
+WITH long AS (
+    SELECT year, variable, {column} as value
+    FROM long_ma30y
+    WHERE {column} IS NOT NULL
+), wide AS (
+    PIVOT long
+    ON variable
+    USING first(value)
+    GROUP BY year
+    ORDER BY year ASC
+)
+SELECT
+    extract('year' from year) as Jahr,
+    JA_TT as Temperatur_Celsius_Mittel_Tagesdurchschnitt,
+    JA_TN as Temperatur_Celsius_Mittel_Tagesminimum,
+    JA_TX as Temperatur_Celsius_Mittel_Tagesmaximum,
+    JA_MX_TX as Temperatur_Celsius_Maximum,
+    JA_MX_TN as Temperatur_Celsius_Minimum,
+    JA_SD_S as Sonnenscheindauer_Stunden_Summe,
+    JA_RR as Niederschlag_Millimeter_Summe,
+    JA_MX_RS as Niederschlag_Millimeter_Maximum_Tagesmaximum,
+    JA_EISTAGE as Eistage_Anzahl,
+    JA_FROSTTAGE as Frosttage_Anzahl,
+    JA_HEISSE_TAGE as Heisse_Tage_Anzahl,
+    JA_SOMMERTAGE as Sommertage_Anzahl,
+    JA_TROPENNAECHTE as Tropennaechte_Anzahl
+FROM wide
+    """
+
+tables['Jahreswerte'] = duckdb.query(pivot('value')).df()
+tables['Jahreswerte_30Jahre_gleitender_Durchschnitt'] = duckdb.query(pivot('ma30y')).df()
+
+# ---
+
+jahreswerte = tables['Jahreswerte']
+columns = [ f'avg({v}::double) as {v}' for v in jahreswerte.columns if v != 'Jahr' ]
+sql_Referenzperiode = f"""
+select { ', '.join(columns) }
+from jahreswerte
+where Jahr >= 1973
+and Jahr <= 2000
+"""
+
+tables['Referenzperiode_1973_2000'] = duckdb.query(sql_Referenzperiode).df()
+
+# ---
 
 zip_file = zip_tables_to_buf(tables)
 

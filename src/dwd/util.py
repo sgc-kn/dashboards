@@ -128,6 +128,8 @@ def zip_tables_to_buf(tables):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "a", zipfile.ZIP_DEFLATED, False) as zf:
         for (name, df) in tables.items():
-            with zf.open(name + '.parquet', 'w') as f:
-                df.to_parquet(f)
+            # with zf.open(name + '.parquet', 'w') as f:
+            #     df.to_parquet(f)
+            with zf.open(name + '.csv', 'w') as f:
+                df.to_csv(f, index=False)
     return buf.getvalue()
