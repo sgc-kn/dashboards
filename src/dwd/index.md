@@ -105,9 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+# Wetterbeobachtungen
+
+## des Deutschen Wetterdienstes in Konstanz
+
 ```js
-const points = FileAttachment("data/Jahreswerte.csv").csv({typed: true})
+const geo = FileAttachment("data/Standort.csv").csv({typed: true})
+const ref_tab = FileAttachment("data/Referenzperiode_1973_2000.csv").csv({typed: true})
+
 const ma30y = FileAttachment("data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const points = FileAttachment("data/Jahreswerte.csv").csv({typed: true})
 
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
@@ -117,16 +124,6 @@ function long_table(wide_table, variables) {
       value: row[variable]
   })))
 };
-```
-
-# Wetterbeobachtungen
-
-## des Deutschen Wetterdienstes in Konstanz
-
-```js
-const geo = FileAttachment("data/Standort.csv").csv({typed: true})
-const ref_tab = FileAttachment("data/Referenzperiode_1973_2000.csv").csv({typed: true})
-const klindex_last_tab = FileAttachment("data/klindex_last.csv").csv({typed: true})
 ```
 
 ```js
