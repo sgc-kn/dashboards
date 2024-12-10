@@ -20,18 +20,18 @@ shell activation](https://devenv.sh/automatic-shell-activation/).
 Within this environment you can start a local preview server by running:
 
 ```
-devenv up
+npm run dev
 ```
 
 Then visit <http://localhost:3000> to preview your project.
 
-If you don't have `devenv` ready you can instead run `npm run dev`.
+**Alternatively**, we also support [Github Codespaces](https://github.com/features/codespaces).
 
-For more information, see <https://observablehq.com/framework/getting-started>.
 
 ## Project structure
 
 A typical Framework project looks like this:
+
 
 ```ini
 .
@@ -69,3 +69,7 @@ A typical Framework project looks like this:
 | `npm run build`      | Build your static site, generating `./dist`              |
 | `npm run clean`      | Clear the local data loader cache                        |
 | `npm run observable` | Run commands like `observable help`                      |
+
+## More Info
+
+For more information, see <https://observablehq.com/framework/getting-started>.
