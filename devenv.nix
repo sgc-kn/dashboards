@@ -1,6 +1,9 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
+  # https://devenv.sh/integrations/codespaces-devcontainer/
+  devcontainer.enable = true;
+
   # https://devenv.sh/basics/
   env.DEVENV = "sgc-kn/dashboards";
 
