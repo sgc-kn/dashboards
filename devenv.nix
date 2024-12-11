@@ -8,7 +8,10 @@
   env.DEVENV = "sgc-kn/dashboards";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [
+    pkgs.git
+    pkgs.git-lfs
+  ];
 
   # https://devenv.sh/languages/
   languages.javascript.enable = true;
