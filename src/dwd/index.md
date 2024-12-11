@@ -3,108 +3,6 @@ theme: dashboard
 toc: false
 ---
 
-<style>
-
-.card {
-  display: flex;
-  flex-direction: column;
-}
-
-.card .with-info {
-  /* enable absolute positioning of .info over .body */
-  position: relative;
-
-  /* grow .body to size of grid neighbors */
-  flex-grow: 1;
-
-  /* bottom-align plot in card */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.card .with-info .info {
-  /* position over .body inheriting its size */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-}
-
-.card .with-info .info {
-  visibility: hidden;
-}
-
-.card.flip .with-info .info {
-  visibility: visible;
-}
-
-.card.flip .with-info .body {
-  visibility: hidden;
-}
-
-.card .header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.card .header .tools {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap-reverse;
-  justify-content: flex-end;
-}
-
-.card .header .tools a {
-  padding: 0px 3px;
-  color: var(--theme-foreground-muted);
-  cursor: pointer;
-}
-
-.card .header .tools a:hover ion-icon {
-  color: var(--theme-foreground);
-  --ionicon-stroke-width: 48px;
-}
-
-.card .header .tools ion-icon {
-  font-size: 1.5rem;
-}
-
-.card .header .tools .close-button,
-.card.flip .header .tools .info-button {
-  display: none;
-}
-
-.card.flip .header .tools .close-button {
-  display: inline;
-}
-
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.card');
-
-  cards.forEach(card => {
-    const infoButton = card.querySelector('.info-button');
-    const closeButton = card.querySelector('.close-button');
-    if (closeButton) {
-      closeButton.addEventListener('click', () => {
-        card.classList.toggle('flip');
-      });
-    }
-    if (infoButton) {
-      infoButton.addEventListener('click', () => {
-        card.classList.toggle('flip');
-      });
-    }
-  });
-});
-</script>
-
 # Wetterbeobachtungen
 
 ## des Deutschen Wetterdienstes in Konstanz
@@ -183,9 +81,7 @@ ${map_div}
 <h3>opendata.dwd.de</h3>
 </a>
 </div> <!-- title -->
-<div class="tools">
-<a download href='data.zip' class="download-button"><ion-icon name="cloud-download-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a download href='data.zip' class="download-button"></a></div>
 </div> <!-- header -->
 <div id=map_height>
 
@@ -207,16 +103,16 @@ in der Stadt sind meist höher als im ländlichen Raum.
 
 <div class="card grid-colspan-1">
 
-## Urheber
+<h2>Urheber</h2>
 <a href="https://smart-green-city-konstanz.de/">
 <h3>Smart Green City Konstanz</h3>
 </a>
 
 <img title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="../assets/sponsors-wide.png" />
 
-</div>
+</div> <!-- card -->
 
-</div><!-- grid -->
+</div> <!-- grid -->
 
 <div class="grid grid-cols-4">
 <div class="card grid-colspan-4">
@@ -321,9 +217,9 @@ in der Stadt sind meist höher als im ländlichen Raum.
 </tbody>
 </table>
 
-</div>
+</div> <!-- card -->
 
-</div><!-- grid -->
+</div> <!-- grid -->
 
 ```js
 const map = L.map(map_div, {
@@ -399,10 +295,7 @@ function label_temperature(variable) {
 <h2>Temperatur der Luft</h2>
 <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -466,16 +359,14 @@ Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 </div> <!-- info -->
 </div> <!-- with-info -->
 </div> <!-- card -->
+
 <div class="card">
 <div class="header">
 <div class="title">
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -544,10 +435,7 @@ Extremhitze-Ereignissen hindeutet.
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -613,10 +501,7 @@ hindeutet.
 <h2>Sonnenstunden</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -683,10 +568,7 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 <h2>Niederschlag</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -748,10 +630,7 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 <h2>Niederschlag</h2>
 <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -849,10 +728,7 @@ function label_klindex(variable) {
 <h2>Klimakenntage</h2>
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -920,10 +796,7 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <h2>Klimakenntage</h2>
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -991,10 +864,7 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf 
 <h2>Klimakenntage</h2>
 <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools">
-<a class="info-button"><ion-icon name="information-circle-outline"></ion-icon></a>
-<a class="close-button"><ion-icon name="close-circle-outline"></ion-icon></a>
-</div> <!-- tools -->
+<div class="tools"><a class="info-button"></a></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -1056,6 +926,3 @@ Das Diagramm zeigt, dass Tropennächte in den letzten Jahrzehnten häufiger gewo
 </div> <!-- card -->
 
 </div> <!-- grid -->
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
