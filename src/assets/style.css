@@ -9,12 +9,6 @@
   --serif: var(--sans-serif);
 }
 
-/* Helper Classes */
-
-.focus {
-  color: var(--theme-foreground-focus);
-}
-
 /* Card Info and Download Buttons */
 
 .card {
