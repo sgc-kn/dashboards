@@ -3,9 +3,8 @@ theme: dashboard
 toc: false
 ---
 
-# Wetterbeobachtungen
-
-## des Deutschen Wetterdienstes in Konstanz
+<h1>Wetterbeobachtungen</h1>
+<h2>des Deutschen Wetterdienstes in Konstanz</h2>
 
 ```js
 const geo = FileAttachment("data/Standort.csv").csv({typed: true})
@@ -90,7 +89,8 @@ Der deutsche Wetterdienst stellt
 historische Messdaten</a>
 zu allen offiziellen Messstationen bereit.
 
-Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${minYear} bis ${maxYear}</b></span> ab.
+Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in
+Konstanz. Die Daten decken die Zeitspanne <b>${minYear} bis ${maxYear}</b> ab.
 
 Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
 L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
@@ -103,7 +103,7 @@ in der Stadt sind meist höher als im ländlichen Raum.
 
 <div class="card grid-colspan-1">
 
-<h2>Urheber</h2>
+<h2>Betreiber dieser Website</h2>
 <a href="https://smart-green-city-konstanz.de/">
 <h3>Smart Green City Konstanz</h3>
 </a>
@@ -117,8 +117,8 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <div class="grid grid-cols-4">
 <div class="card grid-colspan-4">
 
-## Klimakenntage
-### Anzahl in den letzten Jahren und der Referenzperiode 1973–2000 im Vergleich
+<h2>Klimakenntage</h2>
+<h3>Anzahl pro Jahr im Vergleich zur Referenzperiode 1973–2000</h3>
 
 <table style='max-width:100%'>
 <thead>
@@ -217,6 +217,13 @@ in der Stadt sind meist höher als im ländlichen Raum.
 </tbody>
 </table>
 
+<span class=muted>Die Referenzwerte ergeben sich aus dem Durchschnitt
+der Jahre 1973 bis 2000.</span>
+
+<!-- Üblicherweise werden als Referenzperiode die Jahre
+1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
+beginnen aber erst 1973. -->
+
 </div> <!-- card -->
 
 </div> <!-- grid -->
@@ -256,7 +263,7 @@ geo.forEach(row => {
     row['Geografische_Laenge_WGS84_Dezimal'],
   ];
   points_to_fit.push(pos)
-  L.circleMarker(pos, {radius: 5, color: 'var(--theme-foreground-focus)'})
+  L.circleMarker(pos, {radius: 5, color: 'var(--theme-blue)'})
    .addTo(map)
    .bindTooltip(label_geo(row), {permanent: true})
    .openTooltip()
@@ -295,7 +302,7 @@ function label_temperature(variable) {
 <h2>Temperatur der Luft</h2>
 <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -345,16 +352,17 @@ Dieses Diagramm zeigt den Temperaturverlauf in Form von Jahresmittelwerten der L
 #### Eigenschaften:
 - **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
 - **Y-Achse:** Zeigt die Temperaturen in Grad Celsius (°C).
-- **Punkte und Linien:** Die drei Kurven zeigen sowohl die einzelnen Datenpunkte (Punkte) als auch den gleitenden 30-jährigen Durchschnitt (Linien) für die jeweiligen Werte.
+- **Punkte:** Beziehen sich auf ein einzelnes Jahr.
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Jahresmittelwerte verdeutlicht.
 
 #### Beobachtungen:
-- Die **Minimaltemperaturen (blau)** sind die niedrigsten Werte und zeigen einen relativ langsamen Anstieg.
-- Die **Durchschnittstemperaturen (gelb)** liegen zwischen den Minimal- und Maximaltemperaturen und weisen ebenfalls einen deutlichen Aufwärtstrend auf.
-- Die **Maximaltemperaturen (rot)** sind die höchsten Werte und zeigen den steilsten Anstieg, was auf eine Erwärmung der heißeren Tage hinweist.
-- Der **gleitende 30-jährige Durchschnitt** verdeutlicht die langfristigen Trends und minimiert jährliche Schwankungen.
+- Die Minimaltemperaturen (blau) sind die niedrigsten Werte und zeigen einen relativ langsamen Anstieg.
+- Die Durchschnittstemperaturen (gelb) liegen zwischen den Minimal- und Maximaltemperaturen und weisen ebenfalls einen deutlichen Aufwärtstrend auf.
+- Die Maximaltemperaturen (rot) sind die höchsten Werte und zeigen den steilsten Anstieg, was auf eine Erwärmung der heißeren Tage hinweist.
+- Der gleitende 30-jährige Durchschnitt verdeutlicht die langfristigen Trends und minimiert jährliche Schwankungen.
 
 #### Interpretation:
-Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
+Insgesamt ist eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 
 </div> <!-- info -->
 </div> <!-- with-info -->
@@ -366,7 +374,7 @@ Insgesamt ist eine eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -435,7 +443,7 @@ Extremhitze-Ereignissen hindeutet.
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -501,7 +509,7 @@ hindeutet.
 <h2>Sonnenstunden</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -540,10 +548,10 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt die **Jahressumme der Sonnenstunden** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends in der Sonnenscheindauer darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die jährliche Gesamtdauer der Sonnenstunden in Stunden (h) an.
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die jährliche Gesamtdauer der Sonnenstunden in Stunden (h).
 - **Punkte:** Repräsentieren die jährliche Summe der Sonnenstunden.
-- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Sonnenstunden verdeutlicht.
 
 #### Beobachtungen:
 - Die jährliche Summe der Sonnenstunden zeigt im Verlauf der Jahrzehnte Schwankungen.
@@ -568,7 +576,7 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 <h2>Niederschlag</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -607,10 +615,10 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt die **Jahressumme des Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die jährliche Gesamtsumme des Niederschlags in Millimetern (mm) an.
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die jährliche Gesamtsumme des Niederschlags in Millimetern (mm).
 - **Punkte:** Repräsentieren die jährliche Niederschlagsmenge.
-- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung des Niederschlags verdeutlicht.
 
 #### Beobachtungen:
 - Die jährliche Niederschlagsmenge schwankt stark von Jahr zu Jahr, mit Werten zwischen etwa 650 mm und 1.000 mm.
@@ -630,7 +638,7 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 <h2>Niederschlag</h2>
 <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -669,10 +677,10 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt das **Jahresmaximum des täglichen Niederschlags** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die höchste an einem Tag gemessene Niederschlagsmenge in Millimetern (mm) an.
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die höchste an einem Tag gemessene Niederschlagsmenge in Millimetern (mm).
 - **Punkte:** Repräsentieren das jeweilige Jahresmaximum des täglichen Niederschlags.
-- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der den langfristigen Trend glättet.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung des Niederschlags verdeutlicht.
 
 #### Beobachtungen:
 - Die Jahresmaxima des täglichen Niederschlags schwanken stark, mit Spitzenwerten von über 80 mm.
@@ -726,9 +734,9 @@ function label_klindex(variable) {
 <div class="header">
 <div class="title">
 <h2>Klimakenntage</h2>
-<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+<h3>Anzahl Eis- und Frosttage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -772,11 +780,11 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt die **Anzahl der Tage pro Jahr mit Frost- und Eistagen** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die Anzahl der Tage.
 - **Gelbe Punkte:** Repräsentieren die Anzahl der Frosttage (Tage mit einem Minimum unter 0 °C).
 - **Blaue Punkte:** Repräsentieren die Anzahl der Eistage (Tage mit einem Maximum unter 0 °C).
-- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Klimakenntage verdeutlicht.
 
 #### Beobachtungen:
 - Die Anzahl der Frosttage (gelb) ist deutlich höher als die Anzahl der Eistage (blau).
@@ -794,9 +802,9 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <div class="header">
 <div class="title">
 <h2>Klimakenntage</h2>
-<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+<h3>Anzahl Sommertage und Heisse Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -840,11 +848,11 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt die **Anzahl der Sommertage und heißen Tage pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die Anzahl der Tage an.
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die Anzahl der Tage.
 - **Blaue Punkte:** Repräsentieren die Sommertage (Tage mit einem Maximum über 25 °C).
 - **Gelbe Punkte:** Repräsentieren die heißen Tage (Tage mit einem Maximum über 30 °C).
-- **Linien:** Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Klimakenntage verdeutlicht.
 
 #### Beobachtungen:
 - Die Anzahl der Sommertage (blau) ist deutlich höher als die der heißen Tage (gelb).
@@ -862,9 +870,9 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf 
 <div class="header">
 <div class="title">
 <h2>Klimakenntage</h2>
-<h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+<h3>Anzahl Tropennächte pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><a class="info-button"></a></div>
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -908,10 +916,10 @@ ${resize((width) => Plot.plot({
 Dieses Diagramm zeigt die **Anzahl der Tropennächte pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
-- **X-Achse:** Zeigt die Zeit (Jahre) von den 1970er-Jahren bis in die 2020er-Jahre.
-- **Y-Achse:** Gibt die Anzahl der Tropennächte an (Nächte mit einem Minimum über 20 °C).
+- **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
+- **Y-Achse:** Zeigt die Anzahl der Tropennächte an (Nächte mit einem Minimum über 20 °C).
 - **Blaue Punkte:** Repräsentieren die jährliche Anzahl der Tropennächte.
-- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung glättet.
+- **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Tropennächte verdeutlicht.
 
 #### Beobachtungen:
 - Tropennächte waren bis in die 1990er-Jahre nahezu nicht vorhanden.

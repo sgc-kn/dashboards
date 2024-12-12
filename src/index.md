@@ -3,35 +3,34 @@ toc:
   label: 'Neuigkeiten'
 ---
 
-# Willkommen bei der Datenplattform Konstanz
+<h1>Willkommen</h1>
+<h2>bei der Datenplattform der Stadt Konstanz</h2>
 
 Hier entstehen öffentlich zugängliche Auswertungen zu interessanten
 Daten mit Bezug zur Stadt Konstanz. Unser Fokus liegt auf Klima- und
-Umweltdaten. Diese Arbeit ist Teil des Projektes
+Umweltdaten. Diese Aufbereitungen sind Teil des Projektes
 [Klimadatenplattform][project] im Rahmen des Programms [Smart Green
 City][sgc] der Stadt Konstanz.
 
-Dieses Projekt ist open-source: wir veröffentlichen unseren Code auf
-[Github][repo].
-
 [project]: https://smart-green-city-konstanz.de/klimadatenplattform
 [sgc]: https://smart-green-city-konstanz.de/
-[repo]: https://github.com/sgc-kn/dashboards/
 
 ---
+
+<h1>Neuigkeiten</h1><h2></h2>
 
 ## Oktober 2024
 
 Wir arbeiten an einem Dashboard zu den langjährigen Beobachtungsdaten
 des deutschen Wetterdienstes (DWD) in Konstanz.
 
-[➜ Hier geht's zum Dashboard !](dwd/index.html)
-
 Wusstest du, dass es zunehmend mehr heiße Tage in Konstanz gibt?
 Der 30-jährige gleitende Durchschnitt von heißen Tagen über 30° Celsius
-ist angestiegen von durchschnittlich 8,6 heißen Tagen zwischen 1973 und
-2003 auf 15,8 Tagen zwischen 1993 und 2023. Das ist eine Steigerung
+ist angestiegen von durchschnittlich 9 heißen Tagen zwischen 1973 und
+2003 auf 16 Tagen zwischen 1993 und 2023. Das ist eine Steigerung
 um 83%.
+
+[➜ Hier geht's zum Dashboard !](dwd/index.html)
 
 ```js
 const dwd_points = FileAttachment("dwd/data/Jahreswerte.csv").csv({typed: true})

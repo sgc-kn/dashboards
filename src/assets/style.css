@@ -1,6 +1,14 @@
 @import url("observablehq:default.css");
 @import url("observablehq:theme-air.css");
 
+/* Konstanz CD */
+
+:root {
+  --theme-foreground-focus: rgb(228,5,33);
+  --sans-serif: Inter, -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --serif: var(--sans-serif);
+}
+
 /* Card Info and Download Buttons */
 
 .card {
@@ -54,11 +62,18 @@
     flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
+    align-items: flex-end;
 }
 
+.card .header .tools button ,
 .card .header .tools a {
     padding: 0px 3px;
     cursor: pointer;
+}
+
+.card .header .tools button {
+    background: none;
+    border: none;
 }
 
 .card .info-button:before ,

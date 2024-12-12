@@ -4,18 +4,17 @@
 
 ## Kontakt
 
-Diese Website entsteht im Rahmen des Smart-Green-City Projektes
+Diese Website entsteht im Rahmen des Smart Green City-Projektes
 *„Klimadatenplattform”* der Stadt Konstanz.
 
 Sie haben Fragen oder Anregungen zu dieser Website? Dann melden Sie sich
-bitte mit einer Email an: **datenplattform@konstanz.de**.
+bitte mit einer E-Mail an: **datenplattform@konstanz.de**.
 
 Weiterführende Informationen finden Sie wie folgt:
+- [Website des Programms Smart Green City](https://smart-green-city-konstanz.de)
+- [Projektseite *„Klimadatenplattform”*](https://smart-green-city-konstanz.de/klimadatenplattform)
+- [Open-Source Veröffentlichungen auf Github](https://github.com/sgc-kn)
 - [Website der Stadt Konstanz](https://www.konstanz.de)
-- [Website zum Smart-Green-City Programm der Stadt
-  Konstanz](https://smart-green-city-konstanz.de)
-- [Smart-Green-City Projekt *„Klimadatenplattform”*](https://smart-green-city-konstanz.de/klimadatenplattform)
-- [Unsere Open-Source Veröffentlichungen auf Github](https://github.com/sgc-kn)
 
 ---
 
@@ -26,7 +25,7 @@ informieren wir Sie transparent darüber, welche Daten wir erheben und
 warum.
 
 Wenn Sie Fragen haben, die über diese Dokumentation hinaus gehen, senden Sie uns bitte
-eine Email an: **datenplattform@konstanz.de**.
+eine E-Mail an: **datenplattform@konstanz.de**.
 
 ### Minimale Datenverarbeitung
 
@@ -51,14 +50,14 @@ Danach werden die Daten automatisch gelöscht.
 ### Verwendung der Daten
 
 Die Zugriffs- und Fehlerprotokolle ermöglichen uns, technische Probleme
-zu identifizieren, Missbrauch zu verhindern, und auf Hacking-Versuche zu
+zu identifizieren, Missbrauch zu verhindern und auf Hacking-Versuche zu
 reagieren. Somit ist die Erfassung dieser Daten für den Betrieb der Website
 technisch notwendig.
 
 Darüber hinaus leiten wir aus den Zugriffs- und Fehlerprotokollen
 einfache Statistiken zur Nutzung der Website ab. Wir beantworten damit
 Fragen wie „Welche Seite wurde wie oft aufgerufen?”. Bei dieser
-Verwendung werden die Ihre Daten aggregiert und anonymisiert. Danach
+Verwendung werden Ihre Daten aggregiert und anonymisiert. Danach
 handelt es sich nicht mehr um personenbezogene Daten. Die Statistiken
 helfen uns bei der Instandhaltung und Weiterentwicklung der Website.
 
@@ -73,11 +72,11 @@ Gemäß der Datenschutzgrundverordnung (DSGVO) haben Sie das Recht,
 sowie deren **Löschung** zu beantragen.
 
 Da wir jedoch ausschließlich **IP-Adressen** protokollieren, ist die Verifizierung Ihrer Identität bei solchen Anfragen schwierig.
-Wenn Sie glauben, dass Ihre IP-Adresse protokolliert wurde, und eine Auskunft oder Löschung wünschen:
+Wenn Sie davon ausgehen, dass Ihre IP-Adresse protokolliert wurde, und eine Auskunft oder Löschung wünschen:
 1. Müssen Sie uns **nachweisen, dass die IP-Adresse Ihnen gehört**. Zum Beispiel können Sie eine Bestätigung Ihres Internetanbieters vorlegen, die zeigt, dass Sie eine bestimmte IP-Adresse zu einem bestimmten Zeitpunkt genutzt haben.
 2. Nach Erhalt dieser Informationen prüfen wir, ob Ihre IP-Adresse in unseren Protokollen enthalten ist, und antworten entsprechend.
 
-Bitte wenden Sie sich für derartige Anfragen mit einer Email an: **datenplattform@konstanz.de**.
+Bitte wenden Sie sich für derartige Anfragen mit einer E-Mail an: **datenplattform@konstanz.de**.
 
 Wenn Sie keinen ausreichenden Nachweis erbringen können, dürfen wir
 Ihrer Zugriffsanfrage nicht nachkommen.
