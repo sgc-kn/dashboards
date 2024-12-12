@@ -90,7 +90,8 @@ Der deutsche Wetterdienst stellt
 historische Messdaten</a>
 zu allen offiziellen Messstationen bereit.
 
-Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in Konstanz. Die Daten decken die Zeitspanne <span class=blue><b>${minYear} bis ${maxYear}</b></span> ab.
+Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in
+Konstanz. Die Daten decken die Zeitspanne <span class=focus><b>${minYear} bis ${maxYear}</b></span> ab.
 
 Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
 L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
