@@ -62,11 +62,18 @@
     flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
+    align-items: flex-end;
 }
 
+.card .header .tools button ,
 .card .header .tools a {
     padding: 0px 3px;
     cursor: pointer;
+}
+
+.card .header .tools button {
+    background: none;
+    border: none;
 }
 
 .card .info-button:before ,
