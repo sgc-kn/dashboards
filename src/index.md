@@ -4,7 +4,7 @@ toc:
 ---
 
 <h1>Willkommen</h1>
-<h2>bei der Datenplattform der Stadt Konstanz</h2>
+<h2>bei den Stadtdaten Konstanz</h2>
 
 Hier entstehen öffentlich zugängliche Auswertungen zu interessanten
 Daten mit Bezug zur Stadt Konstanz. Unser Fokus liegt auf Klima- und
