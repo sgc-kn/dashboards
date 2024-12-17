@@ -16,9 +16,10 @@
   # https://devenv.sh/languages/
   languages.javascript.enable = true;
   languages.javascript.npm.enable = true;
+  languages.javascript.npm.install.enable = true;
   languages.python.enable = true;
   languages.python.venv.enable = true;
-  languages.python.venv.requirements = "pip-tools";
+  languages.python.venv.requirements = ./requirements.txt;
 
   # https://devenv.sh/processes/
   processes.preview = {
@@ -46,21 +47,18 @@
   '';
 
   scripts.upgrade.exec = ''
-    # update lock files with newest versions & install
+    # update lock files with newest versions
 
     echo update npm packages and package-lock.json
     npm update
 
     echo update requirements.txt
     pip-compile --upgrade --strip-extras --quiet
-
-    echo install python dependencies from requirements.txt
-    pip-sync
   '';
 
-  enterShell = ''
-    update
-  '';
+  # enterShell = ''
+  #  update
+  # '';
 
   # https://devenv.sh/tasks/
   # tasks = {

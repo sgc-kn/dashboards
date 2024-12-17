@@ -1,4 +1,5 @@
 {
+  "name": "sgc-dashboards",
   "type": "module",
   "private": true,
   "scripts": {
