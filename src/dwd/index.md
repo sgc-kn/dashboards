@@ -802,7 +802,7 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <div class="header">
 <div class="title">
 <h2>Klimakenntage</h2>
-<h3>Anzahl Sommertage und Heisse Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+<h3>Anzahl Sommertage und Heiße Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
 <div class="tools"><button class="info-button" aria-label='Info'></button></div>
 </div> <!-- header -->
@@ -845,22 +845,22 @@ ${resize((width) => Plot.plot({
 </div> <!-- body -->
 <div class='info'>
 
-Dieses Diagramm zeigt die **Anzahl der Sommertage und heißen Tage pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
+Dieses Diagramm zeigt die **Anzahl der Sommertage und Heißen Tage pro Jahr** über mehrere Jahrzehnte, ergänzt durch einen **30-jährigen gleitenden Durchschnitt**, der langfristige Trends darstellt.
 
 #### Eigenschaften:
 - **X-Achse:** Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.
 - **Y-Achse:** Zeigt die Anzahl der Tage.
 - **Blaue Punkte:** Repräsentieren die Sommertage (Tage mit einem Maximum über 25 °C).
-- **Gelbe Punkte:** Repräsentieren die heißen Tage (Tage mit einem Maximum über 30 °C).
+- **Gelbe Punkte:** Repräsentieren die Heißen Tage (Tage mit einem Maximum über 30 °C).
 - **Linie:** Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Klimakenntage verdeutlicht.
 
 #### Beobachtungen:
-- Die Anzahl der Sommertage (blau) ist deutlich höher als die der heißen Tage (gelb).
+- Die Anzahl der Sommertage (blau) ist deutlich höher als die der Heißen Tage (gelb).
 - Beide Zeitreihen zeigen einen ansteigenden Trend im gleitenden Durchschnitt, besonders deutlich ab den 1990er-Jahren.
-- Der Anstieg der heißen Tage (gelb) ist steiler als der der Sommertage (blau).
+- Der Anstieg der Heißen Tage (gelb) ist steiler als der der Sommertage (blau).
 
 #### Interpretation:
-Das Diagramm verdeutlicht, dass Sommertage und besonders heiße Tage im Verlauf der Jahre häufiger geworden sind.
+Das Diagramm verdeutlicht, dass Sommertage und besonders Heiße Tage im Verlauf der Jahre häufiger geworden sind.
 
 </div> <!-- info -->
 </div> <!-- with-info -->
