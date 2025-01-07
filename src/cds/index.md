@@ -6,6 +6,67 @@ toc: false
 ```js
 const reanalyse = FileAttachment("cds/Reanalyse.csv").csv({typed: true})
 const reanalyse_ma30y = FileAttachment("cds/Reanalyse_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const projections = FileAttachment("cds/Vorhersagen.csv").csv({typed:true})
+
+function long_table(wide_table, variables) {
+  return wide_table.flatMap(row =>
+    variables.map(variable => ({
+      year: row['Jahr'],
+      variable,
+      value: row[variable]
+  })))
+};
+```
+
+
+```js
+const hot_days_variables = [
+  'Heisse_Tage_Anzahl',
+  'Heisse_Tage_Anzahl_Vorhersage_4_5',
+  'Heisse_Tage_Anzahl_Vorhersage_8_5',
+];
+
+const hot_days_lables = {
+  'Heisse_Tage_Anzahl': "Heisse Tage",
+  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+};
+
+function label_hot_days(variable) {
+  return hot_days_lables[variable]
+};
+
+const heat_waves_variables = [
+  'Hitzewellentage_Anzahl',
+  'Hitzewellentage_Anzahl_Vorhersage_4_5',
+  'Hitzewellentage_Anzahl_Vorhersage_8_5',
+];
+
+const heat_waves_lables = {
+  'Hitzewellentage_Anzahl': "Hitzewellentage",
+  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+};
+
+function label_heat_waves(variable) {
+  return heat_waves_lables[variable]
+};
+
+const tropical_nights_variables = [
+  'Tropennaechte_Anzahl',
+  'Tropennaechte_Anzahl_Vorhersage_4_5',
+  'Tropennaechte_Anzahl_Vorhersage_8_5',
+];
+
+const tropical_nights_lables = {
+  'Tropennaechte_Anzahl': "Tropennächte",
+  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+};
+
+function label_tropical_nights(variable) {
+  return heat_waves_lables[variable]
+};
 ```
 
 <h1>Klimamodelle</h1>
@@ -53,17 +114,28 @@ ${resize((width) => Plot.plot({
       labelArrow: 'none',
       tickFormat: Plot.formatNumber("de-DE"),
     },
+    color: {
+      domain: hot_days_variables,
+      legend: true,
+      tickFormat: label_hot_days,
+    },
     marks: [
-      Plot.frame(),
-      Plot.dot(reanalyse, {
-        x: "Jahr",
-        y: "Heisse_Tage_Anzahl",
-        stroke: () => "",
+      Plot.areaY(long_table(projections, hot_days_variables), {
+        x: "year",
+        y: "value",
+        fill: "variable",
+        stroke: "variable",
       }),
-      Plot.line(reanalyse_ma30y, {
-        x: "Jahr",
-        y: "Heisse_Tage_Anzahl",
-        stroke: () => "",
+      Plot.frame(),
+      Plot.dot(long_table(reanalyse, hot_days_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(reanalyse_ma30y, hot_days_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
     ]
   }))}
@@ -101,17 +173,27 @@ ${resize((width) => Plot.plot({
       labelArrow: 'none',
       tickFormat: Plot.formatNumber("de-DE"),
     },
+    color: {
+      domain: heat_waves_variables,
+      legend: true,
+      tickFormat: label_heat_waves,
+    },
     marks: [
       Plot.frame(),
-      Plot.dot(reanalyse, {
-        x: "Jahr",
-        y: "Hitzewellentage_Anzahl",
-        stroke: () => "",
+       Plot.dot(long_table(reanalyse, heat_waves_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
-      Plot.line(reanalyse_ma30y, {
-        x: "Jahr",
-        y: "Hitzewellentage_Anzahl",
-        stroke: () => "",
+      Plot.line(long_table(reanalyse_ma30y, heat_waves_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(projections, heat_waves_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
     ]
   }))}
