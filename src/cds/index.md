@@ -7,6 +7,8 @@ toc: false
 const reanalyse = FileAttachment("cds/Reanalyse.csv").csv({typed: true})
 const reanalyse_ma30y = FileAttachment("cds/Reanalyse_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
 const projections = FileAttachment("cds/Vorhersagen.csv").csv({typed:true})
+const projections_4_5 = FileAttachment("cds/Vorhersagen_4_5.csv").csv({typed:true})
+const projections_8_5 = FileAttachment("cds/Vorhersagen_8_5.csv").csv({typed:true})
 
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
@@ -65,9 +67,10 @@ const tropical_nights_lables = {
 };
 
 function label_tropical_nights(variable) {
-  return heat_waves_lables[variable]
+  return tropical_nights_lables[variable]
 };
 ```
+
 
 <h1>Klimamodelle</h1>
 <h2>aus dem Climate Data Store</h2>
@@ -139,6 +142,7 @@ ${resize((width) => Plot.plot({
       }),
     ]
   }))}
+
 </div> <!-- body -->
 <div class='info'>
 
@@ -154,9 +158,16 @@ TODO
 <h2>Klimakenntage</h2>
 <h3>Anzahl Hitzewellentage pro Jahr</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools">
+<button class="info-button" aria-label='Info'></button>
+</div>
 </div> <!-- header -->
 <div class='with-info'>
+
+```js
+const confirm4 = view(Inputs.checkbox(["4.5", "8.5"], {label: "Vorhersagen"}));
+```
+
 <div class='body'>
 ${resize((width) => Plot.plot({
     width,
@@ -190,13 +201,24 @@ ${resize((width) => Plot.plot({
         y: "value",
         stroke: "variable",
       }),
-      Plot.line(long_table(projections, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
+      ... (confirm4.includes("4.5") ? [
+            Plot.line(long_table(projections_4_5, heat_waves_variables), {
+              x: "year",
+              y: "value",
+              stroke: "variable",
+            })
+          ] : []),
+      ... (confirm4.includes("8.5") ? [
+            Plot.line(long_table(projections_8_5, heat_waves_variables), {
+              x: "year",
+              y: "value",
+              stroke: "variable",
+            })
+          ] : []),
     ]
   }))}
+  
+
 </div> <!-- body -->
 <div class='info'>
 
@@ -231,17 +253,27 @@ ${resize((width) => Plot.plot({
       labelArrow: 'none',
       tickFormat: Plot.formatNumber("de-DE"),
     },
+    color: {
+      domain: tropical_nights_variables,
+      legend: true,
+      tickFormat: label_tropical_nights,
+    },
     marks: [
       Plot.frame(),
-      Plot.dot(reanalyse, {
-        x: "Jahr",
-        y: "Tropennaechte_Anzahl",
-        stroke: () => "",
+      Plot.dot(long_table(reanalyse, tropical_nights_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
-      Plot.line(reanalyse_ma30y, {
-        x: "Jahr",
-        y: "Tropennaechte_Anzahl",
-        stroke: () => "",
+      Plot.line(long_table(reanalyse_ma30y, tropical_nights_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(projections, tropical_nights_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
     ]
   }))}

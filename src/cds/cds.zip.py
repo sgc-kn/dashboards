@@ -16,6 +16,7 @@ reanalysis = {
     'Tropennaechte_Anzahl': '05_tropical_nights-reanalysis-yearly-grid-1940-2023-v1.0-t2m.csv',
     'Hitzewellentage_Anzahl': '09_heat_waves_climatological-reanalysis-yearly-grid-1940-2023-v1.0-data.csv',
 }
+
 projections = {
     'Extremniederschlagstage_Anzahl_Vorhersage_4_5': '15_frequency_of_extreme_precipitation-projections-yearly-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
     'Extremniederschlagstage_Anzahl_Vorhersage_8_5': '15_frequency_of_extreme_precipitation-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
@@ -29,24 +30,57 @@ projections = {
     'Hitzewellentage_Anzahl_Vorhersage_8_5': '09_heat_waves_climatological-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
 }
 
+
+projections_4_5 = {
+    'Extremniederschlagstage_Anzahl_Vorhersage_4_5': '15_frequency_of_extreme_precipitation-projections-yearly-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
+    'Frosttage_Anzahl_Vorhersage_4_5': '11_frost_days-projections-yearly-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Heisse_Tage_Anzahl_Vorhersage_4_5': '06_hot_days-projections-yearly-30deg-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Tropennaechte_Anzahl_Vorhersage_4_5': '05_tropical_nights-projections-yearly-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Hitzewellentage_Anzahl_Vorhersage_4_5': '09_heat_waves_climatological-projections-yearly-rcp_4_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
+}
+projections_8_5 = {
+    'Extremniederschlagstage_Anzahl_Vorhersage_8_5': '15_frequency_of_extreme_precipitation-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
+    'Frosttage_Anzahl_Vorhersage_8_5': '11_frost_days-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Heisse_Tage_Anzahl_Vorhersage_8_5': '06_hot_days-projections-yearly-30deg-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Tropennaechte_Anzahl_Vorhersage_8_5': '05_tropical_nights-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-tasAdjust_NON_CDM.csv',
+    'Hitzewellentage_Anzahl_Vorhersage_8_5': '09_heat_waves_climatological-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
+}
+
 columns = dict()
 columns_projections = dict()
+
+columns_projections_4_5 = dict()
+columns_projections_8_5 = dict()
 with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
     for key, csv_name in reanalysis.items():
         df = pandas.read_csv(zf.open(csv_name))
         df['Jahr'] = pandas.to_datetime(df.date).dt.year
         df = df.set_index('Jahr')
         columns[key] = df.konstanz
-     
     for key, csv_name in projections.items():
         proj_df = pandas.read_csv(zf.open(csv_name))
         proj_df['Jahr'] = pandas.to_datetime(proj_df.date).dt.year
         proj_df = proj_df.set_index('Jahr')
         columns_projections[key] = proj_df.konstanz
+     
+    for key, csv_name in projections_4_5.items():
+        proj_df4 = pandas.read_csv(zf.open(csv_name))
+        proj_df4['Jahr'] = pandas.to_datetime(proj_df4.date).dt.year
+        proj_df4 = proj_df4.set_index('Jahr')
+        columns_projections_4_5[key] = proj_df4.konstanz
+    
+    for key, csv_name in projections_8_5.items():
+        proj_df8 = pandas.read_csv(zf.open(csv_name))
+        proj_df8['Jahr'] = pandas.to_datetime(proj_df8.date).dt.year
+        proj_df8 = proj_df8.set_index('Jahr')
+        columns_projections_8_5[key] = proj_df8.konstanz
 
 reanalysis_df = pandas.DataFrame(columns)
 reanalysis_ma30y = reanalysis_df.rolling(window=30, min_periods=30).mean().dropna()
 projections_df = pandas.DataFrame(columns_projections)
+
+projections_df4 = pandas.DataFrame(columns_projections_4_5)
+projections_df8 = pandas.DataFrame(columns_projections_8_5)
 
 zip_buffer = io.BytesIO()
 with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zf:
@@ -56,6 +90,11 @@ with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zf:
         reanalysis_ma30y.to_csv(f)
     with zf.open('Vorhersagen.csv', 'w') as f:
         projections_df.to_csv(f)
+        
+    with zf.open('Vorhersagen_4_5.csv', 'w') as f:
+        projections_df4.to_csv(f)
+    with zf.open('Vorhersagen_8_5.csv', 'w') as f:
+        projections_df8.to_csv(f)
 
 
 sys.stdout.buffer.write(zip_buffer.getvalue())
