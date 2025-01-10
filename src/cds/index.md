@@ -27,13 +27,11 @@ const hot_days_variables = [
   'Heisse_Tage_Anzahl_Vorhersage_4_5',
   'Heisse_Tage_Anzahl_Vorhersage_8_5',
 ];
-
 const hot_days_lables = {
-  'Heisse_Tage_Anzahl': "Heisse Tage",
-  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Heisse_Tage_Anzahl': "Heisse Tage (Maximum über 30°C)",
+  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage Heisse Tage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage Heisse Tage mit repräsentativer Konzentrationspfad(RCP) 8.5",
 };
-
 function label_hot_days(variable) {
   return hot_days_lables[variable]
 };
@@ -43,13 +41,11 @@ const heat_waves_variables = [
   'Hitzewellentage_Anzahl_Vorhersage_4_5',
   'Hitzewellentage_Anzahl_Vorhersage_8_5',
 ];
-
-const heat_waves_lables = {
+const heat_waves_lables = { //(Periode von min. 3 aufeinanderfolgenenden Tagen mit Temperaturen, die das 99. Perzentil der täglichen Höchsttemperaturen der Mai- bis September-Saison während eines Referenzzeitraums überschreiten)
   'Hitzewellentage_Anzahl': "Hitzewellentage",
-  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage Hitzewellentage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage Hitzewellentage mit repräsentativer Konzentrationspfad(RCP) 8.5",
 };
-
 function label_heat_waves(variable) {
   return heat_waves_lables[variable]
 };
@@ -59,19 +55,44 @@ const tropical_nights_variables = [
   'Tropennaechte_Anzahl_Vorhersage_4_5',
   'Tropennaechte_Anzahl_Vorhersage_8_5',
 ];
-
 const tropical_nights_lables = {
-  'Tropennaechte_Anzahl': "Tropennächte",
-  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Tropennaechte_Anzahl': "Tropennächte  (Minimum über 20°C)",
+  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage Tropennächte mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage Tropennächte mit repräsentativer Konzentrationspfad(RCP) 8.5",
 };
-
 function label_tropical_nights(variable) {
   return tropical_nights_lables[variable]
 };
+
+const extreme_precipitation_variables = [
+  'Extremniederschlagstage_Anzahl',
+  'Extremniederschlagstage_Anzahl_Vorhersage_4_5',
+  'Extremniederschlagstage_Anzahl_Vorhersage_8_5',
+];
+const extreme_precipitation_lables = { //Die Anzahl der Tage in einem Jahr, an denen die tägliche Niederschlagsmenge den Schwellenwert des 95. Perzentils der Regentage über einen Referenzzeitraum überschreitet.
+  'Extremniederschlagstage_Anzahl': "Extremniederschlagstage",
+  'Extremniederschlagstage_Anzahl_Vorhersage_4_5': "Vorhersage Extremniederschlagstage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Extremniederschlagstage_Anzahl_Vorhersage_8_5': "Vorhersage Extremniederschlagstage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+};
+function label_extreme_precipitation(variable) {
+  return extreme_precipitation_lables[variable]
+};
+
+const frost_days_variables = [
+  'Frosttage_Anzahl',
+  'Frosttage_Anzahl_Vorhersage_4_5',
+  'Frosttage_Anzahl_Vorhersage_8_5',
+];
+const frost_days_lables = {
+  'Frosttage_Anzahl': "Frosttage (Minimum unter 0°C)",
+  'Frosttage_Anzahl_Vorhersage_4_5': "Vorhersage Frosttage mit repräsentativer Konzentrationspfad(RCP) 4.5",
+  'Frosttage_Anzahl_Vorhersage_8_5': "Vorhersage Frosttage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+};
+function label_frost_days(variable) {
+  return frost_days_lables[variable]
+};
+
 ```
-
-
 <h1>Klimamodelle</h1>
 <h2>aus dem Climate Data Store</h2>
 
@@ -123,13 +144,13 @@ ${resize((width) => Plot.plot({
       tickFormat: label_hot_days,
     },
     marks: [
+      Plot.frame(),
       Plot.areaY(long_table(projections, hot_days_variables), {
         x: "year",
         y: "value",
         fill: "variable",
         stroke: "variable",
       }),
-      Plot.frame(),
       Plot.dot(long_table(reanalyse, hot_days_variables), {
         x: "year",
         y: "value",
@@ -165,7 +186,7 @@ TODO
 <div class='with-info'>
 
 ```js
-const confirm4 = view(Inputs.checkbox(["4.5", "8.5"], {label: "Vorhersagen"}));
+const show_Line = view(Inputs.checkbox(["4.5", "8.5"], {label: "Vorhersagen"}));
 ```
 
 <div class='body'>
@@ -201,20 +222,33 @@ ${resize((width) => Plot.plot({
         y: "value",
         stroke: "variable",
       }),
-      ... (confirm4.includes("4.5") ? [
+      ... (show_Line.includes("4.5") ? [
             Plot.line(long_table(projections_4_5, heat_waves_variables), {
               x: "year",
               y: "value",
               stroke: "variable",
             })
           ] : []),
-      ... (confirm4.includes("8.5") ? [
+      ... (show_Line.includes("8.5") ? [
             Plot.line(long_table(projections_8_5, heat_waves_variables), {
               x: "year",
               y: "value",
               stroke: "variable",
             })
           ] : []),
+      Plot.tip(long_table(reanalyse, heat_waves_variables)
+        .concat(
+        long_table(reanalyse_ma30y, heat_waves_variables),
+        show_Line.includes("4.5") ? long_table(projections_4_5, heat_waves_variables) : [],
+        show_Line.includes("8.5") ? long_table(projections_8_5, heat_waves_variables) : []
+        ),
+        Plot.pointer({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`
+        })
+      ),
     ]
   }))}
   
@@ -260,6 +294,11 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
+      Plot.line(long_table(projections, tropical_nights_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
       Plot.dot(long_table(reanalyse, tropical_nights_variables), {
         x: "year",
         y: "value",
@@ -268,11 +307,7 @@ ${resize((width) => Plot.plot({
       Plot.line(long_table(reanalyse_ma30y, tropical_nights_variables), {
         x: "year",
         y: "value",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(projections, tropical_nights_variables), {
-        x: "year",
-        y: "value",
+        strokeWidth: 5,
         stroke: "variable",
       }),
     ]
@@ -311,20 +346,50 @@ ${resize((width) => Plot.plot({
       labelArrow: 'none',
       tickFormat: Plot.formatNumber("de-DE"),
     },
+    color: {
+      domain: extreme_precipitation_variables,
+      legend: true,
+      tickFormat: label_extreme_precipitation,
+    },
     marks: [
       Plot.frame(),
-      Plot.dot(reanalyse, {
-        x: "Jahr",
-        y: "Extremniederschlagstage_Anzahl",
-        stroke: () => "",
+      Plot.line(long_table(projections, extreme_precipitation_variables), {
+        x: "year",
+        y: "value",
+        opacity: 0.4,
+        stroke: "variable",
       }),
-      Plot.line(reanalyse_ma30y, {
-        x: "Jahr",
-        y: "Extremniederschlagstage_Anzahl",
-        stroke: () => "",
+      Plot.dot(long_table(projections, extreme_precipitation_variables), {
+        x: "year",
+        y: "value",
+        fill: "variable",
+        stroke: "variable",
       }),
+      Plot.dot(long_table(reanalyse, extreme_precipitation_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(reanalyse_ma30y, extreme_precipitation_variables), {
+        x: "year",
+        y: "value",
+        strokeWidth: 5,
+        stroke: "variable",
+      }),
+      Plot.tip(long_table(reanalyse, extreme_precipitation_variables)
+        .concat(
+        long_table(reanalyse_ma30y, extreme_precipitation_variables),
+        long_table(projections, extreme_precipitation_variables)),
+        Plot.pointer({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`
+        })
+      ),
     ]
   }))}
+
 </div> <!-- body -->
 <div class='info'>
 
@@ -359,17 +424,30 @@ ${resize((width) => Plot.plot({
       labelArrow: 'none',
       tickFormat: Plot.formatNumber("de-DE"),
     },
+    color: {
+      domain: frost_days_variables,
+      legend: true,
+      tickFormat: label_frost_days,
+    },
     marks: [
       Plot.frame(),
-      Plot.dot(reanalyse, {
-        x: "Jahr",
-        y: "Frosttage_Anzahl",
-        stroke: () => "",
+      Plot.line(long_table(projections, frost_days_variables),  {
+        x: "year",
+        y: "value",
+        strokeWidth: 2,
+        opacity: 0.7,
+        mixBlendMode: "screen",
+        stroke: "variable",
       }),
-      Plot.line(reanalyse_ma30y, {
-        x: "Jahr",
-        y: "Frosttage_Anzahl",
-        stroke: () => "",
+      Plot.dot(long_table(reanalyse, frost_days_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+      }),
+      Plot.line(long_table(reanalyse_ma30y, frost_days_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
       }),
     ]
   }))}
