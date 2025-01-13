@@ -147,8 +147,14 @@ ${resize((width) => Plot.plot({
       Plot.frame(),
       Plot.areaY(long_table(projections, hot_days_variables), {
         x: "year",
-        y: "value",
+        y2: "value",
         fill: "variable",
+        opacity: 1,
+        mixBlendMode: "hard-light",
+      }),
+      Plot.line(long_table(projections, hot_days_variables), {
+        x: "year",
+        y: "value",
         stroke: "variable",
       }),
       Plot.dot(long_table(reanalyse, hot_days_variables), {
@@ -160,6 +166,7 @@ ${resize((width) => Plot.plot({
         x: "year",
         y: "value",
         stroke: "variable",
+        strokeWidth: 3,
       }),
     ]
   }))}
@@ -297,6 +304,7 @@ ${resize((width) => Plot.plot({
       Plot.line(long_table(projections, tropical_nights_variables), {
         x: "year",
         y: "value",
+        curve: "monotone-x",
         stroke: "variable",
       }),
       Plot.dot(long_table(reanalyse, tropical_nights_variables), {
@@ -307,9 +315,18 @@ ${resize((width) => Plot.plot({
       Plot.line(long_table(reanalyse_ma30y, tropical_nights_variables), {
         x: "year",
         y: "value",
-        strokeWidth: 5,
+        strokeWidth: 2,
         stroke: "variable",
       }),
+      Plot.crosshair(long_table(reanalyse, tropical_nights_variables)
+        .concat(
+        long_table(reanalyse_ma30y, tropical_nights_variables),
+        long_table(projections, tropical_nights_variables)),
+        Plot.pointer({
+          x: "year",
+          y: "value",
+        })
+      ),
     ]
   }))}
 </div> <!-- body -->
@@ -353,16 +370,22 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
+      Plot.dot(long_table(reanalyse, extreme_precipitation_variables)
+        .concat(
+        long_table(reanalyse_ma30y, extreme_precipitation_variables),
+        long_table(projections, extreme_precipitation_variables)),
+        Plot.pointer({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+        })),
       Plot.line(long_table(projections, extreme_precipitation_variables), {
         x: "year",
         y: "value",
-        opacity: 0.4,
-        stroke: "variable",
-      }),
-      Plot.dot(long_table(projections, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        fill: "variable",
+        strokeOpacity: 0.4,
+        fillOpacity: 1,
+        marker: "circle",
         stroke: "variable",
       }),
       Plot.dot(long_table(reanalyse, extreme_precipitation_variables), {
@@ -373,7 +396,7 @@ ${resize((width) => Plot.plot({
       Plot.line(long_table(reanalyse_ma30y, extreme_precipitation_variables), {
         x: "year",
         y: "value",
-        strokeWidth: 5,
+        strokeWidth: 2,
         stroke: "variable",
       }),
       Plot.tip(long_table(reanalyse, extreme_precipitation_variables)
@@ -413,6 +436,9 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
+    facet: {data: projections,
+    axis: false,
+      label: null,},
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -431,14 +457,6 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.line(long_table(projections, frost_days_variables),  {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        opacity: 0.7,
-        mixBlendMode: "screen",
-        stroke: "variable",
-      }),
       Plot.dot(long_table(reanalyse, frost_days_variables), {
         x: "year",
         y: "value",
@@ -447,8 +465,25 @@ ${resize((width) => Plot.plot({
       Plot.line(long_table(reanalyse_ma30y, frost_days_variables), {
         x: "year",
         y: "value",
+        strokeWidth: 2,
         stroke: "variable",
       }),
+      Plot.line(long_table(projections, frost_days_variables), {
+        x: "year",
+        y: "value",
+        stroke: "variable",
+        strokeWidth: 2,
+        fy: "variable",
+      }),
+      Plot.crosshair(long_table(reanalyse, frost_days_variables)
+        .concat(
+        long_table(reanalyse_ma30y, frost_days_variables),
+        long_table(projections, frost_days_variables)),
+        Plot.pointer({
+          x: "year",
+          y: "value",
+        })
+      ),
     ]
   }))}
 </div> <!-- body -->
