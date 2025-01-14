@@ -1,5 +1,3 @@
-Preview of `main` branch (latest succesful CI build): https://sgc-kn.github.io/dashboards/
-
 # SGC Dashboards
 
 This is an [Observable Framework](https://observablehq.com/framework) project.
@@ -73,3 +71,11 @@ A typical Framework project looks like this:
 ## More Info
 
 For more information, see <https://observablehq.com/framework/getting-started>.
+
+---
+
+Copyright © 2024-2025 [Stadt Konstanz](https://www.konstanz.de)
+
+Our code is licensed under the EUPL-1.2 License. See the LICENSE file
+for details. Contributions to this project are licensed under the same
+terms.
