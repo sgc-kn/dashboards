@@ -30,7 +30,7 @@ eine E-Mail an: **datenplattform@konstanz.de**.
 ### Minimale Datenverarbeitung
 
 Wir respektieren Ihre Privatsphäre und beschränken die Verarbeitung
-Ihrer Daten auf ein absolutes Minimum. Inbesondere verwenden wir **keine
+Ihrer Daten auf das Nötigste. Inbesondere verwenden wir **keine
 Cookies** und andere Tracking-Technologien, um Sie im Internet zu
 verfolgen. Wir verwenden Ihre Daten ausschließlich für Betrieb,
 Weiterentwicklung, und Instandhaltung dieser Website.
@@ -41,11 +41,16 @@ Während Sie diese Website besuchen, protokollieren wir bei jedem
 Seitenaufruf folgende Informationen:
 - **Datum und Uhrzeit**,
 - Ihre öffentliche **IP-Adresse**,
+- den übermittelten **User-Agent** Header,
 - die **aufgerufene Seite oder URL**, und
 - etwaige **Fehlermeldungen**, falls beim Aufruf etwas schief geht.
 
 Wir speichern diese Zugriffs- und Fehlerprotokolle für maximal **sieben Tage**.
 Danach werden die Daten automatisch gelöscht.
+
+Der [User-Agent Header](https://de.wikipedia.org/wiki/User_Agent)
+umfasst den von Ihnen verwendeten Browser und das Betriebssystem. Diese
+Information übermittelt ihr Browser automatisch.
 
 ### Verwendung der Daten
 
@@ -70,16 +75,7 @@ Wir geben Ihre Daten nicht an Dritte weiter.
 Gemäß der Datenschutzgrundverordnung (DSGVO) haben Sie das Recht,
 **Zugriff** auf die Daten zu verlangen, die wir über Sie verarbeiten,
 sowie deren **Löschung** zu beantragen.
-
-Da wir jedoch ausschließlich **IP-Adressen** protokollieren, ist die Verifizierung Ihrer Identität bei solchen Anfragen schwierig.
-Wenn Sie davon ausgehen, dass Ihre IP-Adresse protokolliert wurde, und eine Auskunft oder Löschung wünschen:
-1. Müssen Sie uns **nachweisen, dass die IP-Adresse Ihnen gehört**. Zum Beispiel können Sie eine Bestätigung Ihres Internetanbieters vorlegen, die zeigt, dass Sie eine bestimmte IP-Adresse zu einem bestimmten Zeitpunkt genutzt haben.
-2. Nach Erhalt dieser Informationen prüfen wir, ob Ihre IP-Adresse in unseren Protokollen enthalten ist, und antworten entsprechend.
-
 Bitte wenden Sie sich für derartige Anfragen mit einer E-Mail an: **datenplattform@konstanz.de**.
-
-Wenn Sie keinen ausreichenden Nachweis erbringen können, dürfen wir
-Ihrer Zugriffsanfrage nicht nachkommen.
 
 ---
 
