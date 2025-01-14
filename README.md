@@ -1,5 +1,3 @@
-Preview of `main` branch (latest succesful CI build): https://sgc-kn.github.io/dashboards/
-
 # SGC Dashboards
 
 This is an [Observable Framework](https://observablehq.com/framework) project.
