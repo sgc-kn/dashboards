@@ -27,12 +27,14 @@ if (process.env.GITHUB_SHA) {
 
 const header = `
 <div style="display: flex; justify-content: space-between; width: 100%">
-  <div style="display: flex; align-items: center">
-    <img style="height: 2rem"
-         src="assets/skn-logo.svg"
-         alt="Logo der Stadtverwaltung Konstanz"
-         /><b>Stadt Konstanz | Stadtdaten</b>
-  </div>
+  <a href="/" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem"
+           src="assets/skn-logo.svg"
+           alt="Logo der Stadtverwaltung Konstanz"
+           /><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
   <div>
     <a href="${repo}">
       <img style="height: 1.5rem"
