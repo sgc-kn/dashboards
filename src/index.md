@@ -12,8 +12,12 @@ Umweltdaten. Diese Aufbereitungen sind Teil des Projektes
 [Klimadatenplattform][project] im Rahmen des Programms [Smart Green
 City][sgc] der Stadt Konstanz.
 
+Weitere Daten zur Stadt Konstanz finden Sie auf dem Portal [Offene Daten
+Konstanz][od].
+
 [project]: https://smart-green-city-konstanz.de/klimadatenplattform
 [sgc]: https://smart-green-city-konstanz.de/
+[od]: https://offenedaten-konstanz.de/
 
 ---
 
