@@ -5,8 +5,6 @@ let
 in
 
 {
-  devcontainer.enable = true;
-
   packages = [
     pkgs.git
     pkgs.git-lfs
