@@ -461,7 +461,6 @@ ${resize((width) => Plot.plot({
     grid: true,
     inset: 10,
     facet: {
-      data: projections,
       axis: false,
       label: null,
     },
@@ -495,12 +494,12 @@ ${resize((width) => Plot.plot({
         stroke: "variable",
       }),
       Plot.line(long_table(projections, frost_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeWidth: 2,
-        fy: "variable",
-      }),
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      strokeWidth: 2,
+      fy: "variable"
+    }),
       Plot.crosshairY(long_table(reanalyse, frost_days_variables)
         .concat(
           long_table(reanalyse_ma30y, frost_days_variables),
