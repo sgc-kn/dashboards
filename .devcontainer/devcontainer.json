@@ -9,5 +9,5 @@
       ]
     }
   },
-  "postCreateCommand": "uv sync && npm clean-install"
+  "postCreateCommand": "uv sync && npm clean-install && git config --global diff.lfs.textconv cat"
 }

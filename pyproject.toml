@@ -12,4 +12,5 @@ dependencies = [
 [dependency-groups]
 dev = [
     "notebook>=7.3.2",
+    "ruff>=0.9.1",
 ]

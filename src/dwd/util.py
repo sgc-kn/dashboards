@@ -118,7 +118,7 @@ def read_tables_from_zip(file):
         # drop empty columns
         for c in df.columns:
             if c.startswith('Unnamed'):
-                assert df.loc[:, c].isnull().all(), (data, c)
+                assert df.loc[:, c].isnull().all(), (df, c)
                 del df[c]
 
     return tables
