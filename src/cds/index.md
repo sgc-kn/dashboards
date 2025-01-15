@@ -29,8 +29,8 @@ const hot_days_variables = [
 ];
 const hot_days_lables = {
   'Heisse_Tage_Anzahl': "Heisse Tage (Maximum über 30°C)",
-  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage Heisse Tage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage Heisse Tage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
+  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
 };
 function label_hot_days(variable) {
   return hot_days_lables[variable]
@@ -41,10 +41,10 @@ const heat_waves_variables = [
   'Hitzewellentage_Anzahl_Vorhersage_4_5',
   'Hitzewellentage_Anzahl_Vorhersage_8_5',
 ];
-const heat_waves_lables = { //(Periode von min. 3 aufeinanderfolgenenden Tagen mit Temperaturen, die das 99. Perzentil der täglichen Höchsttemperaturen der Mai- bis September-Saison während eines Referenzzeitraums überschreiten)
+const heat_waves_lables = {
   'Hitzewellentage_Anzahl': "Hitzewellentage",
-  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage Hitzewellentage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage Hitzewellentage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
+  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
 };
 function label_heat_waves(variable) {
   return heat_waves_lables[variable]
@@ -57,8 +57,8 @@ const tropical_nights_variables = [
 ];
 const tropical_nights_lables = {
   'Tropennaechte_Anzahl': "Tropennächte  (Minimum über 20°C)",
-  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage Tropennächte mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage Tropennächte mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
+  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
 };
 function label_tropical_nights(variable) {
   return tropical_nights_lables[variable]
@@ -69,10 +69,10 @@ const extreme_precipitation_variables = [
   'Extremniederschlagstage_Anzahl_Vorhersage_4_5',
   'Extremniederschlagstage_Anzahl_Vorhersage_8_5',
 ];
-const extreme_precipitation_lables = { //Die Anzahl der Tage in einem Jahr, an denen die tägliche Niederschlagsmenge den Schwellenwert des 95. Perzentils der Regentage über einen Referenzzeitraum überschreitet.
+const extreme_precipitation_lables = {
   'Extremniederschlagstage_Anzahl': "Extremniederschlagstage",
-  'Extremniederschlagstage_Anzahl_Vorhersage_4_5': "Vorhersage Extremniederschlagstage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Extremniederschlagstage_Anzahl_Vorhersage_8_5': "Vorhersage Extremniederschlagstage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Extremniederschlagstage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
+  'Extremniederschlagstage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
 };
 function label_extreme_precipitation(variable) {
   return extreme_precipitation_lables[variable]
@@ -85,8 +85,8 @@ const frost_days_variables = [
 ];
 const frost_days_lables = {
   'Frosttage_Anzahl': "Frosttage (Minimum unter 0°C)",
-  'Frosttage_Anzahl_Vorhersage_4_5': "Vorhersage Frosttage mit repräsentativer Konzentrationspfad(RCP) 4.5",
-  'Frosttage_Anzahl_Vorhersage_8_5': "Vorhersage Frosttage mit repräsentativer Konzentrationspfad(RCP) 8.5",
+  'Frosttage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
+  'Frosttage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
 };
 function label_frost_days(variable) {
   return frost_days_lables[variable]
@@ -170,7 +170,6 @@ ${resize((width) => Plot.plot({
       }),
     ]
   }))}
-
 </div> <!-- body -->
 <div class='info'>
 
@@ -191,12 +190,11 @@ TODO
 </div>
 </div> <!-- header -->
 <div class='with-info'>
+<div class='body'>
 
 ```js
 const show_Line = view(Inputs.checkbox(["4.5", "8.5"], {label: "Vorhersagen"}));
 ```
-
-<div class='body'>
 ${resize((width) => Plot.plot({
     width,
     grid: true,
@@ -219,7 +217,7 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-       Plot.dot(long_table(reanalyse, heat_waves_variables), {
+      Plot.dot(long_table(reanalyse, heat_waves_variables), {
         x: "year",
         y: "value",
         stroke: "variable",
@@ -229,14 +227,14 @@ ${resize((width) => Plot.plot({
         y: "value",
         stroke: "variable",
       }),
-      ... (show_Line.includes("4.5") ? [
+      ...(show_Line.includes("4.5") ? [
             Plot.line(long_table(projections_4_5, heat_waves_variables), {
               x: "year",
               y: "value",
               stroke: "variable",
             })
           ] : []),
-      ... (show_Line.includes("8.5") ? [
+      ...(show_Line.includes("8.5") ? [
             Plot.line(long_table(projections_8_5, heat_waves_variables), {
               x: "year",
               y: "value",
@@ -245,21 +243,19 @@ ${resize((width) => Plot.plot({
           ] : []),
       Plot.tip(long_table(reanalyse, heat_waves_variables)
         .concat(
-        long_table(reanalyse_ma30y, heat_waves_variables),
-        show_Line.includes("4.5") ? long_table(projections_4_5, heat_waves_variables) : [],
-        show_Line.includes("8.5") ? long_table(projections_8_5, heat_waves_variables) : []
+          long_table(reanalyse_ma30y, heat_waves_variables),
+          show_Line.includes("4.5") ? long_table(projections_4_5, heat_waves_variables) : [],
+          show_Line.includes("8.5") ? long_table(projections_8_5, heat_waves_variables) : [],
         ),
         Plot.pointer({
           x: "year",
           y: "value",
           stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
         })
       ),
     ]
   }))}
-  
-
 </div> <!-- body -->
 <div class='info'>
 
@@ -318,14 +314,40 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.crosshair(long_table(reanalyse, tropical_nights_variables)
+      Plot.ruleX(long_table(reanalyse, tropical_nights_variables)
         .concat(
-        long_table(reanalyse_ma30y, tropical_nights_variables),
-        long_table(projections, tropical_nights_variables)),
-        Plot.pointer({
+          long_table(reanalyse_ma30y, tropical_nights_variables),
+          long_table(projections, tropical_nights_variables)
+        ),
+        Plot.pointerX({
+          x: "year",
+          py: "value",
+          stroke: "red",
+        })
+      ),
+      Plot.dot(long_table(reanalyse, tropical_nights_variables)
+        .concat(
+          long_table(reanalyse_ma30y, tropical_nights_variables),
+          long_table(projections, tropical_nights_variables)
+        ),
+        Plot.pointerX({
           x: "year",
           y: "value",
+          fill: "variable",
         })
+      ),
+      Plot.text(long_table(reanalyse, tropical_nights_variables)
+        .concat(
+          long_table(reanalyse_ma30y, tropical_nights_variables),
+          long_table(projections, tropical_nights_variables)
+        ),
+        Plot.pointerX({
+          px: "year",
+          py: "value",
+          dy: -10,
+          frameAnchor: "top-left",
+          text: (d) => `Jahr: ${d.year} Anzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`
+        }),
       ),
     ]
   }))}
@@ -372,14 +394,16 @@ ${resize((width) => Plot.plot({
       Plot.frame(),
       Plot.dot(long_table(reanalyse, extreme_precipitation_variables)
         .concat(
-        long_table(reanalyse_ma30y, extreme_precipitation_variables),
-        long_table(projections, extreme_precipitation_variables)),
+          long_table(reanalyse_ma30y, extreme_precipitation_variables),
+          long_table(projections, extreme_precipitation_variables)
+        ),
         Plot.pointer({
           x: "year",
           y: "value",
           fill: "variable",
           r: 8,
-        })),
+        })
+      ),
       Plot.line(long_table(projections, extreme_precipitation_variables), {
         x: "year",
         y: "value",
@@ -401,8 +425,9 @@ ${resize((width) => Plot.plot({
       }),
       Plot.tip(long_table(reanalyse, extreme_precipitation_variables)
         .concat(
-        long_table(reanalyse_ma30y, extreme_precipitation_variables),
-        long_table(projections, extreme_precipitation_variables)),
+          long_table(reanalyse_ma30y, extreme_precipitation_variables),
+          long_table(projections, extreme_precipitation_variables)
+        ),
         Plot.pointer({
           x: "year",
           y: "value",
@@ -412,7 +437,6 @@ ${resize((width) => Plot.plot({
       ),
     ]
   }))}
-
 </div> <!-- body -->
 <div class='info'>
 
@@ -436,9 +460,11 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
-    facet: {data: projections,
-    axis: false,
-      label: null,},
+    facet: {
+      data: projections,
+      axis: false,
+      label: null,
+    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -475,12 +501,12 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         fy: "variable",
       }),
-      Plot.crosshair(long_table(reanalyse, frost_days_variables)
+      Plot.crosshairY(long_table(reanalyse, frost_days_variables)
         .concat(
-        long_table(reanalyse_ma30y, frost_days_variables),
-        long_table(projections, frost_days_variables)),
-        Plot.pointer({
-          x: "year",
+          long_table(reanalyse_ma30y, frost_days_variables),
+          long_table(projections, frost_days_variables)
+        ),
+        Plot.pointerY({
           y: "value",
         })
       ),
