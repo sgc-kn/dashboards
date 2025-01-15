@@ -6,10 +6,6 @@ Observable Framework is a static website generator designed for data
 intensive websites. It supports loading and preparing data during the
 build phase using various programming languages (Python, R, etc).
 
-Our data loaders are written in Python. To build this site you'll need:
-- Observable framework in the right version (see `package-lock.json`)
-- Python 3 and a couple of Python dependencies (see `requirements.txt`)
-
 We maintain a development environment that provides all dependencies in
 the right versions without cluttering your system. We recommend [using
 this tool](https://devenv.sh/getting-started/) together with [automatic

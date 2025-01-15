@@ -1,27 +1,26 @@
 { pkgs, lib, config, inputs, ... }:
 
+let
+  unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
+in
+
 {
-  # https://devenv.sh/integrations/codespaces-devcontainer/
   devcontainer.enable = true;
 
-  # https://devenv.sh/basics/
-  env.DEVENV = "sgc-kn/dashboards";
-
-  # https://devenv.sh/packages/
   packages = [
     pkgs.git
     pkgs.git-lfs
   ];
 
-  # https://devenv.sh/languages/
   languages.javascript.enable = true;
   languages.javascript.npm.enable = true;
   languages.javascript.npm.install.enable = true;
-  languages.python.enable = true;
-  languages.python.venv.enable = true;
-  languages.python.venv.requirements = ./requirements.txt;
 
-  # https://devenv.sh/processes/
+  languages.python.enable = true;
+  languages.python.uv.enable = true;
+  languages.python.uv.package = unstable.uv;
+  languages.python.uv.sync.enable = true;
+
   processes.preview = {
     exec = "npm run dev";
     process-compose =  {
@@ -31,49 +30,4 @@
       };
     };
   };
-
-  # https://devenv.sh/services/
-  # services.postgres.enable = true;
-
-  # https://devenv.sh/scripts/
-  scripts.update.exec = ''
-    # install dependencies as defined in the lock files
-
-    echo install javascript dependencies from package-lock.json
-    npm clean-install
-
-    echo install python dependencies from requirements.txt
-    pip-sync
-  '';
-
-  scripts.upgrade.exec = ''
-    # update lock files with newest versions
-
-    echo update npm packages and package-lock.json
-    npm update
-
-    echo update requirements.txt
-    pip-compile --upgrade --strip-extras --quiet
-  '';
-
-  # enterShell = ''
-  #  update
-  # '';
-
-  # https://devenv.sh/tasks/
-  # tasks = {
-  #   "myproj:setup".exec = "mytool build";
-  #   "devenv:enterShell".after = [ "myproj:setup" ];
-  # };
-
-  # https://devenv.sh/tests/
-  # enterTest = ''
-  #   echo "Running tests"
-  #   git --version | grep --color=auto "${pkgs.git.version}"
-  # '';
-
-  # https://devenv.sh/pre-commit-hooks/
-  # pre-commit.hooks.shellcheck.enable = true;
-
-  # See full reference at https://devenv.sh/reference/options/
 }
