@@ -46,33 +46,41 @@ projections_8_5 = {
     'Hitzewellentage_Anzahl_Vorhersage_8_5': '09_heat_waves_climatological-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
 }
 
+def filter_projection_by_last_year(df, last_year):
+    return df[df.index >= last_year]
+
 columns = dict()
 columns_projections = dict()
 
 columns_projections_4_5 = dict()
 columns_projections_8_5 = dict()
+
 with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
     for key, csv_name in reanalysis.items():
         df = pandas.read_csv(zf.open(csv_name))
         df['Jahr'] = pandas.to_datetime(df.date).dt.year
         df = df.set_index('Jahr')
         columns[key] = df.konstanz
+
     for key, csv_name in projections.items():
         proj_df = pandas.read_csv(zf.open(csv_name))
         proj_df['Jahr'] = pandas.to_datetime(proj_df.date).dt.year
         proj_df = proj_df.set_index('Jahr')
+        proj_df = filter_projection_by_last_year(proj_df, df.index[-1])
         columns_projections[key] = proj_df.konstanz
      
     for key, csv_name in projections_4_5.items():
         proj_df4 = pandas.read_csv(zf.open(csv_name))
         proj_df4['Jahr'] = pandas.to_datetime(proj_df4.date).dt.year
         proj_df4 = proj_df4.set_index('Jahr')
+        proj_df4 = filter_projection_by_last_year(proj_df4, df.index[-1]) 
         columns_projections_4_5[key] = proj_df4.konstanz
     
     for key, csv_name in projections_8_5.items():
         proj_df8 = pandas.read_csv(zf.open(csv_name))
         proj_df8['Jahr'] = pandas.to_datetime(proj_df8.date).dt.year
         proj_df8 = proj_df8.set_index('Jahr')
+        proj_df8 = filter_projection_by_last_year(proj_df8, df.index[-1])
         columns_projections_8_5[key] = proj_df8.konstanz
 
 reanalysis_df = pandas.DataFrame(columns)
