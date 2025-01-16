@@ -115,19 +115,19 @@ in der Stadt sind meist höher als im ländlichen Raum.
 </div> <!-- grid -->
 
 <div class="grid grid-cols-4">
-<div class="card grid-colspan-4">
+
+<div class="card grid-colspan-2">
 
 <h2>Klimakenntage</h2>
-<h3>Anzahl pro Jahr im Vergleich zur Referenzperiode 1973–2000</h3>
+<h3>Anzahl pro Jahr</h3>
 
 <table style='max-width:100%'>
 <thead>
 <tr style="border-bottom:0px">
 <th></th>
 <th></th>
-<th colspan=4></th>
+<th colspan=4><span class=muted>Anzahl</span></th>
 <th><span class=muted>Referenzperiode</span></th>
-<th colspan=4><span class=muted>Änderung zur Referenzperiode</span></th>
 </tr>
 <tr>
 <th><span class=muted>Bezeichnung</th>
@@ -137,10 +137,6 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <th>${klindex_abs[2]['Jahr']}</th>
 <th>${klindex_abs[3]['Jahr']}</th>
 <th>1973–2000 (⌀)</th>
-<th>${klindex_rel[0]['Jahr']}</th>
-<th>${klindex_rel[1]['Jahr']}</th>
-<th>${klindex_rel[2]['Jahr']}</th>
-<th>${klindex_rel[3]['Jahr']}</th>
 </tr>
 </thead>
 <tbody>
@@ -152,10 +148,6 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <td>${klindex_abs[2]['Eistage_Anzahl']}</td>
 <td>${klindex_abs[3]['Eistage_Anzahl']}</td>
 <td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
-<td>${klindex_rel[0]['Eistage_Anzahl']}</td>
-<td>${klindex_rel[1]['Eistage_Anzahl']}</td>
-<td>${klindex_rel[2]['Eistage_Anzahl']}</td>
-<td>${klindex_rel[3]['Eistage_Anzahl']}</td>
 </tr>
 
 <tr>
@@ -166,10 +158,6 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <td>${klindex_abs[2]['Frosttage_Anzahl']}</td>
 <td>${klindex_abs[3]['Frosttage_Anzahl']}</td>
 <td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
-<td>${klindex_rel[0]['Frosttage_Anzahl']}</td>
-<td>${klindex_rel[1]['Frosttage_Anzahl']}</td>
-<td>${klindex_rel[2]['Frosttage_Anzahl']}</td>
-<td>${klindex_rel[3]['Frosttage_Anzahl']}</td>
 </tr>
 
 <tr>
@@ -180,10 +168,6 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <td>${klindex_abs[2]['Sommertage_Anzahl']}</td>
 <td>${klindex_abs[3]['Sommertage_Anzahl']}</td>
 <td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
-<td>${klindex_rel[0]['Sommertage_Anzahl']}</td>
-<td>${klindex_rel[1]['Sommertage_Anzahl']}</td>
-<td>${klindex_rel[2]['Sommertage_Anzahl']}</td>
-<td>${klindex_rel[3]['Sommertage_Anzahl']}</td>
 </tr>
 
 <tr>
@@ -194,10 +178,6 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <td>${klindex_abs[2]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_abs[3]['Heisse_Tage_Anzahl']}</td>
 <td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
-<td>${klindex_rel[0]['Heisse_Tage_Anzahl']}</td>
-<td>${klindex_rel[1]['Heisse_Tage_Anzahl']}</td>
-<td>${klindex_rel[2]['Heisse_Tage_Anzahl']}</td>
-<td>${klindex_rel[3]['Heisse_Tage_Anzahl']}</td>
 </tr>
 
 <tr>
@@ -207,6 +187,88 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <td>${klindex_abs[1]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_abs[2]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_abs[3]['Tropennaechte_Anzahl']}</td>
+<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
+</tr>
+
+</tbody>
+</table>
+
+<span class=muted>Die Referenzwerte ergeben sich aus dem Durchschnitt
+der Jahre 1973 bis 2000.</span>
+
+<!-- Üblicherweise werden als Referenzperiode die Jahre
+1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
+beginnen aber erst 1973. -->
+
+</div> <!-- card -->
+
+<div class="card grid-colspan-2">
+
+<h2>Klimakenntage</h2>
+<h3>im Vergleich zur Referenzperiode 1973–2000</h3>
+
+<table style='max-width:100%'>
+<thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th></th>
+<th><span class=muted>Referenzperiode</span></th>
+<th colspan=4><span class=muted>Änderung zur Referenzperiode</span></th>
+</tr>
+<tr>
+<th><span class=muted>Bezeichnung</th>
+<th><span class=muted>Definition</th>
+<th>1973–2000 (⌀)</th>
+<th>${klindex_rel[0]['Jahr']}</th>
+<th>${klindex_rel[1]['Jahr']}</th>
+<th>${klindex_rel[2]['Jahr']}</th>
+<th>${klindex_rel[3]['Jahr']}</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Eistage</th>
+<td>nicht über 0°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[1]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[2]['Eistage_Anzahl']}</td>
+<td>${klindex_rel[3]['Eistage_Anzahl']}</td>
+</tr>
+
+<tr>
+<th>Frosttage</th>
+<td>unter 0°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[1]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[2]['Frosttage_Anzahl']}</td>
+<td>${klindex_rel[3]['Frosttage_Anzahl']}</td>
+</tr>
+
+<tr>
+<th>Sommertage</th>
+<td>über 25°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[1]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[2]['Sommertage_Anzahl']}</td>
+<td>${klindex_rel[3]['Sommertage_Anzahl']}</td>
+</tr>
+
+<tr>
+<th>Heiße Tage</th>
+<td>über 30°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
+<td>${klindex_rel[0]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[1]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[2]['Heisse_Tage_Anzahl']}</td>
+<td>${klindex_rel[3]['Heisse_Tage_Anzahl']}</td>
+</tr>
+
+<tr>
+<th>Tropennächte</th>
+<td>nicht unter 20°C</td>
 <td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_rel[1]['Tropennaechte_Anzahl']}</td>
