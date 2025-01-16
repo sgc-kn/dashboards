@@ -7,11 +7,11 @@ toc: false
 <h2>des Deutschen Wetterdienstes in Konstanz</h2>
 
 ```js
-const geo = FileAttachment("data/Standort.csv").csv({typed: true})
-const ref_tab = FileAttachment("data/Referenzperiode_1973_2000.csv").csv({typed: true})
+const geo = FileAttachment("dwd/Standort.csv").csv({typed: true})
+const ref_tab = FileAttachment("dwd/Referenzperiode_1973_2000.csv").csv({typed: true})
 
-const ma30y = FileAttachment("data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
-const points = FileAttachment("data/Jahreswerte.csv").csv({typed: true})
+const ma30y = FileAttachment("dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const points = FileAttachment("dwd/Jahreswerte.csv").csv({typed: true})
 
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
@@ -80,7 +80,7 @@ ${map_div}
 <h3>opendata.dwd.de</h3>
 </a>
 </div> <!-- title -->
-<div class="tools"><a download href='data.zip' class="download-button"></a></div>
+<div class="tools"><a download href='dwd.zip' class="download-button"></a></div>
 </div> <!-- header -->
 <div id=map_height>
 

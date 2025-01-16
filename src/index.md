@@ -37,8 +37,8 @@ um 83%.
 [➜ Hier geht's zum Dashboard !](dwd/index.html)
 
 ```js
-const dwd_points = FileAttachment("dwd/data/Jahreswerte.csv").csv({typed: true})
-const dwd_ma30y = FileAttachment("dwd/data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const dwd_points = FileAttachment("dwd/dwd/Jahreswerte.csv").csv({typed: true})
+const dwd_ma30y = FileAttachment("dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
 
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
