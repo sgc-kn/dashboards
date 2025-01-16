@@ -3,9 +3,9 @@ import duckdb
 import httpx
 import sys
 
-path = 'https://opendata.dwd.de/climate_environment/CDC/observations_germany/'
-path += 'climate/annual/climate_indices/kl/historical/'
-path += 'jahreswerte_KLINDEX_02712_19721101_20231231_hist.zip'
+path = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/"
+path += "climate/annual/climate_indices/kl/historical/"
+path += "jahreswerte_KLINDEX_02712_19721101_20231231_hist.zip"
 
 r = httpx.get(path)
 r.raise_for_status()
@@ -14,9 +14,9 @@ klindex_tables = read_tables_from_zip(r)
 
 # ---
 
-path = 'https://opendata.dwd.de/climate_environment/CDC/observations_germany/'
-path += 'climate/annual/kl/historical/'
-path += 'jahreswerte_KL_02712_19470101_20231231_hist.zip'
+path = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/"
+path += "climate/annual/kl/historical/"
+path += "jahreswerte_KL_02712_19470101_20231231_hist.zip"
 
 r = httpx.get(path)
 r.raise_for_status()
@@ -29,10 +29,10 @@ tables = {}
 
 # ---
 
-kl_data = kl_tables['data']
-kl_variables = kl_tables['meta_parameter']['Parameter'].drop_duplicates()
-klindex_data = klindex_tables['data']
-klindex_variables = klindex_tables['meta_parameter']['Parameter'].drop_duplicates()
+kl_data = kl_tables["data"]
+kl_variables = kl_tables["meta_parameter"]["Parameter"].drop_duplicates()
+klindex_data = klindex_tables["data"]
+klindex_variables = klindex_tables["meta_parameter"]["Parameter"].drop_duplicates()
 
 sql_long_ma30y = f"""
 with
@@ -85,7 +85,7 @@ long_ma30y = duckdb.query(sql_long_ma30y).df()
 
 # ---
 
-kl_meta_geo = kl_tables['meta_geo']
+kl_meta_geo = kl_tables["meta_geo"]
 
 sql_geo = """
 with typed as(
@@ -108,9 +108,10 @@ group by
 order by Von asc
 """
 
-tables['Standort'] = duckdb.query(sql_geo).df()
+tables["Standort"] = duckdb.query(sql_geo).df()
 
 # ---
+
 
 def pivot(column):
     return f"""
@@ -143,21 +144,24 @@ SELECT
 FROM wide
     """
 
-tables['Jahreswerte'] = duckdb.query(pivot('value')).df()
-tables['Jahreswerte_30Jahre_gleitender_Durchschnitt'] = duckdb.query(pivot('ma30y')).df()
+
+tables["Jahreswerte"] = duckdb.query(pivot("value")).df()
+tables["Jahreswerte_30Jahre_gleitender_Durchschnitt"] = duckdb.query(
+    pivot("ma30y")
+).df()
 
 # ---
 
-jahreswerte = tables['Jahreswerte']
-columns = [ f'avg({v}::double) as {v}' for v in jahreswerte.columns if v != 'Jahr' ]
+jahreswerte = tables["Jahreswerte"]
+columns = [f"avg({v}::double) as {v}" for v in jahreswerte.columns if v != "Jahr"]
 sql_Referenzperiode = f"""
-select { ', '.join(columns) }
+select {", ".join(columns)}
 from jahreswerte
 where Jahr >= 1973
 and Jahr <= 2000
 """
 
-tables['Referenzperiode_1973_2000'] = duckdb.query(sql_Referenzperiode).df()
+tables["Referenzperiode_1973_2000"] = duckdb.query(sql_Referenzperiode).df()
 
 # ---
 
