@@ -62,7 +62,7 @@ map_div.style = "flex-grow:1";
 
 <div class="grid grid-cols-4">
 
-<div class="card grid-colspan-2">
+<div class="card grid-colspan-1">
 <div class="header">
 <div class="title">
 <h2>Messstation Konstanz</h2>
@@ -101,14 +101,64 @@ in der Stadt sind meist höher als im ländlichen Raum.
 </div> <!-- #map_height -->
 </div> <!-- card -->
 
-<div class="card grid-colspan-1">
+<div class="card grid-colspan-2">
 
-<h2>Betreiber dieser Website</h2>
-<a href="https://smart-green-city-konstanz.de/">
-<h3>Smart Green City Konstanz</h3>
-</a>
+<h2>Klimakenntage</h2>
+<h3>Definition und Referenzwerte</h3>
 
-<img title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="../assets/sponsors-wide.png" />
+<table style='max-width:100%'>
+<thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th></th>
+<th><span class=muted>Referenzperiode</span></th>
+</tr>
+<tr>
+<th><span class=muted>Bezeichnung</th>
+<th><span class=muted>Definition</th>
+<th>1973–2000 (⌀)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Eistage</th>
+<td>nicht über 0°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
+</tr>
+
+<tr>
+<th>Frosttage</th>
+<td>unter 0°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
+</tr>
+
+<tr>
+<th>Sommertage</th>
+<td>über 25°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
+</tr>
+
+<tr>
+<th>Heiße Tage</th>
+<td>über 30°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
+</tr>
+
+<tr>
+<th>Tropennächte</th>
+<td>nicht unter 20°C</td>
+<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
+</tr>
+
+</tbody>
+</table>
+
+<span class=muted>Die Referenzwerte ergeben sich aus dem Durchschnitt
+der Jahre 1973 bis 2000.</span>
+
+<!-- Üblicherweise werden als Referenzperiode die Jahre
+1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
+beginnen aber erst 1973. -->
 
 </div> <!-- card -->
 
@@ -125,80 +175,60 @@ in der Stadt sind meist höher als im ländlichen Raum.
 <thead>
 <tr style="border-bottom:0px">
 <th></th>
-<th></th>
 <th colspan=4><span class=muted>Anzahl</span></th>
-<th><span class=muted>Referenzperiode</span></th>
 </tr>
 <tr>
 <th><span class=muted>Bezeichnung</th>
-<th><span class=muted>Definition</th>
 <th>${klindex_abs[0]['Jahr']}</th>
 <th>${klindex_abs[1]['Jahr']}</th>
 <th>${klindex_abs[2]['Jahr']}</th>
 <th>${klindex_abs[3]['Jahr']}</th>
-<th>1973–2000 (⌀)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>Eistage</th>
-<td>nicht über 0°C</td>
 <td>${klindex_abs[0]['Eistage_Anzahl']}</td>
 <td>${klindex_abs[1]['Eistage_Anzahl']}</td>
 <td>${klindex_abs[2]['Eistage_Anzahl']}</td>
 <td>${klindex_abs[3]['Eistage_Anzahl']}</td>
-<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
 </tr>
 
 <tr>
 <th>Frosttage</th>
-<td>unter 0°C</td>
 <td>${klindex_abs[0]['Frosttage_Anzahl']}</td>
 <td>${klindex_abs[1]['Frosttage_Anzahl']}</td>
 <td>${klindex_abs[2]['Frosttage_Anzahl']}</td>
 <td>${klindex_abs[3]['Frosttage_Anzahl']}</td>
-<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
 </tr>
 
 <tr>
 <th>Sommertage</th>
-<td>über 25°C</td>
 <td>${klindex_abs[0]['Sommertage_Anzahl']}</td>
 <td>${klindex_abs[1]['Sommertage_Anzahl']}</td>
 <td>${klindex_abs[2]['Sommertage_Anzahl']}</td>
 <td>${klindex_abs[3]['Sommertage_Anzahl']}</td>
-<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
 </tr>
 
 <tr>
 <th>Heiße Tage</th>
-<td>über 30°C</td>
 <td>${klindex_abs[0]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_abs[1]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_abs[2]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_abs[3]['Heisse_Tage_Anzahl']}</td>
-<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
 </tr>
 
 <tr>
 <th>Tropennächte</th>
-<td>nicht unter 20°C</td>
 <td>${klindex_abs[0]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_abs[1]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_abs[2]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_abs[3]['Tropennaechte_Anzahl']}</td>
-<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
 </tr>
 
 </tbody>
 </table>
 
-<span class=muted>Die Referenzwerte ergeben sich aus dem Durchschnitt
-der Jahre 1973 bis 2000.</span>
-
-<!-- Üblicherweise werden als Referenzperiode die Jahre
-1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
-beginnen aber erst 1973. -->
 
 </div> <!-- card -->
 
@@ -211,14 +241,10 @@ beginnen aber erst 1973. -->
 <thead>
 <tr style="border-bottom:0px">
 <th></th>
-<th></th>
-<th><span class=muted>Referenzperiode</span></th>
 <th colspan=4><span class=muted>Änderung zur Referenzperiode</span></th>
 </tr>
 <tr>
 <th><span class=muted>Bezeichnung</th>
-<th><span class=muted>Definition</th>
-<th>1973–2000 (⌀)</th>
 <th>${klindex_rel[0]['Jahr']}</th>
 <th>${klindex_rel[1]['Jahr']}</th>
 <th>${klindex_rel[2]['Jahr']}</th>
@@ -228,8 +254,6 @@ beginnen aber erst 1973. -->
 <tbody>
 <tr>
 <th>Eistage</th>
-<td>nicht über 0°C</td>
-<td>${Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Eistage_Anzahl']}</td>
 <td>${klindex_rel[1]['Eistage_Anzahl']}</td>
 <td>${klindex_rel[2]['Eistage_Anzahl']}</td>
@@ -238,8 +262,6 @@ beginnen aber erst 1973. -->
 
 <tr>
 <th>Frosttage</th>
-<td>unter 0°C</td>
-<td>${Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Frosttage_Anzahl']}</td>
 <td>${klindex_rel[1]['Frosttage_Anzahl']}</td>
 <td>${klindex_rel[2]['Frosttage_Anzahl']}</td>
@@ -248,8 +270,6 @@ beginnen aber erst 1973. -->
 
 <tr>
 <th>Sommertage</th>
-<td>über 25°C</td>
-<td>${Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Sommertage_Anzahl']}</td>
 <td>${klindex_rel[1]['Sommertage_Anzahl']}</td>
 <td>${klindex_rel[2]['Sommertage_Anzahl']}</td>
@@ -258,8 +278,6 @@ beginnen aber erst 1973. -->
 
 <tr>
 <th>Heiße Tage</th>
-<td>über 30°C</td>
-<td>${Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_rel[1]['Heisse_Tage_Anzahl']}</td>
 <td>${klindex_rel[2]['Heisse_Tage_Anzahl']}</td>
@@ -268,8 +286,6 @@ beginnen aber erst 1973. -->
 
 <tr>
 <th>Tropennächte</th>
-<td>nicht unter 20°C</td>
-<td>${Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))}</td>
 <td>${klindex_rel[0]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_rel[1]['Tropennaechte_Anzahl']}</td>
 <td>${klindex_rel[2]['Tropennaechte_Anzahl']}</td>
@@ -278,13 +294,6 @@ beginnen aber erst 1973. -->
 
 </tbody>
 </table>
-
-<span class=muted>Die Referenzwerte ergeben sich aus dem Durchschnitt
-der Jahre 1973 bis 2000.</span>
-
-<!-- Üblicherweise werden als Referenzperiode die Jahre
-1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
-beginnen aber erst 1973. -->
 
 </div> <!-- card -->
 
@@ -993,6 +1002,7 @@ Das Diagramm zeigt, dass Tropennächte in den letzten Jahrzehnten häufiger gewo
 
 </div> <!-- info -->
 </div> <!-- with-info -->
+
 </div> <!-- card -->
 
 </div> <!-- grid -->
