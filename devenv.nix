@@ -19,6 +19,10 @@ in
   languages.python.uv.package = unstable.uv;
   languages.python.uv.sync.enable = true;
 
+  enterShell = ''
+    uv run pre-commit install
+  '';
+
   processes.preview = {
     exec = "npm run dev";
     process-compose =  {
