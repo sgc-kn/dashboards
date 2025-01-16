@@ -10,12 +10,16 @@ const projections = FileAttachment("cds/Vorhersagen.csv").csv({typed:true})
 const projections_4_5 = FileAttachment("cds/Vorhersagen_4_5.csv").csv({typed:true})
 const projections_8_5 = FileAttachment("cds/Vorhersagen_8_5.csv").csv({typed:true})
 
+function getProjection(variable) {
+  if (variable.includes('4_5')) return '4.5';
+}
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
     variables.map(variable => ({
       year: row['Jahr'],
       variable,
-      value: row[variable]
+      value: row[variable],
+      projection: getProjection(variable),
   })))
 };
 ```
@@ -127,6 +131,10 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
+    facet: {
+      axis: false,
+      label: null,
+    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -145,29 +153,71 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.areaY(long_table(projections, hot_days_variables), {
-        x: "year",
-        y2: "value",
-        fill: "variable",
-        opacity: 1,
-        mixBlendMode: "hard-light",
-      }),
-      Plot.line(long_table(projections, hot_days_variables), {
+      Plot.dot(long_table(reanalyse, hot_days_variables)
+        .concat(
+          long_table(reanalyse_ma30y, hot_days_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+        })
+      ),
+      Plot.dot(long_table(projections, hot_days_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+          fy: "projection",
+        })
+      ),
+      Plot.line(long_table(reanalyse, hot_days_variables), {
         x: "year",
         y: "value",
-        stroke: "variable",
-      }),
-      Plot.dot(long_table(reanalyse, hot_days_variables), {
-        x: "year",
-        y: "value",
+        strokeOpacity: 0.4,
+        fillOpacity: 1,
+        marker: "circle",
         stroke: "variable",
       }),
       Plot.line(long_table(reanalyse_ma30y, hot_days_variables), {
         x: "year",
         y: "value",
+        strokeWidth: 2,
         stroke: "variable",
-        strokeWidth: 3,
       }),
+      Plot.line(long_table(projections, hot_days_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      strokeOpacity: 0.5,
+      fillOpacity: 1,
+      marker: "circle",
+      fy: "projection",
+      }),
+      Plot.tip(long_table(projections, hot_days_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
+          fy: "projection",
+          anchor: "bottom",
+        })
+      ),
+      Plot.tip(long_table(reanalyse, hot_days_variables)
+        .concat(
+          long_table(reanalyse_ma30y, hot_days_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
+          anchor: "top",
+        })
+      ),
     ]
   }))}
 </div> <!-- body -->
@@ -191,10 +241,6 @@ TODO
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-
-```js
-const show_Line = view(Inputs.checkbox(["4.5", "8.5"], {label: "Vorhersagen"}));
-```
 ${resize((width) => Plot.plot({
     width,
     grid: true,
@@ -217,41 +263,69 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(long_table(reanalyse, heat_waves_variables), {
+      Plot.dot(long_table(reanalyse, heat_waves_variables)
+        .concat(
+          long_table(reanalyse_ma30y, heat_waves_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+        })
+      ),
+      Plot.dot(long_table(projections, heat_waves_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+          fy: "projection",
+        })
+      ),
+      Plot.line(long_table(reanalyse, heat_waves_variables), {
         x: "year",
         y: "value",
+        strokeOpacity: 0.4,
+        fillOpacity: 1,
+        marker: "circle",
         stroke: "variable",
       }),
       Plot.line(long_table(reanalyse_ma30y, heat_waves_variables), {
         x: "year",
         y: "value",
+        strokeWidth: 2,
         stroke: "variable",
       }),
-      ...(show_Line.includes("4.5") ? [
-            Plot.line(long_table(projections_4_5, heat_waves_variables), {
-              x: "year",
-              y: "value",
-              stroke: "variable",
-            })
-          ] : []),
-      ...(show_Line.includes("8.5") ? [
-            Plot.line(long_table(projections_8_5, heat_waves_variables), {
-              x: "year",
-              y: "value",
-              stroke: "variable",
-            })
-          ] : []),
-      Plot.tip(long_table(reanalyse, heat_waves_variables)
-        .concat(
-          long_table(reanalyse_ma30y, heat_waves_variables),
-          show_Line.includes("4.5") ? long_table(projections_4_5, heat_waves_variables) : [],
-          show_Line.includes("8.5") ? long_table(projections_8_5, heat_waves_variables) : [],
-        ),
-        Plot.pointer({
+      Plot.line(long_table(projections, heat_waves_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      strokeOpacity: 0.5,
+      fillOpacity: 1,
+      marker: "circle",
+      fy: "projection",
+      }),
+      Plot.tip(long_table(projections, heat_waves_variables),
+        Plot.pointerX({
           x: "year",
           y: "value",
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
+          fy: "projection",
+          anchor: "bottom",
+        })
+      ),
+      Plot.tip(long_table(reanalyse, heat_waves_variables)
+        .concat(
+          long_table(reanalyse_ma30y, heat_waves_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
+          anchor: "top",
         })
       ),
     ]
@@ -297,15 +371,32 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.line(long_table(projections, tropical_nights_variables), {
+      Plot.dot(long_table(reanalyse, tropical_nights_variables)
+        .concat(
+          long_table(reanalyse_ma30y, tropical_nights_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+        })
+      ),
+      Plot.dot(long_table(projections, tropical_nights_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+          fy: "projection",
+        })
+      ),
+      Plot.line(long_table(reanalyse, tropical_nights_variables), {
         x: "year",
         y: "value",
-        curve: "monotone-x",
-        stroke: "variable",
-      }),
-      Plot.dot(long_table(reanalyse, tropical_nights_variables), {
-        x: "year",
-        y: "value",
+        strokeOpacity: 0.4,
+        fillOpacity: 1,
+        marker: "circle",
         stroke: "variable",
       }),
       Plot.line(long_table(reanalyse_ma30y, tropical_nights_variables), {
@@ -314,40 +405,36 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.ruleX(long_table(reanalyse, tropical_nights_variables)
-        .concat(
-          long_table(reanalyse_ma30y, tropical_nights_variables),
-          long_table(projections, tropical_nights_variables)
-        ),
+      Plot.line(long_table(projections, tropical_nights_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      strokeOpacity: 0.5,
+      fillOpacity: 1,
+      marker: "circle",
+      fy: "projection",
+      }),
+      Plot.tip(long_table(projections, tropical_nights_variables),
         Plot.pointerX({
           x: "year",
-          py: "value",
-          stroke: "red",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
+          fy: "projection",
+          anchor: "bottom",
         })
       ),
-      Plot.dot(long_table(reanalyse, tropical_nights_variables)
+      Plot.tip(long_table(reanalyse, tropical_nights_variables)
         .concat(
           long_table(reanalyse_ma30y, tropical_nights_variables),
-          long_table(projections, tropical_nights_variables)
         ),
         Plot.pointerX({
           x: "year",
           y: "value",
-          fill: "variable",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
+          anchor: "top",
         })
-      ),
-      Plot.text(long_table(reanalyse, tropical_nights_variables)
-        .concat(
-          long_table(reanalyse_ma30y, tropical_nights_variables),
-          long_table(projections, tropical_nights_variables)
-        ),
-        Plot.pointerX({
-          px: "year",
-          py: "value",
-          dy: -10,
-          frameAnchor: "top-left",
-          text: (d) => `Jahr: ${d.year} Anzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`
-        }),
       ),
     ]
   }))}
@@ -395,26 +482,29 @@ ${resize((width) => Plot.plot({
       Plot.dot(long_table(reanalyse, extreme_precipitation_variables)
         .concat(
           long_table(reanalyse_ma30y, extreme_precipitation_variables),
-          long_table(projections, extreme_precipitation_variables)
         ),
-        Plot.pointer({
+        Plot.pointerX({
           x: "year",
           y: "value",
           fill: "variable",
           r: 8,
         })
       ),
-      Plot.line(long_table(projections, extreme_precipitation_variables), {
+      Plot.dot(long_table(projections, extreme_precipitation_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+          fy: "projection",
+        })
+      ),
+      Plot.line(long_table(reanalyse, extreme_precipitation_variables), {
         x: "year",
         y: "value",
         strokeOpacity: 0.4,
         fillOpacity: 1,
         marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.dot(long_table(reanalyse, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
         stroke: "variable",
       }),
       Plot.line(long_table(reanalyse_ma30y, extreme_precipitation_variables), {
@@ -423,16 +513,35 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.tip(long_table(reanalyse, extreme_precipitation_variables)
-        .concat(
-          long_table(reanalyse_ma30y, extreme_precipitation_variables),
-          long_table(projections, extreme_precipitation_variables)
-        ),
-        Plot.pointer({
+      Plot.line(long_table(projections, extreme_precipitation_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      strokeOpacity: 0.5,
+      fillOpacity: 1,
+      marker: "circle",
+      fy: "projection",
+      }),
+      Plot.tip(long_table(projections, extreme_precipitation_variables),
+        Plot.pointerX({
           x: "year",
           y: "value",
           stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
+          fy: "projection",
+          anchor: "bottom",
+        })
+      ),
+      Plot.tip(long_table(reanalyse, extreme_precipitation_variables)
+        .concat(
+          long_table(reanalyse_ma30y, extreme_precipitation_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
+          anchor: "top",
         })
       ),
     ]
@@ -482,9 +591,32 @@ ${resize((width) => Plot.plot({
     },
     marks: [
       Plot.frame(),
-      Plot.dot(long_table(reanalyse, frost_days_variables), {
+      Plot.dot(long_table(reanalyse, frost_days_variables)
+        .concat(
+          long_table(reanalyse_ma30y, frost_days_variables),
+        ),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+        })
+      ),
+      Plot.dot(long_table(projections, frost_days_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          fill: "variable",
+          r: 8,
+          fy: "projection",
+        })
+      ),
+      Plot.line(long_table(reanalyse, frost_days_variables), {
         x: "year",
         y: "value",
+        strokeOpacity: 0.4,
+        fillOpacity: 1,
+        marker: "circle",
         stroke: "variable",
       }),
       Plot.line(long_table(reanalyse_ma30y, frost_days_variables), {
@@ -497,16 +629,31 @@ ${resize((width) => Plot.plot({
       x: "year",
       y: "value",
       stroke: "variable",
-      strokeWidth: 2,
-      fy: "variable"
-    }),
-      Plot.crosshairY(long_table(reanalyse, frost_days_variables)
+      strokeOpacity: 0.5,
+      fillOpacity: 1,
+      marker: "circle",
+      fy: "projection",
+      }),
+      Plot.tip(long_table(projections, frost_days_variables),
+        Plot.pointerX({
+          x: "year",
+          y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
+          fy: "projection",
+          anchor: "bottom",
+        })
+      ),
+      Plot.tip(long_table(reanalyse, frost_days_variables)
         .concat(
           long_table(reanalyse_ma30y, frost_days_variables),
-          long_table(projections, frost_days_variables)
         ),
-        Plot.pointerY({
+        Plot.pointerX({
+          x: "year",
           y: "value",
+          stroke: "variable",
+          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
+          anchor: "top",
         })
       ),
     ]
