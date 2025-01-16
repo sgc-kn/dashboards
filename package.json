@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "clean": "rimraf src/.observablehq/cache",
-    "build": "rimraf dist && observable build",
-    "dev": "observable preview",
-    "deploy": "observable deploy",
-    "observable": "observable"
+    "build": "rimraf dist && uv run observable build",
+    "dev": "uv run observable preview",
+    "deploy": "uv run observable deploy",
+    "observable": "uv run observable"
   },
   "dependencies": {
     "@observablehq/framework": "^1.9.0"

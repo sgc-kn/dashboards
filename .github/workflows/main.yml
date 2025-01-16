@@ -25,6 +25,10 @@ jobs:
       - name: Install devenv.sh
         run: nix profile install nixpkgs#devenv
 
+      - name: Test
+        run: |
+          devenv test
+
       - name: Build
         run: |
           devenv shell npm run build

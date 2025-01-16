@@ -1,0 +1,8 @@
+repos:
+# Python formatting and linting
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.9.1
+  hooks:
+    - id: ruff
+    - id: ruff-format
+# Are you up to date with JS tooling? Go ahead!
