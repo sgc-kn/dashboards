@@ -15,5 +15,5 @@
       }
     }
   },
-  "postCreateCommand": "uv sync && npm clean-install && git config --global diff.lfs.textconv cat && uv run pre-commit install"
+  "postCreateCommand": "bash /postCreate.sh"
 }
