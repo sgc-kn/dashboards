@@ -114,4 +114,7 @@ ${resize((width) => Plot.plot({
 
 ---
 
-<img style='max-height:15rem' title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="assets/sponsors-wide.png" />
+<div style='display: flex; align-items: center'>
+<img style='width:20rem' title="Smart City Sponsor" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen" src="/assets/sponsor-BMWSB.svg" />
+<img style='width:15rem' title="Smart City Sponsor" alt="Gefördert durch Kreditanstalt für Wiederaufbau (KFW)" src="/assets/sponsor-KFW.png" />
+</div>
