@@ -10,7 +10,8 @@
         "ms-toolsai.jupyter"
       ],
       "settings": {
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/"
       }
     }
   },
