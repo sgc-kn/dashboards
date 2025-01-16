@@ -30,11 +30,12 @@ projections = {
     'Hitzewellentage_Anzahl_Vorhersage_8_5': '09_heat_waves_climatological-projections-yearly-rcp_8_5-cclm4_8_17-mpi_esm_lr-r1i1p1-grid-v1.0-data.csv',
 }
 
-def filter_projection_by_last_year(df, last_year):
+def filter_projection_year(df, last_year):
     return df[df.index >= last_year]
 
 columns = dict()
 columns_projections = dict()
+columns_projections_ma30y = dict()
 
 with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
     for key, csv_name in reanalysis.items():
@@ -47,13 +48,15 @@ with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
         proj_df = pandas.read_csv(zf.open(csv_name))
         proj_df['Jahr'] = pandas.to_datetime(proj_df.date).dt.year
         proj_df = proj_df.set_index('Jahr')
-        proj_df = filter_projection_by_last_year(proj_df, df.index[-1])
+        proj_df = filter_projection_year(proj_df, df.index[-30])
+        columns_projections_ma30y[key] = proj_df.konstanz
+        proj_df = filter_projection_year(proj_df, df.index[-1])
         columns_projections[key] = proj_df.konstanz
 
 reanalysis_df = pandas.DataFrame(columns)
 reanalysis_ma30y = reanalysis_df.rolling(window=30, min_periods=30).mean().dropna()
 projections_df = pandas.DataFrame(columns_projections)
-projections_ma30y = projections_df.rolling(window=30, min_periods=30).mean().dropna()
+projections_ma30y = pandas.DataFrame(columns_projections_ma30y).rolling(window=30, min_periods=30).mean().dropna()
 
 zip_buffer = io.BytesIO()
 with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zf:
