@@ -23,13 +23,8 @@ in
     uv run pre-commit install
   '';
 
-  processes.preview = {
-    exec = "npm run dev";
-    process-compose =  {
-      availability = {
-        backoff_seconds = 5;
-        restart = "on_failure";
-      };
-    };
-  };
+  enterTest = ''
+    uv run ruff check
+    uv run ruff format --check
+  '';
 }
