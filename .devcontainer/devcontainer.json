@@ -1,12 +1,17 @@
 {
-  "build": { "dockerfile": "Dockerfile" },
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         "charliermarsh.ruff",
         "ms-python.python",
         "ms-toolsai.jupyter"
-      ]
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
     }
   },
   "postCreateCommand": "uv sync && npm clean-install && git config --global diff.lfs.textconv cat && uv run pre-commit install"
