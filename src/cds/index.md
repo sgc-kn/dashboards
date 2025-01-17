@@ -25,6 +25,9 @@ function long_table(wide_table, variables) {
 
 
 ```js
+const lastYear = Math.max(...reanalyse.map(d => d.Jahr));
+const filteredProjections = projections.filter(d => d.Jahr > lastYear);
+
 const hot_days_variables = [
   'Heisse_Tage_Anzahl',
   'Heisse_Tage_Anzahl_Vorhersage_4_5',
@@ -160,7 +163,7 @@ ${resize((width) => Plot.plot({
           r: 8,
         })
       ),
-      Plot.dot(long_table(projections, hot_days_variables),
+      Plot.dot(long_table(filteredProjections, hot_days_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -183,14 +186,17 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.line(long_table(projections_ma30y, hot_days_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-        fy: "projection",
+      Plot.bollingerY(long_table(projections, hot_days_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      fill: "variable",
+      n: 30,
+      k:1,
+      strokeOpacity: 1,
+      fy: "projection",
       }),
-      Plot.line(long_table(projections, hot_days_variables), {
+      Plot.line(long_table(filteredProjections, hot_days_variables), {
       x: "year",
       y: "value",
       stroke: "variable",
@@ -199,7 +205,7 @@ ${resize((width) => Plot.plot({
       marker: "circle",
       fy: "projection",
       }),
-      Plot.tip(long_table(projections, hot_days_variables),
+      Plot.tip(long_table(filteredProjections, hot_days_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -271,7 +277,7 @@ ${resize((width) => Plot.plot({
           r: 8,
         })
       ),
-      Plot.dot(long_table(projections, heat_waves_variables),
+      Plot.dot(long_table(filteredProjections, heat_waves_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -294,14 +300,7 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.line(long_table(projections_ma30y, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-        fy: "projection",
-      }),
-      Plot.line(long_table(projections, heat_waves_variables), {
+      Plot.line(long_table(filteredProjections, heat_waves_variables), {
       x: "year",
       y: "value",
       stroke: "variable",
@@ -310,7 +309,17 @@ ${resize((width) => Plot.plot({
       marker: "circle",
       fy: "projection",
       }),
-      Plot.tip(long_table(projections, heat_waves_variables),
+      Plot.bollingerY(long_table(projections, heat_waves_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      fill: "variable",
+      n: 30,
+      k:1,
+      strokeOpacity: 1,
+      fy: "projection",
+      }),
+      Plot.tip(long_table(filteredProjections, heat_waves_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -380,7 +389,7 @@ ${resize((width) => Plot.plot({
           r: 8,
         })
       ),
-      Plot.dot(long_table(projections, tropical_nights_variables),
+      Plot.dot(long_table(filteredProjections, tropical_nights_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -403,14 +412,17 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.line(long_table(projections_ma30y, tropical_nights_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-        fy: "projection",
+      Plot.bollingerY(long_table(projections, tropical_nights_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      fill: "variable",
+      n: 30,
+      k:1,
+      strokeOpacity: 1,
+      fy: "projection",
       }),
-      Plot.line(long_table(projections, tropical_nights_variables), {
+      Plot.line(long_table(filteredProjections, tropical_nights_variables), {
       x: "year",
       y: "value",
       stroke: "variable",
@@ -419,7 +431,7 @@ ${resize((width) => Plot.plot({
       marker: "circle",
       fy: "projection",
       }),
-      Plot.tip(long_table(projections, tropical_nights_variables),
+      Plot.tip(long_table(filteredProjections, tropical_nights_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -489,7 +501,7 @@ ${resize((width) => Plot.plot({
           r: 8,
         })
       ),
-      Plot.dot(long_table(projections, extreme_precipitation_variables),
+      Plot.dot(long_table(filteredProjections, extreme_precipitation_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -512,14 +524,17 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.line(long_table(projections_ma30y, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-        fy: "projection",
+      Plot.bollingerY(long_table(projections, extreme_precipitation_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      fill: "variable",
+      n: 30,
+      k:1,
+      strokeOpacity: 1,
+      fy: "projection",
       }),
-      Plot.line(long_table(projections, extreme_precipitation_variables), {
+      Plot.line(long_table(filteredProjections, extreme_precipitation_variables), {
       x: "year",
       y: "value",
       stroke: "variable",
@@ -528,7 +543,7 @@ ${resize((width) => Plot.plot({
       marker: "circle",
       fy: "projection",
       }),
-      Plot.tip(long_table(projections, extreme_precipitation_variables),
+      Plot.tip(long_table(filteredProjections, extreme_precipitation_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -602,7 +617,7 @@ ${resize((width) => Plot.plot({
           r: 8,
         })
       ),
-      Plot.dot(long_table(projections, frost_days_variables),
+      Plot.dot(long_table(filteredProjections, frost_days_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
@@ -625,14 +640,17 @@ ${resize((width) => Plot.plot({
         strokeWidth: 2,
         stroke: "variable",
       }),
-      Plot.line(long_table(projections_ma30y, frost_days_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-        fy: "projection",
+      Plot.bollingerY(long_table(projections, frost_days_variables), {
+      x: "year",
+      y: "value",
+      stroke: "variable",
+      fill: "variable",
+      n: 30,
+      k:1,
+      strokeOpacity: 1,
+      fy: "projection",
       }),
-      Plot.line(long_table(projections, frost_days_variables), {
+      Plot.line(long_table(filteredProjections, frost_days_variables), {
       x: "year",
       y: "value",
       stroke: "variable",
@@ -641,7 +659,7 @@ ${resize((width) => Plot.plot({
       marker: "circle",
       fy: "projection",
       }),
-      Plot.tip(long_table(projections, frost_days_variables),
+      Plot.tip(long_table(filteredProjections, frost_days_variables),
         Plot.pointerX({
           x: "year",
           y: "value",

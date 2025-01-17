@@ -50,7 +50,7 @@ with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
         proj_df = proj_df.set_index('Jahr')
         proj_df = filter_projection_year(proj_df, df.index[-30])
         columns_projections_ma30y[key] = proj_df.konstanz
-        proj_df = filter_projection_year(proj_df, df.index[-1])
+        proj_df = filter_projection_year(proj_df, df.index[-30])
         columns_projections[key] = proj_df.konstanz
 
 reanalysis_df = pandas.DataFrame(columns)
@@ -68,5 +68,4 @@ with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zf:
         projections_df.to_csv(f)
     with zf.open('Vorhersagen_30Jahre_gleitender_Durchschnitt.csv', 'w') as f:
         projections_ma30y.to_csv(f)
-
 sys.stdout.buffer.write(zip_buffer.getvalue())
