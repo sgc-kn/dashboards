@@ -1,27 +1,39 @@
-from util import read_tables_from_zip, zip_tables_to_buf
 import duckdb
 import httpx
+import pandas
+import util
 import sys
 
-path = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/"
-path += "climate/annual/climate_indices/kl/historical/"
-path += "jahreswerte_KLINDEX_02712_19721101_20231231_hist.zip"
+base = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/"
 
-r = httpx.get(path)
-r.raise_for_status()
+station = "02712"  # Konstanz
 
-klindex_tables = read_tables_from_zip(r)
 
-# ---
+def find_zip(product, *, station=station):
+    all_zips = util.list_zip_files(base + product, prefix="jahreswerte_")
+    station_zips = [path for path in all_zips if "_" + station + "_" in path]
+    assert len(station_zips) == 1
+    return base + product + station_zips[0]
 
-path = "https://opendata.dwd.de/climate_environment/CDC/observations_germany/"
-path += "climate/annual/kl/historical/"
-path += "jahreswerte_KL_02712_19470101_20231231_hist.zip"
 
-r = httpx.get(path)
-r.raise_for_status()
+def load(product, *, station=station):
+    path = find_zip(product, station=station)
+    r = httpx.get(path)
+    r.raise_for_status()
+    return util.read_tables_from_zip(r)
 
-kl_tables = read_tables_from_zip(r)
+
+def load_recent_and_historical(product, *, station=station):
+    recent = load(product + "recent/")
+    historical = load(product + "historical/")
+    recent["data"] = pandas.concat(
+        [historical["data"], recent["data"]]
+    ).drop_duplicates()
+    return recent
+
+
+klindex_tables = load_recent_and_historical("climate/annual/climate_indices/kl/")
+kl_tables = load_recent_and_historical("climate/annual/kl/")
 
 # ---
 
@@ -165,6 +177,6 @@ tables["Referenzperiode_1973_2000"] = duckdb.query(sql_Referenzperiode).df()
 
 # ---
 
-zip_file = zip_tables_to_buf(tables)
+zip_file = util.zip_tables_to_buf(tables)
 
 sys.stdout.buffer.write(zip_file)

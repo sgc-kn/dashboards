@@ -37,8 +37,8 @@ um 83%.
 [➜ Hier geht's zum Dashboard !](dwd/index.html)
 
 ```js
-const dwd_points = FileAttachment("dwd/data/Jahreswerte.csv").csv({typed: true})
-const dwd_ma30y = FileAttachment("dwd/data/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const dwd_points = FileAttachment("dwd/dwd/Jahreswerte.csv").csv({typed: true})
+const dwd_ma30y = FileAttachment("dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
 
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
@@ -114,4 +114,17 @@ ${resize((width) => Plot.plot({
 
 ---
 
-<img style='max-height:15rem' title="Smart City Sponsoren" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen sowie der KFW" src="assets/sponsors-wide.png" />
+<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <img
+    style="flex: 0 1 auto; max-width: 20rem; width: 100%;"
+    title="Smart City Sponsor"
+    alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen"
+    src="/assets/sponsor-BMWSB.svg"
+  />
+  <img
+    style="flex: 0 1 auto; max-width: 15rem; width: 100%;"
+    title="Smart City Sponsor"
+    alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)"
+    src="/assets/sponsor-KFW.png"
+  />
+</div>
