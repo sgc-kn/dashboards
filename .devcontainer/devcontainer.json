@@ -11,7 +11,11 @@
       ],
       "settings": {
         "editor.formatOnSave": true,
-        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/"
+        "notebook.formatOnSave.enabled": true,
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
       }
     }
   },
