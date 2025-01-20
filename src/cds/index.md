@@ -217,6 +217,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: -10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
           fy: "projection",
@@ -227,6 +228,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: 10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
           anchor: "top",
@@ -331,6 +333,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: -10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
           fy: "projection",
@@ -341,6 +344,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: 10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
           anchor: "top",
@@ -443,6 +447,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: -10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
           fy: "projection",
@@ -453,6 +458,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: 15,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
           anchor: "top",
@@ -555,6 +561,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: -10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
           fy: "projection",
@@ -565,6 +572,7 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: 15,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
           anchor: "top",
@@ -671,19 +679,21 @@ ${resize((width) => Plot.plot({
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: 10,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
           fy: "projection",
-          anchor: "bottom",
+          anchor: "top",
         })
       ),
       Plot.tip(long_table(reanalyse, frost_days_variables),
         Plot.pointerX({
           x: "year",
           y: "value",
+          dy: -20,
           stroke: "variable",
           title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
-          anchor: "top",
+          anchor: "bottom",
         })
       ),
     ]
