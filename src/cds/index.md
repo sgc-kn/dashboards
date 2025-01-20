@@ -23,7 +23,6 @@ function long_table(wide_table, variables) {
 };
 ```
 
-
 ```js
 const lastYear = Math.max(...reanalyse.map(d => d.Jahr));
 const filteredProjections = projections.filter(d => d.Jahr > lastYear);
