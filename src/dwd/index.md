@@ -318,7 +318,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 function label_geo(row) {
   const opt = {day: 'numeric', month: 'short', year: 'numeric'};
   const von = (new Date(row['Von'])).toLocaleDateString(undefined, opt);
-  if (row['bis']) {
+  if (row['Bis']) {
     const bis = (new Date(row['Bis'])).toLocaleDateString(undefined, opt);
     return `${von} – ${bis}`
   } else {
