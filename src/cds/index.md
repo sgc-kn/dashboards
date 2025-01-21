@@ -189,15 +189,6 @@ ${resize((width) => Plot.plot({
         marker: "circle",
         fy: "projection",
       }),
-      Plot.bollingerY(long_table(reanalyse, hot_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-      }),
       Plot.line(long_table(reanalyse, hot_days_variables), {
         x: "year",
         y: "value",
