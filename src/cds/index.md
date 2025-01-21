@@ -252,6 +252,10 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
+    facet: {
+      axis: false,
+      label: null,
+    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -366,6 +370,10 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
+    facet: {
+      axis: false,
+      label: null,
+    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -480,6 +488,10 @@ ${resize((width) => Plot.plot({
     width,
     grid: true,
     inset: 10,
+    facet: {
+      axis: false,
+      label: null,
+    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
