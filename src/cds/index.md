@@ -12,6 +12,7 @@ const projections_ma30y= FileAttachment("cds/Vorhersagen_30Jahre_gleitender_Durc
 function getProjection(variable) {
   if (variable.includes('4_5')) return '4.5';
 }
+
 function long_table(wide_table, variables) {
   return wide_table.flatMap(row =>
     variables.map(variable => ({

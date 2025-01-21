@@ -68,4 +68,5 @@ with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zf:
         projections_df.to_csv(f)
     with zf.open('Vorhersagen_30Jahre_gleitender_Durchschnitt.csv', 'w') as f:
         projections_ma30y.to_csv(f)
+        
 sys.stdout.buffer.write(zip_buffer.getvalue())
