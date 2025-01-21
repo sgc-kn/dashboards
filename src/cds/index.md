@@ -697,5 +697,4 @@ ${resize((width) => Plot.plot({
 </div> <!-- info -->
 </div> <!-- with-info -->
 </div> <!-- card -->
-
 </div> <!-- grid -->
