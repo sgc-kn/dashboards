@@ -1,4 +1,3 @@
-import duckdb
 import httpx
 import sys
 import zipfile
