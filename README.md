@@ -1,1 +1,1 @@
-# smart-green-city-konstanz
+# Project: Smart Green City Konstanz
