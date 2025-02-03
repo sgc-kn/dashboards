@@ -82,6 +82,17 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+#### hinzugefügt um große Dateien zu ignorieren - Richard
+
+# Jupyter Notebook Ausgabe-Dateien 
+*.csv
+*.log
+
+# Weitere temporäre Dateien
+*.out
+*.tmp
+##### 
+
 # IPython
 profile_default/
 ipython_config.py
