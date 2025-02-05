@@ -4,100 +4,20 @@ toc: false
 ---
 
 ```js
-const reanalyse = FileAttachment("cds/Reanalyse.csv").csv({typed: true})
-const reanalyse_ma30y = FileAttachment("cds/Reanalyse_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
-const projections = FileAttachment("cds/Vorhersagen.csv").csv({typed:true})
-const projections_ma30y= FileAttachment("cds/Vorhersagen_30Jahre_gleitender_Durchschnitt.csv").csv({typed:true})
+const stats = FileAttachment("cds/Statistik_30Jahre.csv").csv({typed: true})
+const observations = FileAttachment("../dwd/dwd/Jahreswerte.csv").csv({typed: true})
 
-function getProjection(variable) {
-  if (variable.includes('4_5')) return '4.5';
-}
-
-function long_table(wide_table, variables) {
-  return wide_table.flatMap(row =>
-    variables.map(variable => ({
-      year: row['Jahr'],
-      variable,
-      value: row[variable],
-      projection: getProjection(variable),
-  })))
-};
-```
-
-```js
-const lastYear = Math.max(...reanalyse.map(d => d.Jahr));
-const filteredProjections = projections.filter(d => d.Jahr > lastYear);
-
-const hot_days_variables = [
-  'Heisse_Tage_Anzahl',
-  'Heisse_Tage_Anzahl_Vorhersage_4_5',
-  'Heisse_Tage_Anzahl_Vorhersage_8_5',
-];
-const hot_days_lables = {
+const lables = {
   'Heisse_Tage_Anzahl': "Heisse Tage (Maximum über 30°C)",
-  'Heisse_Tage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
-  'Heisse_Tage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
-};
-function label_hot_days(variable) {
-  return hot_days_lables[variable]
-};
-
-const heat_waves_variables = [
-  'Hitzewellentage_Anzahl',
-  'Hitzewellentage_Anzahl_Vorhersage_4_5',
-  'Hitzewellentage_Anzahl_Vorhersage_8_5',
-];
-const heat_waves_lables = {
   'Hitzewellentage_Anzahl': "Hitzewellentage",
-  'Hitzewellentage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
-  'Hitzewellentage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
-};
-function label_heat_waves(variable) {
-  return heat_waves_lables[variable]
-};
-
-const tropical_nights_variables = [
-  'Tropennaechte_Anzahl',
-  'Tropennaechte_Anzahl_Vorhersage_4_5',
-  'Tropennaechte_Anzahl_Vorhersage_8_5',
-];
-const tropical_nights_lables = {
-  'Tropennaechte_Anzahl': "Tropennächte  (Minimum über 20°C)",
-  'Tropennaechte_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
-  'Tropennaechte_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
-};
-function label_tropical_nights(variable) {
-  return tropical_nights_lables[variable]
-};
-
-const extreme_precipitation_variables = [
-  'Extremniederschlagstage_Anzahl',
-  'Extremniederschlagstage_Anzahl_Vorhersage_4_5',
-  'Extremniederschlagstage_Anzahl_Vorhersage_8_5',
-];
-const extreme_precipitation_lables = {
+  'Tropennaechte_Anzahl': "Tropennächte (Minimum über 20°C)",
   'Extremniederschlagstage_Anzahl': "Extremniederschlagstage",
-  'Extremniederschlagstage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
-  'Extremniederschlagstage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
-};
-function label_extreme_precipitation(variable) {
-  return extreme_precipitation_lables[variable]
+  'Frosttage_Anzahl': "Frosttage (Minimum unter 0°C)",
 };
 
-const frost_days_variables = [
-  'Frosttage_Anzahl',
-  'Frosttage_Anzahl_Vorhersage_4_5',
-  'Frosttage_Anzahl_Vorhersage_8_5',
-];
-const frost_days_lables = {
-  'Frosttage_Anzahl': "Frosttage (Minimum unter 0°C)",
-  'Frosttage_Anzahl_Vorhersage_4_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 4.5",
-  'Frosttage_Anzahl_Vorhersage_8_5': "Vorhersage mit repräsentativem Konzentrationspfad(RCP) 8.5",
-};
-function label_frost_days(variable) {
-  return frost_days_lables[variable]
-};
+const models = ['Reanalyse', 'Projektion RCP 4.5', 'Projektion RCP 8.5'];
 ```
+
 <h1>Klimamodelle</h1>
 <h2>aus dem Climate Data Store</h2>
 
@@ -106,36 +26,99 @@ function label_frost_days(variable) {
 <div class="card grid-colspan-1">
 <div class="header">
 <div class="title">
-<h2>Datenquelle</h2>
-<h3>Subtitle</h3>
+<h2>Datengrundlage</h2>
+<h3>Vorgehen</h3>
 </div> <!-- title -->
 <div class="tools"><a download href='cds.zip' class="download-button"></a></div>
 </div> <!-- header -->
-<div id=map_height>
 
-TODO
+- Quelle: [Datensatz zu Klimakenntagen im Climate Data Store](
+https://cds.climate.copernicus.eu/datasets/sis-ecde-climate-indicators
+)
+- [Aufbereitet für Konstanz und andere Städte](
+https://github.com/sgc-kn/cds-examples/
+)
+- Auswahl eines Modells:
 
-</div> <!-- #map_height -->
-</div> <!-- card -->
+```js
+const model = view (
+  Inputs.select(models,
+    {value: 'Projektion RCP 4.5', label: "Modell"}
+  )
+)
+```
 
-<div class="card">
-<div class="header">
-<div class="title">
-<h2>Klimakenntage</h2>
-<h3>Anzahl Heiße Tage pro Jahr</h3>
-</div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
-</div> <!-- header -->
-<div class='with-info'>
-<div class='body'>
-${resize((width) => Plot.plot({
+- Problem: einzelne Prognosewerte suggerieren „falsche" Präzision, deshalb:
+- Betrachtung von 30-jährigen Zeitscheiben, um das jeweilige Jahr herum (± 15 Jahre)
+- Erwartungswert: Durchschnitt der Zeitscheibe
+- Extremwerte: 80%, 90% und 95% Quantile der Zeitscheibe
+- Auswahl des Quantils über Jährlichkeit:
+
+```js
+const extreme = view (
+  Inputs.select(
+    new Map([
+      ['5-jährig', 'Q80'],
+      ['10-jährig', 'Q90'],
+      ['20-jährig', 'Q95'],
+    ]),
+    {value: 'Q90', label: "Extremwerte"}
+  )
+)
+```
+
+- Frage: Lässt das Modell solche Extremwertanalysen zu?
+- Frage: Können wir die Methode der Zielgruppe erklären?
+- Frage: Alternativen?
+
+Zusätzliche Punkte (schwarz) für Beobachtungen aus [DWD Dashboard](../dwd)
+
+- Frage: Wie erklären wir die Diskrepanz bei den Heißen Tagen und Tropennächten?
+
+```js
+const model_stats = stats.filter(row => (model == row['Modell']));
+
+const stat_labels = {
+  'Durchschnitt': 'Erwartungswert',
+  'Q80': '5-jähriges Extremereignis',
+  'Q90': '10-jähriges Extremereignis',
+  'Q95': '20-jähriges Extremereignis',
+};
+
+function label_stat(x) {
+  return stat_labels[x]
+};
+```
+
+```js
+function plot(width, variable, obs) {
+  const marks = [
+      Plot.frame(),
+      Plot.lineY(model_stats.filter(d => d['Statistik'] == 'Durchschnitt'), {
+        x: "Jahr",
+        y: variable,
+        stroke: "Statistik",
+      }),
+      Plot.lineY(model_stats.filter(d => d['Statistik'] == extreme), {
+        x: "Jahr",
+        y: variable,
+        stroke: "Statistik",
+      }),
+    ];
+
+  if ( obs ) {
+    marks.push(
+      Plot.dotY(observations, {
+        x: "Jahr",
+        y: obs,
+      })
+    );
+  }
+
+  return Plot.plot({
     width,
     grid: true,
     inset: 10,
-    facet: {
-      axis: false,
-      label: null,
-    },
     x: {
       label: 'Jahr',
       labelAnchor: 'center',
@@ -148,85 +131,27 @@ ${resize((width) => Plot.plot({
       tickFormat: Plot.formatNumber("de-DE"),
     },
     color: {
-      domain: hot_days_variables,
       legend: true,
-      tickFormat: label_hot_days,
+      tickFormat: label_stat,
     },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(reanalyse, hot_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-        })
-      ),
-      Plot.dot(long_table(filteredProjections, hot_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-          fy: "projection",
-        })
-      ),
-      Plot.bollingerY(long_table(projections, hot_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-        fy: "projection",
-      }),
-      Plot.line(long_table(filteredProjections, hot_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeOpacity: 0.5,
-        fillOpacity: 1,
-        marker: "circle",
-        fy: "projection",
-      }),
-      Plot.line(long_table(reanalyse, hot_days_variables), {
-        x: "year",
-        y: "value",
-        strokeOpacity: 0.4,
-        fillOpacity: 1,
-        marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(reanalyse_ma30y, hot_days_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-      }),
-      Plot.tip(long_table(filteredProjections, hot_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: -10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
-          fy: "projection",
-          anchor: "bottom",
-        })
-      ),
-      Plot.tip(long_table(reanalyse, hot_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: 10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_hot_days(d.variable)}`,
-          anchor: "top",
-        })
-      ),
-    ]
-  }))}
+    marks
+  })
+};
+```
+
+</div> <!-- card -->
+
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Heiße Tage pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+</div> <!-- header -->
+<div class='with-info'>
+<div class='body'>
+${resize((width) => plot(width, 'Heisse_Tage_Anzahl', 'Heisse_Tage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -248,105 +173,7 @@ TODO
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    facet: {
-      axis: false,
-      label: null,
-    },
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: heat_waves_variables,
-      legend: true,
-      tickFormat: label_heat_waves,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(reanalyse, heat_waves_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-        })
-      ),
-      Plot.dot(long_table(filteredProjections, heat_waves_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-          fy: "projection",
-        })
-      ),
-      Plot.line(long_table(filteredProjections, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeOpacity: 0.5,
-        fillOpacity: 1,
-        marker: "circle",
-        fy: "projection",
-      }),
-      Plot.bollingerY(long_table(projections, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-        fy: "projection",
-      }),
-      Plot.line(long_table(reanalyse, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        strokeOpacity: 0.4,
-        fillOpacity: 1,
-        marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(reanalyse_ma30y, heat_waves_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-      }),
-      Plot.tip(long_table(filteredProjections, heat_waves_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: -10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
-          fy: "projection",
-          anchor: "bottom",
-        })
-      ),
-      Plot.tip(long_table(reanalyse, heat_waves_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: 10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_heat_waves(d.variable)}`,
-          anchor: "top",
-        })
-      ),
-    ]
-  }))}
+${resize((width) => plot(width, 'Hitzewellentage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -366,105 +193,7 @@ TODO
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    facet: {
-      axis: false,
-      label: null,
-    },
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: tropical_nights_variables,
-      legend: true,
-      tickFormat: label_tropical_nights,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(reanalyse, tropical_nights_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-        })
-      ),
-      Plot.dot(long_table(filteredProjections, tropical_nights_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-          fy: "projection",
-        })
-      ),
-      Plot.bollingerY(long_table(projections, tropical_nights_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-        fy: "projection",
-      }),
-      Plot.line(long_table(filteredProjections, tropical_nights_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeOpacity: 0.5,
-        fillOpacity: 1,
-        marker: "circle",
-        fy: "projection",
-      }),
-      Plot.line(long_table(reanalyse, tropical_nights_variables), {
-        x: "year",
-        y: "value",
-        strokeOpacity: 0.4,
-        fillOpacity: 1,
-        marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(reanalyse_ma30y, tropical_nights_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-      }),
-      Plot.tip(long_table(filteredProjections, tropical_nights_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: -10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
-          fy: "projection",
-          anchor: "bottom",
-        })
-      ),
-      Plot.tip(long_table(reanalyse, tropical_nights_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: 15,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_tropical_nights(d.variable)}`,
-          anchor: "top",
-        })
-      ),
-    ]
-  }))}
+${resize((width) => plot(width, 'Tropennaechte_Anzahl', 'Tropennaechte_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -484,105 +213,7 @@ TODO
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    facet: {
-      axis: false,
-      label: null,
-    },
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: extreme_precipitation_variables,
-      legend: true,
-      tickFormat: label_extreme_precipitation,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(reanalyse, extreme_precipitation_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-        })
-      ),
-      Plot.dot(long_table(filteredProjections, extreme_precipitation_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-          fy: "projection",
-        })
-      ),
-      Plot.bollingerY(long_table(projections, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-        fy: "projection",
-      }),
-      Plot.line(long_table(filteredProjections, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeOpacity: 0.5,
-        fillOpacity: 1,
-        marker: "circle",
-        fy: "projection",
-      }),
-      Plot.line(long_table(reanalyse, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        strokeOpacity: 0.4,
-        fillOpacity: 1,
-        marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(reanalyse_ma30y, extreme_precipitation_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-      }),
-      Plot.tip(long_table(filteredProjections, extreme_precipitation_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: -10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
-          fy: "projection",
-          anchor: "bottom",
-        })
-      ),
-      Plot.tip(long_table(reanalyse, extreme_precipitation_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: 15,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_extreme_precipitation(d.variable)}`,
-          anchor: "top",
-        })
-      ),
-    ]
-  }))}
+${resize((width) => plot(width, 'Extremniederschlagstage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -602,109 +233,11 @@ TODO
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    facet: {
-      axis: false,
-      label: null,
-    },
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: frost_days_variables,
-      legend: true,
-      tickFormat: label_frost_days,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(reanalyse, frost_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-        })
-      ),
-      Plot.dot(long_table(filteredProjections, frost_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          fill: "variable",
-          r: 8,
-          fy: "projection",
-        })
-      ),
-      Plot.bollingerY(long_table(projections, frost_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        fill: "variable",
-        n: 30,
-        k:1,
-        strokeOpacity: 1,
-        fy: "projection",
-      }),
-      Plot.line(long_table(filteredProjections, frost_days_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-        strokeOpacity: 0.5,
-        fillOpacity: 1,
-        marker: "circle",
-        fy: "projection",
-      }),
-      Plot.line(long_table(reanalyse, frost_days_variables), {
-        x: "year",
-        y: "value",
-        strokeOpacity: 0.4,
-        fillOpacity: 1,
-        marker: "circle",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(reanalyse_ma30y, frost_days_variables), {
-        x: "year",
-        y: "value",
-        strokeWidth: 2,
-        stroke: "variable",
-      }),
-      Plot.tip(long_table(filteredProjections, frost_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: 10,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
-          fy: "projection",
-          anchor: "top",
-        })
-      ),
-      Plot.tip(long_table(reanalyse, frost_days_variables),
-        Plot.pointerX({
-          x: "year",
-          y: "value",
-          dy: -20,
-          stroke: "variable",
-          title: (d) => `Jahr: ${d.year}\nAnzahl: ${d.value} Tage\n${label_frost_days(d.variable)}`,
-          anchor: "bottom",
-        })
-      ),
-    ]
-  }))}
+${resize((width) => plot(width, 'Frosttage_Anzahl', 'Frosttage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
-*TODO*
+TODO
 
 </div> <!-- info -->
 </div> <!-- with-info -->
