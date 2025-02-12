@@ -79,10 +79,10 @@ Wir stellen hier ein Modell mit zwei möglichen [Entwicklungspfaden][rcp] dar:
 <div class="card grid-colspan-1">
 <div class="header">
 <div class="title">
-<h2>Datengrundlage</h2>
+<h2>Datenquelle</h2>
 <h3>Copernicus Climate Data Store</h3>
 </div> <!-- title -->
-<div class="tools"><a download href='cds.zip' class="download-button"></a></div>
+<div class="tools"><a href='cds.zip' class="download-button" title='Download' aria-label='Download' download></a></div>
 </div> <!-- header -->
 
 Unsere Darstellungen basieren auf Modellrechnungen des [Copernicus-Klimawandeldienstes][c3s].
@@ -109,7 +109,7 @@ Die Linien in den Diagrammen zeigen den Mittelwert der projizierten Kenngrößen
 <h2>Heiße Tage</h2>
 <h3>Anzahl pro Jahr</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -144,7 +144,7 @@ ${resize((width) => plot(width, 'Heisse_Tage_Anzahl'))}
 <h3>Anzahl pro Jahr</h3>
 </div> <!-- title -->
 <div class="tools">
-<button class="info-button" aria-label='Info'></button>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div>
 </div> <!-- header -->
 <div class='with-info'>
@@ -183,7 +183,7 @@ ${resize((width) => plot(width, 'Hitzewellentage_Anzahl'))}
 <h2>Tropennächte</h2>
 <h3>Anzahl pro Jahr</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -217,7 +217,7 @@ ${resize((width) => plot(width, 'Tropennaechte_Anzahl'))}
 <h2>Extremniederschlagstage</h2>
 <h3>Anzahl pro Jahr</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -253,7 +253,7 @@ ${resize((width) => plot(width, 'Extremniederschlagstage_Anzahl'))}
 <h2>Frosttage</h2>
 <h3>Anzahl pro Jahr</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
