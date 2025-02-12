@@ -50,7 +50,7 @@ function plot(width, variable) {
 ```
 
 <h1>Klimaprojektionen</h1>
-<h2>für den Konstanz und die Umgebung</h2>
+<h2>für Konstanz und die Umgebung</h2>
 
 <div class="grid grid-cols-2">
 
