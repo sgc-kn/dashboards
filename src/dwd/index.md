@@ -80,7 +80,7 @@ ${map_div}
 <h3>opendata.dwd.de</h3>
 </a>
 </div> <!-- title -->
-<div class="tools"><a download href='dwd.zip' class="download-button"></a></div>
+<div class="tools"><a href='dwd.zip' class="download-button" title='Download' aria-label='Download' download></a></div>
 </div> <!-- header -->
 <div id=map_height>
 
@@ -373,7 +373,7 @@ function label_temperature(variable) {
 <h2>Temperatur der Luft</h2>
 <h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -445,7 +445,7 @@ Insgesamt ist eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -514,7 +514,7 @@ Extremhitze-Ereignissen hindeutet.
 <h2>Temperatur der Luft</h2>
 <h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -580,7 +580,7 @@ hindeutet.
 <h2>Sonnenstunden</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -647,7 +647,7 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 <h2>Niederschlag</h2>
 <h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -709,7 +709,7 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 <h2>Niederschlag</h2>
 <h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -807,7 +807,7 @@ function label_klindex(variable) {
 <h2>Klimakenntage</h2>
 <h3>Anzahl Eis- und Frosttage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -875,7 +875,7 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 <h2>Klimakenntage</h2>
 <h3>Anzahl Sommertage und Heiße Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
@@ -943,7 +943,7 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders Heiße Tage im Verlauf 
 <h2>Klimakenntage</h2>
 <h3>Anzahl Tropennächte pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
 </div> <!-- title -->
-<div class="tools"><button class="info-button" aria-label='Info'></button></div>
+<div class="tools"><button class="info-button" aria-label='Info' title='Info'></button></div>
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>

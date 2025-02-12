@@ -64,6 +64,7 @@ export default {
       name: "Dashboards",
       pages: [
         {name: "DWD Wetterbeobachtungen", path: "/dwd/"},
+        {name: "Klimaprojektionen", path: "/cds/"},
       ]
     },
     {name: "Rechtliche Hinweise", path: "/legal/"},
