@@ -15,30 +15,6 @@ const lables = {
 };
 ```
 
-<h1>Klimaprojektionen</h1>
-<h2>für die Stadt Konstanz</h2>
-
-<div class="grid grid-cols-2">
-
-<div class="card grid-colspan-1">
-<div class="header">
-<div class="title">
-<h2>Datengrundlage</h2>
-<h3>Vorgehen</h3>
-</div> <!-- title -->
-<div class="tools"><a download href='cds.zip' class="download-button"></a></div>
-</div> <!-- header -->
-
-- Quelle: [Datensatz zu Klimakenntagen im Climate Data Store](
-https://cds.climate.copernicus.eu/datasets/sis-ecde-climate-indicators
-)
-- [Aufbereitet für Konstanz und andere Städte](
-https://github.com/sgc-kn/cds-examples/
-)
-- Problem: einzelne Prognosewerte suggerieren „falsche" Präzision, deshalb:
-- Betrachtung von 30-jährigen Zeitscheiben, um das jeweilige Jahr herum (± 15 Jahre)
-- Linie: Durchschnitt der Zeitscheibe um das jeweilige Jahr
-
 ```js
 function plot(width, variable) {
   const marks = [
@@ -72,6 +48,43 @@ function plot(width, variable) {
   })
 };
 ```
+
+<h1>Klimaprojektionen</h1>
+<h2>für den Konstanz und die Umgebung</h2>
+
+<div class="grid grid-cols-2">
+
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Datengrundlage</h2>
+<h3>Copernicus Climate Data Store</h3>
+</div> <!-- title -->
+<div class="tools"><a download href='cds.zip' class="download-button"></a></div>
+</div> <!-- header -->
+
+Dieses Dashboard zeigt Klimaprojektionen für Konstanz und die nähere Umgebung.
+Es veranschaulicht, wie sich das Klima in Konstanz unter verschiedenen Annahmen entwickeln könnte.
+
+Klimaprojektionen sind keine exakten Vorhersagen, sondern [Modellrechnungen][model], die auf Annahmen und Näherungen beruhen.
+Wir stellen hier ein Modell mit zwei möglichen [Entwicklungspfaden][rcp] dar:
+
+- **RCP 4.5**: Ein Szenario mit Klimaschutzmaßnahmen, in dem die Emissionen künftig reduziert werden.
+- **RCP 8.5**: Ein Szenario ohne zusätzliche Klimaschutzmaßnahmen, in dem die Emissionen ungebremst weiter steigen.
+
+Einzelne Jahreswerte der Projektion vermitteln eine irreführende Genauigkeit.
+Da nur langfristige Trends aussagekräftig sind, betrachten wir 30-jährige Zeitscheiben.
+Die Linien in den Diagrammen zeigen den Mittelwert der projizierten Kenngrößen über einen Zeitraum von ±15 Jahren um das auf der x-Achse angegebene Jahr.
+
+Die Darstellungen basieren auf Modellrechnungen des [Copernicus-Klimawandeldienstes][c3s].
+Die Quelldaten können aus dem [Climate Data Store][cds] heruntergeladen werden.
+Eine Aufbereitung für Konstanz und andere Städte [stellen wir auf GitHub zur Verfügung][gh].
+
+[model]: https://de.wikipedia.org/wiki/Klimamodell
+[rcp]: https://de.wikipedia.org/wiki/Repr%C3%A4sentativer_Konzentrationspfad
+[c3s]: https://www.copernicus.eu/de/dienste/klimawandel
+[cds]: https://cds.climate.copernicus.eu/datasets/sis-ecde-climate-indicators
+[gh]: https://github.com/sgc-kn/cds-examples/
 
 </div> <!-- card -->
 
