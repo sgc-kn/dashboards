@@ -57,10 +57,9 @@ function plot(width, variable) {
 <div class="card grid-colspan-1">
 <div class="header">
 <div class="title">
-<h2>Datengrundlage</h2>
-<h3>Copernicus Climate Data Store</h3>
+<h2>Kurzbeschreibung</h2>
+<h3>Klimaprojektionen</h3>
 </div> <!-- title -->
-<div class="tools"><a download href='cds.zip' class="download-button"></a></div>
 </div> <!-- header -->
 
 Dieses Dashboard zeigt Klimaprojektionen für Konstanz und die nähere Umgebung.
@@ -72,21 +71,37 @@ Wir stellen hier ein Modell mit zwei möglichen [Entwicklungspfaden][rcp] dar:
 - **RCP 4.5**: Ein Szenario mit Klimaschutzmaßnahmen, in dem die Emissionen künftig reduziert werden.
 - **RCP 8.5**: Ein Szenario ohne zusätzliche Klimaschutzmaßnahmen, in dem die Emissionen ungebremst weiter steigen.
 
+[model]: https://de.wikipedia.org/wiki/Klimamodell
+[rcp]: https://de.wikipedia.org/wiki/Repr%C3%A4sentativer_Konzentrationspfad
+
+</div> <!-- card -->
+
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Datengrundlage</h2>
+<h3>Copernicus Climate Data Store</h3>
+</div> <!-- title -->
+<div class="tools"><a download href='cds.zip' class="download-button"></a></div>
+</div> <!-- header -->
+
+Unsere Darstellungen basieren auf Modellrechnungen des [Copernicus-Klimawandeldienstes][c3s].
+Die Quelldaten können aus dem [Climate Data Store][cds] heruntergeladen werden.
+Eine Aufbereitung für Konstanz und andere Städte [stellen wir auf GitHub zur Verfügung][gh].
+
 Einzelne Jahreswerte der Projektion vermitteln eine irreführende Genauigkeit.
 Da nur langfristige Trends aussagekräftig sind, betrachten wir 30-jährige Zeitscheiben.
 Die Linien in den Diagrammen zeigen den Mittelwert der projizierten Kenngrößen über einen Zeitraum von ±15 Jahren um das auf der x-Achse angegebene Jahr.
 
-Die Darstellungen basieren auf Modellrechnungen des [Copernicus-Klimawandeldienstes][c3s].
-Die Quelldaten können aus dem [Climate Data Store][cds] heruntergeladen werden.
-Eine Aufbereitung für Konstanz und andere Städte [stellen wir auf GitHub zur Verfügung][gh].
-
-[model]: https://de.wikipedia.org/wiki/Klimamodell
-[rcp]: https://de.wikipedia.org/wiki/Repr%C3%A4sentativer_Konzentrationspfad
 [c3s]: https://www.copernicus.eu/de/dienste/klimawandel
 [cds]: https://cds.climate.copernicus.eu/datasets/sis-ecde-climate-indicators
 [gh]: https://github.com/sgc-kn/cds-examples/
 
 </div> <!-- card -->
+
+</div> <!-- grid -->
+
+<div class="grid grid-cols-2">
 
 <div class="card">
 <div class="header">
@@ -190,3 +205,20 @@ TODO
 </div> <!-- with-info -->
 </div> <!-- card -->
 </div> <!-- grid -->
+
+---
+
+<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <img
+    style="flex: 0 1 auto; max-width: 20rem; width: 100%;"
+    title="Smart City Sponsor"
+    alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen"
+    src="/assets/sponsor-BMWSB.svg"
+  />
+  <img
+    style="flex: 0 1 auto; max-width: 15rem; width: 100%;"
+    title="Smart City Sponsor"
+    alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)"
+    src="/assets/sponsor-KFW.png"
+  />
+</div>
