@@ -4,49 +4,9 @@ toc: false
 ---
 
 ```js
-const stats = FileAttachment("cds/Zeitscheiben_30Jahre.csv").csv({typed: true});
+import { plot } from "./lib.js";
 
-const lables = {
-  'Heisse_Tage_Anzahl': "Heisse Tage (Maximum über 30°C)",
-  'Hitzewellentage_Anzahl': "Hitzewellentage",
-  'Tropennaechte_Anzahl': "Tropennächte (Minimum über 20°C)",
-  'Extremniederschlagstage_Anzahl': "Extremniederschlagstage",
-  'Frosttage_Anzahl': "Frosttage (Minimum unter 0°C)",
-};
-```
-
-```js
-function plot(width, variable) {
-  const marks = [
-      Plot.frame(),
-      Plot.lineY(stats.filter(d => d['Statistik'] == 'Durchschnitt'), {
-        x: "Jahr",
-        y: variable,
-        stroke: "Modell",
-      }),
-    ];
-
-  return Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      legend: true,
-    },
-    marks
-  })
-};
+const data = FileAttachment("cds/Zeitscheiben_30Jahre.csv").csv({typed: true});
 ```
 
 <h1>Klimaprojektionen</h1>
@@ -113,7 +73,7 @@ Die Linien in den Diagrammen zeigen den Mittelwert der projizierten Kenngrößen
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => plot(width, 'Heisse_Tage_Anzahl'))}
+${resize((width) => plot(data, width, 'Heisse_Tage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -149,7 +109,7 @@ ${resize((width) => plot(width, 'Heisse_Tage_Anzahl'))}
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => plot(width, 'Hitzewellentage_Anzahl'))}
+${resize((width) => plot(data, width, 'Hitzewellentage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -187,7 +147,7 @@ ${resize((width) => plot(width, 'Hitzewellentage_Anzahl'))}
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => plot(width, 'Tropennaechte_Anzahl'))}
+${resize((width) => plot(data, width, 'Tropennaechte_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -221,7 +181,7 @@ ${resize((width) => plot(width, 'Tropennaechte_Anzahl'))}
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => plot(width, 'Extremniederschlagstage_Anzahl'))}
+${resize((width) => plot(data, width, 'Extremniederschlagstage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -257,7 +217,7 @@ ${resize((width) => plot(width, 'Extremniederschlagstage_Anzahl'))}
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => plot(width, 'Frosttage_Anzahl'))}
+${resize((width) => plot(data, width, 'Frosttage_Anzahl'))}
 </div> <!-- body -->
 <div class='info'>
 

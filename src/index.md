@@ -23,6 +23,31 @@ Konstanz][od].
 
 <h1>Neuigkeiten</h1><h2></h2>
 
+```js
+import { plot as cds_plot } from "./cds/lib.js";
+
+const cds_data = FileAttachment("cds/cds/Zeitscheiben_30Jahre.csv").csv({typed: true});
+```
+
+## Februar 2024
+
+Wir haben ein Dashboard mit Klimaprojektionen für Konstanz
+veröffentlicht. Die Daten stammen vom europäischen Klimawandeldienst
+Copernicus und basieren auf zwei Szenarien für den künftigen
+Treibhausgasausstoß:
+
+  - **RCP 4.5**: Die Emissionen werden deutlich reduziert.
+  - **RCP 8.5**: Die Emissionen steigen ungebremst weiter.
+
+[➜ Hier geht's zum Dashboard !](cds/index.html)
+
+<div class="card">
+  <h2>Heiße Tage</h2>
+  <h3>über 30℃, Anzahl pro Jahr</h3>
+${resize((width) => cds_plot(cds_data, width, "Heisse_Tage_Anzahl"))}
+</div> <!-- card -->
+
+
 ## Oktober 2024
 
 Wir arbeiten an einem Dashboard zu den langjährigen Beobachtungsdaten
