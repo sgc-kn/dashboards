@@ -13,14 +13,7 @@ const ref_tab = FileAttachment("dwd/Referenzperiode_1973_2000.csv").csv({typed: 
 const ma30y = FileAttachment("dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
 const points = FileAttachment("dwd/Jahreswerte.csv").csv({typed: true})
 
-function long_table(wide_table, variables) {
-  return wide_table.flatMap(row =>
-    variables.map(variable => ({
-      year: row['Jahr'],
-      variable,
-      value: row[variable]
-  })))
-};
+import { plot } from "./lib.js";
 ```
 
 ```js
@@ -353,16 +346,6 @@ const temperature_variables = [
   'Temperatur_Celsius_Mittel_Tagesdurchschnitt',
   'Temperatur_Celsius_Mittel_Tagesmaximum'
 ];
-
-const temperature_lables = {
-  'Temperatur_Celsius_Mittel_Tagesdurchschnitt': "Jahresmittel aus Tagesdurchschnitt",
-  'Temperatur_Celsius_Mittel_Tagesminimum': "Jahresmittel aus Tagesminimum",
-  'Temperatur_Celsius_Mittel_Tagesmaximum': "Jahresmittel aus Tagesmaximum",
-};
-
-function label_temperature(variable) {
-  return temperature_lables[variable]
-};
 ```
 
 <div class="grid grid-cols-2">
@@ -377,40 +360,7 @@ function label_temperature(variable) {
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: '°C',
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: temperature_variables,
-      legend: true,
-      tickFormat: label_temperature,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(points, temperature_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(ma30y, temperature_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-    ]
-}))}
+${resize((width) => plot(points, ma30y, width, temperature_variables))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -449,35 +399,7 @@ Insgesamt ist eine zunehmende Erwärmung im Lauf der Jahre erkennbar.
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: '°C',
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(points, {
-        x: "Jahr",
-        y: "Temperatur_Celsius_Maximum",
-        stroke: () => "", // use first color of pallette
-      }),
-      Plot.line(ma30y, {
-        x: "Jahr",
-        y: "Temperatur_Celsius_Maximum",
-        stroke: () => "", // use first color of pallette
-      }),
-    ]
-}))}
+${resize((width) => plot(points, ma30y, width, "Temperatur_Celsius_Maximum"))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -518,35 +440,7 @@ Extremhitze-Ereignissen hindeutet.
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: '°C',
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(points, {
-        x: "Jahr",
-        y: "Temperatur_Celsius_Minimum",
-        stroke: () => "", // use first color of pallette
-      }),
-      Plot.line(ma30y, {
-        x: "Jahr",
-        y: "Temperatur_Celsius_Minimum",
-        stroke: () => "", // use first color of pallette
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, "Temperatur_Celsius_Minimum"))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -584,35 +478,7 @@ hindeutet.
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(points, {
-        x: "Jahr",
-        y: "Sonnenscheindauer_Stunden_Summe",
-        stroke: () => "", // use first color of pallette
-      }),
-      Plot.line(ma30y, {
-        x: "Jahr",
-        y: "Sonnenscheindauer_Stunden_Summe",
-        stroke: () => "", // use first color of pallette
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, "Sonnenscheindauer_Stunden_Summe"))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -651,35 +517,7 @@ Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedi
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: 'Millimeter',
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(points, {
-        x: "Jahr",
-        y: "Niederschlag_Millimeter_Summe",
-        stroke: () => "", // use first color of pallette
-      }),
-      Plot.line(ma30y, {
-        x: "Jahr",
-        y: "Niederschlag_Millimeter_Summe",
-        stroke: () => "", // use first color of pallette
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, "Niederschlag_Millimeter_Summe"))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -713,35 +551,7 @@ Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen 
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: 'Millimeter',
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(points, {
-        x: "Jahr",
-        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
-        stroke: () => "", // use first color of pallette
-      }),
-      Plot.line(ma30y, {
-        x: "Jahr",
-        y: "Niederschlag_Millimeter_Maximum_Tagesmaximum",
-        stroke: () => "", // use first color of pallette
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, "Niederschlag_Millimeter_Maximum_Tagesmaximum"))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -771,32 +581,16 @@ Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankun
 const klindex_kalt_variables = [
   'Eistage_Anzahl',
   'Frosttage_Anzahl',
-]
+];
 
 const klindex_warm_variables = [
   'Sommertage_Anzahl',
   'Heisse_Tage_Anzahl',
-]
+];
 
 const klindex_nacht_variables = [
   'Tropennaechte_Anzahl',
-]
-
-const klindex_labels = {
-  "Eistage_Anzahl": "Eistage (Maximum unter 0°C)",
-  "Frosttage_Anzahl": "Frosttage (Minimum unter 0°C)",
-  "Heisse_Tage_Anzahl": "Heiße Tage (Maximum über 30°C)",
-  "Sommertage_Anzahl": "Sommertage (Maximum über 25°C)",
-  "Tropennaechte_Anzahl": "Tropennächte (Minimum über 20°C)",
-};
-
-function label_klindex(variable) {
-  if (variable in klindex_labels) {
-    return klindex_labels[variable]
-  } else {
-    return variable
-  }
-};
+];
 ```
 
 <div class="grid grid-cols-2">
@@ -811,40 +605,7 @@ function label_klindex(variable) {
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: klindex_kalt_variables,
-      legend: true,
-      tickFormat: label_klindex,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(points, klindex_kalt_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(ma30y, klindex_kalt_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, klindex_kalt_variables))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -879,40 +640,7 @@ Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre ab
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: klindex_warm_variables,
-      legend: true,
-      tickFormat: label_klindex,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(points, klindex_warm_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(ma30y, klindex_warm_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, klindex_warm_variables))}
 </div> <!-- body -->
 <div class='info'>
 
@@ -947,40 +675,7 @@ Das Diagramm verdeutlicht, dass Sommertage und besonders Heiße Tage im Verlauf 
 </div> <!-- header -->
 <div class='with-info'>
 <div class='body'>
-${resize((width) => Plot.plot({
-    width,
-    grid: true,
-    inset: 10,
-    x: {
-      label: 'Jahr',
-      labelAnchor: 'center',
-      labelArrow: 'none',
-      tickFormat: JSON.stringify, // surpress delimiting dots, e.g. 2.024
-    },
-    y: {
-      label: null,
-      labelArrow: 'none',
-      tickFormat: Plot.formatNumber("de-DE"),
-    },
-    color: {
-      domain: klindex_nacht_variables,
-      legend: true,
-      tickFormat: label_klindex,
-    },
-    marks: [
-      Plot.frame(),
-      Plot.dot(long_table(points, klindex_nacht_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-      Plot.line(long_table(ma30y, klindex_nacht_variables), {
-        x: "year",
-        y: "value",
-        stroke: "variable",
-      }),
-    ]
-  }))}
+${resize((width) => plot(points, ma30y, width, klindex_nacht_variables))}
 </div> <!-- body -->
 <div class='info'>
 
