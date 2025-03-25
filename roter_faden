@@ -1,0 +1,38 @@
+digraph {
+	A [label="Teil 1: Die Stadt in der Klimakrise" fillcolor=lightgrey shape=rect style=filled]
+	D [label="Teil 2: Hypothesenbildung: 
+Welche Faktoren beeinflussen ungleich stark aufgeheizte Stadtteile?" fillcolor=lightgrey shape=rect style=filled]
+	I [label="Teil 3: Städtebau: Was wird getan, was können wir tun?" fillcolor=lightgrey shape=rect style=filled]
+	B [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 1.1: im Längsschnitt</B></TD></TR>
+<TR><TD ALIGN="LEFT">DWD Daten: Zunehmende Erwärmung über die Jahrzehnte hinweg (Seenachtsfest seit 1947).</TD></TR>
+</TABLE>>]
+	C [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 1.2: im Querschnitt</B></TD></TR>
+<TR><TD ALIGN="LEFT">12 Messstationen: Innerstädtische Temperaturunterschiede.</TD></TR>
+</TABLE>>]
+	E [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 2.1:</B></TD></TR>
+<TR><TD ALIGN="LEFT">Bestimmen der Local Climate Zones für die Stadtteile, in denen wir Messstationen haben.</TD></TR>
+</TABLE>>]
+	F [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 2.2:</B></TD></TR>
+<TR><TD ALIGN="LEFT">Satellitendaten: 100m Durchmesser rund um die Messstationen analysieren.</TD></TR>
+</TABLE>>]
+	G [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 2.3:</B></TD></TR>
+<TR><TD ALIGN="LEFT">Analyse der Gemeinsamkeiten zwischen den räumlichen Gegebenheiten (Faktoren wie Baumdichte, Nähe zu Wasser, Straßenbelag, Vegetation).</TD></TR>
+</TABLE>>]
+	H [label=<<TABLE BORDER="0">
+<TR><TD><B>Teil 2.4:</B></TD></TR>
+<TR><TD ALIGN="LEFT">Soziale Ebene: Wer lebt oder arbeitet in den besonders heißen Gebieten? Auswirkungen auf Touristen, Ältere, Kinder.</TD></TR>
+</TABLE>>]
+	A -> D [color=red penwidth=3]
+	D -> I [color=red penwidth=3]
+	A -> B [color=black style=dashed]
+	A -> C [color=black style=dashed]
+	D -> E [color=black style=dashed]
+	D -> F [color=black style=dashed]
+	D -> G [color=black style=dashed]
+	D -> H [color=black style=dashed]
+}
