@@ -1,46 +1,59 @@
 from graphviz import Digraph
 
-dot = Digraph(format='png')
+dot = Digraph('wide', format='png')
+
+dot.attr(nodesep="0.1", rankdir="TB")  # Top-to-Bottom Layout
 
 # Hauptkapitel (Roter Faden)
-dot.node('A', 'Teil 1: Die Stadt in der Klimakrise', shape="rect", style="filled", fillcolor="lightgrey")
-dot.node('D', 'Teil 2: Hypothesenbildung: \nWelche Faktoren beeinflussen ungleich stark aufgeheizte Stadtteile?', shape="rect", style="filled", fillcolor="lightgrey")
-dot.node('I', 'Teil 3: Städtebau: Was wird getan, was können wir tun?', shape="rect", style="filled", fillcolor="lightgrey")
-# Unterkapitel
-dot.node('B', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 1.1: im Längsschnitt</B></TD></TR>
-<TR><TD ALIGN="LEFT">DWD Daten: Zunehmende Erwärmung über die Jahrzehnte hinweg (Seenachtsfest seit 1947).</TD></TR>
-</TABLE>>''')
+dot.node('A', 'Teil 1: Die Stadt in der Klimakrise', shape="box", style="filled", fillcolor="lightblue")
+dot.node('D', 'Teil 2: Interpretation der Stadtteiltemperaturunterschiede', shape="box", style="filled", fillcolor="lightgreen")
+dot.node('I', 'Teil 3: Maßnahmen der Stadt & Ausblick', shape="box", style="filled", fillcolor="beige")
 
-dot.node('C', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 1.2: im Querschnitt</B></TD></TR>
-<TR><TD ALIGN="LEFT">12 Messstationen: Innerstädtische Temperaturunterschiede.</TD></TR>
-</TABLE>>''')
+# Unterkapitel in Subgraphen (Hierarchie erhalten)
+with dot.subgraph() as s:
+    s.attr(rank='same')  # Alle auf der gleichen Ebene
+    s.node('B', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 1.1: im Längsschnitt</B></TD></TR>
+    <TR><TD ALIGN="LEFT">DWD Daten: Erwärmung über die Jahrzehnte.</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightblue")
 
-dot.node('E', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 2.1:</B></TD></TR>
-<TR><TD ALIGN="LEFT">Bestimmen der Local Climate Zones für die Stadtteile, in denen wir Messstationen haben.</TD></TR>
-</TABLE>>''')
+    s.node('C', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 1.2: im Querschnitt</B></TD></TR>
+    <TR><TD ALIGN="LEFT">12 Messstationen: Innerstädtische Temperaturunterschiede.</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightblue")
 
-dot.node('F', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 2.2:</B></TD></TR>
-<TR><TD ALIGN="LEFT">Satellitendaten: 100m Durchmesser rund um die Messstationen analysieren.</TD></TR>
-</TABLE>>''')
+with dot.subgraph() as s:
+    s.attr(rank='same')
+    s.node('E', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 2.1: Local Climate Zones</B></TD></TR>
+    <TR><TD ALIGN="LEFT">Analyse der LCZs der Stadtteile mit Messstationen.</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightgreen")
 
-dot.node('G', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 2.3:</B></TD></TR>
-<TR><TD ALIGN="LEFT">Analyse der Gemeinsamkeiten zwischen den räumlichen Gegebenheiten (Faktoren wie Baumdichte, Nähe zu Wasser, Straßenbelag, Vegetation).</TD></TR>
-</TABLE>>''')
+    s.node('F', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 2.2: Satellitendaten</B></TD></TR>
+    <TR><TD ALIGN="LEFT">100m-Radius um Messstationen.</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightgreen")
 
-dot.node('H', '''<<TABLE BORDER="0">
-<TR><TD><B>Teil 2.4:</B></TD></TR>
-<TR><TD ALIGN="LEFT">Soziale Ebene: Wer lebt oder arbeitet in den besonders heißen Gebieten? Auswirkungen auf Touristen, Ältere, Kinder.</TD></TR>
-</TABLE>>''')
+    s.node('G', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 2.3: Räumliche Faktoren</B></TD></TR>
+    <TR><TD ALIGN="LEFT">Baumdichte, Wassernähe, Straßenbelag (..).</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightgreen")
 
+    s.node('H', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 2.4: Soziale Ebene</B></TD></TR>
+    <TR><TD ALIGN="LEFT">Wer ist betroffen? Touristen, Ältere, Kinder.</TD></TR>
+    </TABLE>>''', style="filled", fillcolor="lightgreen")
 
-dot.edge('A', 'D', color="red", penwidth="3") 
-dot.edge('D', 'I', color='red', penwidth="3") 
+with dot.subgraph() as s:
+    s.attr(rank='same')
+    s.node('J', '''<<TABLE BORDER="0">
+    <TR><TD><B>Teil 3.1: Trinkwasserbrunnen</B></TD></TR>
+    </TABLE>>''', style="filled", fillcolor="beige")
+    s.node('K', '''<<TABLE BORDER="0">
 
+    <TR><TD><B>Teil 3.2: Baumkataster</B></TD></TR>
+    </TABLE>>''', style="filled", fillcolor="beige")
+# Verbindungen: Hauptkapitel → Unterkapitel
 dot.edge('A', 'B', color="black", style="dashed")  
 dot.edge('A', 'C', color="black", style="dashed")
 
@@ -48,5 +61,12 @@ dot.edge('D', 'E', color="black", style="dashed")
 dot.edge('D', 'F', color="black", style="dashed")
 dot.edge('D', 'G', color="black", style="dashed")
 dot.edge('D', 'H', color="black", style="dashed")
+
+dot.edge('I','J', color= "black", style= "dashed")
+dot.edge('I', 'K', color= "black", style= "dashed")
+
+# Der "rote Faden" (Hauptstruktur)
+dot.edge('A', 'D', color="red", penwidth="3") 
+dot.edge('D', 'I', color='red', penwidth="3") 
 
 dot.render('roter_faden', view=True)
