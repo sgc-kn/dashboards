@@ -1,6 +1,8 @@
 # eigene Ordner
 data/
 images/
+maja_geodaten
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
