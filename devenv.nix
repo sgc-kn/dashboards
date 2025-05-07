@@ -15,6 +15,7 @@ in
   languages.javascript.npm.install.enable = true;
 
   languages.python.enable = true;
+  languages.python.package = unstable.python313;
   languages.python.uv.enable = true;
   languages.python.uv.package = unstable.uv;
   languages.python.uv.sync.enable = true;
