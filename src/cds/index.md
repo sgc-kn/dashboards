@@ -240,6 +240,42 @@ ${resize((width) => plot(data, width, 'Frosttage_Anzahl'))}
 </div> <!-- info -->
 </div> <!-- with-info -->
 </div> <!-- card -->
+
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Weiterführende Informationen</h2>
+<h3>für Konstanz und darüber hinaus</h3>
+</div> <!-- title -->
+</div> <!-- header -->
+
+Die [LUBW][lubw] stellt mit dem [Klimaatlas-BW][atlasbw] Klimasteckbriefe für
+alle Kommunen in Baden-Württemberg zur Verfügung ([Beispiel
+Konstanz][atlaspdf]). Im Klimaatlas-BW lässt sich außerdem die
+[historische Entwicklung auf kommunaler Ebene][atlaswas] und die [erwartete
+künftige Entwicklung auf Kreisebene][atlaswill] als Karte einsehen.
+Auch die [Rohdaten][atlasdata] stehen zum Download bereit.
+
+Auch das Forschungsprojekt [LoKlim][loklim], kurz für „Lokale Strategien
+zur Klimawandelanpassung”, stellt Karten und Steckbriefe für die Kommunen
+Baden-Württembergs zur Verfügung. Der Deutsche Wetterdienst betreibt
+einen ähnlichen [Klimaatlas für ganz Deutschland][atlasde].
+Das [Climate Service Center Germany (GERICS)][gerics] berechnet
+[Ausblicke][gericspdfs] für alle Kommunen Deutschlands.
+
+[lubw]: https://www.lubw.de/
+[atlasbw]: https://www.klimaatlas-bw.de/
+[atlaspdf]: https://webtool.klimaatlas-bw.de/viewer/profiles/gemeinden/8335043/
+[atlaswas]: https://www.klimaatlas-bw.de/kartenviewer-vergangenheit
+[atlaswill]: https://www.klimaatlas-bw.de/kartenviewer-zukunft
+[atlasdata]: https://www.klimaatlas-bw.de/download
+[loklim]: https://lokale-klimaanpassung.de/
+[atlasde]: https://www.dwd.de/DE/klimaumwelt/klimaatlas/klimaatlas_node.html
+[gerics]: https://www.gerics.de/
+[gericspdfs]: https://www.gerics.de/products_and_publications/fact_sheets/landkreise/index.php.de
+
+</div> <!-- card -->
+
 </div> <!-- grid -->
 
 ---
