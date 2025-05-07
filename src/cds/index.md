@@ -251,13 +251,13 @@ ${resize((width) => plot(data, width, 'Frosttage_Anzahl'))}
 
 Die [LUBW][lubw] stellt mit dem [Klimaatlas-BW][atlasbw] Klimasteckbriefe für
 alle Kommunen in Baden-Württemberg zur Verfügung ([Beispiel
-Konstanz][atlaspdf]). Im Klimaatlas-BW lässt sich ausserdem die
-[historische Entwicklung auf kommunalaner Ebene][atlaswas] und die [erwartete
+Konstanz][atlaspdf]). Im Klimaatlas-BW lässt sich außerdem die
+[historische Entwicklung auf kommunaler Ebene][atlaswas] und die [erwartete
 künftige Entwicklung auf Kreisebene][atlaswill] als Karte einsehen.
 Auch die [Rohdaten][atlasdata] stehen zum Download bereit.
 
-Auch das Forschungsprojekt [LoKlim][loklim], kurz für lokale Strategien
-zur Klimawandelanpassung, stellt Karten und Steckbriefe für die Kommunen
+Auch das Forschungsprojekt [LoKlim][loklim], kurz für „Lokale Strategien
+zur Klimawandelanpassung”, stellt Karten und Steckbriefe für die Kommunen
 Baden-Württembergs zur Verfügung. Der Deutsche Wetterdienst betreibt
 einen ähnlichen [Klimaatlas für ganz Deutschland][atlasde].
 Das [Climate Service Center Germany (GERICS)][gerics] berechnet
