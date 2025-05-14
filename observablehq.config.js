@@ -67,6 +67,12 @@ export default {
         {name: "Klimaprojektionen", path: "/cds/"},
       ]
     },
+    {
+      name: "Stories",
+      pages: [
+        {name: "CorrelAid '25", path: "/correlaid/"},
+      ]
+    },
     {name: "Rechtliche Hinweise", path: "/legal/"},
   ],
 
