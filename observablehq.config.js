@@ -68,6 +68,12 @@ export default {
         { name: "Luftqualität", path: "/lubw/" },
       ]
     },
+    {
+      name: "Stories",
+      pages: [
+        { name: "CorrelAid '25", path: "/correlaid/" },
+      ]
+    },
     { name: "Rechtliche Hinweise", path: "/legal/" },
   ],
 
