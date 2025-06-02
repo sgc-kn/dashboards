@@ -10,10 +10,10 @@
     "observable": "uv run observable"
   },
   "dependencies": {
-    "@observablehq/framework": "^1.13.2"
+    "@observablehq/framework": "^1.13.3"
   },
   "devDependencies": {
-    "rimraf": "^5.0.10"
+    "rimraf": "^6.0.1"
   },
   "engines": {
     "node": ">=20"
