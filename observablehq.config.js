@@ -65,6 +65,7 @@ export default {
       pages: [
         {name: "Wetterbeobachtungen", path: "/dwd/"},
         {name: "Klimaprojektionen", path: "/cds/"},
+        {name: "Bevölkerung", path: "/bevoelkerung/"},
       ]
     },
     {name: "Rechtliche Hinweise", path: "/legal/"},
