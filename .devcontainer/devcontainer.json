@@ -19,5 +19,6 @@
       }
     }
   },
-  "postCreateCommand": "bash /postCreate.sh"
+  "postCreateCommand": "bash /postCreate.sh",
+  "postAttachCommand": "uv sync"
 }

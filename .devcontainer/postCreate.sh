@@ -2,8 +2,9 @@
 set -e
 
 # configure git lfs
-command -v git-lfs # check git-lfs installed?
-git config --global diff.lfs.textconv cat
+git lfs pull # get large files
+git lfs install # automate git lfs pull in the future
+git config --global diff.lfs.textconv cat # diff large files like usual files
 
 # install uv (used for Python package management)
 pipx install uv
