@@ -52,8 +52,12 @@ df["hh_3personen"] = df["hh_3personen"].str.replace(".", "", regex=False)
 
 df["hh_insgesamt"] = pd.to_numeric(df["hh_insgesamt"], errors="coerce")
 df["hh_1person"] = pd.to_numeric(df["hh_1person"], errors="coerce")
+df["hh_2personen"] = pd.to_numeric(df["hh_2personen"], errors="coerce")
+df["hh_3personen"] = pd.to_numeric(df["hh_3personen"], errors="coerce")
 
 df["hh_1person_pct"] = (df["hh_1person"] / df["hh_insgesamt"]) * 100
+df["hh_2person_pct"] = (df["hh_2personen"] / df["hh_insgesamt"]) * 100
+df["hh_3person_pct"] = (df["hh_3personen"] / df["hh_insgesamt"]) * 100
 
 
 df.to_csv(sys.stdout, index=False)
