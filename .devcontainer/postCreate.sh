@@ -7,7 +7,10 @@ git lfs install # automate git lfs pull in the future
 git config --global diff.lfs.textconv cat # diff large files like usual files
 
 # install uv (used for Python package management)
-pipx install rust-just uv
+pipx install uv
+
+# install just (to execute command in justfile)
+pipx install rust-just 
 
 # create Python virtual environment .venv with all Python dependencies (used as default Python interpreter)
 uv sync
