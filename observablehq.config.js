@@ -3,7 +3,7 @@ import * as child_process from 'child_process';
 
 const now = new Date();
 const date = now.toLocaleDateString('de-DE');
-const time = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'});
+const time = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
 const repo = 'https://github.com/sgc-kn/dashboards'
 
 var footer = `Seite erstellt am ${date} um ${time} UTC.`
@@ -63,11 +63,12 @@ export default {
     {
       name: "Dashboards",
       pages: [
-        {name: "Wetterbeobachtungen", path: "/dwd/"},
-        {name: "Klimaprojektionen", path: "/cds/"},
+        { name: "Wetterbeobachtungen", path: "/dwd/" },
+        { name: "Klimaprojektionen", path: "/cds/" },
+        { name: "Luftqualität", path: "/lubw/" },
       ]
     },
-    {name: "Rechtliche Hinweise", path: "/legal/"},
+    { name: "Rechtliche Hinweise", path: "/legal/" },
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:
