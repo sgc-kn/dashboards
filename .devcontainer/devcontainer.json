@@ -10,6 +10,7 @@
         "ms-toolsai.jupyter"
       ],
       "settings": {
+        "extensions.ignoreRecommendations": true,
         "editor.formatOnSave": true,
         "notebook.formatOnSave.enabled": true,
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/",

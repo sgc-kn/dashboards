@@ -9,7 +9,7 @@ git config --global diff.lfs.textconv cat # diff large files like usual files
 # install uv (used for Python package management)
 pipx install uv
 
-# install just (to execute command in justfile)
+# install just (for small maintenance scripts, defined in justfile)
 pipx install rust-just 
 
 # create Python virtual environment .venv with all Python dependencies (used as default Python interpreter)
