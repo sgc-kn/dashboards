@@ -3,7 +3,7 @@
 
 ---
 
-### Einleitung: Spürst du den Unterschied?
+## Einleitung: Spürst du den Unterschied?
 
 Du läufst über den Stephansplatz und spürst, wie die Sonne auf dem Pflaster flimmert.  
 Dann machst du ein paar Schritte in den Stadtgarten – plötzlich wirkt es kühler, angenehmer. Dabei bist du nur ein paar hundert Meter gegangen.
@@ -20,15 +20,12 @@ Aber seine Auswirkungen hängen stark davon ab, **wo du wohnst, arbeitest oder d
 
 ## Teil 1: Wie heiß war’s, als du nach Konstanz gezogen bist?
 
-Vielleicht wohnst du schon lange hier. Vielleicht bist du erst vor Kurzem nach Konstanz gezogen.  
-Aber egal wann du angekommen bist – die Temperatur war damals ziemlich sicher niedriger als heute.
+Vielleicht wohnst du schon lange hier. Vielleicht bist du erst vor Kurzem nach Konstanz gezogen. Aber egal wann du angekommen bist – die Temperatur war damals ziemlich sicher niedriger als heute.
 
-In dem letzten Jahrhundert ist die **durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen**.  
-Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten:  
+In dem letzten Jahrhundert ist die **durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen**. Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten:  
 **Die Erde erwärmt sich** – und auch hier am Bodensee wird’s Jahr für Jahr ein kleines bisschen wärmer.
 
-In der folgenden Grafik kannst du nicht nur sehen, wie sich die Temperatur seit **1943** (→ _Insert korrektes Startjahr_) verändert hat,  
-sondern auch, was Prognosen für die nächsten Jahrzehnte sagen.
+In der folgenden Grafik kannst du nicht nur sehen, wie sich die Temperatur seit **1943** (→ _Insert korrektes Startjahr_) verändert hat, sondern auch, was Prognosen für die nächsten Jahrzehnte sagen.
 
 ---
 🟢 **[Interaktivität]**  
@@ -85,6 +82,8 @@ view(plt);
 </div> <!-- card -->
 Tipp: Schau dir an, wie groß der Unterschied zwischen deinem Zuzugsjahr 
 und heute ist. Das fühlt sich plötzlich gar nicht mehr so abstrakt an, oder?
+
+---
 
 ## Teil 2: Eine Stadt, viele Klimas
 Es gibt Tage, da fühlt sich Konstanz an wie zwei verschiedene Städte: Wäh-
@@ -243,6 +242,8 @@ Und das hat Folgen: Für dein persönliches Wohlbefinden, aber auch für die
 Gesundheit älterer Menschen, die Planung von Spielplätzen, Fahrradwegen 
 oder Schulhöfen
 
+---
+
 ## Teil 3: Was beeinflusst die Temperatur vor deiner Haustür?
 Warum ist es an einem Ort heißer als am anderen - obwohl beide nur wenige
 Straßen voneinander entfernt sind?
@@ -329,6 +330,8 @@ trifft, oder?) Die Unterschiede sind messbar – und spürbar.
 Genau an diesem Punkt setzt auch die städtische Klimapolitik an. Wenn wir 
 besser verstehen, welche Faktoren das Mikroklima beeinflussen, können 
 gezielt Maßnahmen ergriffen werden, um gegenzusteuern
+
+---
 
 ## Experteninterview: Was tun gegen die Hitze in der Stadt?
 
