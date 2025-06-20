@@ -6,6 +6,7 @@ import * as Plot from "@observablehq/plot"; // ← WICHTIG: Plot importieren
 // - Temperaturverlauf seit 1973 (oder Startjahr der Daten)
 // - Markierung des eigenen Zuzugsjahrs per Regel (ruleX)
 
+
 export default function drawWeatherTrend(yearly, arrival) {
     return Plot.plot({
         grid: true, // Konsistent mit Dashboards
