@@ -25,7 +25,7 @@ Vielleicht wohnst du schon lange hier. Vielleicht bist du erst vor Kurzem nach K
 In dem letzten Jahrhundert ist die **durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen**. Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten:  
 **Die Erde erwärmt sich** – und auch hier am Bodensee wird’s Jahr für Jahr ein kleines bisschen wärmer.
 
-In der folgenden Grafik kannst du nicht nur sehen, wie sich die Temperatur seit **1943** (→ _Insert korrektes Startjahr_) verändert hat, sondern auch, was Prognosen für die nächsten Jahrzehnte sagen.
+In der folgenden Grafik kannst du nicht nur sehen, wie sich die Temperatur seit **1973** verändert hat, sondern auch, was Prognosen für die nächsten Jahrzehnte sagen.
 
 ---
 🟢 **[Interaktivität]**  
