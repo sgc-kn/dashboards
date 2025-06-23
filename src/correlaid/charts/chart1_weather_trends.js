@@ -1,4 +1,5 @@
-import * as Plot from "@observablehq/plot"; // ← WICHTIG: Plot importieren
+import * as Plot from "npm:@observablehq/plot"; // ← WICHTIG: Plot importieren
+
 // Diese Datei enthält das Diagramm zur Entwicklung der Jahresdurchschnittstemperatur
 // an der DWD Station Konstanz. Es wird verwendet in index.md.
 
