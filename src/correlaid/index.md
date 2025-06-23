@@ -79,17 +79,15 @@ const plt = Plot.plot({
 view(plt);
 ```
 
-<!--
-Der Versuch das Diagramm aus charts heraus zu importieren. 
-Fehler: TypeError: error loading dynamically imported module: https://solid-space-fiesta-649xq69qjxwf4p4v-3000.app.github.dev/_import/correlaid/charts/chart1_weather_trends.js?sha=526daf4353de2cb1f2617050fc85e3b4a1d5ceba4a2a8fa916026776b498daec 
 ```js
 import drawWeatherTrend from "./charts/chart1_weather_trends.js";
 
 view(drawWeatherTrend(yearly, arrival));
 ``` 
--->
+
 
 </div> <!-- card -->
+
 Tipp: Schau dir an, wie groß der Unterschied zwischen deinem Zuzugsjahr 
 und heute ist. Das fühlt sich plötzlich gar nicht mehr so abstrakt an, oder?
 
