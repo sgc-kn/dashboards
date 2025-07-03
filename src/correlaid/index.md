@@ -53,33 +53,6 @@ const arrival = view(Inputs.range([minYear, maxYear], {step: 1}));
   <h3>Jahresdurchschnitt in Konstanz, DWD Station Konstanz</h3>
 
 ```js
-const plt = Plot.plot({
-  grid: true, // Konsistent mit Dashboards
-  inset: 10, // Konsistent mit Dashboards
-  x: {
-    label: "Jahr",
-    labelAnchor: 'center',
-    labelArrow: 'none',
-    tickFormat: JSON.stringify, // suppress delimiting dots, e.g. 2.024
-  },
-  y: {
-    label: "℃"
-  },
-  marks: [
-    Plot.line(yearly, {
-      x: "Jahr",
-      y: "Temperatur_Celsius_Mittel_Tagesdurchschnitt",
-      stroke: () => 'constant', // trick to use the first color of the theme
-    }),
-    Plot.ruleX([arrival], {
-      stroke: 'var(--theme-foreground-focus)', // use focus color defined by theme
-    }),
-  ]
-});
-view(plt);
-```
-
-```js
 import drawWeatherTrend from "./charts/chart1_weather_trends.js";
 
 view(drawWeatherTrend(yearly, arrival));
