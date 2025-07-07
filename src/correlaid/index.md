@@ -1,3 +1,7 @@
+---
+theme: air
+---
+
 # Konstanz unter der Lupe  
 ## Wie ein paar Meter den Unterschied machen – beim Klima vor deiner Tür
 
