@@ -102,7 +102,6 @@ Stationen war_
   Dann im Markdown die Anzeige steuern.
 -->
 
-
 ```js
 // Daten der Stationen und Tagesverlauf laden
 const stationen = FileAttachment("stationen.geo.json").json()
@@ -116,6 +115,9 @@ const stationsnamen = stationen.features.map(f => f.properties.name);
 
 // Radiobuttons für Stationen
 const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
+// durch Mutable wird station_input.value automatisch reaktiv
+//const station_input = Mutable(stationsnamen[7]);
+
 const station = view(station_input);
 
 // Uhrzeit-Slider
@@ -124,7 +126,7 @@ const stunde = Inputs.range([0, 23], {step: 1, label: "Stunde"});
 
 ```js
 // Import der ausgelagerten Funktionen
-import { createSensorLineChart, createSensorMap, updateSensorMap } from "./charts/chart2_sensor_map.js";
+import { createSensorLineChart, createSensorMap, updateSensorMap, createReactiveSensorChart } from "./charts/chart2_sensor_map.js";
 ```
 
 ```js
@@ -138,8 +140,9 @@ map_div
 ```js
 // ausgelagert in charts/chart2_sensor_map.js
 // Liniendiagramm erzeugen - wird im Markdown verwendet
-const sensor_plt = createSensorLineChart(tagesverlauf, stationsnamen, stunde);
+const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde);
 ```
+
 
 <!-- Layout Dia 2 (2 Charts)-->
 <div class="grid grid-cols-2 gap-4">
