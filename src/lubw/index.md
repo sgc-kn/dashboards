@@ -20,30 +20,62 @@ const hourly_one_week_data = FileAttachment("lubw/Stündlich.csv").csv({typed: t
 ```
 
 ```js
-console.log(hourly_one_week_data)
+const variables = [
+    {
+        name: "o3",
+        label: "Ozon (O₃)",
+        unit: "µg/m³", // TODO verify
+    },
+    {
+        name: "no2",
+        label: "Stickstoffdioxid (NO₂)",
+        unit: "µg/m³", // TODO verify
+    },
+    {
+        name: "pm25",
+        label: "Feinstaub mit 2,5 µm Durchmesser (PM 2.5)",
+        unit: "µg/m³", // TODO verify
+    },
+    {
+        name: "pm10",
+        label: "Feinstaub mit 10 µm Durchmesser (PM 10)",
+        unit: "µg/m³", // TODO verify
+    },
+]
 
+const variableInput = Inputs.radio(variables, {label: "Messgröße", format: (x) => x.label, value: variables[0]});
+const variable = Generators.input(variableInput)
+```
+
+```js
+const zip_data = FileAttachment("lubw.zip");
+
+const dataset_card = layout.card({
+    title : "Datengrundlage",
+    subtitle: "",
+    download: zip_data.href,
+    body : html`
+    ${variableInput}
+    `,
+})
+```
+
+```js
 const hourly_one_week_card = layout.card({
     title : "Stündliche Aufzeichnung",
-    subtitle: "Auszug, eine Woche",
+    subtitle: `Auszug, eine Woche, ${variable.label} in ${variable.unit}`, // TODO annote week and year here
     body : layout.plot({
             x: {
                 label: 'Zeit',
-                labelAnchor: 'center', // TODO move to layout.plot
-                labelArrow: 'none', // TODO move to layout.plot
             },
             y: {
-                label: 'O3',
-                labelArrow: 'none', // TODO move to layout.plot
                 tickFormat: Plot.formatNumber("de-DE"),
             },
             marks: [
                 Plot.line(hourly_one_week_data, {
                     x: "startZeit",
-                    y: "o3",
-                }),
-                Plot.line(hourly_one_week_data, {
-                    x: "startZeit",
-                    y: "o3",
+                    y: variable.name,
+                    stroke: () => "", // use first color of palette
                 }),
             ]
         }),
@@ -54,12 +86,20 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 
 <div class="grid grid-cols-2">
     ${ position_card }
+    ${ dataset_card }
+</div>
+
+<div class="grid grid-cols-2">
     ${ hourly_one_week_card }
 </div>
 
 ---
 
-Hallo Konstanz!
+${layout.sponsors()}
+
+---
+
+### Entwurf
 
 Kacheln:
 - Lokation der Messstelle
@@ -68,6 +108,7 @@ Kacheln:
 - Auswahl Kenngröße
 - Plot aller Messwerte einer Woche (letzte komplette Woche im Datensatz?)
 - Aggregationen über (Monat, Wochentag, Stunde), gesamter Datensatz, Median/Percentile oder Mean/SD
+
 
 ---
 

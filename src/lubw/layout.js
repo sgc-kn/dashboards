@@ -1,5 +1,6 @@
 import { html } from "npm:htl";
 import * as Plot from "npm:@observablehq/plot";
+import { FileAttachment } from "observablehq:stdlib";
 import { resize } from "observablehq:stdlib";
 
 export function title(main, sub) {
@@ -29,7 +30,7 @@ function tools({ download, info }) {
     } else {
         return html`
             <div class="tools">
-                ${items.join('')}
+                ${items}
             </div>
         `
     }
@@ -73,12 +74,22 @@ export function card({
 `
 }
 
-function _plot(width, { marks, ...args }) {
+function _plot(width, { x, y, marks, ...args }) {
     console.log('resize', width)
     return Plot.plot({
         width,
         grid: true,
         inset: 10,
+        x: {
+            labelAnchor: 'center',
+            labelArrow: 'none',
+            ...x,
+        },
+        y: {
+            label: '',
+            labelArrow: 'none',
+            ...y,
+        },
         marks: [
             Plot.frame(),
             ...marks
@@ -89,4 +100,25 @@ function _plot(width, { marks, ...args }) {
 
 export function plot(args) {
     return resize((width) => _plot(width, args))
+}
+
+export function sponsors() {
+    const bmwsb = FileAttachment("/assets/sponsor-BMWSB.svg").href
+    const kfw = FileAttachment("/assets/sponsor-KFW.png").href
+    return html`
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <img
+            style="flex: 0 1 auto; max-width: 20rem; width: 100%;"
+            title="Smart City Sponsor"
+            alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen"
+            src=${bmwsb}
+        />
+        <img
+            style="flex: 0 1 auto; max-width: 15rem; width: 100%;"
+            title="Smart City Sponsor"
+            alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)"
+            src=${kfw}
+        />
+        </div>
+    `
 }
