@@ -95,69 +95,50 @@ dem Slider unterhalb der Grafik kannst du außerdem gezielt eine Uhrzeit
 auswählen - und sehen, wie warm es zu dieser Stunde an den verschiedenen 
 Stationen war_
 
-### Temperaturverlauf am 31. Juli 2024
-
-```js
-const stationen = FileAttachment("stationen.geo.json").json()
-const tagesverlauf = FileAttachment('./tagesverlauf.csv').csv({typed: true})
-```
-
-```js
-const stationsnamen = stationen.features.map(f => f.properties.name);
-const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
-// const station_input = Mutable(stationsnamen[7]); // ohne Radio Buttons
-
-const station = view(station_input);
-```
-
+### Temperaturverlauf am 31. Juli 2024 
 
 <!-- Learning: 
   Erst in separaten JavaScript-Zellen den Inhalt vorbereiten.
   Dann im Markdown die Anzeige steuern.
 -->
 
-<!-- Daten der Karte-->
+
 ```js
+// Daten der Stationen und Tagesverlauf laden
+const stationen = FileAttachment("stationen.geo.json").json()
+const tagesverlauf = FileAttachment('./tagesverlauf.csv').csv({typed: true})
+```
+
+<!-- UI-Inputs chart2 -->
+```js
+// UI-Elemente vorbereiten
+const stationsnamen = stationen.features.map(f => f.properties.name);
+
+// Radiobuttons für Stationen
+const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
+const station = view(station_input);
+
+// Uhrzeit-Slider
+const stunde = Inputs.range([0, 23], {step: 1, label: "Stunde"});
+```
+
+```js
+// Import der ausgelagerten Funktionen
+import { createSensorLineChart, createSensorMap, updateSensorMap } from "./charts/chart2_sensor_map.js";
+```
+
+```js
+// Karten-Div vorbereiten - wird im Markdown verwendet
 const map_div = document.createElement("div");
 map_div.style = "height:25rem";
 map_div
 ```
 
-<!-- Daten der Sensorliniendiagramme-->
 
 ```js
-const stunde = Inputs.range([0, 23], {step: 1, label: "Stunde"});
-```
-
-```js
-const sensor_plt = Plot.plot({
-  grid: true, // Konsistent mit Dashboards
-  inset: 10, // Konsistent mit Dashboards
-  x: {
-    label: "Stunde",
-    labelAnchor: 'center',
-    labelArrow: 'none',
-    tickFormat: x => x, // do nothing
-  },
-  y: {
-    label: "℃"
-  },
-  color: {
-    domain: stationsnamen,
-    legend: true,
-  },
-  marks: [
-    Plot.line(tagesverlauf, {
-      x: "Stunde",
-      y: "Temperatur_Celsius",
-      stroke: "Station",
-    }),
-    Plot.ruleX([stunde], {
-      stroke: 'var(--theme-foreground-focus)', // use focus color defined by theme
-    }),
-  ]
-});
-
+// ausgelagert in charts/chart2_sensor_map.js
+// Liniendiagramm erzeugen - wird im Markdown verwendet
+const sensor_plt = createSensorLineChart(tagesverlauf, stationsnamen, stunde);
 ```
 
 <!-- Layout Dia 2 (2 Charts)-->
@@ -199,72 +180,18 @@ const sensor_plt = Plot.plot({
 
 </div> <!-- Grid mit 2 Spalten Ende -->
 
+<!--Layout kommt zuerst (HTML/Markdown darüber), Inhalt kommt danach (befüllen der Karte und Interaktivität hier drunter.-->
 
-
-<!-- ist in .js ausgelagert
 ```js
 // Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
-
-const map = L.map(map_div, {
-  scrollWheelZoom: false,
-  dragging: false,
-  doubleClickZoom: false,
-  boxZoom: false,
-  keyboard: false,
-  zoomControl: false,
-});
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
-  subdomains: 'abcd',
-  maxZoom: 19
-}).addTo(map);
-
-// This is for handling page resizes:
-const bounds = L.geoJSON(stationen).getBounds();
-const mapResizeObserver = new ResizeObserver(() => {
-  map.invalidateSize();
-  map.fitBounds(bounds, {padding: [13, 13]});
-});
-mapResizeObserver.observe(map_div); // do this once in the beginning
-
-function paintPoints(selectedStation) {
-  // To avoid adding layer after layer, we first remove all layers and
-  // then only re-add what we need.
-  map.eachLayer(function(layer) {
-      // Keep the tile layer, remove everything else
-      if (!(layer instanceof L.TileLayer)) {
-          map.removeLayer(layer);
-      }
-  });
-
-  const geojsonLayer = L.geoJSON(stationen, {
-      pointToLayer: function (feature, latlng) {
-          const highlight = feature.properties.name === selectedStation;
-          const color = highlight ? 'var(--theme-foreground-focus)' : 'var(--theme-foreground-faint)';
-          const marker = L.circleMarker(latlng, {
-              radius: 8,
-              color: color,
-              fillColor: color,
-              fillOpacity: 1
-          });
-          marker.bindTooltip(feature.properties.name);
-          marker.on("click", () => {
-            station_input.value = feature.properties.name;
-            paintPoints(feature.properties.name); // I'd expect this to happen automatically but it doesn't
-            return true;
-          });
-          return marker
-      }
-  }).addTo(map);
-};
+// ausgelagert in charts/chart2_sensor_map.js
+const map = createSensorMap(map_div, stationen, station_input);
 ```
-
--->
 
 ```js display=false
 // This block is re-evaluated whenever the input 'station' changes.
-paintPoints(station);
+// ausgelagert in charts/chart2_sensor_map.js
+updateSensorMap(map, stationen, station, station_input);
 ```
 
 
