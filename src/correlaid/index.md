@@ -4,6 +4,7 @@ sidebar: true
 toc:
   label: 'Kapitel'
 ---
+<!-- mit dashboard ist alles im darkmode, aber die Sidebar ist kleiner-->
 
 # Konstanz unter der Lupe  
 ## Wie ein paar Meter den Unterschied machen – beim Klima vor deiner Tür
@@ -108,22 +109,27 @@ const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
 const station = view(station_input);
 ```
 
+
+<!-- Learning: 
+  Erst in separaten JavaScript-Zellen den Inhalt vorbereiten.
+  Dann im Markdown die Anzeige steuern.
+-->
+
+<!-- Daten der Karte-->
 ```js
 const map_div = document.createElement("div");
 map_div.style = "height:25rem";
-display(map_div)
+map_div
+```
+
+<!-- Daten der Sensorliniendiagramme-->
+
+```js
+const stunde = Inputs.range([0, 23], {step: 1, label: "Stunde"});
 ```
 
 ```js
-const stunde = view(Inputs.range([0, 23], {step: 1, label: "Stunde"}));
-```
-
-<div class="card">
-  <h2>Temperatur</h2>
-  <h3>Tagesverlauf an verschiedenen SGC Wetterstationen in Konstanz</h3>
-
-```js
-const plt = Plot.plot({
+const sensor_plt = Plot.plot({
   grid: true, // Konsistent mit Dashboards
   inset: 10, // Konsistent mit Dashboards
   x: {
@@ -150,10 +156,49 @@ const plt = Plot.plot({
     }),
   ]
 });
-view(plt);
+
 ```
 
+<!-- Layout Dia 2 (2 Charts)-->
+<div class="grid grid-cols-2 gap-4">
+
+<!-- Zeigen der Karte-->
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <h2>Messstationen</h2>
+      <h3>Interaktive Karte</h3>
+    </div>
+  </div>
+
+  <div class="body">
+    ${map_div}
+  
+  </div>
+</div> 
+<!-- Ende Card - Map -->
+
+<!-- Zeigen der Sensorliniendiagramme-->
+<!-- Line Plot der Stationen-->
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <h2>Temperatur</h2>
+      <h3>Tagesverlauf an verschiedenen SGC Wetterstationen in Konstanz</h3>
+    </div>
+  </div>
+
+  <div class="body">
+    ${view(sensor_plt)}
+    <br/>
+    ${view(stunde)}
+  </div>
+
 </div> <!-- card -->
+
+</div> <!-- Grid mit 2 Spalten Ende -->
+
+
 
 ```js
 // Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
@@ -217,6 +262,7 @@ function paintPoints(selectedStation) {
 // This block is re-evaluated whenever the input 'station' changes.
 paintPoints(station);
 ```
+
 Du wirst sehen: Manche Stationen steigen schon am frühen Morgen stark 
 an, andere bleiben lange kühl. 
 
