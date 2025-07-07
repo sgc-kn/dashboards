@@ -1,5 +1,7 @@
 import * as Plot from "npm:@observablehq/plot";
 import L from "npm:leaflet";
+import { Generators } from "npm:@observablehq/stdlib";
+
 
 // Goals 
 //      -> Karte und Liniendiagramm nebeneinander darstellen -> dafür muss der Darstellungsbereich am Computer breiter werde
@@ -7,8 +9,35 @@ import L from "npm:leaflet";
 
 // line-charts of sensors
 
+export function createSensorLineChart(data, selectedStation, stunde) {
+    const gefiltert = data.filter(d => d.Station === selectedStation);
 
-export function createSensorLineChart(data, stationsnamen, stunde) {
+    return Plot.plot({
+        grid: true,
+        inset: 10,
+        x: {
+            label: "Stunde",
+            labelAnchor: "center",
+            labelArrow: "none",
+            tickFormat: x => x,
+        },
+        y: {
+            label: "℃",
+            domain: [16, 34]  // Hier Minimum und Maximum definieren -> evtl. anpassen an Min/Max aller Stationen zu dem Zeitpunkt
+        },
+        marks: [
+            Plot.line(gefiltert, {
+                x: "Stunde",
+                y: "Temperatur_Celsius",
+            }),
+            Plot.ruleX([stunde], {
+                stroke: 'var(--theme-foreground-focus)',
+            }),
+        ]
+    });
+}
+
+export function createSensorLineChart_old(data, stationsnamen, stunde) {
     return Plot.plot({
         grid: true,
         inset: 10,
@@ -35,6 +64,24 @@ export function createSensorLineChart(data, stationsnamen, stunde) {
                 stroke: 'var(--theme-foreground-focus)',
             }),
         ]
+    });
+}
+
+// dadurch reagiert das Liniendiagramm, wenn eine andere Station ausgewählt wird
+export function createReactiveSensorChart(data, stationInput, stundeInput) {
+    return Generators.observe(notify => {
+        function render() {
+            notify(
+                createSensorLineChart(
+                    data,
+                    stationInput.value,
+                    stundeInput.value
+                )
+            );
+        }
+        render();
+        stationInput.addEventListener("input", render);
+        stundeInput.addEventListener("input", render);
     });
 }
 
@@ -93,6 +140,8 @@ export function updateSensorMap(map, stationen, selectedStation, station_input) 
             marker.bindTooltip(feature.properties.name);
             marker.on("click", () => {
                 station_input.value = feature.properties.name;
+                // ohne das Event wird das Liniendiagramm nicht geändert
+                station_input.dispatchEvent(new CustomEvent("input"));
                 updateSensorMap(map, stationen, feature.properties.name, station_input);
                 return true;
             });
