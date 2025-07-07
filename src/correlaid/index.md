@@ -1,10 +1,11 @@
 ---
-theme: air
+theme: ["air", "wide"]
 sidebar: true
 toc:
   label: 'Kapitel'
 ---
-<!-- mit dashboard ist alles im darkmode, aber die Sidebar ist kleiner-->
+<!-- mit theme: dashboard ist alles im darkmode, wenn die Voreinstellung des Betriebssystems/Browsers so ist
+    mit "wide" wird die Sidebar kleiner -->
 
 # Konstanz unter der Lupe  
 ## Wie ein paar Meter den Unterschied machen – beim Klima vor deiner Tür
