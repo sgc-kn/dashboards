@@ -201,6 +201,7 @@ const sensor_plt = Plot.plot({
 
 
 
+<!-- ist in .js ausgelagert
 ```js
 // Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
 
@@ -259,10 +260,13 @@ function paintPoints(selectedStation) {
 };
 ```
 
+-->
+
 ```js display=false
 // This block is re-evaluated whenever the input 'station' changes.
 paintPoints(station);
 ```
+
 
 Du wirst sehen: Manche Stationen steigen schon am frühen Morgen stark 
 an, andere bleiben lange kühl. 

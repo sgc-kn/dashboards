@@ -39,8 +39,7 @@ export function createSensorLineChart(data, stationsnamen, stunde) {
 }
 
 
-// create map
-
+// create map - Die Karte wurde in index.md bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
 export function createSensorMap(container, stationen, station_input) {
     const map = L.map(container, {
         scrollWheelZoom: false,
@@ -71,6 +70,9 @@ export function createSensorMap(container, stationen, station_input) {
 
 // update Map
 export function updateSensorMap(map, stationen, selectedStation, station_input) {
+    // vorher Paint Points
+    // To avoid adding layer after layer, we first remove all layers and
+    // then only re-add what we need.
     // Remove all non-tile layers
     map.eachLayer(function (layer) {
         if (!(layer instanceof L.TileLayer)) {
