@@ -1,5 +1,8 @@
 ---
 theme: air
+sidebar: true
+toc:
+  label: 'Kapitel'
 ---
 
 # Konstanz unter der Lupe  
