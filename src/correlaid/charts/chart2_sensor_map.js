@@ -19,14 +19,15 @@ export function createSensorLineChart(data, selectedStation, stunde) {
             data,
             v => ({
                 min: d3.min(v, d => d.Temperatur_Celsius),
-                max: d3.max(v, d => d.Temperatur_Celsius)
+                max: d3.max(v, d => d.Temperatur_Celsius),
+                mean: d3.mean(v, d => d.Temperatur_Celsius)
             }),
             d => d.stunde
         ),
         // herausfiltern, wenn null Werte drin sind
-        ([stunde, { min, max }]) =>
+        ([stunde, { min, max, mean }]) =>
             min != null && max != null
-                ? { stunde, min, max }
+                ? { stunde, min, max, mean }
                 : null
     ).filter(d => d !== null);
 
@@ -43,7 +44,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
         },
         y: {
             label: "℃",
-            domain: [16, 34]  // Hier Minimum und Maximum definieren -> evtl. anpassen an Min/Max aller Stationen zu dem Zeitpunkt
+            domain: [18, 34]  // Hier Minimum und Maximum definieren -> evtl. anpassen an Min/Max aller Stationen zu dem Zeitpunkt
         },
         marks: [
             // Gefüllter Bereich
@@ -68,14 +69,18 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 stroke: "#999",
                 strokeOpacity: 0.8
             }),
+
             // Linie des gewählten Sensors
             Plot.line(gefiltert, {
                 x: "stunde",
                 y: "Temperatur_Celsius",
+                stroke: "#FFA200",
+                strokeWidth: 2
             }),
             // vertikale rote Linie für ausgewählte Stunde
             Plot.ruleX([stunde], {
-                stroke: 'var(--theme-foreground-focus)',
+                stroke: 'black',
+                strokeDasharray: "4.2"
             }),
         ]
     });
