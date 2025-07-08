@@ -16,10 +16,6 @@ const position_card = layout.card({
 ```
 
 ```js
-const hourly_one_week_data = FileAttachment("lubw/Stündlich.csv").csv({typed: true})
-```
-
-```js
 const variables = [
     {
         name: "o3",
@@ -61,6 +57,10 @@ const dataset_card = layout.card({
 ```
 
 ```js
+const hourly_one_week_data = FileAttachment("lubw/Auszug_Stundenwerte.csv").csv({typed: true})
+```
+
+```js
 const hourly_one_week_card = layout.card({
     title : "Stündliche Aufzeichnung",
     subtitle: `Auszug, eine Woche, ${variable.label} in ${variable.unit}`, // TODO annote week and year here
@@ -82,6 +82,86 @@ const hourly_one_week_card = layout.card({
 })
 ```
 
+```js
+const month_of_year_data = FileAttachment("lubw/Monat_des_Jahres_Statistik.csv").csv({typed: true})
+```
+
+```js
+const month_of_year_card = layout.card({
+    title : "Monats-Statistik",
+    subtitle: `Mittelwert aller beobachteter Monate, ${variable.label} in ${variable.unit}`, // TODO annote years here
+    body : layout.plot({
+            x: {
+                label: 'Monat',
+            },
+            y: {
+                tickFormat: Plot.formatNumber("de-DE"),
+            },
+            marks: [
+                Plot.line(month_of_year_data, {
+                    x: "month",
+                    y: variable.name + "_mean",
+                    stroke: () => "", // use first color of palette
+                }),
+            ]
+        }),
+})
+```
+
+
+```js
+const day_of_week_data = FileAttachment("lubw/Wochentag_Statistik.csv").csv({typed: true})
+```
+
+```js
+const day_of_week_card = layout.card({
+    title : "Wochentag-Statistik",
+    subtitle: `Mittelwert aller beobachteter Wochentage, ${variable.label} in ${variable.unit}`, // TODO annote years here
+    body : layout.plot({
+            x: {
+                label: 'Wochentag', // TODO clarify monday to sunday
+            },
+            y: {
+                tickFormat: Plot.formatNumber("de-DE"),
+            },
+            marks: [
+                Plot.line(day_of_week_data, {
+                    x: "day_of_week",
+                    y: variable.name + "_mean",
+                    stroke: () => "", // use first color of palette
+                }),
+            ]
+        }),
+})
+```
+
+
+```js
+const hour_of_day_data = FileAttachment("lubw/Stunde_des_Tages_Statistik.csv").csv({typed: true})
+```
+
+```js
+const hour_of_day_card = layout.card({
+    title : "Stunden-Statistik",
+    subtitle: `Mittelwert aller Stunden, ${variable.label} in ${variable.unit}`, // TODO annote years here
+    body : layout.plot({
+            x: {
+                label: 'Stunde',
+            },
+            y: {
+                tickFormat: Plot.formatNumber("de-DE"),
+            },
+            marks: [
+                Plot.line(hour_of_day_data, {
+                    x: "hour_of_day",
+                    y: variable.name + "_mean",
+                    stroke: () => "", // use first color of palette
+                }),
+            ]
+        }),
+})
+```
+
 ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-Württemberg') }
 
 <div class="grid grid-cols-2">
@@ -91,6 +171,9 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 
 <div class="grid grid-cols-2">
     ${ hourly_one_week_card }
+    ${ month_of_year_card }
+    ${ day_of_week_card }
+    ${ hour_of_day_card }
 </div>
 
 ---

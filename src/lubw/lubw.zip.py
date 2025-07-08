@@ -1,13 +1,19 @@
-import datetime
 import io
+import lubw
 import pandas
-import pytz
 import sys
 import zipfile
 
-# --- load raw data
 
-timezone = "Europe/Berlin"
+def zip_tables_to_buf(tables, *, index=False, **kwargs):
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "a", zipfile.ZIP_DEFLATED, False) as zf:
+        for name, df in tables.items():
+            # with zf.open(name + '.parquet', 'w') as f:
+            #     df.to_parquet(f)
+            with zf.open(name + ".csv", "w") as f:
+                df.to_csv(f, index=index, **kwargs)
+    return buf.getvalue()
 
 
 def format_datetime_for_d3(dt):
@@ -31,82 +37,18 @@ def format_datetime_for_d3(dt):
         return f"{base_str}Z"
 
 
-def load_raw_data():
-    this_year = datetime.date.today().year
-    years = range(2008, this_year + 1)
-
-    tables = list()
-    for year in years:
-        url = f"https://sgc-public-prod-de-wu5va7ls.s3-eu-central-1.ionoscloud.com/share/lubw/hourly/lubw-hourly-{year}.csv"
-        df = pandas.read_csv(url)
-        tables.append(df)
-
-    df = pandas.concat(tables)
-
-    # parse startZeit, use as index; delete redundant endZeit column
-    df["startZeit"] = pandas.to_datetime(df["startZeit"])
-    df.set_index("startZeit", inplace=True)
-    del df["endZeit"]
-
-    if df.index.tz is None:
-        df.index = df.index.tz_localize(timezone)
-    else:
-        df.index = df.index.tz_convert(timezone)
-
-    return df
-
-
-# ---
-
-
-def last_week_range(*, timezone=timezone):
-    # Get current date in specified timezone
-    now = datetime.datetime.now(pytz.timezone(timezone))
-
-    # Find last Sunday (end of previous complete week)
-    days_since_sunday = (now.weekday() + 1) % 7
-    if days_since_sunday == 0:  # If today is Sunday, go to previous week
-        days_since_sunday = 7
-
-    last_sunday = now - datetime.timedelta(days=days_since_sunday)
-    last_monday = last_sunday - datetime.timedelta(days=6)
-
-    # Filter data for the week
-    start_date = last_monday.date()
-    end_date = last_sunday.date()
-
-    return (start_date, end_date)
-
-
-def last_week(df, **kwargs):
-    start_date, end_date = last_week_range(**kwargs)
-
-    mask = (df.index.date >= start_date) & (df.index.date <= end_date)
-
-    subset = df[mask]
-
-    subset.index = subset.index.map(format_datetime_for_d3)
-
-    return subset.reset_index()
-
-
-# ---
-
-
-def zip_tables_to_buf(tables, *, index=False, **kwargs):
-    buf = io.BytesIO()
-    with zipfile.ZipFile(buf, "a", zipfile.ZIP_DEFLATED, False) as zf:
-        for name, df in tables.items():
-            # with zf.open(name + '.parquet', 'w') as f:
-            #     df.to_parquet(f)
-            with zf.open(name + ".csv", "w") as f:
-                df.to_csv(f, index=index, **kwargs)
-    return buf.getvalue()
-
-
 if __name__ == "__main__":
-    df = load_raw_data()
-    tables = {"Stündlich": last_week(df)}
+    df = lubw.load_raw_data()
+
+    lw = lubw.last_week(df)
+    lw["startZeit"] = lw.startZeit.map(format_datetime_for_d3)
+
+    tables = {
+        "Auszug_Stundenwerte": lw,
+        "Monat_des_Jahres_Statistik": lubw.month_of_year_stats(df),
+        "Wochentag_Statistik": lubw.day_of_week_stats(df),
+        "Stunde_des_Tages_Statistik": lubw.hour_of_day_stats(df),
+    }
     zip_file = zip_tables_to_buf(tables)
 
     sys.stdout.buffer.write(zip_file)
