@@ -30,14 +30,13 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 : null
     ).filter(d => d !== null);
 
-    console.log(minMaxByHour);
 
 
     return Plot.plot({
         grid: true,
         inset: 10,
         x: {
-            label: "stunde",
+            label: "Stunde",
             labelAnchor: "center",
             labelArrow: "none",
             tickFormat: x => x,
@@ -170,6 +169,7 @@ export function getMarkerStyle(isSelected) {
 
 /**
  * Gibt Stiloptionen abhängig von Temperaturabweichung zurück.
+ * Dieser Style ist nur für Farbe und Radius zuständig, nicht für den Rand.
  * Stunden-Slider (Inputs.range) steuert die Marker auf der Karte:
  *      Farbe der Marker zeigt Abweichung vom Mittel
 *       Größe zeigt Stärke der Abweichung
@@ -230,7 +230,7 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
         station_input.value = feature.properties.name;
 
         // Reaktives Event auslösen (damit z.B. Diagramm neu gerendert wird)
-        station_input.dispatchEvent(new CustomEvent("input"));
+        station_input.dispatchEvent(new Event("input"));
 
         // Karte aktualisieren, damit Marker neu eingefärbt werden
         updateSensorMap(map, stationen, feature.properties.name, station_input);
@@ -245,12 +245,12 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
  *
  * @param {string} stationName - Name der Station
  * @param {number} hour - Stunde (0–23)
- * @param {Array} allData - Alle Messdaten (tagesverlauf)
+ * @param {Array} tagesverlauf - Alle Messdaten (tagesverlauf)
  * @returns {number} - Abweichung in °C (kann negativ sein)
  */
-function getDeviationForStation(stationName, hour, allData) {
+function getDeviationForStation(stationName, hour, tagesverlauf) {
     // Filter: Alle Messungen in der gewählten Stunde
-    const hourData = allData.filter(d => d.stunde === hour);
+    const hourData = tagesverlauf.filter(d => d.stunde === hour);
 
     if (hourData.length === 0) return 0; // Falls keine Daten vorliegen
 
