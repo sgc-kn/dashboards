@@ -24,7 +24,7 @@ full.rename(
     columns={
         "name": "Station",
         "date": "Datum",
-        "hour": "Stunde",
+        "hour": "stunde",  # bitte klein schreiben - damit in chart2_sensor_map.js alles kleingeschrieben werden kann!
         "temperature": "Temperatur_Celsius",
         "winddirection": "Windrichtung_Grad",
         "windspeedavg": "Windgeschwindigkeit_Durchschnitt_kmh",  # TODO: Stimmt die Einheit?

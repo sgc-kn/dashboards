@@ -194,9 +194,22 @@ const map = createSensorMap(map_div, stationen, station_input);
 ```js display=false
 // This block is re-evaluated whenever the input 'station' changes.
 // ausgelagert in charts/chart2_sensor_map.js
-updateSensorMap(map, stationen, station, station_input);
+updateSensorMap(map, stationen, station, station_input, tagesverlauf, stunde.value);
 ```
 
+```js
+// Immer wenn der Stunden-Slider bewegt wird, neu zeichnen
+stunde.addEventListener("input", () => {
+  updateSensorMap(
+    map,
+    stationen,
+    station_input.value,
+    station_input,
+    tagesverlauf,
+    stunde.value
+  );
+});
+```
 
 Du wirst sehen: Manche Stationen steigen schon am frühen Morgen stark 
 an, andere bleiben lange kühl. 
