@@ -45,9 +45,8 @@ if __name__ == "__main__":
 
     tables = {
         "Auszug_Stundenwerte": lw,
-        "Monat_des_Jahres_Statistik": lubw.month_of_year_stats(df),
-        "Wochentag_Statistik": lubw.day_of_week_stats(df),
-        "Stunde_des_Tages_Statistik": lubw.hour_of_day_stats(df),
+        "Monatliche_Statistik": lubw.monthly_stats(df),
+        "Jährliche_Statistik": lubw.yearly_stats(df),
     }
     zip_file = zip_tables_to_buf(tables)
 

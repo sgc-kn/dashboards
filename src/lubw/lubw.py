@@ -96,6 +96,64 @@ def weekly_stats(df):
     return agg[cols]
 
 
+def monthly_stats(df):
+    df = df.copy()
+
+    # Localize the start time for correct aggregation
+    df.index = df.index.tz_convert("Europe/Berlin")
+
+    # Aggregate the data, weeks starting on Monday
+    agg = df.resample("M").agg(["mean", "median", "min", "max"])
+
+    # Flatten column names
+    agg.columns = ["_".join(col) for col in agg.columns]
+
+    # Reset index and add week start
+    agg.reset_index(inplace=True)
+    agg.rename(columns={"startZeit": "end"}, inplace=True)
+    agg["start"] = agg["end"].apply(lambda dt: dt.replace(day=1))
+
+    # Convert datetimes to date
+    agg["start"] = agg["start"].dt.date
+    agg["end"] = agg["end"].dt.date
+
+    # Reorder columns
+    cols = ["start", "end"] + [
+        col for col in agg.columns if col not in ["start", "end"]
+    ]
+
+    return agg[cols]
+
+
+def yearly_stats(df):
+    df = df.copy()
+
+    # Localize the start time for correct aggregation
+    df.index = df.index.tz_convert("Europe/Berlin")
+
+    # Aggregate the data, weeks starting on Monday
+    agg = df.resample("Y").agg(["mean", "median", "min", "max"])
+
+    # Flatten column names
+    agg.columns = ["_".join(col) for col in agg.columns]
+
+    # Reset index and add week start
+    agg.reset_index(inplace=True)
+    agg.rename(columns={"startZeit": "end"}, inplace=True)
+    agg["start"] = agg["end"].apply(lambda dt: dt.replace(month=1, day=1))
+
+    # Convert datetimes to date
+    agg["start"] = agg["start"].dt.date
+    agg["end"] = agg["end"].dt.date
+
+    # Reorder columns
+    cols = ["start", "end"] + [
+        col for col in agg.columns if col not in ["start", "end"]
+    ]
+
+    return agg[cols]
+
+
 def month_of_year_stats(df):
     df = df.copy()
 

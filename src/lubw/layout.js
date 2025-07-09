@@ -14,13 +14,13 @@ function tools({ download, info }) {
     const items = [];
 
     if (download !== null) {
-        items.push(html`
+        items.push(html.fragment`
             <a href='${download}' class="download-button" title='Download' aria-label='Download' download></a>
             `)
     }
 
     if (info !== null) {
-        items.push(html`
+        items.push(html.fragment`
             <button class="info-button" aria-label='Info' title='Info'></button>
             `)
     }
@@ -28,7 +28,7 @@ function tools({ download, info }) {
     if (items.length == 0) {
         return ''
     } else {
-        return html`
+        return html.fragment`
             <div class="tools">
                 ${items}
             </div>
@@ -40,7 +40,7 @@ function withInfo(body, info) {
     if (info === null) {
         return body
     } else {
-        return html`
+        return html.fragment`
             <div class='with-info'>
                 <div class='body'>
                     ${body}
