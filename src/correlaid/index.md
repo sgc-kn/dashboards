@@ -50,22 +50,25 @@ const yearly =  FileAttachment("../dwd/dwd/Jahreswerte.csv").csv({typed: true})
 ```
 
 ```js
-const years = yearly.map(row => row['Jahr'])
-const minYear = Math.min(...years)
-const maxYear = Math.max(...years)
-// Das wächst automatisch mit, wenn sich die Daten im DWD Dashboard aktualisieren
+import { computeYears, createWeatherTrendContainer } from "./charts/chart1_weather_trends.js";
+const { minYear, maxYear, allYears } = computeYears(yearly);
 
-const arrival = view(Inputs.range([minYear, maxYear], {step: 1}));
+const options = ["Bitte Jahr wählen…", ...allYears];
+const arrivalInput = Inputs.select(options, { label: "Zuzugsjahr", value: options[0] });
+view(arrivalInput);
 ```
+
 
 <div class="card">
   <h2>Temperatur</h2>
   <h3>Jahresdurchschnitt in Konstanz, DWD Station Konstanz</h3>
 
 ```js
-import drawWeatherTrend from "./charts/chart1_weather_trends.js";
 
-view(drawWeatherTrend(yearly, arrival));
+view(createWeatherTrendContainer(yearly, arrivalInput));
+
+//import {drawWeatherTrendD3} from "./charts/chart1_weather_trends.js";
+//view(drawWeatherTrendD3(yearly, 2000));
 ``` 
 
 
