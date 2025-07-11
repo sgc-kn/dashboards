@@ -4,14 +4,24 @@
 /* Konstanz CD */
 
 :root {
-  --theme-foreground-focus: rgb(228,5,33);
-  --sans-serif: Inter, -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-  --serif: var(--sans-serif);
+    --theme-foreground-focus: rgb(228, 5, 33);
+    --sans-serif: Inter, -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+    --serif: var(--sans-serif);
 }
 
 /* Theme Override */
-h1 + h2 {
-  font-style: normal; /* instead of italic */
+h1+h2 {
+    font-style: normal;
+    /* instead of italic */
+}
+
+/* Theme Override für Datastory Correlaid*/
+.correlaid-page p {
+    max-width: 100%;
+}
+
+.correlaid-page h2 {
+    max-width: 100%;
 }
 
 /* Card Info and Download Buttons */
@@ -70,7 +80,7 @@ h1 + h2 {
     align-items: flex-end;
 }
 
-.card .header .tools button ,
+.card .header .tools button,
 .card .header .tools a {
     padding: 0px 3px;
     cursor: pointer;
@@ -81,8 +91,8 @@ h1 + h2 {
     border: none;
 }
 
-.card .info-button:before ,
-.card .close-button:before ,
+.card .info-button:before,
+.card .close-button:before,
 .card .download-button:before {
     content: '';
     height: 1.5rem;
@@ -91,8 +101,8 @@ h1 + h2 {
     background-color: var(--theme-foreground-muted);
 }
 
-.card .info-button:hover:before ,
-.card .close-button:hover:before ,
+.card .info-button:hover:before,
+.card .close-button:hover:before,
 .card .download-button:hover:before {
     background-color: var(--theme-foreground);
 }
