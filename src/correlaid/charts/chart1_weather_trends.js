@@ -126,10 +126,10 @@ export function drawWeatherTrendD3(yearly, arrival) {
         // Anmerkung
         const delta = (endY - startY).toFixed(1);
         svg.append("text")
-            .attr("x", x(endX) - 60)
+            .attr("x", x(endX) - 180)
             .attr("y", y(endY) - 10)
             .attr("fill", "red")
-            .attr("font-size", "12px")
+            .attr("font-size", "20px")
             .text(`Anstieg um ${delta} °C`);
     }
     return div;
