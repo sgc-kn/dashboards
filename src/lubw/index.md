@@ -99,7 +99,6 @@ const o3_recent_card = recent_card(variables.o3, {
     info: html`
     <p>TODO</p>
     `
-    // TODO the info toggle button does not work with layout.card; the html is not hydrated server side.
     // TODO document thresholds from https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen
 });
 ```
@@ -212,4 +211,6 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 
 ---
 
-${layout.sponsors()}
+```js
+layout.sponsors()
+```

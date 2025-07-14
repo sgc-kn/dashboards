@@ -4,13 +4,20 @@ import { FileAttachment } from "observablehq:stdlib";
 import { resize } from "observablehq:stdlib";
 
 export function title(main, sub) {
-    return html`
+    return html.fragment`
         <h1>${main}</h1>
         <h2>${sub}</h2>
     `
 }
 
-function tools({ download, info }) {
+function random_id() {
+    var S4 = function () {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return "id_" + S4() + S4() + S4();
+}
+
+function tools({ download, info, card_id }) {
     const items = [];
 
     if (download !== null) {
@@ -20,8 +27,9 @@ function tools({ download, info }) {
     }
 
     if (info !== null) {
+        var js = `document.getElementById("${card_id}").classList.toggle('flip')`;
         items.push(html.fragment`
-            <button class="info-button" aria-label='Info' title='Info'></button>
+            <button class="info-button" aria-label='Info' title='Info' onclick=${js}></button>
             `)
     }
 
@@ -60,14 +68,15 @@ export function card({
     download = null,
     info = null,
 }) {
-    return html`
-        <div class="card">
+    var card_id = random_id();
+    return html.fragment`
+        <div id=${card_id} class="card">
             <div class="header">
                 <div class="title">
                     <h2>${title}</h2>
                     <h3>${subtitle}</h3>
                 </div> <!-- title -->
-                ${tools({ download, info })}
+                ${tools({ download, info, card_id })}
             </div> <!-- header -->
             ${withInfo(body, info)}
         </div> <!-- card -->
@@ -105,7 +114,7 @@ export function plot(args) {
 export function sponsors() {
     const bmwsb = FileAttachment("/assets/sponsor-BMWSB.svg").href
     const kfw = FileAttachment("/assets/sponsor-KFW.png").href
-    return html`
+    return html.fragment`
         <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <img
             style="flex: 0 1 auto; max-width: 20rem; width: 100%;"
