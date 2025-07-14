@@ -76,36 +76,27 @@ function recent_card(variable, { thresholds = [], info } = {}) {
                     label: variable.unit,
                     tickFormat: Plot.formatNumber("de-DE"),
                 },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
                 marks: [
                     Plot.line(recent_data, {
                         x: "startZeit", // TODO fix time zone offset in GUI
                         y: variable.name,
-                        stroke: () => "", // use first color of palette
+                        stroke: () => "Messwert", // use first color of palette
                     }),
-                    Plot.ruleY(thresholds.map((x) => x[0]), {
-                        stroke: x => `ordinal_${x}`,
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
                     })
                 ]
             }),
         info,
     })
 }
-```
 
-```js
-const o3 = variables.o3
-const o3_recent_card = recent_card(variables.o3, {
-    thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
-    info: html`
-    <p>TODO</p>
-    `
-    // TODO document thresholds from https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen
-});
-```
-
-
-```js
-function monthly_card(variable){
+function monthly_card(variable, { thresholds = [], info } = {}){
     return layout.card({
         title : "Langfristige Entwicklung",
         subtitle: `Monatsmittelwerte seit Beginn der Aufzeichnung`,
@@ -117,18 +108,27 @@ function monthly_card(variable){
                     label: variable.unit,
                     tickFormat: Plot.formatNumber("de-DE"),
                 },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
                 marks: [
                     Plot.line(monthly_data, {
                         x: "start",
                         y: variable.name + "_mean",
-                        stroke: () => "", // use first color of palette
+                        stroke: () => "Messwert", // use first color of palette
                     }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    })
                 ]
             }),
+        info,
     })
 }
 
-function yearly_card(variable){
+function yearly_card(variable, { thresholds = [], info } = {}){
     return layout.card({
         title : "Langfristige Entwicklung",
         subtitle: `Jahresmittelwerte seit Beginn der Aufzeichnung`,
@@ -140,18 +140,27 @@ function yearly_card(variable){
                     label: variable.unit,
                     tickFormat: Plot.formatNumber("de-DE"),
                 },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
                 marks: [
                     Plot.line(yearly_data, {
                         x: "start",
                         y: variable.name + "_mean",
-                        stroke: () => "", // use first color of palette
+                        stroke: () => "Messwert", // use first color of palette
                     }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    })
                 ]
             }),
+        info,
     })
 }
 
-function max_card(variable){
+function max_card(variable, { thresholds = [], info } = {}){
     return layout.card({
         title : "Extremwerte",
         subtitle: "Maximalwerte je Monat seit Beginn der Aufzeichnung",
@@ -163,16 +172,101 @@ function max_card(variable){
                     label: variable.unit,
                     tickFormat: Plot.formatNumber("de-DE"),
                 },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
                 marks: [
                     Plot.line(monthly_data, {
                         x: "start",
                         y: variable.name + "_max",
-                        stroke: () => "", // use first color of palette
+                        stroke: () => "Messwert", // use first color of palette
                     }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    })
                 ]
             }),
     })
 } 
+```
+
+```js
+const o3_recent_card = recent_card(variables.o3, {
+    thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
+    info: html`
+    <p>TODO</p>
+    `
+    // TODO document thresholds from https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen
+});
+```
+
+```js
+const o3_monthly_card = monthly_card(variables.o3, {
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const o3_yearly_card = yearly_card(variables.o3, {
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const no2_recent_card = recent_card(variables.no2, {
+    thresholds: [ [200, "Grenzwert"], [400, "Alarmschwelle"] ],
+    info: html`
+    <p>TODO</p>
+    `
+    // TODO document thresholds from https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen
+});
+```
+
+```js
+const no2_monthly_card = monthly_card(variables.no2, {
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const no2_yearly_card = yearly_card(variables.no2, {
+    thresholds: [ [40, "Grenzwert"] ],
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const pm10_recent_card = recent_card(variables.pm10, {
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const pm10_monthly_card = monthly_card(variables.pm10, {
+    info: html`
+    <p>TODO</p>
+    `
+});
+```
+
+```js
+const pm10_yearly_card = yearly_card(variables.pm10, {
+    info: html`
+    <p>TODO</p>
+    `
+});
 ```
 
 ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-Württemberg') }
@@ -186,27 +280,24 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 
 <div class="grid grid-cols-2">
     ${ o3_recent_card }
-    ${ monthly_card(variables.o3) }
-    ${ yearly_card(variables.o3) }
-    ${ max_card(variables.o3) }
+    ${ o3_monthly_card }
+    ${ o3_yearly_card }
 </div>
 
 ## Stickstoffdioxid
 
 <div class="grid grid-cols-2">
-    ${ recent_card(variables.no2) }
-    ${ monthly_card(variables.no2) }
-    ${ yearly_card(variables.no2) }
-    ${ max_card(variables.no2) }
+    ${ no2_recent_card }
+    ${ no2_monthly_card }
+    ${ no2_yearly_card }
 </div>
 
 ## Feinstaub
 
 <div class="grid grid-cols-2">
-    ${ recent_card(variables.pm10) }
-    ${ monthly_card(variables.pm10) }
-    ${ yearly_card(variables.pm10) }
-    ${ max_card(variables.pm10) }
+    ${ pm10_recent_card }
+    ${ pm10_monthly_card }
+    ${ pm10_yearly_card }
 </div>
 
 ---
