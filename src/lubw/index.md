@@ -8,10 +8,63 @@ import * as layout from "./layout.js";
 ```
 
 ```js
+const map_div = document.createElement('div');
 const position_card = layout.card({
     title : 'Messstation Konstanz',
-    subtitle : 'Position der Station im Laufe der Zeit',
-    body : '',
+    subtitle : 'Ecke Zasiusstraße und Wallgutstraße',
+    body : map_div,
+})
+```
+
+```js
+map_div.style = "flex-grow:1";
+
+const map = L.map(map_div, {
+  scrollWheelZoom: false,
+  dragging: false,
+  doubleClickZoom: false,
+  boxZoom: false,
+  keyboard: false,
+  zoomControl: false,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+const points_to_fit = [ [47.65671712249894, 9.179873031082293], [ 47.6962128027911, 9.139355745114335], [47.66589663744094, 9.221408794229172] ]
+
+const pos = [47.6643739 , 9.1680143]
+
+L.circleMarker(pos, {radius: 5, color: 'var(--theme-blue)'})
+.addTo(map)
+.openTooltip()
+
+points_to_fit.push(pos)
+
+const mapResizeObserver = new ResizeObserver(() => {
+  map.invalidateSize();
+  map.fitBounds(points_to_fit, {padding: [11, 11]});
+});
+mapResizeObserver.observe(map_div);
+```
+
+```js
+const zip_data = FileAttachment("lubw.zip");
+
+const dataset_card = layout.card({
+    title : "Datengrundlage",
+    subtitle: html.fragment`<a href='https://www.lubw.baden-wuerttemberg.de/en/luft/messwerte-immissionswerte?id=DEBW052#diagramm>'>lubw.baden-wuerttemberg.de</a>`,
+    download: zip_data.href,
+    body : html.fragment`
+    <p>Die Landesanstalt für Umwelt Baden-Württemberg (LUBW) betreibt ein landesweites Messnetz zur Überwachung der Luftqualität.</p>
+
+    <p>Dieses Dashboard basiert auf historischen Aufzeichnungen der Messtation Konstanz. Die Daten werden seit 2008 aufgezeichnet.</p>
+
+    <p>Die Messstation Konstanz befindet sich im Stadtgebiet: im Paradies an der Ecke Zasiusstraße und Wallgutstraße, direkt beim Ellenrieder Gymnasium.</p>
+    `,
 })
 ```
 
@@ -38,19 +91,6 @@ const variables = {
         unit: "µg/m³",
     },
 };
-```
-
-```js
-const zip_data = FileAttachment("lubw.zip");
-
-const dataset_card = layout.card({
-    title : "Datengrundlage",
-    subtitle: "",
-    download: zip_data.href,
-    body : html`
-    TODO
-    `,
-})
 ```
 
 ```js
@@ -271,7 +311,7 @@ const pm10_yearly_card = yearly_card(variables.pm10, {
 
 ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-Württemberg') }
 
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-4">
     ${ position_card }
     ${ dataset_card }
 </div>
