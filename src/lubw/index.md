@@ -212,38 +212,6 @@ function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}
         info,
     })
 }
-
-function max_card(variable, { thresholds = [], info } = {}){
-    return layout.card({
-        title : "Extremwerte",
-        subtitle: "Maximalwerte je Monat seit Beginn der Aufzeichnung",
-        body : layout.plot({
-                x: {
-                    label: 'Zeit',
-                },
-                y: {
-                    label: variable.unit,
-                    tickFormat: Plot.formatNumber("de-DE"),
-                },
-                color: {
-                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
-                    legend: true,
-                },
-                marks: [
-                    Plot.line(monthly_data, {
-                        x: "start",
-                        y: variable.name + "_max",
-                        stroke: () => "Messwert", // use first color of palette
-                    }),
-                    Plot.ruleY(thresholds, {
-                        y : x => x[0],
-                        stroke: x => x[1],
-                    })
-                ]
-            }),
-        info,
-    })
-} 
 ```
 
 ```js
