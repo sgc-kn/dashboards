@@ -69,28 +69,29 @@ const dataset_card = layout.card({
 ```
 
 ```js
-const variables = {
-    o3: {
+const o3 = {
         name: "o3",
         label: "Ozon (O₃)",
         unit: "µg/m³",
-    },
-    no2: {
+    };
+
+const no2 = {
         name: "no2",
         label: "Stickstoffdioxid (NO₂)",
         unit: "µg/m³",
-    },
-    pm25: {
+    };
+
+const pm25 = {
         name: "pm25",
         label: "Feinstaub mit 2,5 µm Durchmesser (PM 2.5)",
         unit: "µg/m³",
-    },
-    pm10: {
+    };
+
+const pm10 = {
         name: "pm10",
         label: "Feinstaub mit 10 µm Durchmesser (PM 10)",
         unit: "µg/m³",
-    },
-};
+    };
 ```
 
 ```js
@@ -278,7 +279,7 @@ const o3_info_card = layout.card({
 `
 });
 
-const o3_recent_card = recent_card(variables.o3, {
+const o3_recent_card = recent_card(o3, {
     thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
     info: html.fragment`
         <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
@@ -290,11 +291,11 @@ const o3_recent_card = recent_card(variables.o3, {
 ```
 
 ```js
-const o3_monthly_card = monthly_card(variables.o3, {});
+const o3_monthly_card = monthly_card(o3, {});
 ```
 
 ```js
-const o3_yearly_card = yearly_card(variables.o3, {
+const o3_yearly_card = yearly_card(o3, {
     align_values: range(monthly_data, 'o3_mean'),
 });
 ```
@@ -316,7 +317,7 @@ const no2_info_card = layout.card({
 ```
 
 ```js
-const no2_recent_card = recent_card(variables.no2, {
+const no2_recent_card = recent_card(no2, {
     thresholds: [ [200, "Grenzwert"], [400, "Alarmschwelle"] ],
     info: html.fragment`
         <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
@@ -328,13 +329,13 @@ const no2_recent_card = recent_card(variables.no2, {
 ```
 
 ```js
-const no2_monthly_card = monthly_card(variables.no2, {
+const no2_monthly_card = monthly_card(no2, {
     align_values: [...range(yearly_data, 'no2_mean'), 40],
 });
 ```
 
 ```js
-const no2_yearly_card = yearly_card(variables.no2, {
+const no2_yearly_card = yearly_card(no2, {
     thresholds: [ [40, "Grenzwert"] ],
     info: html.fragment`
         <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
@@ -364,15 +365,15 @@ const pm10_info_card = layout.card({
 ```
 
 ```js
-const pm10_recent_card = recent_card(variables.pm10, {});
+const pm10_recent_card = recent_card(pm10, {});
 ```
 
 ```js
-const pm10_monthly_card = monthly_card(variables.pm10, {});
+const pm10_monthly_card = monthly_card(pm10, {});
 ```
 
 ```js
-const pm10_yearly_card = yearly_card(variables.pm10, {
+const pm10_yearly_card = yearly_card(pm10, {
     thresholds : [ [40, "Grenzwert"]],
     info: html.fragment`
         <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>

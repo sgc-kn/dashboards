@@ -1,6 +1,8 @@
 name: Build and deploy main branch
 
 on:
+  schedule:
+    - cron: '47 04 * * 1' # At 04:47 on Monday.
   push:
     branches: [ "main" ]
   # uncomment the following two lines while developing the CI
