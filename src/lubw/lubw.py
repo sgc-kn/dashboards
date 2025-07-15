@@ -93,7 +93,7 @@ def weekly_stats(df):
         col for col in agg.columns if col not in ["week_start", "week_ending"]
     ]
 
-    return agg[cols]
+    return agg[cols].iloc[:-1]  # ignore last row because it is based on incomplete data
 
 
 def monthly_stats(df):
@@ -122,7 +122,7 @@ def monthly_stats(df):
         col for col in agg.columns if col not in ["start", "end"]
     ]
 
-    return agg[cols]
+    return agg[cols].iloc[:-1]  # ignore last row because it is based on incomplete data
 
 
 def yearly_stats(df):
@@ -151,7 +151,7 @@ def yearly_stats(df):
         col for col in agg.columns if col not in ["start", "end"]
     ]
 
-    return agg[cols]
+    return agg[cols].iloc[:-1]  # ignore last row because it is based on incomplete data
 
 
 def month_of_year_stats(df):
