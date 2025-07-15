@@ -69,9 +69,7 @@ ${map_div}
 <div class="header">
 <div class="title">
 <h2>Datenquelle</h2>
-<a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/">
-<h3>opendata.dwd.de</h3>
-</a>
+<h3><a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/">opendata.dwd.de</a></h3>
 </div> <!-- title -->
 <div class="tools"><a href='dwd.zip' class="download-button" title='Download' aria-label='Download' download></a></div>
 </div> <!-- header -->
