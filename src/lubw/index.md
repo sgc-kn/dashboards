@@ -134,11 +134,27 @@ function recent_card(variable, { thresholds = [], info, align_values = [] } = {}
                         x: "startZeit", // TODO fix time zone offset in GUI
                         y: var_name,
                         stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
                     }),
                     Plot.ruleY(thresholds, {
                         y : x => x[0],
                         stroke: x => x[1],
-                    })
+                    }),
+                    // mouseover
+                    Plot.dot(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE'),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
                 ]
             }),
         info,
@@ -152,7 +168,7 @@ function monthly_card(variable, { thresholds = [], info, align_values = [] } = {
         subtitle: `Monatsmittelwerte seit Beginn der Aufzeichnung`,
         body : layout.plot({
                 x: {
-                    label: 'Zeit',
+                    label: 'Monat',
                 },
                 y: {
                     domain: range(monthly_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
@@ -168,11 +184,27 @@ function monthly_card(variable, { thresholds = [], info, align_values = [] } = {
                         x: "start",
                         y: var_name,
                         stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
                     }),
                     Plot.ruleY(thresholds, {
                         y : x => x[0],
                         stroke: x => x[1],
-                    })
+                    }),
+                    // mouseover
+                    Plot.dot(monthly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(monthly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE', {year: 'numeric', month: 'long'}),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
                 ]
             }),
         info,
@@ -186,7 +218,7 @@ function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}
         subtitle: `Jahresmittelwerte seit Beginn der Aufzeichnung`,
         body : layout.plot({
                 x: {
-                    label: 'Zeit',
+                    label: 'Jahr',
                 },
                 y: {
                     domain: range(yearly_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
@@ -194,6 +226,7 @@ function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}
                     tickFormat: Plot.formatNumber("de-DE"),
                 },
                 color: {
+                    label: "",
                     domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
                     legend: true,
                 },
@@ -202,11 +235,27 @@ function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}
                         x: "start",
                         y: var_name,
                         stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
                     }),
                     Plot.ruleY(thresholds, {
                         y : x => x[0],
                         stroke: x => x[1],
-                    })
+                    }),
+                    // mouseover
+                    Plot.dot(yearly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(yearly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE', {year: 'numeric'}),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
                 ]
             }),
         info,
