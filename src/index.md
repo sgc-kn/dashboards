@@ -23,7 +23,108 @@ Konstanz][od].
 
 <h1>Neuigkeiten</h1><h2></h2>
 
-## Februar 2024
+
+## Juli 2025
+
+Wir haben ein Dashboard zur Luftqualität in Konstanz veröffentlicht.
+Die Daten stammen aus dem Messnetz der Landesanstalt für
+Umwelt Baden-Württemberg (LUBW).
+
+
+[➜ Hier geht's zum Dashboard !](lubw/index.html)
+
+```js
+import * as layout from "./lubw/layout.js";
+
+const recent_data = FileAttachment("lubw/lubw/Auszug_Stundenwerte.csv").csv({typed: true})
+```
+
+```js
+const recent_times = recent_data.map(row => row['startZeit'])
+const recent_start =  new Date(Math.min(...recent_times))
+const recent_range = `die Woche ab Montag, dem ${recent_start.toLocaleDateString('de-DE', {year: 'numeric', month: 'long', day: 'numeric'})}`
+
+// TODO move to global utils.js
+function range(data, column, extraValues = []){
+    var min = Math.min(...data.map(row => +row[column]), ...extraValues);
+    var max = Math.max(...data.map(row => +row[column]), ...extraValues);
+    return [min, max]
+};
+
+function recent_card(variable, { thresholds = [], info, align_values = [] } = {}) {
+    const var_name = variable.name;
+    return layout.card({
+        title : "Stündliche Aufzeichnung",
+        subtitle: `Datenauszug für ${recent_range}`,
+        body : layout.plot({
+                x: {
+                    label: 'Zeit',
+                },
+                y: {
+                    domain: range(recent_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
+                    label: variable.unit,
+                    tickFormat: Plot.formatNumber("de-DE"),
+                },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
+                marks: [
+                    Plot.line(recent_data, {
+                        x: "startZeit", // TODO fix time zone offset in GUI
+                        y: var_name,
+                        stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
+                    }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    }),
+                    // mouseover
+                    Plot.dot(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE'),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
+                ]
+            }),
+        info,
+    })
+}
+
+const o3 = {
+        name: "o3",
+        label: "Ozon (O₃)",
+        unit: "µg/m³",
+    };
+```
+
+```js
+const o3_recent_card = recent_card(o3, {
+    thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Informationsschwelle</strong> bei 180 µg/m³: Bei Überschreitung besteht bereits bei kurzfristiger Exposition ein Risiko für die Gesundheit insbesondere empfindlicher Bevölkerungsgruppen. Es müssen unverzüglich Informationen bereitgestellt werden.</p>
+        <p><strong>Alarmschwelle</strong> bei 240 µg/m³: Bei Überschreitung besteht selbst bei kurzfristiger Exposition ein Risiko für die Gesundheit der Gesamtbevölkerung. Es müssen unverzüglich Maßnahmen ergriffen werden.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `
+})
+```
+
+```js
+o3_recent_card
+```
+
+## Februar 2025
 
 Wir haben ein Dashboard mit Klimaprojektionen für Konstanz
 veröffentlicht. Die Daten stammen vom europäischen Klimawandeldienst
