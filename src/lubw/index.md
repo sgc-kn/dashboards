@@ -268,7 +268,7 @@ function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}
 const o3_info_card = layout.card({
     title: 'Informationen',
     subtitle: 'zur Ozon-Messung der LUBW',
-    body: html.fragment`
+    info: html.fragment`
     <p><strong>Ozon (O<sub>3</sub>)</strong> ist ein chemisch reaktives Gas. In der Stratosphäre schützt die Ozonschicht oberhalb von 20 km Höhe vor schädlicher Ultraviolettstrahlung der Sonne. Bodennah kommt Ozon ebenfalls natürlich vor, mit einer durchschnittlichen Hintergrundkonzentration von etwa 50 µg/m³.</p>
 
     <p><strong>Quellen:</strong> Bodennahes Ozon entsteht größtenteils durch photochemische Reaktionen von Vorläufersubstanzen wie Stickstoffdioxid und flüchtigen organischen Verbindungen (VOC) bei intensiver Sonneneinstrahlung. Ein kleiner Teil stammt aus dem vertikalen Transport aus der Stratosphäre. Ozon wird nicht direkt emittiert, sondern bildet sich in der Atmosphäre.</p>
@@ -304,7 +304,7 @@ const o3_yearly_card = yearly_card(o3, {
 const no2_info_card = layout.card({
     title: 'Informationen',
     subtitle: 'zur Stickstoffdioxid-Messung der LUBW',
-    body: html.fragment`
+    info: html.fragment`
     <p><strong>Stickstoffdioxid (NO<sub>2</sub>)</strong> entsteht bei Verbrennungsprozessen unter hohen Temperaturen. Bedeutende Emissionsquellen sind der Kraftfahrzeugverkehr und die Verbrennung fossiler Brennstoffe. Zu den natürlichen Quellen zählen Blitze in Gewitterwolken. In der Atmosphäre wird das überwiegend freigesetzte Stickstoffmonoxid vergleichsweise schnell in Stickstoffdioxid umgewandelt. Die Umwandlungszeit hängt von der Tages- und Jahreszeit sowie von der Ozonkonzentration ab. Tagsüber und im Sommer erfolgt die Umwandlung rasch, nachts und im Winter wesentlich langsamer.</p>
 
     <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Stickstoffoxide wirken reizend auf die Schleimhäute sowie die Atemwege des Menschen und können Pflanzen schädigen. Auch eine Zunahme von Herz-Kreislauferkrankungen kann beobachtet werden. Stickstoffdioxid ist zusammen mit den flüchtigen organischen Verbindungen (VOC) eine der Vorläufersubstanzen für die Bildung von bodennahem Ozon.</p>
@@ -350,7 +350,7 @@ const no2_yearly_card = yearly_card(no2, {
 const pm10_info_card = layout.card({
     title: 'Informationen',
     subtitle: 'zur Feinstaub-Messung der LUBW',
-    body: html.fragment`
+    info: html.fragment`
     <p><strong>Feinstaub (Particulate Matter, PM)</strong> bezeichnet luftgetragene feste oder flüssige Teilchen, die nicht unmittelbar zu Boden sinken, sondern mehrere Tage in der Atmosphäre verweilen und über große Distanzen transportiert werden können. Die Größe und Zusammensetzung der Partikel bestimmen ihre chemischen, physikalischen Eigenschaften und ihre Wirkung auf Mensch und Umwelt.</p>
 
     <p>Auf diesem Dashboard werden speziell die Werte für <strong>PM10</strong> angezeigt. PM10 bezeichnet inhalierbare Partikel mit einem Durchmesser von ≤ 10 µm, die gesundheitlich relevant sind.</p>
@@ -384,7 +384,9 @@ const pm10_yearly_card = yearly_card(pm10, {
 });
 ```
 
-${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-Württemberg') }
+```js
+layout.title('Luftqualität', 'Messung der Landesanstalt für Umwelt Baden-Württemberg')
+```
 
 <div class="grid grid-cols-4">
     ${ position_card }
@@ -396,6 +398,8 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 <div class="grid grid-cols-2">
     ${ o3_info_card }
     ${ o3_recent_card }
+</div>
+<div class="grid grid-cols-2">
     ${ o3_monthly_card }
     ${ o3_yearly_card }
 </div>
@@ -405,6 +409,8 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 <div class="grid grid-cols-2">
     ${ no2_info_card }
     ${ no2_recent_card }
+</div>
+<div class="grid grid-cols-2">
     ${ no2_monthly_card }
     ${ no2_yearly_card }
 </div>
@@ -414,6 +420,8 @@ ${ layout.title('Luftqualitätsmessungen', 'der Landesanstalt für Umwelt Baden-
 <div class="grid grid-cols-2">
     ${ pm10_info_card }
     ${ pm10_recent_card }
+</div>
+<div class="grid grid-cols-2">
     ${ pm10_monthly_card }
     ${ pm10_yearly_card }
 </div>

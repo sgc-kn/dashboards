@@ -17,7 +17,7 @@ export function random_id() {
     return "id_" + S4() + S4() + S4();
 }
 
-function tools({ download, info, card_id }) {
+function tools({ body, download, info, card_id }) {
     const items = [];
 
     if (download !== null) {
@@ -26,7 +26,7 @@ function tools({ download, info, card_id }) {
             `)
     }
 
-    if (info !== null) {
+    if (body !== null && info !== null) {
         var js = `document.getElementById("${card_id}").classList.toggle('flip')`;
         items.push(html.fragment`
             <button class="info-button" aria-label='Info' title='Info' onclick=${js}></button>
@@ -46,18 +46,29 @@ function tools({ download, info, card_id }) {
 
 function withInfo(body, info) {
     if (info === null) {
-        return body
+      // body only
+      return body
+    } else if (body === null) {
+      // info only: static flip
+      return html.fragment`
+          <div class='with-info'>
+              <div class='info'>
+                  ${info}
+              </div>
+          </div>
+      `
     } else {
-        return html.fragment`
-            <div class='with-info'>
-                <div class='body'>
-                    ${body}
-                </div>
-                <div class='info'>
-                    ${info}
-                </div>
-            </div>
-        `
+      // body and info: flip button
+      return html.fragment`
+          <div class='with-info'>
+              <div class='body'>
+                  ${body}
+              </div>
+              <div class='info'>
+                  ${info}
+              </div>
+          </div>
+      `
     }
 }
 
@@ -69,14 +80,18 @@ export function card({
     info = null,
 }) {
     var card_id = random_id();
+    var cls = "card";
+    if (body === null && info !== null) {
+      cls += " flip";
+    };
     return html.fragment`
-        <div id=${card_id} class="card">
+        <div id=${card_id} class=${cls}>
             <div class="header">
                 <div class="title">
                     <h2>${title}</h2>
                     <h3>${subtitle}</h3>
                 </div> <!-- title -->
-                ${tools({ download, info, card_id })}
+                ${tools({ body, download, info, card_id })}
             </div> <!-- header -->
             ${withInfo(body, info)}
         </div> <!-- card -->
