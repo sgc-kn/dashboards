@@ -54,7 +54,7 @@ function range(data, column, extraValues = []){
 function recent_card(variable, { thresholds = [], info, align_values = [] } = {}) {
     const var_name = variable.name;
     return layout.card({
-        title : "Stündliche Aufzeichnung",
+        title : "Stündliche Aufzeichnung " + variable.title,
         subtitle: `Datenauszug für ${recent_range}`,
         body : layout.plot({
                 x: {
@@ -103,7 +103,8 @@ function recent_card(variable, { thresholds = [], info, align_values = [] } = {}
 
 const o3 = {
         name: "o3",
-        label: "Ozon (O₃)",
+        title: "Ozon",
+        short: html`O<sub>3</sub>`,
         unit: "µg/m³",
     };
 ```
