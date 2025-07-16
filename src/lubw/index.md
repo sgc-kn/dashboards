@@ -71,25 +71,29 @@ const dataset_card = layout.card({
 ```js
 const o3 = {
         name: "o3",
-        label: "Ozon (O₃)",
+        title: "Ozon",
+        short: html`O<sub>3</sub>`,
         unit: "µg/m³",
     };
 
 const no2 = {
         name: "no2",
-        label: "Stickstoffdioxid (NO₂)",
+        title: "Stickstoffdioxid",
+        short: html`NO<sub>2</sub>`,
         unit: "µg/m³",
     };
 
 const pm25 = {
         name: "pm25",
-        label: "Feinstaub mit 2,5 µm Durchmesser (PM 2.5)",
+        title: "Feinstaub mit 2,5 µm Durchmesser",
+        short: html`PM<sub>2,5</sub>`,
         unit: "µg/m³",
     };
 
 const pm10 = {
         name: "pm10",
-        label: "Feinstaub mit 10 µm Durchmesser (PM 10)",
+        title: "Feinstaub mit 10 µm Durchmesser",
+        short: html`PM<sub>10</sub>`,
         unit: "µg/m³",
     };
 ```
@@ -115,7 +119,7 @@ function range(data, column, extraValues = []){
 function recent_card(variable, { thresholds = [], info, align_values = [] } = {}) {
     const var_name = variable.name;
     return layout.card({
-        title : "Stündliche Aufzeichnung",
+        title : "Stündliche Aufzeichnung " + variable.title,
         subtitle: `Datenauszug für ${recent_range}`,
         body : layout.plot({
                 x: {
@@ -165,7 +169,7 @@ function recent_card(variable, { thresholds = [], info, align_values = [] } = {}
 function monthly_card(variable, { thresholds = [], info, align_values = [] } = {}){
     const var_name = variable.name + "_mean"
     return layout.card({
-        title : "Langfristige Entwicklung",
+        title : "Langfristige Entwicklung " + variable.title,
         subtitle: `Monatsmittelwerte seit Beginn der Aufzeichnung`,
         body : layout.plot({
                 x: {
@@ -215,7 +219,7 @@ function monthly_card(variable, { thresholds = [], info, align_values = [] } = {
 function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}){
     const var_name = variable.name + "_mean";
     return layout.card({
-        title : "Langfristige Entwicklung",
+        title : "Langfristige Entwicklung " + variable.title,
         subtitle: `Jahresmittelwerte seit Beginn der Aufzeichnung`,
         body : layout.plot({
                 x: {
@@ -353,7 +357,9 @@ const pm10_info_card = layout.card({
     info: html.fragment`
     <p><strong>Feinstaub (Particulate Matter, PM)</strong> bezeichnet luftgetragene feste oder flüssige Teilchen, die nicht unmittelbar zu Boden sinken, sondern mehrere Tage in der Atmosphäre verweilen und über große Distanzen transportiert werden können. Die Größe und Zusammensetzung der Partikel bestimmen ihre chemischen, physikalischen Eigenschaften und ihre Wirkung auf Mensch und Umwelt.</p>
 
-    <p>Auf diesem Dashboard werden speziell die Werte für <strong>PM10</strong> angezeigt. PM10 bezeichnet inhalierbare Partikel mit einem Durchmesser von ≤ 10 µm, die gesundheitlich relevant sind.</p>
+    <p>In diesem Abschnitt werden speziell die Werte für
+    <strong>${pm10.short}</strong> angezeigt. Dieser Wert bezeichnet inhalierbare
+    Partikel mit einem Durchmesser von ≤ 10 µm, die gesundheitlich relevant sind.</p>
 
     <p><strong>Quellen:</strong> Es gibt primäre und sekundäre Partikel. Primäre Partikel werden direkt in die Umwelt emittiert und können natürlichen Ursprungs (z. B. durch Bodenerosion) oder durch menschliches Handeln (z. B. Verkehr und Feuerungsanlagen) freigesetzt werden. Sekundäre Partikel entstehen erst in der Atmosphäre durch chemische Reaktionen aus gasförmigen Vorläufersubstanzen wie Schwefeldioxid, Stickstoffoxiden oder Ammoniak.</p>
 
@@ -381,6 +387,47 @@ const pm10_yearly_card = yearly_card(pm10, {
         <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
     `,
     align_values: range(monthly_data, 'pm10_mean')
+});
+```
+
+```js
+const pm25_info_card = layout.card({
+    title: 'Informationen',
+    subtitle: 'zur Feinstaub-Messung der LUBW',
+    info: html.fragment`
+    <p><strong>Feinstaub (Particulate Matter, PM)</strong> bezeichnet luftgetragene feste oder flüssige Teilchen, die nicht unmittelbar zu Boden sinken, sondern mehrere Tage in der Atmosphäre verweilen und über große Distanzen transportiert werden können. Die Größe und Zusammensetzung der Partikel bestimmen ihre chemischen, physikalischen Eigenschaften und ihre Wirkung auf Mensch und Umwelt.</p>
+
+    <p>In diesem Abschnitt werden speziell die Werte für
+    <strong>${pm25.short}</strong> angezeigt.
+    Dieser Wert bezeichnet inhalierbare
+    Partikel mit einem Durchmesser von ≤ 2,5 µm, die gesundheitlich relevant sind.</p>
+
+    <p><strong>Quellen:</strong> Es gibt primäre und sekundäre Partikel. Primäre Partikel werden direkt in die Umwelt emittiert und können natürlichen Ursprungs (z. B. durch Bodenerosion) oder durch menschliches Handeln (z. B. Verkehr und Feuerungsanlagen) freigesetzt werden. Sekundäre Partikel entstehen erst in der Atmosphäre durch chemische Reaktionen aus gasförmigen Vorläufersubstanzen wie Schwefeldioxid, Stickstoffoxiden oder Ammoniak.</p>
+
+    <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Feinstaub Partikel sind gesundheitsgefährdend. Sie können tief in den Organismus eindringen und Beschwerden des Atemtraktes sowie des Herz-Kreislaufsystems verursachen.</p>
+
+    <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/relevante-luftschadstoffe">Weiterführende Informationen finden Sie auf den Seiten der LUBW.</a></p>
+`
+});
+```
+
+```js
+const pm25_recent_card = recent_card(pm25, {});
+```
+
+```js
+const pm25_monthly_card = monthly_card(pm25, {});
+```
+
+```js
+const pm25_yearly_card = yearly_card(pm25, {
+    thresholds : [ [25, "Grenzwert"]],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Grenzwert</strong> bei 40 µg/m³: Ein Wert, der aufgrund wissenschaftlicher Erkenntnisse mit dem Ziel festgelegt wurde, schädliche Auswirkungen auf die menschliche Gesundheit zu vermeiden, zu verhüten oder zu verringern.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `,
+    align_values: range(monthly_data, 'pm25_mean')
 });
 ```
 
@@ -415,7 +462,7 @@ layout.title('Luftqualität', 'Messung der Landesanstalt für Umwelt Baden-Würt
     ${ no2_yearly_card }
 </div>
 
-## Feinstaub
+## Feinstaub 10 µm
 
 <div class="grid grid-cols-2">
     ${ pm10_info_card }
@@ -424,6 +471,17 @@ layout.title('Luftqualität', 'Messung der Landesanstalt für Umwelt Baden-Würt
 <div class="grid grid-cols-2">
     ${ pm10_monthly_card }
     ${ pm10_yearly_card }
+</div>
+
+## Feinstaub 2,5 µm
+
+<div class="grid grid-cols-2">
+    ${ pm25_info_card }
+    ${ pm25_recent_card }
+</div>
+<div class="grid grid-cols-2">
+    ${ pm25_monthly_card }
+    ${ pm25_yearly_card }
 </div>
 
 ---
