@@ -92,7 +92,7 @@ _Klicke auf eine der Stationen auf der Karte. Der
 dazugehörige Temperaturverlauf wird im Diagramm hervorgehoben. Mit 
 dem Slider unterhalb der Grafik kannst du außerdem gezielt eine Uhrzeit 
 auswählen - und sehen, wie warm es zu dieser Stunde an den verschiedenen 
-Stationen war_
+Stationen war. Die Größe des Kreises gibt an wie groß die Abweichung der Temperatur zum Mittelwert aller Stationen ist. Ein großer blauer Kreis bedeutet also, dass es dort deutlich kühler ist. Wenn du einen großen roten Kreis siehst, hast du einen besonders heißen Ort entdeckt._
 
 ### Temperaturverlauf am 31. Juli 2024 
 
