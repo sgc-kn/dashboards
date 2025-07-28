@@ -44,7 +44,7 @@ jobs:
   deploy-main-to-branch:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'schedule'
     permissions:
       contents: write
     steps:
