@@ -180,6 +180,21 @@
         "entity_id": "urn:ngsi-ld:WeatherObserved:wintersense-107383",
         "entity_type": "WeatherObserved"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17386062,
+          47.661866440000004
+        ]
+      },
+      "properties": {
+        "name": "Stephansplatz",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f46-sn24020757",
+        "entity_type": "WeatherObserved"
+      }
     }
   ]
 }
