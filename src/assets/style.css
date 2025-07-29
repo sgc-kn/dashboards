@@ -24,6 +24,47 @@ h1+h2 {
     max-width: 100%;
 }
 
+.correlaid-page .station-label {
+    background-color: transparent;
+    border: transparent;
+    box-shadow: none;
+}
+
+@media only screen and (max-width: 1300px) {
+    .correlaid-page .station-label {
+        display: none;
+    }
+}
+
+.correlaid-page .station-label-active {
+    background-color: transparent;
+    border: transparent;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.correlaid-page .leaflet-tooltip-left {
+    margin-right: 10px;
+}
+
+.correlaid-page .leaflet-tooltip-right {
+    margin-left: 10px;
+}
+
+.correlaid-page .leaflet-tooltip-right:before {
+    /* remove small triangle next to the tooltip */
+    border-right-color: rgba(0, 0, 0, 0);
+}
+
+.correlaid-page .leaflet-tooltip-left:before {
+    /* remove small triangle next to the tooltip */
+    border-left-color: rgba(0, 0, 0, 0);
+}
+
+.correlaid-page input[type=number] {
+    display: none;
+}
+
 /* Card Info and Download Buttons */
 
 .card {
