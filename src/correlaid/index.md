@@ -27,19 +27,12 @@ Denn eines ist sicher: Der Klimawandel ist längst in Konstanz angekommen. Aber 
 
 ---
 
-## Teil 1: Wie heiß war’s, als du nach Konstanz gezogen bist?
+## Teil 1: Wie heiß war es, als du nach Konstanz gezogen bist?
+<div style="margin-bottom: 1.5rem;"></div>
 
 Vielleicht wohnst du schon lange hier. Vielleicht bist du erst vor Kurzem nach Konstanz gezogen. Aber egal wann du angekommen bist – die Temperatur war damals ziemlich sicher niedriger als heute.
 
-In dem letzten Jahrhundert ist die **durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen**. Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten:  
-<span style="padding-left: 6em; padding-top: 0.4em; display: inline-block;">**Die Erde erwärmt sich** – und auch hier am Bodensee wird’s Jahr für Jahr ein kleines bisschen wärmer. 
-
-
-
-<span style="padding-top: 2em; display: inline-block;"> 🟢 **[Interaktivität]**  
-In der folgenden Grafik kannst du nicht nur sehen, wie sich die Temperatur seit **1973** verändert hat, sondern auch, was Prognosen für die nächsten Jahrzehnte sagen.
-
-_Trage ein, in welchem Jahr du nach Konstanz gezogen bist – wir zeigen dir den damaligen Standpunkt in der Temperaturkurve._
+In dem letzten Jahrhundert ist die durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen. Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten: Die Erde erwärmt sich – und auch hier am Bodensee wird’s Jahr für Jahr ein kleines bisschen wärmer. 
 
 ```js
 // Was wollt ihr hier für Daten nutzen? Eine Idee wäre, die Jahreswerte aus dem DWD Dashboard wiederzuverwenden.
@@ -54,28 +47,45 @@ import { computeYears, createWeatherTrendContainer } from "./charts/chart1_weath
 const { minYear, maxYear, allYears } = computeYears(yearly);
 
 const options = ["Bitte Jahr wählen…", ...allYears];
-const arrivalInput = Inputs.select(options, { label: "Zuzugsjahr", value: options[0] });
+const arrivalInput = Inputs.select(options, { label: "" }); // ohne internes Label
+
+const wrapped = html`<div style="display: flex; align-items: center; gap: 0.5rem;">
+  <label for="year-select" style="white-space: nowrap; font-weight: bold; font-size: 18px; margin-bottom: 0.4rem;">
+      Seit wann lebst du in Konstanz?
+  </label>
+  ${arrivalInput}
+</div>`;
+
+arrivalInput.querySelector("select").style.fontSize = "15px";
+
+view(wrapped);
 view(arrivalInput);
 ```
 
 
 <div class="card">
-  <h2>Temperatur</h2>
-  <h3>Jahresdurchschnitt in Konstanz, DWD Station Konstanz</h3>
+  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;">
+    Jahresdurchschnittstemperatur
+  </p>
+  <h3>DWD Station Konstanz</h3>
+
+  <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;">
+    In der folgenden Grafik kannst du sehen, wie sich die Temperatur seit <strong>1973</strong> verändert hat.
+  </p>
 
 ```js
 
 view(createWeatherTrendContainer(yearly, arrivalInput));
-
-//import {drawWeatherTrendD3} from "./charts/chart1_weather_trends.js";
-//view(drawWeatherTrendD3(yearly, 2000));
 ``` 
 
 
 </div> <!-- card -->
 
-Tipp: Schau dir an, wie groß der Unterschied zwischen deinem Zuzugsjahr 
-und heute ist. Das fühlt sich plötzlich gar nicht mehr so abstrakt an, oder?
+**Tipp:** Wenn du noch mehr zum Klima in Konstanz wissen willst, dann schau doch mal bei den Dashboards vorbei! Da gibt es viele interessante Diagramme zu sehen:
+<a href="https://stadtdaten.konstanz.digital/dwd/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Wetterbeobachtungen</a>, 
+<a href="https://stadtdaten.konstanz.digital/cds/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Klimaprojektionen</a>, 
+<a href="https://stadtdaten.konstanz.digital/lubw/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Luftqualität</a>
+
 
 ---
 
