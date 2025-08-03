@@ -241,63 +241,59 @@ Die Grafik zeigt dir für jede von ihnen, wie die Umgebung im Umkreis von 50 Met
 _(Eventuell hier noch etwas dazu, wie die Erhitzungsmuster mit der Umgebungsbeschaffenheit zusammenhängen könnten)_
 
 ```js
-const left_input = Inputs.select(stationsnamen, {value: stationsnamen[0]});
-const right_input = Inputs.select(stationsnamen, {value: stationsnamen[1]});
+// Flächendaten mit Koordinaten & Prozentanteilen
+const stationMeta_dia3 = await FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({typed: true})
+
+// Heatmap-Daten mit Temperaturabweichungen über 24 Stunden
+const heatmapRaw_dia3 = await FileAttachment("./data/dia3_stationen_heatmap.csv").csv({typed: true})
 ```
-
-<div class="grid grid-cols-2">
-<div class="card grid-colspan-1">
-
-Station A
 
 ```js
-const left = view(left_input)
+// Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
+const heatmapData_dia3 = {
+  ...Object.fromEntries(
+    d3.groups(heatmapRaw_dia3, d => d.name).map(([name, rows]) => [
+      name,
+      rows.sort((a, b) => +a.hour - +b.hour).map(d => +d.temperature_deviation)
+    ])
+  )
+}
 ```
+
+```js
+//Dropdown-Werte extrahieren
+const stations_dia3 = stationMeta_dia3.map(d => d.name)
+```
+
+```js
+import { createStationComparisonUI } from "./charts/chart3_station_comparison.js"
+```
+
+
+
+<div class="card"> 
+  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;"> 
+    Wie beeinflusst der Ort das lokale Klima? 
+  </p> 
+  <h3> Vergleich zweier Wetterstationen</h3> 
+  <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;"> 
+    In der folgenden Grafik kannst du selbst zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen.
+  </p>  
+
+   ${createStationComparisonUI({
+    stationMeta: stationMeta_dia3,
+    heatmapData: heatmapData_dia3,
+    stations: stations_dia3,
+    defaults: {
+      left: "Stadtgarten",
+      right: "Friedrichstrasse"
+    }
+  })}
 
 </div> <!-- card -->
 
-<div class="card grid-colspan-1">
-
-Station B
-
-```js
-const right = view(right_input)
-```
-
-</div> <!-- card -->
-
-</div> <!-- grid -->
-
-
-<div class="card">
-
-```js
-const plt = Plot.plot({
-  grid: true, // Konsistent mit Dashboards
-  inset: 10, // Konsistent mit Dashboards
-  x: {
-    label: "℃",
-    labelAnchor: 'center',
-    labelArrow: 'none',
-    tickFormat: x => x, // do nothing
-  },
-  y: {
-    label: "",
-    tickFormat: x => "", // drop label
-  },
-  color: {
-    domain: [left, right],
-    legend: true,
-  },
-  marks: [
-    Plot.barX(tagesverlauf.filter(x => x.Station === left || x.Station === right), {y: "Station", fy: "Stunde", x:"Temperatur_Celsius", fill: "Station"}),
-  ]
-});
-view(plt);
-```
-
-</div> <!-- card -->
-
+ 
+  
 Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist: 
 
 Eine Station, die zum Beispiel von sehr vielen Bäumen umgeben ist, heizt sich 
