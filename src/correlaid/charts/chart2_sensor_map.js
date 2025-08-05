@@ -36,11 +36,18 @@ export function createSensorLineChart(data, selectedStation, stunde) {
     return Plot.plot({
         grid: true,
         inset: 10,
+        color: {
+            legend: true,
+            domain: [selectedStation, "Min / Max Temperatur"],
+            range: ["#FFA200", "#999"]
+        },
         x: {
-            label: "Stunde",
+            label: "Uhrzeit",
             labelAnchor: "center",
             labelArrow: "none",
-            tickFormat: x => x,
+            domain: [0, 23],
+            ticks: d3.range(0, 24, 3),
+            tickFormat: d => d % 6 === 0 ? d : "",
         },
         y: {
             label: "℃",
@@ -59,7 +66,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
             Plot.line(minMaxByHour, {
                 x: "stunde",
                 y: "min",
-                stroke: "#999",
+                stroke: d => "Min / Max Temperatur",
                 strokeOpacity: 0.8
             }),
             // Linie Maximum
@@ -74,7 +81,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
             Plot.line(gefiltert, {
                 x: "stunde",
                 y: "Temperatur_Celsius",
-                stroke: "#FFA200",
+                stroke: d => selectedStation,
                 strokeWidth: 2
             }),
             // vertikale rote Linie für ausgewählte Stunde
@@ -83,6 +90,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 strokeDasharray: "4.2"
             }),
         ]
+
     });
 }
 
@@ -122,15 +130,19 @@ export function createSensorMap(container, stationen, station_input) {
     });
 
     //Patricks Version:
-    //L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    // bunt:
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        //Patricks Version: 
-        //attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
+
+    // bunt:
+    // L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    //     //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    //     attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
+    //     subdomains: 'abcd',
+    //     maxZoom: 19
+    // }).addTo(map);
 
     const bounds = L.geoJSON(stationen).getBounds();
     const resizeObserver = new ResizeObserver(() => {
@@ -138,8 +150,31 @@ export function createSensorMap(container, stationen, station_input) {
         map.fitBounds(bounds, { padding: [13, 13] });
     });
     resizeObserver.observe(container);
-
     return map;
+}
+
+
+export function createMapLegend(container) {
+    const colorScale = d3.scaleLinear()
+        .domain([-4, 0, 4])
+        .range(["blue", "white", "red"]);
+
+    const values = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+
+    console
+
+    const mapLegend = Plot.plot({
+        r: { type: "identity" },
+        marks: [
+            Plot.dot(values, {
+                x: d => d,
+                r: d => Math.max(5, Math.abs(d) * 5),
+                fill: d => colorScale(d)
+            })
+        ]
+    });
+
+    return mapLegend;
 }
 
 
@@ -228,7 +263,33 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
     const marker = L.circleMarker(latlng, style);
 
     // Tooltip mit dem Namen
-    marker.bindTooltip(feature.properties.name);
+    if (!isSelected) {
+        marker.bindTooltip(feature.properties.name, {
+            permanent: true,
+            direction: 'rigth',
+            className: "station-label"
+        });
+    } else {
+        marker.bindTooltip(feature.properties.name, {
+            permanent: true,
+            direction: 'right',
+            className: "station-label-active"
+        });
+    }
+
+    const tip = L.tooltip({ direction: 'left', opacity: 0.9 })
+        .setLatLng(latlng)
+        .setContent(deviation.toFixed(1) + " ℃");
+
+    // show both when hovering the marker
+    marker.on('mouseover', () => {
+        tip.addTo(map);
+    });
+
+    // hide them when leaving
+    marker.on('mouseout', () => {
+        map.removeLayer(tip);
+    });
 
     // Klick-Event
     marker.on("click", () => {
@@ -266,7 +327,7 @@ function getDeviationForStation(stationName, hour, tagesverlauf) {
     // Temperatur der gesuchten Station in dieser Stunde
     const stationDatum = hourData.find(d => d.Station === stationName);
 
-    if (!stationDatum) return 0; // Station hat keine Messung
+    if (!stationDatum) return null; // Station hat keine Messung
 
     // Differenz: Stationstemperatur minus Mittelwert
     return stationDatum.Temperatur_Celsius - avg;
@@ -298,6 +359,9 @@ export function updateSensorMap(map, stationen, selectedStation, station_input, 
                 currentHour,
                 tagesverlauf
             );
+
+            // Füge keinen Marker hinzu, wenn deviation null ist
+            if (deviation === null) return null;
 
             // Erzeuge den Marker mit Abweichungs- und Auswahl-Styles
             return createStationMarker(

@@ -130,12 +130,13 @@ const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
 const station = view(station_input);
 
 // Uhrzeit-Slider
-const stunde = Inputs.range([0, 23], {step: 1, label: "Stunde"});
+const stunde = Inputs.range([0, 23], {step: 1});
+const stunde_view = view(stunde)
 ```
 
 ```js
 // Import der ausgelagerten Funktionen
-import { createSensorLineChart, createSensorMap, updateSensorMap, createReactiveSensorChart } from "./charts/chart2_sensor_map.js";
+import { createSensorLineChart, createSensorMap, updateSensorMap, createReactiveSensorChart, createMapLegend } from "./charts/chart2_sensor_map.js";
 ```
 
 ```js
@@ -145,6 +146,9 @@ map_div.style = "height:25rem";
 map_div
 ```
 
+```js
+const map_legend = createMapLegend();
+```
 
 ```js
 // ausgelagert in charts/chart2_sensor_map.js
@@ -161,13 +165,13 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   <div class="header">
     <div class="title">
       <h2>Messstationen</h2>
-      <h3>Interaktive Karte</h3>
+      <h3>Temperatur an Konstanzer Wetterstationen im Vergleich zum Durchschnitt um ${stunde_view}:00 Uhr</h3>
     </div>
   </div>
 
   <div class="body">
     ${map_div}
-  
+    ${map_legend}  
   </div>
 </div> 
 <!-- Ende Card - Map -->
@@ -178,14 +182,14 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   <div class="header">
     <div class="title">
       <h2>Temperatur</h2>
-      <h3>Tagesverlauf an verschiedenen SGC Wetterstationen in Konstanz</h3>
+      <h3>Tagesverlauf an der SGC Wetterstationen ${station} in Konstanz</h3>
     </div>
   </div>
 
   <div class="body">
     ${view(sensor_plt)}
     <br/>
-    ${view(stunde)}
+    Uhrzeit: ${stunde_view}:00 ${view(stunde)}
   </div>
 
 </div> <!-- card -->
