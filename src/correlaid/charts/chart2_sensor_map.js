@@ -273,7 +273,7 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
 
     const tip = L.tooltip({ direction: 'auto', opacity: 0.9 })
         .setLatLng(latlng)
-        .setContent("Abweichung vom Durchschnitt: " + deviation.toFixed(1) + " ℃");
+        .setContent("<b>" + feature.properties.name + "</b><br> Abweichung vom Durchschnitt: " + deviation.toFixed(1) + " ℃");
 
     // show both when hovering the marker
     marker.on('mouseover', () => {
