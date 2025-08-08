@@ -124,6 +124,7 @@ const stationsnamen = stationen.features.map(f => f.properties.name);
 
 // Radiobuttons für Stationen
 const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
+station_input.style.display = "none"; // Radio-Buttons ausblenden
 // durch Mutable wird station_input.value automatisch reaktiv
 //const station_input = Mutable(stationsnamen[7]);
 
@@ -189,7 +190,8 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   <div class="body">
     ${view(sensor_plt)}
     <br/>
-    Uhrzeit: ${stunde_view}:00 ${view(stunde)}
+    ${view(stunde)}
+    Uhrzeit: ${stunde_view}:00 
   </div>
 
 </div> <!-- card -->
