@@ -161,14 +161,14 @@ export function createMapLegend(container) {
 
     const values = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
 
-    console
-
     const mapLegend = Plot.plot({
-        r: { type: "identity" },
+        r: { type: "identity" }, // radius is in pixels, not scaled
+        width: 300,              // fixed width to avoid auto-resizing effects
+        height: 60,              // fixed height
         marks: [
             Plot.dot(values, {
                 x: d => d,
-                r: d => Math.max(5, Math.abs(d) * 5),
+                r: d => Math.sqrt(Math.max(1, Math.abs(d)) * 16),
                 fill: d => colorScale(d)
             })
         ]
@@ -225,7 +225,7 @@ export function getMarkerStyleWithDeviation(deviation) {
         .range(["blue", "white", "red"]);
 
     return {
-        radius: Math.max(5, Math.abs(deviation) * 5),
+        radius: Math.sqrt(Math.max(1, Math.abs(deviation)) * 16),
         color: "#555",
         weight: 1,
         fillColor: colorScale(deviation),
@@ -263,23 +263,17 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
     const marker = L.circleMarker(latlng, style);
 
     // Tooltip mit dem Namen
-    if (!isSelected) {
+    if (isSelected) {
         marker.bindTooltip(feature.properties.name, {
             permanent: true,
-            direction: 'rigth',
-            className: "station-label"
-        });
-    } else {
-        marker.bindTooltip(feature.properties.name, {
-            permanent: true,
-            direction: 'right',
+            direction: 'auto',
             className: "station-label-active"
         });
     }
 
-    const tip = L.tooltip({ direction: 'left', opacity: 0.9 })
+    const tip = L.tooltip({ direction: 'auto', opacity: 0.9 })
         .setLatLng(latlng)
-        .setContent(deviation.toFixed(1) + " ℃");
+        .setContent("Abweichung vom Durchschnitt: " + deviation.toFixed(1) + " ℃");
 
     // show both when hovering the marker
     marker.on('mouseover', () => {
@@ -300,7 +294,7 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
         station_input.dispatchEvent(new Event("input"));
 
         // Karte aktualisieren, damit Marker neu eingefärbt werden
-        updateSensorMap(map, stationen, feature.properties.name, station_input);
+        updateSensorMap(map, stationen, feature.properties.name, station_input, tagesverlauf, currentHour);
     });
 
     return marker;
