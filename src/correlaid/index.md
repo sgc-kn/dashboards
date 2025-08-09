@@ -247,12 +247,20 @@ Die Grafik zeigt dir für jede von ihnen, wie die Umgebung im Umkreis von 50 Met
 _(Eventuell hier noch etwas dazu, wie die Erhitzungsmuster mit der Umgebungsbeschaffenheit zusammenhängen könnten)_
 
 ```js
-// Flächendaten mit Koordinaten & Prozentanteilen
-const stationMeta_dia3 = await FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({typed: true})
+// Flächendaten (Koordinaten + %-Anteile)
+const stationMeta_dia3 = FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({ typed: true });
 
-// Heatmap-Daten mit Temperaturabweichungen über 24 Stunden
-const heatmapRaw_dia3 = await FileAttachment("./data/dia3_stationen_heatmap.csv").csv({typed: true})
+// Heatmap-Rohdaten (24h-Abweichungen)
+const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv({ typed: true });
+
+// Klima-Daten (Max-Temp, heiße Tage)
+const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
+
+// Auswertungstext zu den Stationen
+const stationTexts = FileAttachment("./data/station_texts.json").json();
+
 ```
+
 
 ```js
 // Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
@@ -272,31 +280,50 @@ const stations_dia3 = stationMeta_dia3.map(d => d.name)
 ```
 
 ```js
-import { createStationComparisonUI } from "./charts/chart3_station_comparison.js"
+// UI: Überschrift + zwei Dropdowns nebeneinander
+const leftSelect  = Inputs.select(stations_dia3,  { label: "Station A", value: "Stadtgarten" });
+const rightSelect = Inputs.select(stations_dia3,  { label: "Station B", value: "Friedrichstrasse" });
+
+view(html`<div class="flex items-center gap-4">
+  <strong>Welche zwei Stationen willst du vergleichen?</strong>
+  ${leftSelect} ${rightSelect}
+</div>`);
+```
+
+
+```js
+// Hier hinein rendert das JS-Modul die zwei Karten/Karten + KPIs
+//const host_dia3 = html`<div class="grid grid-cols-2 gap-3"></div>`;
+const host_dia3 = html`<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>`;
+
 ```
 
 
 
 <div class="card"> 
-  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;"> 
-    Wie beeinflusst der Ort das lokale Klima? 
-  </p> 
-  <h3> Vergleich zweier Wetterstationen</h3> 
+  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;"> Wie beeinflusst der Ort das lokale Klima? </p> 
+  <h3>Vergleich zweier Wetterstationen</h3> 
   <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;"> 
-    In der folgenden Grafik kannst du selbst zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen.
-  </p>  
+    In der folgenden Grafik kannst du zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen. 
+  </p>
+  ${host_dia3}
+</div>
 
-   ${createStationComparisonUI({
-    stationMeta: stationMeta_dia3,
-    heatmapData: heatmapData_dia3,
-    stations: stations_dia3,
-    defaults: {
-      left: "Stadtgarten",
-      right: "Friedrichstrasse"
-    }
-  })}
+```js
+// Modul importieren und Diagramm befüllen (nach der Card)
+import { createStationComparison } from "./charts/chart3_station_comparison.js";
 
-</div> <!-- card -->
+createStationComparison({
+  host: host_dia3,
+  stationMeta: stationMeta_dia3,
+  heatmapData: heatmapData_dia3,
+  hotData: hotData_dia3,
+  leftSelect,
+  rightSelect,
+  stationTexts   
+});
+
+```
 
  
   
