@@ -247,63 +247,86 @@ Die Grafik zeigt dir für jede von ihnen, wie die Umgebung im Umkreis von 50 Met
 _(Eventuell hier noch etwas dazu, wie die Erhitzungsmuster mit der Umgebungsbeschaffenheit zusammenhängen könnten)_
 
 ```js
-const left_input = Inputs.select(stationsnamen, {value: stationsnamen[0]});
-const right_input = Inputs.select(stationsnamen, {value: stationsnamen[1]});
+// Flächendaten (Koordinaten + %-Anteile)
+const stationMeta_dia3 = FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({ typed: true });
+
+// Heatmap-Rohdaten (24h-Abweichungen)
+const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv({ typed: true });
+
+// Klima-Daten (Max-Temp, heiße Tage)
+const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
+
+// Auswertungstext zu den Stationen
+const stationTexts = FileAttachment("./data/station_texts.json").json();
+
 ```
 
-<div class="grid grid-cols-2">
-<div class="card grid-colspan-1">
-
-Station A
 
 ```js
-const left = view(left_input)
+// Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
+const heatmapData_dia3 = {
+  ...Object.fromEntries(
+    d3.groups(heatmapRaw_dia3, d => d.name).map(([name, rows]) => [
+      name,
+      rows.sort((a, b) => +a.hour - +b.hour).map(d => +d.temperature_deviation)
+    ])
+  )
+}
 ```
 
-</div> <!-- card -->
-
-<div class="card grid-colspan-1">
-
-Station B
-
 ```js
-const right = view(right_input)
+//Dropdown-Werte extrahieren
+const stations_dia3 = stationMeta_dia3.map(d => d.name)
 ```
 
-</div> <!-- card -->
+```js
+// UI: Überschrift + zwei Dropdowns nebeneinander
+const leftSelect  = Inputs.select(stations_dia3,  { label: "Station A", value: "Stadtgarten" });
+const rightSelect = Inputs.select(stations_dia3,  { label: "Station B", value: "Friedrichstrasse" });
 
-</div> <!-- grid -->
+view(html`<div class="flex items-center gap-4">
+  <strong>Welche zwei Stationen willst du vergleichen?</strong>
+  ${leftSelect} ${rightSelect}
+</div>`);
+```
 
-
-<div class="card">
 
 ```js
-const plt = Plot.plot({
-  grid: true, // Konsistent mit Dashboards
-  inset: 10, // Konsistent mit Dashboards
-  x: {
-    label: "℃",
-    labelAnchor: 'center',
-    labelArrow: 'none',
-    tickFormat: x => x, // do nothing
-  },
-  y: {
-    label: "",
-    tickFormat: x => "", // drop label
-  },
-  color: {
-    domain: [left, right],
-    legend: true,
-  },
-  marks: [
-    Plot.barX(tagesverlauf.filter(x => x.Station === left || x.Station === right), {y: "Station", fy: "Stunde", x:"Temperatur_Celsius", fill: "Station"}),
-  ]
+// Hier hinein rendert das JS-Modul die zwei Karten/Karten + KPIs
+//const host_dia3 = html`<div class="grid grid-cols-2 gap-3"></div>`;
+const host_dia3 = html`<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>`;
+
+```
+
+
+
+<div class="card"> 
+  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;"> Wie beeinflusst der Ort das lokale Klima? </p> 
+  <h3>Vergleich zweier Wetterstationen</h3> 
+  <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;"> 
+    In der folgenden Grafik kannst du zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen. 
+  </p>
+  ${host_dia3}
+</div>
+
+```js
+// Modul importieren und Diagramm befüllen (nach der Card)
+import { createStationComparison } from "./charts/chart3_station_comparison.js";
+
+createStationComparison({
+  host: host_dia3,
+  stationMeta: stationMeta_dia3,
+  heatmapData: heatmapData_dia3,
+  hotData: hotData_dia3,
+  leftSelect,
+  rightSelect,
+  stationTexts   
 });
-view(plt);
+
 ```
 
-</div> <!-- card -->
-
+ 
+  
 Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist: 
 
 Eine Station, die zum Beispiel von sehr vielen Bäumen umgeben ist, heizt sich 
