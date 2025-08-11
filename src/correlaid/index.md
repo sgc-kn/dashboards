@@ -7,6 +7,10 @@ toc:
 <!-- mit theme: dashboard ist alles im darkmode, wenn die Voreinstellung des Betriebssystems/Browsers so ist
     mit "wide" wird die Sidebar kleiner -->
 
+```js
+import * as layout from "./layout.js";
+```
+
 <!--brauche ich damit ich in style.css z.B. die Schriftbreite ändern kann -->
 <div class="correlaid-page"> 
 
@@ -348,10 +352,24 @@ Die **Klimaanpassungsbeauftragte der Stadt Konstanz**, (Insert her name), erzäh
 
 Sie gehen auch auf die Daten ein, die du gerade selbst untersucht hast - und sprechen darüber, was man daraus für die Stadt, die Planung und den Umgang mit Hitze lernen kann
 
-<!-- patrik: Ich werde hier noch etwas einbauen, dass Youtube nur nach Consent geladen wird. Oder das Video selber hosten. -->
- <iframe style="width:100%; aspect-ratio: 16/9;"
-src="https://www.youtube.com/embed/E4WlUXrJgy4">
-</iframe> 
+<!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
+```js
+const video_tim_card = layout.card({
+  title: 'Video',
+  subtitle: 'Subtitle',
+  body: html.fragment`
+    <iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe>
+  `,
+  info: html.fragment`
+    <p><strong>TODO:</strong> hier kommt eure Beschreibung zum Video rein. Diese wird im Screen-Reader oder Lesemodus statt dem Video angezeigt.</p>
+  `
+});
+```
+
+<div class="grid grid-cols-2">
+${ video_tim_card }
+</div> <!-- grid -->
+
 
 ## Fazit: Das Klima ist nicht überall gleich - auch nicht in deiner Stadt Konstanz
 
