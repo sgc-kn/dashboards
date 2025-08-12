@@ -31,11 +31,12 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 : null
     ).filter(d => d !== null);
 
-
-
-    return Plot.plot({
+    const chart = Plot.plot({
         grid: true,
         inset: 10,
+        style: { fontSize: 12, fontFamily: "sans-serif" }, // Stil für das Diagramm
+        height: 362,
+        //width: "100%", // Dynamische Breite
         color: {
             legend: true,
             domain: [selectedStation, "Min / Max Temperatur"],
@@ -92,6 +93,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
         ]
 
     });
+    return chart;
 }
 
 
@@ -162,14 +164,22 @@ export function createMapLegend(container) {
     const values = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
 
     const mapLegend = Plot.plot({
+        subtitle: "Abweichung von der Durschnittstemperatur aller Wetterstationen",
+        style: { fontSize: 12, fontFamily: "sans-serif" },
         r: { type: "identity" }, // radius is in pixels, not scaled
         width: 300,              // fixed width to avoid auto-resizing effects
         height: 60,              // fixed height
+        x: {
+            tickFormat: d => `${d}°C`, // add degree symbol + C
+            tickSize: 0,                // removes tick lines
+        },
         marks: [
             Plot.dot(values, {
                 x: d => d,
                 r: d => Math.sqrt(Math.max(1, Math.abs(d)) * 16),
-                fill: d => colorScale(d)
+                fill: d => colorScale(d),
+                stroke: "#555",       // outline color
+                strokeWidth: 1      // outline thickness
             })
         ]
     });

@@ -147,7 +147,9 @@ import { createSensorLineChart, createSensorMap, updateSensorMap, createReactive
 ```js
 // Karten-Div vorbereiten - wird im Markdown verwendet
 const map_div = document.createElement("div");
-map_div.style = "height:25rem";
+map_div.style.aspectRatio = "1.5";
+map_div.style.maxWidth = "640px";
+//map_div.style = "max-widths: 640px;";
 map_div
 ```
 
@@ -176,6 +178,7 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
 
   <div class="body">
     ${map_div}
+    <br>
     ${map_legend}  
   </div>
 </div> 
@@ -187,7 +190,7 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   <div class="header">
     <div class="title">
       <h2>Temperatur</h2>
-      <h3>Tagesverlauf an der SGC Wetterstationen ${station} in Konstanz</h3>
+      <h3>Tagesverlauf an der Wetterstationen ${station}</h3>
     </div>
   </div>
 
