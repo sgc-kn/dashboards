@@ -291,7 +291,7 @@ const stations_dia3 = stationMeta_dia3.map(d => d.name)
 const leftSelect  = Inputs.select(stations_dia3,  { label: "Station A", value: "Stadtgarten" });
 const rightSelect = Inputs.select(stations_dia3,  { label: "Station B", value: "Friedrichstrasse" });
 
-view(html`<div class="flex items-center gap-4">
+view(html`<div>
   <strong>Welche zwei Stationen willst du vergleichen?</strong>
   ${leftSelect} ${rightSelect}
 </div>`);
@@ -300,17 +300,16 @@ view(html`<div class="flex items-center gap-4">
 
 ```js
 // Hier hinein rendert das JS-Modul die zwei Karten/Karten + KPIs
-//const host_dia3 = html`<div class="grid grid-cols-2 gap-3"></div>`;
-const host_dia3 = html`<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>`;
+const host_dia3 = document.createElement("div");
 
 ```
 
 
 
 <div class="card"> 
-  <p style="font-weight: bold; font-size: 18px; margin-bottom: 0.3rem;"> Wie beeinflusst der Ort das lokale Klima? </p> 
+  <h2> Wie beeinflusst der Ort das lokale Klima? </h2> 
   <h3>Vergleich zweier Wetterstationen</h3> 
-  <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;"> 
+  <p> 
     In der folgenden Grafik kannst du zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen. 
   </p>
   ${host_dia3}
