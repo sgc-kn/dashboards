@@ -14,29 +14,22 @@ import * as layout from "./layout.js";
 <!--brauche ich damit ich in style.css z.B. die Schriftbreite ändern kann -->
 <div class="correlaid-page"> 
 
-# Konstanz unter der Lupe  
+# Das Konstanzer Stadtklima unter der Lupe  
 ## Wie ein paar Meter den Unterschied machen – beim Klima vor deiner Tür
 
 ---
 
-## Einleitung: Spürst du den Unterschied?
+<p style="text-align: justify; line-height: 1.6;">
+Ein heißer Sommertag in Konstanz, du läufst über den Stephansplatz und spürst, wie die Hitze über dem Pflaster flimmert. Dann machst du ein paar Schritte in den Stadtgarten - plötzlich wirkt es kühler, angenehmer. Dabei bist du nur ein paar hundert Meter gelaufen. Wie kann das sein?
+In dieser interaktiven Story nehmen wir das Konstanzer Stadtklima unter die Lupe. Wir werfen einen Blick auf die Klimaveränderungen der letzten Jahrzehnte und analysieren überraschende Temperaturunterschiede innerhalb der Stadt. Außerdem findest du selbst heraus, welche Faktoren Orte innerhalb der Stadt besonders heiß oder angenehm kühl machen.
+Was deutlich wird: Der Klimawandel ist längst in Konstanz angekommen. Aber seinen Auswirkungen sind wir in unterschiedlichem Maß ausgesetzt – je nachdem, wie die Stadtteile gestaltet sind, in denen wir wohnen, arbeiten oder uns gerne aufhalten.
+</p>
 
-Du läufst über den Stephansplatz und spürst, wie die Sonne auf dem Pflaster flimmert. Dann machst du ein paar Schritte in den Stadtgarten – plötzlich wirkt es kühler, angenehmer. Dabei bist du nur ein paar hundert Meter gegangen.
+## Teil 1: Wie hat sich die Temperatur in Konstanz über die Jahrzehnte entwickelt?
 
-**Wie kann das sein?**
-
-In dieser interaktiven Story zeigen wir dir, warum die Temperatur in Konstanz nicht überall gleich ist. Wir werfen einen Blick auf die Klimaveränderungen der letzten Jahrzehnte, zeigen dir überraschende Unterschiede innerhalb der Stadt – und du findest selbst heraus, was Orte heiß oder kühl macht.
-
-Denn eines ist sicher: Der Klimawandel ist längst in Konstanz angekommen. Aber seine Auswirkungen hängen stark davon ab, **wo du wohnst, arbeitest oder dich einfach gerne aufhältst.**
-
----
-
-## Teil 1: Wie heiß war es, als du nach Konstanz gezogen bist?
-<div style="margin-bottom: 1.5rem;"></div>
-
-Vielleicht wohnst du schon lange hier. Vielleicht bist du erst vor Kurzem nach Konstanz gezogen. Aber egal wann du angekommen bist – die Temperatur war damals ziemlich sicher niedriger als heute.
-
-In dem letzten Jahrhundert ist die durchschnittliche Lufttemperatur in Konstanz deutlich gestiegen. Und dieser Trend ist kein Zufall. Vielmehr spiegelt er das wider, was Forscher:innen weltweit beobachten: Die Erde erwärmt sich – und auch hier am Bodensee wird’s Jahr für Jahr ein kleines bisschen wärmer. 
+<p style="text-align: justify; line-height: 1.6; margin-top: 8px;">
+Um nachzuvollziehen, wie sich das Klima in Konstanz bis heute entwickelt hat, werfen wir einen Blick auf Daten des Deutschen Wetterdienstes (DWD). Seit 1973 erfasst die Wetterstation des DWD kontinuierlich die wichtigsten Wetterparameter in Konstanz. Hier abgebildet siehst du die seither dokumentierte Entwicklung der jährlichen Durchschnittstemperatur. Um herauszufinden, wie sich die Temperatur während deiner Zeit in Konstanz verändert hat, kannst du im Dropdownmenü dein Zuzugsjahr auswählen.
+</p>
 
 ```js
 // Was wollt ihr hier für Daten nutzen? Eine Idee wäre, die Jahreswerte aus dem DWD Dashboard wiederzuverwenden.
@@ -74,41 +67,48 @@ view(arrivalInput);
   <h3>DWD Station Konstanz</h3>
 
   <p style="font-size: 16px; margin-top: 0.5rem; margin-bottom: 0rem;">
-    In der folgenden Grafik kannst du sehen, wie sich die Temperatur seit <strong>1973</strong> verändert hat.
+    In der folgenden Grafik kannst du sehen, wie sich die Temperatur seit <strong>1973</strong> verändert hat. Die Regressionsgerade bezieht sich auf den gesamten Zeitraum seit 1973.
   </p>
 
 ```js
 
 view(createWeatherTrendContainer(yearly, arrivalInput));
 ``` 
-
-
 </div> <!-- card -->
 
-**Tipp:** Wenn du noch mehr zum Klima in Konstanz wissen willst, dann schau doch mal bei den Dashboards vorbei! Da gibt es viele interessante Diagramme zu sehen:
+<p style="text-align: justify; line-height: 1.6;">
+Wenn wir den kompletten Zeitraum betrachten, wird deutlich: Die durchschnittliche Lufttemperatur in Konstanz ist über die Jahrzehnte trotz einiger Schwankungen kontinuierlich angestiegen. Zum einen wird es generell wärmer – zum anderen nimmt die Zahl der Extremwettertage zu: Das sehen wir beispielsweise an tropischen Nächten und Hitzetagen mit Temperaturen über 30 Grad.
+</p>
+
+<p style="text-align: justify; line-height: 1.6;">
+
+**Tipp:** Wenn du mehr zum Klima in Konstanz wissen willst, dann schau doch mal bei den Dashboards vorbei! Da gibt es viele interessante Diagramme zu sehen:
 <a href="https://stadtdaten.konstanz.digital/dwd/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Wetterbeobachtungen</a>, 
 <a href="https://stadtdaten.konstanz.digital/cds/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Klimaprojektionen</a>, 
 <a href="https://stadtdaten.konstanz.digital/lubw/" target="_blank" rel="noopener noreferrer" style="color: var(--theme-blue); text-decoration: underline;">Luftqualität</a>
-
+</p>
+<p style="text-align: justify; line-height: 1.6;"> 
+Ohne effektive globale Klimaschutzmaßnahmen wird dieser Trend weiter zunehmen. Damit rückt immer mehr die Frage in den Fokus, wie widerstandsfähig unsere Wohnorte gegenüber zunehmenden Extremen sind. Wie also fühlen sich solche Hitzetage in Konstanz an?
+</p>
 
 ---
+## Teil 2: Wo spürt man die zunehmende Hitze in Konstanzer Sommern besonders heftig?
 
-## Teil 2: Eine Stadt, viele Klimas
-Es gibt Tage, da fühlt sich Konstanz an wie zwei verschiedene Städte: Während es in der Innenstadt heiß und stickig ist, ist es im Herose-Park oder am Hörnle deutlich angenehmer.
+<p style="text-align: justify; line-height: 1.6; margin-top: 8px;">
+An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit verbringt: Während es in den engen Gassen der Innenstadt heiß und stickig ist und man auf dem Vorplatz vom LAGO fast zerfließt, lässt es sich im Herosé-Park oder am Hörnle deutlich besser aushalten. Auch im Stadtgarten oder im Lorettowald ist die Hitze oft weniger spürbar. Aber ist das tatsächlich messbar – oder nur Gefühlssache?
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+Die Stadt Konstanz betreibt seit 2024 mehrere Wetterstationen, die quer über das Stadtgebiet verteilt sind. Und diese Stationen liefern spannende ergänzende Daten zur Station des Deutschen Wetterdienstes: Denn während die DWD-Wettersonde einen einzigen Temperaturwert für die gesamte Stadt erhebt, zeigen die Messstationen der Stadt deutlich differenziertere Werte. Sie machen sichtbar, welche Orte sich morgens besonders schnell oder langsam erwärmen, die Hitze am Abend lange speichern – oder aber rasch wieder abkühlen.
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 31. Juli 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je dunkler das Blau und je größer der Kreis um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer der Kreis und je kräftiger sein Rot, desto wärmer war es. Klickst du auf eine Station, wird ihre individuelle Temperaturkurve in der Grafik hervorgehoben.
+</p>
 
-_Aber ist das wirklich messbar - oder nur Gefühlssache?_
-
-Die Stadt Konstanz betreibt mehrere Wettermessstationen, die quer über das Stadtgebiet verteilt sind. Und genau diese liefern spannende Daten. Denn auch wenn alle Stationen dieselbe Sonne abbekommen, zeigen sie an einem 
-Sommertag sehr unterschiedliche Temperaturverläufe
-
-🟢 **[Interaktivität]**  
-_Klicke auf eine der Stationen auf der Karte. Der 
-dazugehörige Temperaturverlauf wird im Diagramm hervorgehoben. Mit 
-dem Slider unterhalb der Grafik kannst du außerdem gezielt eine Uhrzeit 
-auswählen - und sehen, wie warm es zu dieser Stunde an den verschiedenen 
-Stationen war. Die Größe des Kreises gibt an wie groß die Abweichung der Temperatur zum Mittelwert aller Stationen ist. Ein großer blauer Kreis bedeutet also, dass es dort deutlich kühler ist. Wenn du einen großen roten Kreis siehst, hast du einen besonders heißen Ort entdeckt._
+<center>
 
 ### Temperaturverlauf am 31. Juli 2024 
+
+</center>
 
 <!-- Learning: 
   Erst in separaten JavaScript-Zellen den Inhalt vorbereiten.
@@ -232,26 +232,21 @@ stunde.addEventListener("input", () => {
   );
 });
 ```
-
-Du wirst sehen: Manche Stationen steigen schon am frühen Morgen stark an, während andere lange kühl bleiben. 
-Am Abend kühlt es an einigen Stellen rasch ab, während andere Orte die Hitze speichern - oft bis tief in die Nacht.
-Man sieht deutlich, dass der Standort den Unterschied macht. Ob Wiese oder Asphalt, Bäume oder offene Fläche – all das beeinflusst, wie stark sich ein Ort im Laufe des Tages aufheizt oder abkühlt.
-
-Und das hat Folgen: Für dein persönliches Wohlbefinden, aber auch für die Gesundheit älterer Menschen, die Planung von Spielplätzen, Fahrradwegen oder Schulhöfen.
+<p style="text-align: justify; line-height: 1.6;">
+Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Nachts gibt es nur wenige Grad Unterschied zwischen den minimalen und maximalen Temperaturwerten aller Stationen, tagsüber wird der Unterschied allerdings größer. Gegen 15 Uhr sind es beispielsweise mehr als 5°C, die den kühlsten Ort (Stadtgarten) vom heißesten Ort (Friedrichstraße) unterscheiden.
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+Hitzespitzen, wie die in der Friedrichstraße – hier wurden circa 32,5°C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+Mit gezielten Maßnahmen zur Klimawandelanpassung kann der übermäßigen Erhitzung einzelner Gebiete vorgebeugt werden. Dafür ist es wichtig zu verstehen, welche Faktoren sogenannte Hitzeinseln in der Stadt verstärken oder abschwächen. Schauen wir uns dafür die Stationen genauer an!
+</p>
 
 ---
-
-## Teil 3: Was beeinflusst die Temperatur vor deiner Haustür?
-Warum ist es an einem Ort heißer als am anderen - obwohl beide nur wenige Straßen voneinander entfernt sind?
-
-Jetzt kannst du selbst vergleichen: Unsere dritte Grafik zeigt dir nicht nur die Temperaturdaten, sondern auch, wie die Umgebung der Messstationen aussieht. Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegen Bäume und Wiesen?
-
-🟢 **[Interaktivität]**  
-_Wähle zwei Stationen aus. Was fällt dir auf?_
-
-Die Grafik zeigt dir für jede von ihnen, wie die Umgebung im Umkreis von 50 Metern beschaffen ist – also zum Beispiel, wie viel Grünfläche, Gebäude oder Asphalt dort vorhanden sind. Außerdem siehst du durch die unter den Kartenausschnitten angezeigten „Erhitzungsmuster“, wie stark die Temperatur der jeweiligen Station zu verschiedenen Tageszeiten vom Mittelwert aller Stationen abweicht.  
-
-_(Eventuell hier noch etwas dazu, wie die Erhitzungsmuster mit der Umgebungsbeschaffenheit zusammenhängen könnten)_
+## Teil 3: Warum ist es an Orten unterschiedlich heiß – obwohl sie nur wenige Straßen voneinander entfernt sind?
+<p style="text-align: justify; line-height: 1.6; margin-top: 8px;">
+Die nächste Grafik zeigt dir neben den Temperaturdaten nun auch die Umgebung der Messstationen im Radius von 50&nbspm. Um herauszufinden, was hinter den Temperaturdifferenzen steckt, kannst du sie jetzt selbst vergleichen: Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegend Bäume und Wiesen? Und was bedeutet das für die Erwärmung der Luft rund um die Station?
+</p>
 
 ```js
 // Flächendaten (Koordinaten + %-Anteile)
@@ -332,28 +327,16 @@ createStationComparison({
 
 ```
 
- 
-  
-Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist: 
-
-Eine Station, die zum Beispiel von sehr vielen Bäumen umgeben ist, heizt sich 
-tagsüber deutlich langsamer auf als eine, die in einem versiegelten, offenen 
-Innenhof liegt. (Eventuell zu allgemein, da dies nicht auf alle Stationen zu-
-trifft, oder?) Die Unterschiede sind messbar – und spürbar.
-Genau an diesem Punkt setzt auch die städtische Klimapolitik an. Wenn wir besser verstehen, welche Faktoren das Mikroklima beeinflussen, können gezielt Maßnahmen ergriffen werden, um gegenzusteuern
-
----
-
-## Experteninterview: Was tun gegen die Hitze in der Stadt?
-
-Im folgenden Video kommen zwei Expert:innen zu Wort:
-
-**Tim, Experte für das Stadtklima Konstanz,** erklärt (kommt noch, können wir 
-dann darauf anpassen, über was er am Ende redet)
-
-Die **Klimaanpassungsbeauftragte der Stadt Konstanz**, (Insert her name), erzählt (kommt  auch noch, wenn wir die Videos haben)
-
-Sie gehen auch auf die Daten ein, die du gerade selbst untersucht hast - und sprechen darüber, was man daraus für die Stadt, die Planung und den Umgang mit Hitze lernen kann
+<p style="text-align: justify; line-height: 1.6;">
+Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
+In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die Wetterstation ist mit Grünflächen und hellem Kies bedeckt. Dichter Kies ist deutlich durchlässiger als Beton oder Asphalt und speichert insgesamt weniger Wärme. Einige ältere Bäume mit großen Kronen spenden Schatten und verhindern, dass die Sonne direkt auf den Boden scheint. Durch die Lage direkt am Wasser wird die Luft während heißer Nachmittage zusätzlich gekühlt. Zusammen sorgen diese Faktoren dafür, dass es hier merklich kühler ist als an anderen Wetterstationen. Im Sommer 2024 kletterte das Thermometer hier zu keinem Zeitpunkt über 30 °C.
+</p>
+<p style="text-align: justify; line-height: 1.6;">
+Im Video sehen wir Tim Tewes, Experte für klimaresiliente Stadtplanung. Er fasst zusammen, welche Faktoren die städtische Hitzeentwicklung im Vergleich zum Umland bestimmen und wie es zu Temperaturunterschieden innerhalb von Städten wie Konstanz kommt:
+</p>
 
 <!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
 ```js
@@ -374,20 +357,36 @@ ${ video_tim_card }
 </div> <!-- grid -->
 
 
-## Fazit: Das Klima ist nicht überall gleich - auch nicht in deiner Stadt Konstanz
+---
 
-Was wir aus dieser Reise durch Konstanz mitnehmen: Der Klimawandel ist nicht nur ein globales Thema. Er ist spürbar - und er trifft nicht alle Orte in der Stadt gleichermaßen.
+## Teil 4: Und jetzt?
 
-Es macht einen Unterschied, ob du in einem grünen Viertel wohnst oder in einem Quartier mit vielen versiegelten Flächen. Und es macht einen Unterschied, wie eine Stadt auf diese Unterschiede reagiert.
+<p style="text-align: justify; line-height: 1.6; margin-top:8px;">
+Was wir aus unserer Reise durch Konstanz mitnehmen können: Der Klimawandel ist nicht nur eine globale, sondern auch eine lokale Herausforderung. Denn die baulichen Bedingungen unserer Stadt prägen entscheidend, in welchem Ausmaß wir den zunehmenden Klimaveränderungen ausgesetzt sind. Gleichzeitig zeigt sich, dass wir unsere Stadt widerstandsfähiger machen können. Mit gezielten Maßnahmen wie mehr Grünflächen, schattenspendenden Bäumen und kluger Stadtplanung tragen wir aktiv dazu bei, das Mikroklima spürbar zu verbessern.
+</p>
 
-Lösungen gibt es – aber sie brauchen Raum und Aufmerksamkeit. Dazu gehört, vorhandene Grünflächen zu erhalten und neue zu schaffen, versiegelte Flächen dort zu reduzieren, wo es möglich ist, und gezielt Schattenräume einzuplanen – vor allem an stark genutzten Orten wie Spielplätzen, Schulhöfen oder öffentlichen Plätzen.
+### Ausblick: Was plant die Stadt Konstanz, um die Stadt klimaresilienter zu gestalten?
 
-## Und du?
+<p style="text-align: justify; line-height: 1.6;">
+Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konstanz. Sie geht auf bereits bestehende Ansätze ein und erläutert, welche Pläne es in puncto Klimawandelanpassung in der Stadtverwaltung gibt:
+</p>
 
-Was ist dein heißester Ort in Konstanz?
-Ist dir schon mal aufgefallen, dass es bei dir zuhause abends einfach nicht abkühlt? Oder dass ein bestimmter Weg zur Arbeit besonders schweißtreibend ist?
+<!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
+```js
+const video_jana_card = layout.card({
+  title: 'Video',
+  subtitle: 'Subtitle',
+  body: html.fragment`
+    <iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe>
+  `,
+  info: html.fragment`
+    <p><strong>TODO:</strong> hier kommt eure Beschreibung zum Video rein. Diese wird im Screen-Reader oder Lesemodus statt dem Video angezeigt.</p>
+  `
+});
+```
 
-Teile deine Erfahrungen mit uns! (falls wir noch ein letztes interaktives Ele-
-ment anstreben
+<div class="grid grid-cols-2">
+${ video_jana_card }
+</div> <!-- grid -->
 
 </div> <!--Ende class="correlaid-page"-->
