@@ -24,6 +24,14 @@ h1+h2 {
     max-width: 100%;
 }
 
+.correlaid-page .box {
+    border:1px solid #ddd;
+    border-radius:6px;
+    padding:10px;
+    text-align:center;
+    background:#fff;
+}
+
 .correlaid-page .station-label-active {
     background-color: transparent;
     border: transparent;
@@ -52,6 +60,45 @@ h1+h2 {
 .correlaid-page input[type=number] {
     display: none;
 }
+
+.correlaid-page .weatherstation-card {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    grid-auto-rows: min-content;
+}
+
+.correlaid-page .weatherstation-title {
+    grid-column: span 2;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.correlaid-page .map-wrap {
+    max-height: 80%;
+    grid-row: span 2;
+    place-self: center;
+    aspect-ratio: 1;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:0 4px 8px rgba(0,0,0,.2);
+}
+
+.correlaid-page .card-title {
+    font-weight:bold;
+    margin:0 0 10px 0;
+}
+
+.correlaid-page .card-description {
+    font-size: 14px;
+}
+
+.correlaid-page .kpi-value {
+    font-size: 22px;
+    font-weight: bold;
+}
+
 
 /* Card Info and Download Buttons */
 
