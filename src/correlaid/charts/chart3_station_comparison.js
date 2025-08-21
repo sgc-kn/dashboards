@@ -111,9 +111,9 @@ function buildCard() {
     canopyFill.style.cssText = "height:14px;border-radius:9999px;position:absolute;left:0;top:0;width:0%;";
     canopyFill.style.background = CANOPY_COLOR;
     canopyBar.appendChild(canopyFill);
-    const canopyPct = document.createElement("span");
-    canopyPct.setAttribute("style", "font-size:14px;");
-    canopyRow.append(canopyLabel, canopyBar, canopyPct);
+    // const canopyPct = document.createElement("span");
+    // canopyPct.setAttribute("style", "font-size:14px;");
+    canopyRow.append(canopyLabel, canopyBar);
 
     canopyBox.appendChild(canopyRow);
 
@@ -166,7 +166,6 @@ function buildCard() {
         map,
         surfBox,
         canopyFill,
-        canopyPct,
         heatPlot,
         maxTempEl: kpi1.value,
         hotDaysEl: kpi2.value,
@@ -200,7 +199,7 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTe
     const canopyVal = percent01(+meta[canopyKey]);
     const pct = Math.round(canopyVal * 100);
     side.canopyFill.style.width = `${pct}%`;
-    side.canopyPct.textContent = `${pct} %`;
+    side.canopyFill.setAttribute("title", `${pct}% Baumkronenanteil`);
 
     side.heatPlot.innerHTML = ""; // Clear previous heatmap
     // Heatmap: Breite anpassen
@@ -251,7 +250,7 @@ function renderSurfaceBars(containerEl, meta) {
         box.appendChild(gTitle);
 
         const surfaceBox = document.createElement("div")
-        surfaceBox.setAttribute("style", "display:grid; grid-template-columns:80px 1fr min-content;gap:8px;margin:0 0 10px 0;");
+        surfaceBox.setAttribute("style", "display:grid; grid-template-columns:80px 1fr;gap:8px;margin:0 0 10px 0;");
 
         g.items.forEach(item => {
             // KEIN Farbfeld mehr vor dem Label
@@ -264,13 +263,14 @@ function renderSurfaceBars(containerEl, meta) {
             const barInner = document.createElement("div");
             const val = clamp0_100(+meta[item.key]);
             barInner.setAttribute("style", `height:12px;width:${val}%;background:${item.color};border-radius:9999px;`);
+            barInner.setAttribute("title", `${val}%`);
             barOuter.appendChild(barInner);
 
-            const valTxt = document.createElement("div");
-            valTxt.textContent = `${Math.round(val)}%`;
-            valTxt.setAttribute("style", "text-align:right;");
+            // const valTxt = document.createElement("div");
+            // valTxt.textContent = `${Math.round(val)}%`;
+            // valTxt.setAttribute("style", "text-align:right;");
 
-            surfaceBox.append(lbl, barOuter, valTxt);
+            surfaceBox.append(lbl, barOuter);
         });
         box.appendChild(surfaceBox);
 
