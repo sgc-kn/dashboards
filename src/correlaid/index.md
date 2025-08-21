@@ -387,4 +387,15 @@ const video_jana_card = layout.card({
 ${ video_jana_card }
 </div> <!-- grid -->
 
+<div class="card"> 
+  <h2> CorrelAid e.V. </h2> 
+  <h3>Diese Data Story wurde in einem Data4Good Projekt von CorrelAid erstellt</h3>
+  
+  <p> 
+    CorrelAid ist ein gemeinnütziges Netzwerk von ehrenamtlichen Data Scientists, das Datenkompetenz für das Gemeinwohl einsetzt. Es verbindet NGOs und zivilgesellschaftliche Initiativen mit Datentalenten, realisiert Pro-bono-Projekte und bietet Community-Formate sowie Weiterbildung rund um datengetriebene Arbeit.
+  </p>
+  <br>
+  <img src="/assets/correlaid/images/correlaid_logo.png" width=200px></img>
+</div>
+
 </div> <!--Ende class="correlaid-page"-->
