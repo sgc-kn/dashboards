@@ -41,7 +41,6 @@ export function createStationComparison({
     hotData,
     leftSelect,
     rightSelect,
-    stationTexts = {}
 }) {
     host.style.cssText = "display:grid;grid-template-columns: repeat(auto-fit, minmax(min(425px, 100%), 1fr));grid-column-gap: 10px;";
 
@@ -51,8 +50,8 @@ export function createStationComparison({
     host.append(left.cardEl, right.cardEl);
 
     // initial render
-    renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData, stationTexts);
-    renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData, stationTexts);
+    renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData);
+    renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData);
 
     // Interaktion
     leftSelect.addEventListener("input", () => renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData, stationTexts));
@@ -174,7 +173,7 @@ function buildCard() {
 // =====================
 // Rendering
 // =====================
-function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTexts) {
+function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
     if (!stationName) return;
     side.currentStation = stationName;
 
@@ -194,10 +193,9 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTe
     const canopyVal = percent01(+meta[canopyKey]);
     const pct = Math.round(canopyVal * 100);
     side.canopyFill.style.width = `${pct}%`;
-    side.canopyFill.setAttribute("title", `${pct}% Baumkronenanteil`);
+    side.canopyFill.setAttribute("title", `${pct}%`);
 
     side.heatPlot.innerHTML = ""; // Clear previous heatmap
-    // Heatmap: Breite anpassen
     side.heatPlot.appendChild(Heat(heatmapData[stationName]));
 
     // KPIs

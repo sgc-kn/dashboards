@@ -259,7 +259,7 @@ const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv(
 const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
 
 // Auswertungstext zu den Stationen
-const stationTexts = FileAttachment("./data/station_texts.json").json();
+// const stationTexts = FileAttachment("./data/station_texts.json").json();
 
 ```
 
@@ -320,8 +320,7 @@ createStationComparison({
   heatmapData: heatmapData_dia3,
   hotData: hotData_dia3,
   leftSelect,
-  rightSelect,
-  stationTexts   
+  rightSelect 
 });
 
 ```
