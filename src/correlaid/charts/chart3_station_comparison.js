@@ -144,9 +144,6 @@ function buildCard() {
     textBox.classList.add("box");
     textBox.setAttribute("style", "grid-column: span 2;");
 
-    const textEl = document.createElement("div");
-    textEl.classList.add("card-description");
-    textBox.appendChild(textEl);
 
     // Zusammenbauen
     cardEl.append(
@@ -157,7 +154,6 @@ function buildCard() {
         heatBlock,
         kpi1.wrap,
         kpi2.wrap,
-        textBox
     );
 
     return {
@@ -169,7 +165,6 @@ function buildCard() {
         heatPlot,
         maxTempEl: kpi1.value,
         hotDaysEl: kpi2.value,
-        textEl,
         marker: null,
         circle: null,
         currentStation: null
@@ -216,10 +211,6 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTe
         maxVal != null && !Number.isNaN(+maxVal) ? `${(+maxVal).toFixed(1)} °C` : "–";
     side.hotDaysEl.textContent =
         daysVal != null && !Number.isNaN(+daysVal) ? `${Math.round(+daysVal)}` : "–";
-
-    // Text aus Datei (falls vorhanden), sonst Fallback
-    const t = stationTexts && (stationTexts[stationName] || stationTexts[slug(stationName)]);
-    side.textEl.textContent = t;
 }
 
 // =====================
