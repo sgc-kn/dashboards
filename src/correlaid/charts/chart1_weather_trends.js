@@ -222,13 +222,13 @@ export function drawWeatherTrendD3(yearly, arrival, width = 600) {
             .attr("y2", y(endY));
 
         // Anmerkung
-        const delta = (endY - startY).toFixed(1);
-        svg.append("text")
-            .attr("x", x(endX) - 170)
-            .attr("y", y(endY) - 55)
-            .attr("fill", "red")
-            .attr("font-size", "20px")
-            .text(`Anstieg um: ${delta} °C`);
+        // const delta = (endY - startY).toFixed(1);
+        // svg.append("text")
+        //     .attr("x", x(endX) - 170)
+        //     .attr("y", y(endY) - 55)
+        //     .attr("fill", "red")
+        //     .attr("font-size", "20px")
+        //     .text(`Anstieg um: ${delta} °C`);
     }
     return div;
 
