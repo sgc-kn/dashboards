@@ -101,12 +101,12 @@ An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit
 Die Stadt Konstanz betreibt seit 2024 mehrere Wetterstationen, die quer über das Stadtgebiet verteilt sind. Und diese Stationen liefern spannende ergänzende Daten zur Station des Deutschen Wetterdienstes: Denn während die DWD-Wettersonde einen einzigen Temperaturwert für die gesamte Stadt erhebt, zeigen die Messstationen der Stadt deutlich differenziertere Werte. Sie machen sichtbar, welche Orte sich morgens besonders schnell oder langsam erwärmen, die Hitze am Abend lange speichern – oder aber rasch wieder abkühlen.
 </p>
 <p style="text-align: justify; line-height: 1.6;">
-In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 31. Juli 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je dunkler das Blau und je größer der Kreis um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer der Kreis und je kräftiger sein Rot, desto wärmer war es. Klickst du auf eine Station, wird ihre individuelle Temperaturkurve in der Grafik hervorgehoben.
+In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je dunkler das Blau und je größer der Kreis um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer der Kreis und je kräftiger sein Rot, desto wärmer war es. Klickst du auf eine Station, wird ihre individuelle Temperaturkurve in der Grafik hervorgehoben.
 </p>
 
 <center>
 
-### Temperaturverlauf am 31. Juli 2024 
+### Temperaturverlauf am 11. August 2024 
 
 </center>
 
