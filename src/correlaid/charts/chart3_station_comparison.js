@@ -178,6 +178,9 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
     // Titel
     side.titleEl.textContent = stationName;
 
+
+    // TODO pkel: Lizenz für die Luftbilder ist:
+    // LGL-BW (2024) Datenlizenz Deutschland - Namensnennung - Version 2.0, www.lgl-bw.de
     side.map.src = "/_file/assets/correlaid/images/" + slug(stationName) + ".png";
 
     // Steckbrief: Oberflächen
