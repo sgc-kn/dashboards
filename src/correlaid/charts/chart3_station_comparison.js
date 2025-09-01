@@ -6,7 +6,6 @@ import { html } from "htl";
 // Konfiguration
 // =====================
 
-const KPI_COLOR = "#8B0000";     // dunkelrot für KPI-Werte
 const CANOPY_COLOR = "#008000ff";   // Baumkronen-Fortschrittsleiste
 
 // Kategorien (Kies = unversiegelt) – mit deinen Farben
@@ -32,7 +31,6 @@ const hotDaysKeys = ["Hot_Days_Count"];
  * hotData        : CSV mit KPIs
  * leftSelect     : Inputs.select
  * rightSelect    : Inputs.select
- * stationTexts   : optionales Objekt { "Stationsname": "Text ..." }
  */
 export function createStationComparison({
     host,
@@ -41,7 +39,6 @@ export function createStationComparison({
     hotData,
     leftSelect,
     rightSelect,
-    stationTexts = {}
 }) {
     host.style.cssText = "display:grid;grid-template-columns: repeat(auto-fit, minmax(min(425px, 100%), 1fr));grid-column-gap: 10px;";
 
@@ -51,12 +48,12 @@ export function createStationComparison({
     host.append(left.cardEl, right.cardEl);
 
     // initial render
-    renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData, stationTexts);
-    renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData, stationTexts);
+    renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData);
+    renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData);
 
     // Interaktion
-    leftSelect.addEventListener("input", () => renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData, stationTexts));
-    rightSelect.addEventListener("input", () => renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData, stationTexts));
+    leftSelect.addEventListener("input", () => renderSide(left, leftSelect.value, stationMeta, heatmapData, hotData));
+    rightSelect.addEventListener("input", () => renderSide(right, rightSelect.value, stationMeta, heatmapData, hotData));
 }
 
 // =====================
@@ -104,16 +101,19 @@ function buildCard() {
 
     const canopyLabel = document.createElement("span");
     canopyLabel.textContent = "Baumkronen";
-    canopyLabel.setAttribute("style", "font-size:14px;");
+    canopyLabel.classList.add("card-label");
+
     const canopyBar = document.createElement("div");
-    canopyBar.setAttribute("style", "flex:1;height:14px;background:#e5e7eb;border-radius:9999px;position:relative;overflow:hidden;");
+    canopyBar.classList.add("bar-outer");
+    //canopyBar.setAttribute("style", "flex:1;height:14px;background:#e5e7eb;border-radius:9999px;position:relative;overflow:hidden;");
     const canopyFill = document.createElement("div");
-    canopyFill.style.cssText = "height:14px;border-radius:9999px;position:absolute;left:0;top:0;width:0%;";
+    //canopyFill.style.cssText = "height:14px;border-radius:9999px;position:absolute;left:0;top:0;width:0%;";
+    canopyFill.classList.add("bar-inner");
     canopyFill.style.background = CANOPY_COLOR;
     canopyBar.appendChild(canopyFill);
-    const canopyPct = document.createElement("span");
-    canopyPct.setAttribute("style", "font-size:14px;");
-    canopyRow.append(canopyLabel, canopyBar, canopyPct);
+    // const canopyPct = document.createElement("span");
+    // canopyPct.setAttribute("style", "font-size:14px;");
+    canopyRow.append(canopyLabel, canopyBar);
 
     canopyBox.appendChild(canopyRow);
 
@@ -128,7 +128,7 @@ function buildCard() {
 
     const heatExplain = document.createElement("div");
     heatExplain.textContent = "Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)";
-    //heatExplain.classList.add("card-description");
+    heatExplain.classList.add("card-description");
 
     const heatPlot = document.createElement("div");
 
@@ -136,17 +136,8 @@ function buildCard() {
 
     // KPI-Boxen
 
-    const kpi1 = mkKpiBox("Maximaltemperatur (2024)");
-    const kpi2 = mkKpiBox("Anzahl heißer Tage (2024)");
-
-    // Textbox unten (schwarzer Rahmen, weißer Hintergrund)
-    const textBox = document.createElement("div");
-    textBox.classList.add("box");
-    textBox.setAttribute("style", "grid-column: span 2;");
-
-    const textEl = document.createElement("div");
-    textEl.classList.add("card-description");
-    textBox.appendChild(textEl);
+    const kpi1 = mkKpiBox("Maximaltemperatur");
+    const kpi2 = mkKpiBox("Anzahl heißer Tage");
 
     // Zusammenbauen
     cardEl.append(
@@ -157,7 +148,6 @@ function buildCard() {
         heatBlock,
         kpi1.wrap,
         kpi2.wrap,
-        textBox
     );
 
     return {
@@ -166,11 +156,9 @@ function buildCard() {
         map,
         surfBox,
         canopyFill,
-        canopyPct,
         heatPlot,
         maxTempEl: kpi1.value,
         hotDaysEl: kpi2.value,
-        textEl,
         marker: null,
         circle: null,
         currentStation: null
@@ -180,7 +168,7 @@ function buildCard() {
 // =====================
 // Rendering
 // =====================
-function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTexts) {
+function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
     if (!stationName) return;
     side.currentStation = stationName;
 
@@ -200,10 +188,9 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTe
     const canopyVal = percent01(+meta[canopyKey]);
     const pct = Math.round(canopyVal * 100);
     side.canopyFill.style.width = `${pct}%`;
-    side.canopyPct.textContent = `${pct} %`;
+    side.canopyFill.setAttribute("title", `${pct}%`);
 
     side.heatPlot.innerHTML = ""; // Clear previous heatmap
-    // Heatmap: Breite anpassen
     side.heatPlot.appendChild(Heat(heatmapData[stationName]));
 
     // KPIs
@@ -217,10 +204,6 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows, stationTe
         maxVal != null && !Number.isNaN(+maxVal) ? `${(+maxVal).toFixed(1)} °C` : "–";
     side.hotDaysEl.textContent =
         daysVal != null && !Number.isNaN(+daysVal) ? `${Math.round(+daysVal)}` : "–";
-
-    // Text aus Datei (falls vorhanden), sonst Fallback
-    const t = stationTexts && (stationTexts[stationName] || stationTexts[slug(stationName)]);
-    side.textEl.textContent = t;
 }
 
 // =====================
@@ -241,36 +224,46 @@ function renderSurfaceBars(containerEl, meta) {
 
     containerEl.appendChild(surfHdr);
 
+    const surfDesc = document.createElement("div");
+    surfDesc.textContent = "im Umkreis von 50m um die Station";
+    surfDesc.classList.add("card-description");
+
+    containerEl.appendChild(surfDesc);
+
     groups.forEach(g => {
         const box = document.createElement("div");
         box.classList.add("box");
         box.setAttribute("style", "margin-bottom:10px;");
+
         const gTitle = document.createElement("div");
         gTitle.textContent = g.title;
-        gTitle.setAttribute("style", "font-size:13px;font-weight:bold;margin:0 0 10px 0;");
+        gTitle.setAttribute("style", "margin:0 0 10px 0;");
         box.appendChild(gTitle);
 
         const surfaceBox = document.createElement("div")
-        surfaceBox.setAttribute("style", "display:grid; grid-template-columns:80px 1fr min-content;gap:8px;margin:0 0 10px 0;");
+        surfaceBox.setAttribute("style", "display:grid; grid-template-columns:70px 1fr;gap:8px;");
 
         g.items.forEach(item => {
             // KEIN Farbfeld mehr vor dem Label
             const lbl = document.createElement("div");
             lbl.textContent = item.label;
-            lbl.setAttribute("style", "font-size:13px;flex:1;");
+            lbl.classList.add("card-label");
 
             const barOuter = document.createElement("div");
-            barOuter.setAttribute("style", "height:12px;width:100%;background:#eee;border-radius:9999px;overflow:hidden;");
+            barOuter.classList.add("bar-outer");
             const barInner = document.createElement("div");
             const val = clamp0_100(+meta[item.key]);
-            barInner.setAttribute("style", `height:12px;width:${val}%;background:${item.color};border-radius:9999px;`);
+
+            barInner.classList.add("bar-inner");
+            barInner.setAttribute("style", `width:${val}%;background:${item.color};`);
+            barInner.setAttribute("title", `${val}%`);
             barOuter.appendChild(barInner);
 
-            const valTxt = document.createElement("div");
-            valTxt.textContent = `${Math.round(val)}%`;
-            valTxt.setAttribute("style", "text-align:right;");
+            // const valTxt = document.createElement("div");
+            // valTxt.textContent = `${Math.round(val)}%`;
+            // valTxt.setAttribute("style", "text-align:right;");
 
-            surfaceBox.append(lbl, barOuter, valTxt);
+            surfaceBox.append(lbl, barOuter);
         });
         box.appendChild(surfaceBox);
 
@@ -335,10 +328,8 @@ function mkKpiBox(title) {
     t.textContent = title;
     // gleich groß & fett wie Heatmap-Frage
     t.classList.add("card-title");
-    //t.setAttribute("style", "font-size:16px;font-weight:bold;margin-bottom:10px;");
     const v = document.createElement("div");
     v.classList.add("kpi-value");
-    v.setAttribute("style", `color:${KPI_COLOR};`);
     wrap.append(t, v);
     return { wrap, value: v };
 }
