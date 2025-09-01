@@ -14,7 +14,7 @@ import sys
 
 correlaid_csv = "https://github.com/CorrelAid/smart-green-city-konstanz/raw/refs/heads/main/maites_notebooks/karte_vgl_stationen/finalerdf_ws"
 
-day = "2024-07-31"
+day = "2024-08-11"
 
 # ---
 
