@@ -101,7 +101,9 @@ An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit
 Die Stadt Konstanz betreibt seit 2024 mehrere Wetterstationen, die quer über das Stadtgebiet verteilt sind. Und diese Stationen liefern spannende ergänzende Daten zur Station des Deutschen Wetterdienstes: Denn während die DWD-Wettersonde einen einzigen Temperaturwert für die gesamte Stadt erhebt, zeigen die Messstationen der Stadt deutlich differenziertere Werte. Sie machen sichtbar, welche Orte sich morgens besonders schnell oder langsam erwärmen, die Hitze am Abend lange speichern – oder aber rasch wieder abkühlen.
 </p>
 <p style="text-align: justify; line-height: 1.6;">
-In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je dunkler das Blau und je größer der Kreis um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer der Kreis und je kräftiger sein Rot, desto wärmer war es. Klickst du auf eine Station, wird ihre individuelle Temperaturkurve in der Grafik hervorgehoben.
+In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je größer und intensiver der Blauton des Kreises um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer und intensiver der Rotton des Kreises, desto wärmer war es. Klickst du auf einen Standort, wird die individuelle Temperaturkurve der zugehörigen Wetterstation in der Grafik hervorgehoben. 
+
+Verschaff dir einen Überblick: An welchen Standorten ist es besonders heiß oder kühl über den Tag? Findest du ein Muster? 
 </p>
 
 <center>
@@ -233,10 +235,10 @@ stunde.addEventListener("input", () => {
 });
 ```
 <p style="text-align: justify; line-height: 1.6;">
-Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Nachts gibt es nur wenige Grad Unterschied zwischen den minimalen und maximalen Temperaturwerten aller Stationen, tagsüber wird der Unterschied allerdings größer. Gegen 15 Uhr sind es beispielsweise mehr als 5°C, die den kühlsten Ort (Stadtgarten) vom heißesten Ort (Friedrichstraße) unterscheiden.
+Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5°C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.  
 </p>
 <p style="text-align: justify; line-height: 1.6;">
-Hitzespitzen, wie die in der Friedrichstraße – hier wurden circa 32,5°C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.
+ Hitzespitzen wie die in der Riedstraße – hier wurden 31,3°C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.
 </p>
 <p style="text-align: justify; line-height: 1.6;">
 Mit gezielten Maßnahmen zur Klimawandelanpassung kann der übermäßigen Erhitzung einzelner Gebiete vorgebeugt werden. Dafür ist es wichtig zu verstehen, welche Faktoren sogenannte Hitzeinseln in der Stadt verstärken oder abschwächen. Schauen wir uns dafür die Stationen genauer an!
