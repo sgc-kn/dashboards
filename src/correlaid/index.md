@@ -1,11 +1,9 @@
 ---
-theme: ["air", "wide"]
+theme: [light, wide]
 sidebar: true
 toc:
   label: 'Kapitel'
 ---
-<!-- mit theme: dashboard ist alles im darkmode, wenn die Voreinstellung des Betriebssystems/Browsers so ist
-    mit "wide" wird die Sidebar kleiner -->
 
 ```js
 import * as layout from "./layout.js";

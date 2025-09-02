@@ -1,5 +1,5 @@
 ---
-theme: dashboard
+theme: [light, alt, wide]
 toc: false
 ---
 

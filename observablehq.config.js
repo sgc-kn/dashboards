@@ -87,6 +87,8 @@ export default {
     <script src="/assets/logic.js" defer></script>
   `,
 
+  theme: 'light', // avoid dark-mode
+
   globalStylesheets: [],
 
   toc: {
