@@ -68,13 +68,15 @@ Ohne effektive globale Klimaschutzmaßnahmen wird dieser Trend weiter zunehmen. 
 
 ## Teil 2: Wo spürt man die zunehmende Hitze in Konstanzer Sommern besonders heftig?
 
-An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit verbringt: Während es in den engen Gassen der Innenstadt heiß und stickig ist und man auf dem Vorplatz vom LAGO fast zerfließt, lässt es sich im Herosé-Park oder am Hörnle deutlich besser aushalten. Auch im Stadtgarten oder im Lorettowald ist die Hitze oft weniger spürbar. Aber ist das tatsächlich messbar – oder nur Gefühlssache?
+An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit verbringt: Während es in den engen Gassen der Innenstadt heiß und stickig ist, lässt es sich im Herosé-Park oder am Hörnle deutlich besser aushalten. Auch im Stadtgarten oder im Lorettowald ist die Hitze oft weniger spürbar. Aber ist das tatsächlich messbar – oder nur Gefühlssache?
 
 Die Stadt Konstanz betreibt seit 2024 mehrere Wetterstationen, die quer über das Stadtgebiet verteilt sind. Und diese Stationen liefern spannende ergänzende Daten zur Station des Deutschen Wetterdienstes: Denn während die DWD-Wettersonde einen einzigen Temperaturwert für die gesamte Stadt erhebt, zeigen die Messstationen der Stadt deutlich differenziertere Werte. Sie machen sichtbar, welche Orte sich morgens besonders schnell oder langsam erwärmen, die Hitze am Abend lange speichern – oder aber rasch wieder abkühlen.
 
-In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je größer und intensiver der Blauton des Kreises um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer und intensiver der Rotton des Kreises, desto wärmer war es. Klickst du auf einen Standort, wird die individuelle Temperaturkurve der zugehörigen Wetterstation in der Grafik hervorgehoben. 
+In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je größer und intensiver der Blauton des Kreises um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer und intensiver der Rotton des Kreises, desto wärmer war es. 
 
 Verschaff dir einen Überblick: An welchen Standorten ist es besonders heiß oder kühl über den Tag? Findest du ein Muster?
+
+Klickst du auf einen Standort in der Karte, so wird die individuelle Temperaturkurve der zugehörigen Wetterstation in der Grafik hervorgehoben. 
 
 <center>
 
