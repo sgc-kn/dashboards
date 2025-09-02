@@ -23,6 +23,14 @@ Konstanz][od].
 
 <h1>Neuigkeiten</h1><h2></h2>
 
+## September 2025
+
+[CorrelAid e.V.](https://correlaid.org/) hat für Smart Green City eine Datenstory zum Thema Stadtklima entwickelt.
+Das Team zeigt, wie Daten lebendig werden können:
+Die Datengeschichte lädt dazu ein, das Stadtklima in Konstanz interaktiv zu erkunden und neue Perspektiven auf die Zusammenhänge von Daten und Klima zu gewinnen.
+
+[➜ Hier geht's zur Story !](correlaid/index.html)
+
 
 ## Juli 2025
 
