@@ -71,7 +71,7 @@ export default {
     {
       name: "Stories",
       pages: [
-        { name: "CorrelAid '25", path: "/correlaid/" },
+        { name: "Stadtklima", path: "/correlaid/" },
       ]
     },
     { name: "Rechtliche Hinweise", path: "/legal/" },
