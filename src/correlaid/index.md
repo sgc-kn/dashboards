@@ -1,5 +1,5 @@
 ---
-theme: [light]
+style: style.css
 sidebar: true
 toc:
   label: 'Kapitel'

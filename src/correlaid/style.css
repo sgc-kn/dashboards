@@ -1,0 +1,103 @@
+@import url("../assets/style-blog.css");
+
+/* Theme Override für Datastory Correlaid*/
+
+.correlaid-page .box {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    background: #fff;
+}
+
+.correlaid-page .station-label-active {
+    background-color: transparent;
+    border: transparent;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.correlaid-page .leaflet-tooltip-left {
+    margin-right: 10px;
+}
+
+.correlaid-page .leaflet-tooltip-right {
+    margin-left: 10px;
+}
+
+.correlaid-page .leaflet-tooltip-right:before {
+    /* remove small triangle next to the tooltip */
+    border-right-color: rgba(0, 0, 0, 0);
+}
+
+.correlaid-page .leaflet-tooltip-left:before {
+    /* remove small triangle next to the tooltip */
+    border-left-color: rgba(0, 0, 0, 0);
+}
+
+.correlaid-page input[type=number] {
+    display: none;
+}
+
+.correlaid-page .weatherstation-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    grid-auto-rows: min-content;
+}
+
+.correlaid-page .weatherstation-title {
+    grid-column: span 2;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.correlaid-page .map-wrap {
+    max-height: 80%;
+    grid-row: span 2;
+    place-self: center;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+}
+
+.correlaid-page .card-title {
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+.correlaid-page .card-description {
+    text-align: left;
+    font-size: 12px;
+    color: var(--theme-foreground-muted);
+    margin: 0 10px 10px 10px;
+}
+
+.correlaid-page .card-label {
+    text-align: left;
+    font-size: 12px;
+    color: var(--theme-foreground-muted);
+}
+
+.correlaid-page .bar-outer {
+    height: 12px;
+    width: 100%;
+    background: #eee;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.correlaid-page .bar-inner {
+    height: 12px;
+    border-radius: 9999px;
+    position: relative;
+}
+
+.correlaid-page .kpi-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--theme-foreground-focus);
+    /* other option #8B0000 */
+}

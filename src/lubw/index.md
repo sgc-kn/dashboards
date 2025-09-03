@@ -1,5 +1,5 @@
 ---
-theme: [light, alt, wide]
+style: ../assets/style-dashboard.css
 toc: true
 ---
 
