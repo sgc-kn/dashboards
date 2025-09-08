@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          FULL_LINKS=1 devenv shell npm run build
+          devenv shell npm run build
 
       - name: Upload static HTML artifact
         uses: actions/upload-artifact@v4
