@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          FULL_LINKS=1 devenv shell npm run build
+          devenv shell npm run build
 
       - name: Upload static HTML artifact
         uses: actions/upload-artifact@v4
@@ -39,22 +39,19 @@ jobs:
   deploy-pr-preview:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: pr-previews
-      url: "https://sgc-dashboard-preview-d98d665658f0.s3-eu-central-2.ionoscloud.com/pr/${{github.event.number}}/index.html"
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
+
       - name: Download static HTML artifact
         uses: actions/download-artifact@v4
         with:
           name: static-html
           path: dist
-      - name: Upload website to S3
-        uses: ./.github/actions/minio-upload
+
+      - name: Deploy preview to Github Pages
+        uses: rossjrw/pr-preview-action@v1
         with:
-          url: "https://s3-eu-central-2.ionoscloud.com"
-          accessKey:  ${{ secrets.S3_ACCESS_KEY }}
-          secretKey:  ${{ secrets.S3_SECRET_KEY }}
-          bucket: sgc-dashboard-preview-d98d665658f0
-          source_dir: dist/
-          target_dir: /pr/${{ github.event.number }}
+          source-dir: dist/
