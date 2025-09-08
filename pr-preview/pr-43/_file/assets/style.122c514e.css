@@ -1,0 +1,116 @@
+@import url("observablehq:default.css");
+@import url("observablehq:theme-air.css");
+
+/* Konstanz CD */
+
+:root {
+  --theme-foreground-focus: rgb(228,5,33);
+  --sans-serif: Inter, -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --serif: var(--sans-serif);
+}
+
+/* Theme Override */
+h1 + h2 {
+  font-style: normal; /* instead of italic */
+}
+
+/* Card Info and Download Buttons */
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card .with-info {
+    /* enable absolute positioning of .info over .body */
+    position: relative;
+
+    /* grow .body to size of grid neighbors */
+    flex-grow: 1;
+
+    /* bottom-align plot in card */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.card .with-info .info {
+    /* position over .body inheriting its size */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.card .with-info .info {
+    visibility: hidden;
+}
+
+.card.flip .with-info .info {
+    visibility: visible;
+}
+
+.card.flip .with-info .body {
+    visibility: hidden;
+}
+
+.card .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card .header .tools {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.card .header .tools button ,
+.card .header .tools a {
+    padding: 0px 3px;
+    cursor: pointer;
+}
+
+.card .header .tools button {
+    background: none;
+    border: none;
+}
+
+.card .info-button:before ,
+.card .close-button:before ,
+.card .download-button:before {
+    content: '';
+    height: 1.5rem;
+    width: 1.5rem;
+    display: inline-block;
+    background-color: var(--theme-foreground-muted);
+}
+
+.card .info-button:hover:before ,
+.card .close-button:hover:before ,
+.card .download-button:hover:before {
+    background-color: var(--theme-foreground);
+}
+
+.card .info-button:before {
+    /* ionicons 7.1.0 information-circle-outline */
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M220 220h32v116"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M208 340h88"/><path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/></svg>') no-repeat 50% 50%;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M220 220h32v116"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M208 340h88"/><path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/></svg>') no-repeat 50% 50%;
+}
+
+.card.flip .info-button:before {
+    /* ionicons 7.1.0 close-circle-outline */
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 320L192 192M192 320l128-128"/></svg>') no-repeat 50% 50%;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 320L192 192M192 320l128-128"/></svg>') no-repeat 50% 50%;
+}
+
+.card .download-button:before {
+    /* ionicons 7.1.0 cloud-download-outline */
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>') no-repeat 50% 50%;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>') no-repeat 50% 50%;
+}
