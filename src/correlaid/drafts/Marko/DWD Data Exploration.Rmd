@@ -1,0 +1,279 @@
+---
+title: "DWD Data Exploration"
+author: "Mirko"
+date: "2025-02-03"
+output:
+  html_document: default
+  pdf_document:
+    toc: true
+  word_document:
+    toc: true
+    fig_width: 11
+    fig_caption: true
+    fig_height: 8
+editor_options:
+  chunk_output_type: console
+  ---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA, warning = T)
+```
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+if (!require("pacman")) install.packages("pacman")
+p_load(haven)
+p_load(ggplot2)
+p_load(dplyr)
+p_load(tidyverse)
+p_load(tidyr)
+p_load(sjlabelled)
+p_load(sjPlot)
+p_load(hardhat)
+p_load(survey)
+p_load(writexl)
+p_load(readxl)
+p_load(Hmisc)
+p_load(cleaner)
+p_load(ggpubr)
+p_load(boot)
+p_load(knitr)
+p_load(sjstats)
+p_load(car)
+p_load(labelled)
+p_load(kableExtra)
+p_load(webshot2)
+p_load(lubridate)
+p_load(viridis)
+```
+
+```{r}
+stations <- read.csv("data_weather_stations_2024.csv")
+```
+
+```{r}
+data <- read.table("produkt_klindex_jahr_19721101_20231231_02712.txt", header = TRUE, sep = ";", stringsAsFactors = FALSE)
+data1 <- read.table("produkt_tu_stunde_19710101_20231231_02712.txt", header = TRUE, sep = ";", stringsAsFactors = FALSE)
+```
+
+```{r year}
+data$year <- as.numeric(substr(as.character(data$MESS_DATUM_BEGINN), 1, 4))
+data %>% filter(year < 2020)
+
+data1$year <- as.numeric(substr(as.character(data1$MESS_DATUM), 1, 4))
+data_hourly <- data1 %>% filter(year < 2020)
+
+data_long <- data %>%
+  pivot_longer(
+    cols = c("JA_TROPENNAECHTE", "JA_FROSTTAGE", "JA_SOMMERTAGE", "JA_HEISSE_TAGE", "JA_EISTAGE"),
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+
+```{r visuals}
+plot_list_loess <- list()
+plot_list_lm <- list()
+
+variables <- unique(data_long$variable)
+
+for (var in variables) {
+  data_subset <- data_long %>% filter(variable == var)
+  
+  # LOESS Smoothing Plot
+  p_loess <- ggplot(data_subset, aes(x = year, y = value)) +
+    geom_line(color = "blue") +
+    geom_smooth(method = "loess", color = "red", se = FALSE) +
+    theme_minimal() +
+    labs(
+      title = paste("Trend in", var, "(LOESS)"),
+      x = "Year",
+      y = "Count of Days"
+    )
+  
+  # Linear Regression Plot
+  p_lm <- ggplot(data_subset, aes(x = year, y = value)) +
+    geom_line(color = "blue") +
+    geom_smooth(method = "lm", color = "green", se = FALSE) +
+    theme_minimal() +
+    labs(
+      title = paste("Trend in", var, "(Linear Regression)"),
+      x = "Year",
+      y = "Count of Days"
+    )
+  
+  plot_list_loess[[var]] <- p_loess
+  plot_list_lm[[var]] <- p_lm
+}
+
+for (var in names(plot_list_loess)) {
+  print(plot_list_loess[[var]])
+}
+
+for (var in names(plot_list_lm)) {
+  print(plot_list_lm[[var]])
+}
+
+```
+
+```{r desc}
+output_dir <- "Correlaid Work\\Plots"
+
+if (!dir.exists(output_dir)) {
+  dir.create(output_dir, recursive = TRUE)
+}
+
+# Create "decade" column
+data_long <- data_long %>%
+  mutate(decade = paste0(floor(year / 10) * 10, "s"))  # Convert year to decade format
+
+summary_stats <- data_long %>%
+  group_by(decade, variable) %>%
+  summarise(
+    Mean = round(mean(value, na.rm = TRUE), 2),
+    Median = round(median(value, na.rm = TRUE), 2),
+    Max = round(max(value, na.rm = TRUE), 2),
+    Min = round(min(value, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+summary_long <- summary_stats %>%
+  pivot_longer(cols = c(Mean, Median, Max, Min), names_to = "Statistic", values_to = "Value") %>%
+  mutate(Statistic = factor(Statistic, levels = c("Mean", "Median", "Max", "Min"))) %>% 
+  pivot_wider(names_from = decade, values_from = Value) %>%
+  arrange(Statistic, variable)
+
+summary_long_no_stat <- summary_long %>% select(-Statistic)
+
+table_html <- summary_long_no_stat %>%
+  kable(format = "html", caption = "Descriptive Statistics by Decade") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = c("striped", "hover", "condensed")) %>%
+  pack_rows(index = table(summary_long$Statistic))  # Stacks each statistic separately
+
+# Save table as an HTML file (needed for webshot)
+table_path <- file.path(output_dir, "descriptive_statistics.html")
+png_path <- file.path(output_dir, "descriptive_statistics.png")
+
+save_kable(table_html, file = table_path)
+
+webshot(table_path, png_path, zoom = 2)
+
+print(paste("Statistics table saved as:", png_path))
+```
+
+```{r des-by-var}
+if (!dir.exists(output_dir)) {
+  dir.create(output_dir, recursive = TRUE)
+}
+
+data_long <- data_long %>%
+  mutate(decade = paste0(floor(year / 10) * 10, "s")) 
+
+summary_stats <- data_long %>%
+  group_by(variable, decade) %>%
+  summarise(
+    Mean = round(mean(value, na.rm = TRUE), 2),
+    Median = round(median(value, na.rm = TRUE), 2),
+    Max = round(max(value, na.rm = TRUE), 2),
+    Min = round(min(value, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+summary_long <- summary_stats %>%
+  pivot_longer(cols = c(Mean, Median, Max, Min), names_to = "Statistic", values_to = "Value") %>%
+  mutate(Statistic = factor(Statistic, levels = c("Mean", "Median", "Max", "Min"))) %>%  
+  pivot_wider(names_from = decade, values_from = Value) %>%
+  arrange(variable, Statistic)  
+
+table_html <- summary_long %>%
+  kable(format = "html", caption = "Descriptive Statistics by Decade and Variable") %>%
+  kable_styling(full_width = TRUE, bootstrap_options = c("striped", "hover", "condensed")) %>%
+  pack_rows(index = table(summary_long$variable))  
+
+table_path <- file.path(output_dir, "descriptive_statistics_by_variable.html")
+png_path <- file.path(output_dir, "descriptive_statistics_by_variable.png")
+
+save_kable(table_html, file = table_path)
+
+webshot(table_path, png_path, zoom = 2)
+
+print(paste("Descriptive statistics table saved as:", png_path))
+```
+
+```{r}
+plot_path <- "Correlaid Work\\Plots"
+
+# Datumswerte korrekt formatieren
+data_hourly <- data_hourly %>%
+  mutate(
+    MESS_DATUM = as.character(MESS_DATUM),
+    datetime = ymd_h(MESS_DATUM),
+    jahr = year(datetime),
+    monat = factor(month(datetime), levels = 1:12, 
+                   labels = c("Jan", "Feb", "Mär", "Apr", "Mai", "Jun", 
+                              "Jul", "Aug", "Sep", "Okt", "Nov", "Dez")),
+    tag = day(datetime),
+    stunde = hour(datetime),
+    dekade = paste0(floor(jahr / 10) * 10, "er")
+  )
+
+data_hourly$TT_TU[data_hourly$TT_TU == -999.0] <- NA
+
+# 🔹 1. Durchschnittliche tägliche Temperatur
+daily_avg_temp <- data_hourly %>%
+  group_by(datum = as.Date(datetime)) %>%
+  summarise(Mittelwert_Temp = mean(TT_TU, na.rm = TRUE), .groups = "drop")
+
+p1 <- ggplot(daily_avg_temp, aes(x = datum, y = Mittelwert_Temp)) +
+  geom_line(color = "blue") +
+  geom_smooth(method = "loess", color = "red") +
+  labs(title = "Durchschnittliche tägliche Temperatur", x = "Datum", y = "Temperatur (°C)") +
+  theme_minimal()
+
+ggsave(filename = file.path(plot_path, "Durchschnittliche_Tägliche_Temperatur.png"), plot = p1, width = 10, height = 6, dpi = 300)
+
+# 🔹 2. Tageszeitliche Temperaturänderung nach Dekade
+hourly_avg_temp <- data_hourly %>%
+  group_by(dekade, stunde) %>%
+  summarise(Mittelwert_Temp = mean(TT_TU, na.rm = TRUE), .groups = "drop")
+
+p2 <- ggplot(hourly_avg_temp, aes(x = stunde, y = Mittelwert_Temp, color = dekade)) +
+  geom_line(size = 1) +
+  labs(title = "Tageszeitliche Temperaturänderung nach Dekade",
+       x = "Stunde des Tages", y = "Temperatur (°C)", color = "Dekade") +
+  theme_minimal()
+
+ggsave(filename = file.path(plot_path, "Tageszeitliche_Temperaturänderung_Dekade.png"), plot = p2, width = 10, height = 6, dpi = 300)
+
+# 🔹 3. Saisonal bedingte Temperaturveränderungen nach Dekade (Liniengraph)
+seasonal_avg_temp <- data_hourly %>%
+  group_by(dekade, monat) %>%
+  summarise(Mittelwert_Temp = mean(TT_TU, na.rm = TRUE), .groups = "drop")
+
+p3 <- ggplot(seasonal_avg_temp, aes(x = monat, y = Mittelwert_Temp, color = dekade, group = dekade)) +
+  geom_line(size = 1) +
+  labs(title = "Saisonale Temperaturveränderung nach Dekade",
+       x = "Monat", y = "Temperatur (°C)", color = "Dekade") +
+  theme_minimal()
+
+ggsave(filename = file.path(plot_path, "Saisonale_Temperaturveränderung_Dekade.png"), plot = p3, width = 10, height = 6, dpi = 300)
+
+# 🔹 4. Wärmekarte: Stündliche Temperatur pro Monat (1970er vs. 2010er)
+heatmap_data <- data_hourly %>%
+  filter(dekade %in% c("1970er", "2010er")) %>%
+  group_by(dekade, monat, stunde) %>%
+  summarise(Mittelwert_Temp = mean(TT_TU, na.rm = TRUE), .groups = "drop")
+
+p4 <- ggplot(heatmap_data, aes(x = stunde, y = monat, fill = Mittelwert_Temp)) +
+  geom_tile() +
+  scale_fill_viridis(option = "C") +
+  facet_wrap(~dekade) +
+  labs(title = "Wärmekarte der stündlichen Temperatur pro Monat (1970er vs. 2010er)",
+       x = "Stunde des Tages", y = "Monat", fill = "Temperatur (°C)") +
+  theme_minimal()
+
+ggsave(filename = file.path(plot_path, "Wärmekarte_Temperatur_1970er_2010er.png"), plot = p4, width = 10, height = 6, dpi = 300)
+
+```
+
+

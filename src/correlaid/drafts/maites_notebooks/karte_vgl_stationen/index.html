@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>Temperaturvergleich 31.07.2024</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.13.3.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+  <div id="info-box">
+    <h2 id="chart-title">Temperaturverlauf am 31. Juli 2024</h2>
+    <p>Hier siehst du den Temperaturdurchschnitt aller Stationen über den Tag. Mithilfe des Sliders kannst du die Uhrzeit ändern und sehen, wie stark einzelne Stationen vom Durchschnitt abweichen.</p>
+    <p>Mit einem Klick auf die Stationen kannst du dir den Temperaturverlauf für die Stationen einzeln ausgeben lassen. </p>
+    <div id="plotly-chart"></div>
+    <div id="slider-container">
+      <input type="range" id="time-slider" min="0" max="23" value="0" step="1">
+      <label><span id="slider-value">0</span>:00 h </label>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
