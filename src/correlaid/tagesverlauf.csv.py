@@ -1,9 +1,12 @@
 import pandas
 import sys
+from pathlib import Path
 
 # ---
 
-correlaid_csv = "drafts/maites_notebooks/karte_vgl_stationen/finalerdf_ws"
+correlaid_csv = (
+    Path(__file__).parent / "drafts/maites_notebooks/karte_vgl_stationen/finalerdf_ws"
+)
 
 day = "2024-08-11"
 
