@@ -11,7 +11,7 @@ import { html } from "htl";
 
 // line-charts of sensors
 
-export function createSensorLineChart(data, selectedStation, stunde) {
+export function createSensorLineChart(data, selectedStation, stunde, width) {
     const gefiltert = data.filter(d => d.Station === selectedStation);
 
     // Gruppiere nach Stunde, berechne Min und Max
@@ -32,15 +32,15 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 : null
     ).filter(d => d !== null);
 
-    const chart = Plot.plot({
+    return Plot.plot({
         grid: true,
         inset: 10,
         style: { fontSize: 12, fontFamily: "sans-serif" }, // Stil für das Diagramm
-        height: 362,
-        //width: "100%", // Dynamische Breite
+        height: 270,
+        width,
         color: {
             legend: true,
-            domain: [selectedStation, "Min / Max Temperatur"],
+            domain: [selectedStation, "Mininum und Maximum aller Stationen im Vergleich"],
             range: ["#FFA200", "#999"]
         },
         x: {
@@ -68,7 +68,7 @@ export function createSensorLineChart(data, selectedStation, stunde) {
             Plot.line(minMaxByHour, {
                 x: "stunde",
                 y: "min",
-                stroke: d => "Min / Max Temperatur",
+                stroke: d => "Mininum und Maximum aller Stationen im Vergleich",
                 strokeOpacity: 0.8
             }),
             // Linie Maximum
@@ -92,29 +92,6 @@ export function createSensorLineChart(data, selectedStation, stunde) {
                 strokeDasharray: "4.2"
             }),
         ]
-
-    });
-    return chart;
-}
-
-
-//-------------------------------------- Reaktiver Liniendiagrammteil --------------------------------------------------------------
-
-// dadurch reagiert das Liniendiagramm, wenn eine andere Station ausgewählt wird
-export function createReactiveSensorChart(data, stationInput, stundeInput) {
-    return Generators.observe(notify => {
-        function render() {
-            notify(
-                createSensorLineChart(
-                    data,
-                    stationInput.value,
-                    stundeInput.value
-                )
-            );
-        }
-        render();
-        stationInput.addEventListener("input", render);
-        stundeInput.addEventListener("input", render);
     });
 }
 
@@ -122,7 +99,7 @@ export function createReactiveSensorChart(data, stationInput, stundeInput) {
 //-------------------------------------- Ab hier Karte --------------------------------------------------------------
 
 // create map - Die Karte wurde in index.md bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
-export function createSensorMap(container, stationen, station_input) {
+export function createSensorMap(container, stationen) {
     const map = L.map(container, {
         scrollWheelZoom: false,
         dragging: false,
@@ -132,20 +109,11 @@ export function createSensorMap(container, stationen, station_input) {
         zoomControl: false,
     });
 
-    //Patricks Version:
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
         subdomains: 'abcd',
         maxZoom: 19
     }).addTo(map);
-
-    // bunt:
-    // L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    //     //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    //     attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
-    //     subdomains: 'abcd',
-    //     maxZoom: 19
-    // }).addTo(map);
 
     const bounds = L.geoJSON(stationen).getBounds();
     const resizeObserver = new ResizeObserver(() => {
@@ -157,7 +125,7 @@ export function createSensorMap(container, stationen, station_input) {
 }
 
 
-export function createMapLegend(container) {
+export function createMapLegend(width) {
     const colorScale = d3.scaleLinear()
         .domain([-4, 0, 4])
         .range(["blue", "white", "red"]);
@@ -168,8 +136,7 @@ export function createMapLegend(container) {
         subtitle: "Abweichung von der Durschnittstemperatur aller Wetterstationen",
         style: { fontSize: 12, fontFamily: "sans-serif" },
         r: { type: "identity" }, // radius is in pixels, not scaled
-        width: 300,              // fixed width to avoid auto-resizing effects
-        height: 60,              // fixed height
+        width,
         x: {
             tickFormat: d => `${d} °C`, // add degree symbol + C
             tickSize: 0,                // removes tick lines
@@ -252,14 +219,14 @@ export function getMarkerStyleWithDeviation(deviation) {
  *
  * @param {Object} feature - GeoJSON Feature der Station.
  * @param {L.LatLng} latlng - Position des Markers.
- * @param {string} selectedStation - Aktuell ausgewählte Station.
- * @param {Object} station_input - Das Input-Element für die Station (Radio oder Mutable).
+ * @param {string} station - Der aktuell ausgewählte Stationsname.
+ * @param {function} set_station - Funktion, um die ausgewählte Station zu setzen (Typ: string -> unit).
  * @param {L.Map} map - Die Leaflet-Karte.
  * @param {Object} stationen - GeoJSON aller Stationen (wird beim Klick erneut übergeben).
  * @returns {L.CircleMarker} - Der fertige Marker.
  */
-function createStationMarker(feature, latlng, selectedStation, station_input, map, stationen, deviation) {
-    const isSelected = feature.properties.name === selectedStation;
+function createStationMarker(feature, latlng, station, set_station, map, deviation) {
+    const isSelected = feature.properties.name === station;
 
     // Hole beide Styles
     const deviationStyle = getMarkerStyleWithDeviation(deviation);
@@ -297,16 +264,7 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
     });
 
     // Klick-Event
-    marker.on("click", () => {
-        // Update Radiobutton / Mutable
-        station_input.value = feature.properties.name;
-
-        // Reaktives Event auslösen (damit z.B. Diagramm neu gerendert wird)
-        station_input.dispatchEvent(new Event("input"));
-
-        // Karte aktualisieren, damit Marker neu eingefärbt werden
-        updateSensorMap(map, stationen, feature.properties.name, station_input, tagesverlauf, currentHour);
-    });
+    marker.on("click", () => set_station(feature.properties.name));
 
     return marker;
 }
@@ -346,12 +304,13 @@ function getDeviationForStation(stationName, hour, tagesverlauf) {
  *
  * @param {L.Map} map - Die Leaflet-Karte.
  * @param {Object} stationen - GeoJSON aller Stationen.
- * @param {string} selectedStation - Der aktuell ausgewählte Stationsname.
+ * @param {string} station - Der aktuell ausgewählte Stationsname.
+ * @param {function} set_station - Funktion, um die ausgewählte Station zu setzen (Typ: string -> unit).
  * @param {Object} station_input - Das Input-Element für die Station (Radio oder Mutable).
  * @param {Array} tagesverlauf - Alle Temperaturdaten
  * @param {number} currentHour - Aktuell ausgewählte Stunde (0–23)
  */
-export function updateSensorMap(map, stationen, selectedStation, station_input, tagesverlauf, currentHour) {
+export function updateSensorMap(map, stationen, station, set_station, tagesverlauf, currentHour) {
     // Entferne alle bestehenden Marker (Layer), behalte nur den TileLayer
     clearMapMarkers(map);
 
@@ -372,10 +331,9 @@ export function updateSensorMap(map, stationen, selectedStation, station_input, 
             return createStationMarker(
                 feature,
                 latlng,
-                selectedStation,
-                station_input,
+                station,
+                set_station,
                 map,
-                stationen,
                 deviation
             );
         }

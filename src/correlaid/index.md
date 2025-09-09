@@ -100,17 +100,12 @@ const tagesverlauf = FileAttachment('./tagesverlauf.csv').csv({typed: true})
 // UI-Elemente vorbereiten
 const stationsnamen = stationen.features.map(f => f.properties.name);
 
-// Radiobuttons für Stationen
-const station_input = Inputs.radio(stationsnamen, {value: stationsnamen[7]});
-station_input.style.display = "none"; // Radio-Buttons ausblenden
-// durch Mutable wird station_input.value automatisch reaktiv
-//const station_input = Mutable(stationsnamen[7]);
-
-const station = view(station_input);
+const station = Mutable(stationsnamen[0]);
+const set_station = x => station.value = x;
 
 // Uhrzeit-Slider
-const stunde = Inputs.range([0, 23], {step: 1});
-const stunde_view = view(stunde)
+const stunde_input = Inputs.range([0, 23], {step: 1});
+const stunde = Generators.input(stunde_input);
 ```
 
 ```js
@@ -127,16 +122,6 @@ map_div.style.maxWidth = "640px";
 map_div
 ```
 
-```js
-const map_legend = createMapLegend();
-```
-
-```js
-// ausgelagert in charts/chart2_sensor_map.js
-// Liniendiagramm erzeugen - wird im Markdown verwendet
-const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde);
-```
-
 
 <!-- Layout Dia 2 (2 Charts)-->
 <div class="grid grid-cols-2 gap-4">
@@ -146,14 +131,13 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   <div class="header">
     <div class="title">
       <h2>Messstationen</h2>
-      <h3>Temperatur an Konstanzer Wetterstationen im Vergleich zum Durchschnitt um ${stunde_view}:00 Uhr</h3>
+      <h3>Temperatur an Konstanzer Wetterstationen im Vergleich zum Durchschnitt um ${stunde}:00 Uhr</h3>
     </div>
   </div>
 
   <div class="body">
-    ${map_div}
-    <br>
-    ${map_legend}  
+    <p>${map_div}</p>
+    <p>${resize(width => createMapLegend(width))}</p>
   </div>
 </div> 
 <!-- Ende Card - Map -->
@@ -169,10 +153,11 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
   </div>
 
   <div class="body">
-    ${view(sensor_plt)}
-    <br/>
-    ${view(stunde)}
-    Uhrzeit: ${stunde_view}:00 
+    <p>${resize(width => createSensorLineChart(tagesverlauf, station, stunde, width))}</p>
+    <center>
+    <p>${stunde_input}</p>
+    <p>Uhrzeit: ${stunde}:00</p>
+    </center>
   </div>
 
 </div> <!-- card -->
@@ -184,27 +169,13 @@ const sensor_plt = createReactiveSensorChart(tagesverlauf, station_input, stunde
 ```js
 // Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
 // ausgelagert in charts/chart2_sensor_map.js
-const map = createSensorMap(map_div, stationen, station_input);
+const map = createSensorMap(map_div, stationen, set_station);
 ```
 
 ```js display=false
-// This block is re-evaluated whenever the input 'station' changes.
+// This block is re-evaluated whenever the input 'station' or 'stunde' changes.
 // ausgelagert in charts/chart2_sensor_map.js
-updateSensorMap(map, stationen, station, station_input, tagesverlauf, stunde.value);
-```
-
-```js
-// Immer wenn der Stunden-Slider bewegt wird, neu zeichnen
-stunde.addEventListener("input", () => {
-  updateSensorMap(
-    map,
-    stationen,
-    station_input.value,
-    station_input,
-    tagesverlauf,
-    stunde.value
-  );
-});
+updateSensorMap(map, stationen, station, set_station, tagesverlauf, stunde);
 ```
 
 Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5&#8239;°C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.  
