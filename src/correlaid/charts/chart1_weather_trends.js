@@ -140,7 +140,7 @@ export function drawWeatherTrendD3(yearly, arrival, width = 600) {
                 // Tooltip anzeigen
                 tooltip
                     .style("visibility", "visible")
-                    .html(`<strong>Jahr:</strong> ${nearest.Jahr}<br/><strong>⌀ Temp:</strong> ${nearest.Temperatur_Celsius_Mittel_Tagesdurchschnitt.toFixed(1)} °C`)
+                    .html(`<strong>Jahr:</strong> ${nearest.Jahr}<br/><strong>⌀&nbsp;Temp:</strong> ${Plot.formatNumber('de-DE')(nearest.Temperatur_Celsius_Mittel_Tagesdurchschnitt.toFixed(1))}&#8239;°C`)
                     .style("top", `${y(nearest.Temperatur_Celsius_Mittel_Tagesdurchschnitt) - 30}px`)
                     .style("left", `${x(nearest.Jahr) + 10}px`);
 
@@ -222,13 +222,13 @@ export function drawWeatherTrendD3(yearly, arrival, width = 600) {
             .attr("y2", y(endY));
 
         // Anmerkung
-        // const delta = (endY - startY).toFixed(1);
+        // const delta = Plot.formatNumber('de-DE')((endY - startY).toFixed(1));
         // svg.append("text")
         //     .attr("x", x(endX) - 170)
         //     .attr("y", y(endY) - 55)
         //     .attr("fill", "red")
         //     .attr("font-size", "20px")
-        //     .text(`Anstieg um: ${delta} °C`);
+        //     .text(`Anstieg um: ${delta}&#8239;°C`);
     }
     return div;
 

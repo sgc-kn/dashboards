@@ -207,16 +207,16 @@ stunde.addEventListener("input", () => {
 });
 ```
 
-Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5°C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.  
+Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5&#8239;°C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.  
 
- Hitzespitzen wie die in der Riedstraße – hier wurden 31,3°C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.
+ Hitzespitzen wie die in der Riedstraße – hier wurden 31,3&#8239;°C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.
 
 Mit gezielten Maßnahmen zur Klimawandelanpassung kann der übermäßigen Erhitzung einzelner Gebiete vorgebeugt werden. Dafür ist es wichtig zu verstehen, welche Faktoren sogenannte Hitzeinseln in der Stadt verstärken oder abschwächen. Schauen wir uns dafür die Stationen genauer an!
 
 
 ## Teil 3: Warum ist es an Orten unterschiedlich heiß – obwohl sie nur wenige Straßen voneinander entfernt sind?
 
-Die nächste Grafik zeigt dir neben den Temperaturdaten nun auch die Umgebung der Messstationen im Radius von 50&nbsp;m. Um herauszufinden, was hinter den Temperaturdifferenzen steckt, kannst du sie jetzt selbst vergleichen: Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegend Bäume und Wiesen? Und was bedeutet das für die Erwärmung der Luft rund um die Station?
+Die nächste Grafik zeigt dir neben den Temperaturdaten nun auch die Umgebung der Messstationen im Radius von 50&#8239;m. Um herauszufinden, was hinter den Temperaturdifferenzen steckt, kannst du sie jetzt selbst vergleichen: Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegend Bäume und Wiesen? Und was bedeutet das für die Erwärmung der Luft rund um die Station?
 
 ```js
 // Flächendaten (Koordinaten + %-Anteile)
@@ -294,7 +294,7 @@ createStationComparison({
 Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
 In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.
 
-Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die Wetterstation ist mit Grünflächen und hellem Kies bedeckt. Dichter Kies ist deutlich durchlässiger als Beton oder Asphalt und speichert insgesamt weniger Wärme. Einige ältere Bäume mit großen Kronen spenden Schatten und verhindern, dass die Sonne direkt auf den Boden scheint. Durch die Lage direkt am Wasser wird die Luft während heißer Nachmittage zusätzlich gekühlt. Zusammen sorgen diese Faktoren dafür, dass es hier merklich kühler ist als an anderen Wetterstationen. Im Sommer 2024 kletterte das Thermometer hier zu keinem Zeitpunkt über 30 °C.
+Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die Wetterstation ist mit Grünflächen und hellem Kies bedeckt. Dichter Kies ist deutlich durchlässiger als Beton oder Asphalt und speichert insgesamt weniger Wärme. Einige ältere Bäume mit großen Kronen spenden Schatten und verhindern, dass die Sonne direkt auf den Boden scheint. Durch die Lage direkt am Wasser wird die Luft während heißer Nachmittage zusätzlich gekühlt. Zusammen sorgen diese Faktoren dafür, dass es hier merklich kühler ist als an anderen Wetterstationen. Im Sommer 2024 kletterte das Thermometer hier zu keinem Zeitpunkt über 30&#8239;°C.
 
 Im Video sehen wir Tim Tewes, Experte für klimaresiliente Stadtplanung. Er fasst zusammen, welche Faktoren die städtische Hitzeentwicklung im Vergleich zum Umland bestimmen und wie es zu Temperaturunterschieden innerhalb von Städten wie Konstanz kommt:
 

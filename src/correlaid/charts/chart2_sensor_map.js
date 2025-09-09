@@ -2,6 +2,7 @@ import * as Plot from "npm:@observablehq/plot";
 import L from "npm:leaflet";
 import { Generators } from "npm:@observablehq/stdlib";
 import * as d3 from "npm:d3";
+import { html } from "htl";
 
 
 // Goals 
@@ -170,7 +171,7 @@ export function createMapLegend(container) {
         width: 300,              // fixed width to avoid auto-resizing effects
         height: 60,              // fixed height
         x: {
-            tickFormat: d => `${d}°C`, // add degree symbol + C
+            tickFormat: d => `${d} °C`, // add degree symbol + C
             tickSize: 0,                // removes tick lines
         },
         marks: [
@@ -283,7 +284,7 @@ function createStationMarker(feature, latlng, selectedStation, station_input, ma
 
     const tip = L.tooltip({ direction: 'auto', opacity: 0.9 })
         .setLatLng(latlng)
-        .setContent("<b>" + feature.properties.name + "</b><br> Abweichung vom Durchschnitt: " + deviation.toFixed(1) + " ℃");
+        .setContent("<b>" + feature.properties.name + "</b><br> Abweichung vom Durchschnitt: " + Plot.formatNumber('de-DE')(deviation.toFixed(1)) + " ℃");
 
     // show both when hovering the marker
     marker.on('mouseover', () => {

@@ -1,6 +1,5 @@
 // charts/chart3_station_comparison.js
 import * as Plot from "npm:@observablehq/plot";
-import { html } from "htl";
 
 // =====================
 // Konfiguration
@@ -204,7 +203,7 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
     const daysVal = hot[hotKey] != null ? +hot[hotKey] : null;
 
     side.maxTempEl.textContent =
-        maxVal != null && !Number.isNaN(+maxVal) ? `${(+maxVal).toFixed(1)} °C` : "–";
+        maxVal != null && !Number.isNaN(+maxVal) ? `${Plot.formatNumber('de-DE')((+maxVal).toFixed(1))} °C` : "–";
     side.hotDaysEl.textContent =
         daysVal != null && !Number.isNaN(+daysVal) ? `${Math.round(+daysVal)}` : "–";
 }
@@ -228,7 +227,7 @@ function renderSurfaceBars(containerEl, meta) {
     containerEl.appendChild(surfHdr);
 
     const surfDesc = document.createElement("div");
-    surfDesc.textContent = "im Umkreis von 50m um die Station";
+    surfDesc.textContent = "im Umkreis von 50 m um die Station";
     surfDesc.classList.add("card-description");
 
     containerEl.appendChild(surfDesc);
@@ -315,7 +314,7 @@ function Heat(values, {
                 inset: 0,
                 title: d => {
                     const sign = d.value > 0 ? "+" : "";
-                    return `${String(d.hour).padStart(2, "0")}Uhr: ${sign}${d.value.toFixed(2)}°C`;
+                    return `${String(d.hour).padStart(2, "0")}Uhr: ${sign}${Plot.formatNumber("de-DE")(d.value.toFixed(2))} °C`;
                 }
             })
         ]
