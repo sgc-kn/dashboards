@@ -42,7 +42,7 @@ Umwelt Baden-Württemberg (LUBW).
 [➜ Hier geht's zum Dashboard !](lubw/index.html)
 
 ```js
-import * as layout from "./lubw/layout.js";
+import * as layout from "./assets/layout.js";
 
 const recent_data = FileAttachment("lubw/lubw/Auszug_Stundenwerte.csv").csv({typed: true})
 ```
