@@ -16,3 +16,8 @@ dev = [
     "ruff>=0.9.1",
     "seaborn>=0.13.2",
 ]
+
+[tool.ruff]
+exclude = [
+    "src/correlaid/drafts"
+]
