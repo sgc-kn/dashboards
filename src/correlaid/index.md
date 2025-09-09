@@ -91,16 +91,22 @@ Klickst du auf einen Standort in der Karte, so wird die individuelle Temperaturk
 
 ```js
 // Daten der Stationen und Tagesverlauf laden
-const stationen = FileAttachment("stationen.geo.json").json()
+const station_meta = FileAttachment("stationen.geo.json").json()
 const tagesverlauf = FileAttachment('./tagesverlauf.csv').csv({typed: true})
+```
+
+```js
+// Ermittle, für welche Stationen Daten vorliegen und filtere stationen_meta
+const station_set_a = new Set(tagesverlauf.map(x => x.Station))
+const station_set_b = new Set(station_meta.features.map(x => x.properties.name))
+const station_set = station_set_a.intersection(station_set_b)
+station_meta.features = station_meta.features.filter(x => station_set.has(x.properties.name))
+const stations = [...station_set]
 ```
 
 <!-- UI-Inputs chart2 -->
 ```js
-// UI-Elemente vorbereiten
-const stationsnamen = stationen.features.map(f => f.properties.name);
-
-const station = Mutable(stationsnamen[0]);
+const station = Mutable(stations[0]);
 const set_station = x => station.value = x;
 
 // Uhrzeit-Slider
@@ -169,13 +175,13 @@ map_div
 ```js
 // Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
 // ausgelagert in charts/chart2_sensor_map.js
-const map = createSensorMap(map_div, stationen, set_station);
+const map = createSensorMap(map_div, station_meta);
 ```
 
 ```js display=false
 // This block is re-evaluated whenever the input 'station' or 'stunde' changes.
 // ausgelagert in charts/chart2_sensor_map.js
-updateSensorMap(map, stationen, station, set_station, tagesverlauf, stunde);
+updateSensorMap(map, station_meta, station, set_station, tagesverlauf, stunde);
 ```
 
 Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5&#8239;°C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.  
@@ -215,14 +221,9 @@ const heatmapData_dia3 = {
 ```
 
 ```js
-//Dropdown-Werte extrahieren
-const stations_dia3 = stationMeta_dia3.map(d => d.name)
-```
-
-```js
 // UI: Überschrift + zwei Dropdowns nebeneinander
-const leftSelect  = Inputs.select(stations_dia3,  { label: "Station A", value: "Stadtgarten" });
-const rightSelect = Inputs.select(stations_dia3,  { label: "Station B", value: "Friedrichstrasse" });
+const leftSelect  = Inputs.select(stations,  { label: "Station A", value: "Stadtgarten" });
+const rightSelect = Inputs.select(stations,  { label: "Station B", value: "Friedrichstrasse" });
 ```
 
 <strong>Welche zwei Stationen willst du vergleichen?</strong>
