@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.3">
+<title>Stadtdaten | Stadt Konstanz</title>
+
+<link rel="preload" as="style" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="preload" as="style" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="stylesheet" type="text/css" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="modulepreload" href="../_observablehq/client.9b30a29c.js">
+<link rel="modulepreload" href="../_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="../_observablehq/stdlib.7b2b7180.js">
+<link rel="modulepreload" href="../_import/cds/lib.8b140d0c.js">
+<link rel="modulepreload" href="../_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="../_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="../_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="../_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="../_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="../_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="../_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="../_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="../_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="../_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="../_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="../_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="../_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="../_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="../_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="../_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="../_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="../_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="../_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="../_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="../_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="../_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="../_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="../_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="../_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="../_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="../_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="../_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="../_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="../_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="../_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="../_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="../_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="../_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="../_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="../_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="../_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="../_npm/robust-predicates@3.0.2/aa00730b.js">
+
+    <link rel="icon" type="image/svg+xml" href="../_file/assets/favicon.6372ae97.svg">
+    <link rel="icon" type="image/png" href="../_file/assets/favicon.aef23c64.png">
+    <script src="../_import/assets/logic.58d92551.js" defer=""></script>
+  
+<script type="module">
+
+import {define} from "../_observablehq/client.9b30a29c.js";
+import {registerFile} from "../_observablehq/stdlib.7b2b7180.js";
+
+registerFile("./cds/Zeitscheiben_30Jahre.csv", {"name":"./cds/Zeitscheiben_30Jahre.csv","mimeType":"text/csv","path":"../_file/cds/cds/Zeitscheiben_30Jahre.e9b53a33.csv","lastModified":1757433437491,"size":25916});
+
+define({id: "f3f2948c", inputs: ["FileAttachment"], outputs: ["plot","data"], body: async (FileAttachment) => {
+const {plot} = await import("../_import/cds/lib.8b140d0c.js");
+
+const data = FileAttachment("./cds/Zeitscheiben_30Jahre.csv").csv({typed: true});
+return {plot,data};
+}});
+
+define({id: "7f4729cd", mode: "inline", inputs: ["resize","plot","data","display"], body: async (resize,plot,data,display) => {
+display(await(
+resize((width) => plot(data, width, 'Heisse_Tage_Anzahl'))
+))
+}});
+
+define({id: "b5d3da16", mode: "inline", inputs: ["resize","plot","data","display"], body: async (resize,plot,data,display) => {
+display(await(
+resize((width) => plot(data, width, 'Hitzewellentage_Anzahl'))
+))
+}});
+
+define({id: "ea073c9c", mode: "inline", inputs: ["resize","plot","data","display"], body: async (resize,plot,data,display) => {
+display(await(
+resize((width) => plot(data, width, 'Tropennaechte_Anzahl'))
+))
+}});
+
+define({id: "d19be520", mode: "inline", inputs: ["resize","plot","data","display"], body: async (resize,plot,data,display) => {
+display(await(
+resize((width) => plot(data, width, 'Extremniederschlagstage_Anzahl'))
+))
+}});
+
+define({id: "7f8f6514", mode: "inline", inputs: ["resize","plot","data","display"], body: async (resize,plot,data,display) => {
+display(await(
+resize((width) => plot(data, width, 'Frosttage_Anzahl'))
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="../">Startseite</a></li>
+  </ol>
+  <section class="observablehq-section-active">
+    <summary>Dashboards</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../dwd/">Wetterbeobachtungen</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Klimaprojektionen</a></li>
+    <li class="observablehq-link"><a href="../lubw/">Luftqualität</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Stories</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../correlaid/">Stadtklima</a></li>
+    </ol>
+  </section>
+  <ol>
+    <li class="observablehq-link"><a href="../legal/">Rechtliche Hinweise</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+
+<div style="display: flex; justify-content: space-between; width: 100%">
+  <a href="../" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem" src="../_file/assets/skn-logo.123f9c0a.svg" alt="Logo der Stadtverwaltung Konstanz"><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
+  <div>
+    <a href="https://github.com/sgc-kn/dashboards" target="_blank" rel="noopener noreferrer">
+      <img style="height: 1.5rem" src="../_file/assets/github-logo.9cd1a180.svg" alt="Github Logo">
+    </a>
+  </div>
+</div>
+
+</header>
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:f3f2948c:--></div>
+<h1>Klimaprojektionen</h1>
+<h2>für Konstanz und die Umgebung</h2>
+<div class="grid grid-cols-2">
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Kurzbeschreibung</h2>
+<h3>Klimaprojektionen</h3>
+</div> <!-- title -->
+</div> <!-- header -->
+<p>Dieses Dashboard zeigt Klimaprojektionen für Konstanz und die nähere Umgebung.
+Es veranschaulicht, wie sich das Klima in Konstanz unter verschiedenen Annahmen entwickeln könnte.</p>
+<p>Klimaprojektionen sind keine exakten Vorhersagen, sondern <a href="https://de.wikipedia.org/wiki/Klimamodell" target="_blank" rel="noopener noreferrer">Modellrechnungen</a>, die auf Annahmen und Näherungen beruhen.
+Wir stellen hier ein Modell mit zwei möglichen <a href="https://de.wikipedia.org/wiki/Repr%C3%A4sentativer_Konzentrationspfad" target="_blank" rel="noopener noreferrer">Entwicklungspfaden</a> dar:</p>
+<ul>
+<li><strong>RCP 4.5</strong>: Ein Szenario mit Klimaschutzmaßnahmen, in dem die Emissionen künftig reduziert werden.</li>
+<li><strong>RCP 8.5</strong>: Ein Szenario ohne zusätzliche Klimaschutzmaßnahmen, in dem die Emissionen ungebremst weiter steigen.</li>
+</ul>
+</div> <!-- card -->
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Datenquelle</h2>
+<h3>Copernicus Climate Data Store</h3>
+</div> <!-- title -->
+<div class="tools"><a href="../_file/cds/cds.c8956f97.zip" class="download-button" title="Download" aria-label="Download" download=""></a></div>
+</div> <!-- header -->
+<p>Unsere Darstellungen basieren auf Modellrechnungen des <a href="https://www.copernicus.eu/de/dienste/klimawandel" target="_blank" rel="noopener noreferrer">Copernicus-Klimawandeldienstes</a>.
+Die Quelldaten können aus dem <a href="https://cds.climate.copernicus.eu/datasets/sis-ecde-climate-indicators" target="_blank" rel="noopener noreferrer">Climate Data Store</a> heruntergeladen werden.
+Eine Aufbereitung für Konstanz und andere Städte <a href="https://github.com/sgc-kn/cds-examples/" target="_blank" rel="noopener noreferrer">stellen wir auf GitHub zur Verfügung</a>.</p>
+<p>Einzelne Jahreswerte der Projektion vermitteln eine irreführende Genauigkeit.
+Da nur langfristige Trends aussagekräftig sind, betrachten wir 30-jährige Zeitscheiben.
+Die Linien in den Diagrammen zeigen den Mittelwert der projizierten Kenngrößen über einen Zeitraum von ±15 Jahren um das auf der x-Achse angegebene Jahr.</p>
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="grid grid-cols-2">
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Heiße Tage</h2>
+<h3>Anzahl pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:7f4729cd:-->
+</div> <!-- body -->
+<div class="info">
+<ul>
+<li>
+<p><strong>Definition</strong>: Heiße Tage sind Tage, an denen die maximale Temperatur über 30 °C liegt.</p>
+</li>
+<li>
+<p><strong>Achsen</strong>:</p>
+<ul>
+<li>Die x-Achse zeigt die Jahre von <strong>1965 bis 2086</strong>.</li>
+<li>Die y-Achse zeigt die <strong>Erwartungswerte</strong> der Anzahl heißer Tage pro Jahr. Die Werte basieren auf <strong>30-jährigen Zeitscheiben</strong> und stellen den Mittelwert der projizierten Kenngröße über einen Zeitraum von ±15 Jahren um das jeweilige Jahr dar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Szenarien &amp; Farben</strong>:</p>
+<ul>
+<li>Das Szenario <strong>RCP 4.5</strong> (mit Klimaschutzmaßnahmen) ist in <strong>blau</strong> dargestellt.</li>
+<li>Das Szenario <strong>RCP 8.5</strong> (ohne zusätzliche Klimaschutzmaßnahmen) ist in <strong>gelb</strong> dargestellt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trends &amp; Interpretation</strong>:</p>
+<ul>
+<li>Im historischen Verlauf lagen die Werte relativ konstant zwischen 2 und 4 heißen Tagen pro Jahr.</li>
+<li>Unter dem Szenario <strong>RCP 4.5</strong> steigt die Anzahl heißer Tage moderat an und erreicht gegen Ende des Jahrhunderts Werte von etwa 8 bis 10 Tagen pro Jahr.</li>
+<li>Unter dem Szenario <strong>RCP 8.5</strong> zeigt sich ab etwa 2050 ein deutlicher Anstieg, der bis 2085 auf über 24 heiße Tage pro Jahr ansteigt.</li>
+<li>Die Unterschiede zwischen den beiden Szenarien werden ab ca. <strong>2050</strong> signifikant.</li>
+</ul>
+</li>
+</ul>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Hitzewellentage</h2>
+<h3>Anzahl pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools">
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:b5d3da16:-->
+</div> <!-- body -->
+<div class="info">
+<ul>
+<li>
+<p><strong>Definition</strong>: Hitzewellentage sind Tage, die Teil einer Hitzewelle
+sind. Eine Hitzewelle umfasst mindestens drei aufeinanderfolgende
+Tage, an denen die tägliche Höchsttemperatur über dem 99. Perzentil
+der Temperaturen der Monate Mai bis September während der
+Referenzperiode 1981-2010 liegt.</p>
+</li>
+<li>
+<p><strong>Achsen</strong>:</p>
+<ul>
+<li>Die x-Achse zeigt die Jahre von <strong>1965 bis 2086</strong>.</li>
+<li>Die y-Achse zeigt die <strong>Erwartungswerte</strong> der Anzahl von Hitzewellentagen pro Jahr. Die Werte basieren auf <strong>30-jährigen Zeitscheiben</strong> und stellen den Mittelwert der projizierten Kenngröße über einen Zeitraum von ±15 Jahren um das jeweilige Jahr dar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Szenarien &amp; Farben</strong>:</p>
+<ul>
+<li>Das Szenario <strong>RCP 4.5</strong> (mit Klimaschutzmaßnahmen) ist in <strong>blau</strong> dargestellt.</li>
+<li>Das Szenario <strong>RCP 8.5</strong> (ohne zusätzliche Klimaschutzmaßnahmen) ist in <strong>gelb</strong> dargestellt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trends &amp; Interpretation</strong>:</p>
+<ul>
+<li>Im historischen Verlauf lagen die Werte nahe bei <strong>0 Hitzewellentagen pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 4.5</strong> steigt die Anzahl der Hitzewellentage nur leicht an und bleibt bis zum Ende des Jahrhunderts unter <strong>3 Tagen pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 8.5</strong> beginnt ab ca. <strong>2040</strong> ein Anstieg, der sich gegen Ende des Jahrhunderts deutlich verstärkt und auf über <strong>12 Tage pro Jahr</strong> ansteigt.</li>
+<li>Die Unterschiede zwischen den beiden Szenarien werden ab ca. <strong>2050</strong> signifikant.</li>
+</ul>
+</li>
+</ul>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Tropennächte</h2>
+<h3>Anzahl pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:ea073c9c:-->
+</div> <!-- body -->
+<div class="info">
+<ul>
+<li>
+<p><strong>Definition</strong>: Tropennächte sind Nächte, in denen die minimale Temperatur nicht unter 20 °C fällt.</p>
+</li>
+<li>
+<p><strong>Achsen</strong>:</p>
+<ul>
+<li>Die x-Achse zeigt die Jahre von <strong>1965 bis 2086</strong>.</li>
+<li>Die y-Achse zeigt die <strong>Erwartungswerte</strong> der Anzahl von Tropennächten pro Jahr. Die Werte basieren auf <strong>30-jährigen Zeitscheiben</strong> und stellen den Mittelwert der projizierten Kenngröße über einen Zeitraum von ±15 Jahren um das jeweilige Jahr dar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Szenarien &amp; Farben</strong>:</p>
+<ul>
+<li>Das Szenario <strong>RCP 4.5</strong> (mit Klimaschutzmaßnahmen) ist in <strong>blau</strong> dargestellt.</li>
+<li>Das Szenario <strong>RCP 8.5</strong> (ohne zusätzliche Klimaschutzmaßnahmen) ist in <strong>gelb</strong> dargestellt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trends &amp; Interpretation</strong>:</p>
+<ul>
+<li>Im historischen Verlauf schwankten die Werte um etwa <strong>3 bis 5 Tropennächte pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 4.5</strong> steigt die Anzahl der Tropennächte moderat an und erreicht gegen Ende des Jahrhunderts etwa <strong>12 bis 15 Nächte pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 8.5</strong> beginnt ab ca. <strong>2040</strong> ein stärkerer Anstieg, der bis <strong>2085</strong> auf über <strong>35 Tropennächte pro Jahr</strong> zunimmt.</li>
+<li>Die Unterschiede zwischen den beiden Szenarien werden ab ca. <strong>2050</strong> signifikant.</li>
+</ul>
+</li>
+</ul>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Extremniederschlagstage</h2>
+<h3>Anzahl pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:d19be520:-->
+</div> <!-- body -->
+<div class="info">
+<ul>
+<li>
+<p><strong>Definition</strong>: Extremniederschlagstage sind Tage, an denen die
+Niederschlagsmenge über dem 95. Perzentil der Niederschlagsmenge an
+Regentagen während der Referenzperiode 1981–2010 definiert ist.</p>
+</li>
+<li>
+<p><strong>Achsen</strong>:</p>
+<ul>
+<li>Die x-Achse zeigt die Jahre von <strong>1965 bis 2086</strong>.</li>
+<li>Die y-Achse zeigt die <strong>Erwartungswerte</strong> der Anzahl von Extremniederschlagstagen pro Jahr. Die Werte basieren auf <strong>30-jährigen Zeitscheiben</strong> und stellen den Mittelwert der projizierten Kenngröße über einen Zeitraum von ±15 Jahren um das jeweilige Jahr dar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Szenarien &amp; Farben</strong>:</p>
+<ul>
+<li>Das Szenario <strong>RCP 4.5</strong> (mit Klimaschutzmaßnahmen) ist in <strong>blau</strong> dargestellt.</li>
+<li>Das Szenario <strong>RCP 8.5</strong> (ohne zusätzliche Klimaschutzmaßnahmen) ist in <strong>gelb</strong> dargestellt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trends &amp; Interpretation</strong>:</p>
+<ul>
+<li>Im historischen Verlauf bewegte sich die Anzahl der Extremniederschlagstage zwischen <strong>8 und 9 Tagen pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 4.5</strong> steigt die Anzahl bis etwa <strong>2050</strong> auf Werte um <strong>11 bis 12 Tage pro Jahr</strong>, danach zeigt sich ein Rückgang auf unter <strong>9 Tage pro Jahr</strong> gegen Ende des Jahrhunderts.</li>
+<li>Unter dem Szenario <strong>RCP 8.5</strong> zeigt sich ein stetiger Anstieg bis ca. <strong>2060</strong>, mit Werten über <strong>12 Tage pro Jahr</strong>, bevor sich die Werte stabilisieren.</li>
+<li>Die Unterschiede zwischen den beiden Szenarien werden ab ca. <strong>2040</strong> deutlich sichtbar.</li>
+</ul>
+</li>
+</ul>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Frosttage</h2>
+<h3>Anzahl pro Jahr</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:7f8f6514:-->
+</div> <!-- body -->
+<div class="info">
+<ul>
+<li>
+<p><strong>Definition</strong>: Frosttage sind Tage, an denen die minimale Temperatur unter 0 °C liegt.</p>
+</li>
+<li>
+<p><strong>Achsen</strong>:</p>
+<ul>
+<li>Die x-Achse zeigt die Jahre von <strong>1965 bis 2086</strong>.</li>
+<li>Die y-Achse zeigt die <strong>Erwartungswerte</strong> der Anzahl von Frosttagen pro Jahr. Die Werte basieren auf <strong>30-jährigen Zeitscheiben</strong> und stellen den Mittelwert der projizierten Kenngröße über einen Zeitraum von ±15 Jahren um das jeweilige Jahr dar.</li>
+</ul>
+</li>
+<li>
+<p><strong>Szenarien &amp; Farben</strong>:</p>
+<ul>
+<li>Das Szenario <strong>RCP 4.5</strong> (mit Klimaschutzmaßnahmen) ist in <strong>blau</strong> dargestellt.</li>
+<li>Das Szenario <strong>RCP 8.5</strong> (ohne zusätzliche Klimaschutzmaßnahmen) ist in <strong>gelb</strong> dargestellt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trends &amp; Interpretation</strong>:</p>
+<ul>
+<li>Im historischen Verlauf nahm die Anzahl der Frosttage kontinuierlich ab, von über <strong>75 Tagen pro Jahr</strong> in den 1960er Jahren auf etwa <strong>60 Tage pro Jahr</strong> um das Jahr 2000.</li>
+<li>Unter dem Szenario <strong>RCP 4.5</strong> setzt sich der Rückgang moderat fort und stabilisiert sich gegen Ende des Jahrhunderts bei etwa <strong>40 Tagen pro Jahr</strong>.</li>
+<li>Unter dem Szenario <strong>RCP 8.5</strong> beschleunigt sich der Rückgang nach <strong>2050</strong>, sodass die Anzahl der Frosttage gegen <strong>2085</strong> unter <strong>20 Tagen pro Jahr</strong> sinkt.</li>
+<li>Die Unterschiede zwischen den beiden Szenarien werden ab ca. <strong>2040</strong> deutlich sichtbar.</li>
+</ul>
+</li>
+</ul>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Weiterführende Informationen</h2>
+<h3>für Konstanz und darüber hinaus</h3>
+</div> <!-- title -->
+</div> <!-- header -->
+<p>Die <a href="https://www.lubw.de/" target="_blank" rel="noopener noreferrer">LUBW</a> stellt mit dem <a href="https://www.klimaatlas-bw.de/" target="_blank" rel="noopener noreferrer">Klimaatlas-BW</a> Klimasteckbriefe für
+alle Kommunen in Baden-Württemberg zur Verfügung (<a href="https://webtool.klimaatlas-bw.de/viewer/profiles/gemeinden/8335043/" target="_blank" rel="noopener noreferrer">Beispiel
+Konstanz</a>). Im Klimaatlas-BW lässt sich außerdem die
+<a href="https://www.klimaatlas-bw.de/kartenviewer-vergangenheit" target="_blank" rel="noopener noreferrer">historische Entwicklung auf kommunaler Ebene</a> und die <a href="https://www.klimaatlas-bw.de/kartenviewer-zukunft" target="_blank" rel="noopener noreferrer">erwartete
+künftige Entwicklung auf Kreisebene</a> als Karte einsehen.
+Auch die <a href="https://www.klimaatlas-bw.de/download" target="_blank" rel="noopener noreferrer">Rohdaten</a> stehen zum Download bereit.</p>
+<p>Auch das Forschungsprojekt <a href="https://lokale-klimaanpassung.de/" target="_blank" rel="noopener noreferrer">LoKlim</a>, kurz für „Lokale Strategien
+zur Klimawandelanpassung”, stellt Karten und Steckbriefe für die Kommunen
+Baden-Württembergs zur Verfügung. Der Deutsche Wetterdienst betreibt
+einen ähnlichen <a href="https://www.dwd.de/DE/klimaumwelt/klimaatlas/klimaatlas_node.html" target="_blank" rel="noopener noreferrer">Klimaatlas für ganz Deutschland</a>.
+Das <a href="https://www.gerics.de/" target="_blank" rel="noopener noreferrer">Climate Service Center Germany (GERICS)</a> berechnet
+<a href="https://www.gerics.de/products_and_publications/fact_sheets/landkreise/index.php.de" target="_blank" rel="noopener noreferrer">Ausblicke</a> für alle Kommunen Deutschlands.</p>
+</div> <!-- card -->
+</div> <!-- grid -->
+<hr>
+<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <img style="flex: 0 1 auto; max-width: 20rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen" src="../_file/assets/sponsor-BMWSB.11139330.svg">
+  <img style="flex: 0 1 auto; max-width: 15rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)" src="../_file/assets/sponsor-KFW.ce8a7236.png">
+</div>
+</main>
+<footer id="observablehq-footer">
+<div>Seite erstellt am 9.9.2025 um 15:56 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/pull/44/merge" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/6790ec15dcf43d3c05f28df08fa8262d0a71e262" target="_blank" rel="noopener noreferrer">Version: 6790ec15</a></div>
+</footer>
+</div>
+</body>
+</html>
