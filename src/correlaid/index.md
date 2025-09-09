@@ -301,22 +301,26 @@ Im Video sehen wir Tim Tewes, Experte für klimaresiliente Stadtplanung. Er fass
 
 <!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
 ```js
+const yt_consent = Mutable(false);
+const yt_accept = () => yt_consent.value = true;
+```
+
+```js
 const video_tim_card = layout.card({
-  title: 'Video',
-  subtitle: 'Subtitle',
-  body: html.fragment`
+  title: 'Never Gonna Give You Up',
+  subtitle: 'Rick Astley',
+  body: yt_consent ? html.fragment`
     <iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe>
+    ` : html.fragment`
+    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=E4WlUXrJgy4">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
+    <center>
+    <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
+    </center>
   `,
-  info: html.fragment`
-    <p><strong>TODO:</strong> hier kommt eure Beschreibung zum Video rein. Diese wird im Screen-Reader oder Lesemodus statt dem Video angezeigt.</p>
-  `
 });
 ```
 
-<div class="grid grid-cols-2">
 ${ video_tim_card }
-</div> <!-- grid -->
-
 
 ## Teil 4: Und jetzt?
 
