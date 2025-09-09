@@ -4,7 +4,7 @@ toc: true
 ---
 
 ```js
-import * as layout from "./layout.js";
+import * as layout from "../assets/layout.js";
 ```
 
 ```js

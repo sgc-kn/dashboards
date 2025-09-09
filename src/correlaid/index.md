@@ -6,7 +6,7 @@ toc:
 ---
 
 ```js
-import * as layout from "./layout.js";
+import * as layout from "../assets/layout.js";
 ```
 
 <!--brauche ich damit ich in style.css z.B. die Schriftbreite ändern kann -->
