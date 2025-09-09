@@ -291,7 +291,6 @@ createStationComparison({
 
 ```
 
-
 Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
 In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.
 
@@ -299,28 +298,27 @@ Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die We
 
 Im Video sehen wir Tim Tewes, Experte für klimaresiliente Stadtplanung. Er fasst zusammen, welche Faktoren die städtische Hitzeentwicklung im Vergleich zum Umland bestimmen und wie es zu Temperaturunterschieden innerhalb von Städten wie Konstanz kommt:
 
-<!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
 ```js
 const yt_consent = Mutable(false);
 const yt_accept = () => yt_consent.value = true;
 ```
 
 ```js
-const video_tim_card = layout.card({
+layout.card({
   title: 'Never Gonna Give You Up',
   subtitle: 'Rick Astley',
   body: yt_consent ? html.fragment`
-    <iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe>
+    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe></p>
     ` : html.fragment`
     <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=E4WlUXrJgy4">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
     <center>
     <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
     </center>
   `,
-});
+})
 ```
 
-${ video_tim_card }
+<!-- Video noch nicht verfügbar ...
 
 ## Teil 4: Und jetzt?
 
@@ -330,23 +328,7 @@ Was wir aus unserer Reise durch Konstanz mitnehmen können: Der Klimawandel ist 
 
 Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konstanz. Sie geht auf bereits bestehende Ansätze ein und erläutert, welche Pläne es in puncto Klimawandelanpassung in der Stadtverwaltung gibt:
 
-<!-- TODO hier muss noch ein Button rein, sodass Youtube nur nach Consent aufgerufen wird. -->
-```js
-const video_jana_card = layout.card({
-  title: 'Video',
-  subtitle: 'Subtitle',
-  body: html.fragment`
-    <iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe>
-  `,
-  info: html.fragment`
-    <p><strong>TODO:</strong> hier kommt eure Beschreibung zum Video rein. Diese wird im Screen-Reader oder Lesemodus statt dem Video angezeigt.</p>
-  `
-});
-```
-
-<div class="grid grid-cols-2">
-${ video_jana_card }
-</div> <!-- grid -->
+-->
 
 <div class="card"> 
   <h2> CorrelAid e.V. </h2> 
@@ -358,3 +340,9 @@ ${ video_jana_card }
 </div>
 
 </div> <!--Ende class="correlaid-page"-->
+
+---
+
+```js
+layout.sponsors()
+```
