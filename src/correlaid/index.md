@@ -199,9 +199,6 @@ const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv(
 // Klima-Daten (Max-Temp, heiße Tage)
 const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
 
-// Auswertungstext zu den Stationen
-// const stationTexts = FileAttachment("./data/station_texts.json").json();
-
 ```
 
 
