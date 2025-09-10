@@ -1,5 +1,6 @@
 // charts/chart3_station_comparison.js
 import * as Plot from "npm:@observablehq/plot";
+import { FileAttachment } from "observablehq:stdlib";
 
 // =====================
 // Konfiguration
@@ -19,6 +20,22 @@ const flaechenKategorien = [
 const canopyKeys = ["baeume_%", "baumkronen_%", "baumkronenflaeche_%"];
 const maxTempKeys = ["Hottest_Day"];     // deine Spaltennamen
 const hotDaysKeys = ["Hot_Days_Count"];
+
+const arials = {
+    "Döbele": FileAttachment("../arials/dobele.png").href,
+    "Europapark": FileAttachment("../arials/europapark.png").href,
+    "Fähre Staad": FileAttachment("../arials/fahre_staad.png").href,
+    "Friedrichstrasse": FileAttachment("../arials/friedrichstrasse.png").href,
+    "Fahrradbrucke": FileAttachment("../arials/herose_fahrradbrucke.png").href,
+    "Herose-Park": FileAttachment("../arials/herose_park.png").href,
+    "Hörnle": FileAttachment("../arials/hornle.png").href,
+    "Mainaustrasse": FileAttachment("../arials/mainaustrasse.png").href,
+    "Marktstätte": FileAttachment("../arials/marktstatte.png").href,
+    "Riedstrasse": FileAttachment("../arials/riedstrasse.png").href,
+    "Stadtgarten": FileAttachment("../arials/stadtgarten.png").href,
+    "Stephansplatz": FileAttachment("../arials/stephansplatz.png").href,
+    "Uni Eichbergstraße": FileAttachment("../arials/uni_eichbergstraße.png").href,
+}
 
 // =====================
 // Öffentliche API
@@ -180,7 +197,8 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
 
     // TODO pkel: Lizenz für die Luftbilder ist:
     // LGL-BW (2024) Datenlizenz Deutschland - Namensnennung - Version 2.0, www.lgl-bw.de
-    side.map.src = "/_file/assets/correlaid/images/" + slug(stationName) + ".png";
+    side.map.src = arials[stationName];
+    console.log(stationName)
 
     // Steckbrief: Oberflächen
     renderSurfaceBars(side.surfBox, meta);
@@ -348,4 +366,3 @@ function percent01(v) {
     if (Number.isNaN(v) || v == null) return 0;
     return v > 1 ? clamp0_100(v) / 100 : Math.max(0, Math.min(1, v));
 }
-function slug(s) { return String(s).toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-"); }

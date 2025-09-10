@@ -305,7 +305,7 @@ Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konst
   
   CorrelAid ist ein gemeinnütziges Netzwerk von ehrenamtlichen Data Scientists, das Datenkompetenz für das Gemeinwohl einsetzt. Es verbindet NGOs und zivilgesellschaftliche Initiativen mit Datentalenten, realisiert Pro-bono-Projekte und bietet Community-Formate sowie Weiterbildung rund um datengetriebene Arbeit.
 
-  <img src="/assets/correlaid/images/correlaid_logo.png" width=200px></img>
+  <img src="correlaid_logo.png" width=200px></img>
 </div>
 
 </div> <!--Ende class="correlaid-page"-->
