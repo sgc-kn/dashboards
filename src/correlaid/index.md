@@ -110,7 +110,7 @@ const station = Mutable(stations[0]);
 const set_station = x => station.value = x;
 
 // Uhrzeit-Slider
-const stunde_input = Inputs.range([0, 23], {step: 1});
+const stunde_input = html`<input type="range" min="0" max="23" step="1" name="range">`
 const stunde = Generators.input(stunde_input);
 ```
 
@@ -161,7 +161,7 @@ map_div
   <div class="body">
     <p>${resize(width => createSensorLineChart(tagesverlauf, station, stunde, width))}</p>
     <center>
-    <p>${stunde_input}</p>
+    ${stunde_input}
     <p>Uhrzeit: ${stunde}:00</p>
     </center>
   </div>
