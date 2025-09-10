@@ -204,9 +204,7 @@ const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv(
 
 // Klima-Daten (Max-Temp, heiße Tage)
 const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
-
 ```
-
 
 ```js
 // Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
@@ -218,47 +216,192 @@ const heatmapData_dia3 = {
     ])
   )
 }
-```
 
-```js
 // UI: Überschrift + zwei Dropdowns nebeneinander
 const leftSelect  = Inputs.select(stations,  { label: "Station A", value: "Stadtgarten" });
 const rightSelect = Inputs.select(stations,  { label: "Station B", value: "Friedrichstrasse" });
+const left = Generators.input(leftSelect);
+const right = Generators.input(rightSelect);
+
+const arials = {
+    "Döbele": FileAttachment("arials/dobele.png").href,
+    "Europapark": FileAttachment("arials/europapark.png").href,
+    "Fähre Staad": FileAttachment("arials/fahre_staad.png").href,
+    "Friedrichstrasse": FileAttachment("arials/friedrichstrasse.png").href,
+    "Fahrradbrucke": FileAttachment("arials/herose_fahrradbrucke.png").href,
+    "Herose-Park": FileAttachment("arials/herose_park.png").href,
+    "Hörnle": FileAttachment("arials/hornle.png").href,
+    "Mainaustrasse": FileAttachment("arials/mainaustrasse.png").href,
+    "Marktstätte": FileAttachment("arials/marktstatte.png").href,
+    "Riedstrasse": FileAttachment("arials/riedstrasse.png").href,
+    "Stadtgarten": FileAttachment("arials/stadtgarten.png").href,
+    "Stephansplatz": FileAttachment("arials/stephansplatz.png").href,
+    "Uni Eichbergstraße": FileAttachment("arials/uni_eichbergstraße.png").href,
+};
+
+function kpi(stationName){
+  const row = hotData_dia3.find(d => d.name === stationName);
+  return {
+    maxTemp: Plot.formatNumber('de-DE')(row['Hottest_Day'].toFixed(1)),
+    nHotDays: Plot.formatNumber('de-DE')(row['Hot_Days_Count'])
+  };
+}
+
+function surface(station, kind, label, color){
+  const value = stationMeta_dia3.find(d => d.name == station)[kind + "_%"]; 
+  return html.fragment`
+    <div class="card-label">${label}</div>
+    <div class="bar-outer">
+      <div class="bar-inner" style="width:${value}%; background:${color};" title="${value} %">
+    </div>
+  `
+}
+
+function Stripes(values, width, {
+    height = 100,
+    domain = [-1, 0, 1],
+    range = ["#2166AC", "#F7F7F7", "#C70039"]
+} = {}) {
+    const data = values.map((v, i) => ({ hour: i + 1, value: v, row: "r" }));
+    const hours = Array.from({ length: 24 }, (_, i) => i + 1);
+
+    return Plot.plot({
+        height,
+        width,
+        style: "font-size: 14px;",
+        marginBottom: 40,           // space for hour numbers
+        inset: 10,
+        x: {
+            domain: hours,
+            ticks: [1, 6, 12, 18, 24],              // only multiples of 6
+            //tickFormat: d => String(d).padStart(2, "0") + ":00",            // show 1..24
+            tickSize: 0,              // no tick lines
+            tickPadding: 2, // smaller distance between labels and axis
+            label: "Uhrzeit"
+        },
+        y: {
+            domain: ["r"],            // single row
+            axis: null,
+            padding: 0
+        },
+        color: {
+            type: "linear",
+            domain,
+            range
+        },
+        marks: [
+            // one cell per hour
+            Plot.cell(data, {
+                x: "hour",
+                y: "row",
+                fill: "value",
+                inset: 0,
+                title: d => {
+                    const sign = d.value > 0 ? "+" : "";
+                    return `${String(d.hour).padStart(2, "0")}Uhr: ${sign}${Plot.formatNumber("de-DE")(d.value.toFixed(2))} °C`;
+                }
+            })
+        ]
+    });
+}
+```
+
+```js
+const leftStripes = width => Stripes(heatmapData_dia3[left], width);
+```
+
+```js
+const rightStripes = width => Stripes(heatmapData_dia3[right], width);
 ```
 
 <strong>Welche zwei Stationen willst du vergleichen?</strong>
 ${leftSelect} ${rightSelect}
 
-```js
-// Hier hinein rendert das JS-Modul die zwei Karten/Karten + KPIs
-const host_dia3 = document.createElement("div");
-```
+<div class="grid">
+  <div class="card weatherstation-card">
+    <h2 class="weatherstation-title">${left}</h2>
+    <div class="map-wrap">
+      ${html.fragment`<img style="object-fit: cover;" src=${arials[left]}>`}
+    </div> <!-- .map-wrap -->
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50&#x202f;m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(left, "gebaeude", "Gebäude", "#b3b3b3")}
+        ${surface(left, "asphalt", "Asphalt", "#333333")}
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(left, "kies", "Kies", "#ffd7aa")}
+        ${surface(left, "gruen", "Grünflächen", "#b1d49a")}
+        ${surface(left, "wasser", "Wasser", "#5a8ebf")}
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Beschattung durch Bäume</div>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
+      </div>
+    </div> <!-- .box -->
+    <div class="box" style="grid-column: span 2;">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      ${resize(leftStripes)}
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value">${kpi(left)["maxTemp"]}&#x202f;℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value">${kpi(left)["nHotDays"]}</span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
 
-
-<div class="card"> 
-  <h2>Wie beeinflusst der Ort das lokale Klima?</h2> 
-  <h3>Vergleich zweier Wetterstationen</h3>
-
-  In der folgenden Grafik kannst du zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen.
-
-  ${host_dia3}
-
-</div>
-
-```js
-// Modul importieren und Diagramm befüllen (nach der Card)
-import { createStationComparison } from "./charts/chart3_station_comparison.js";
-
-createStationComparison({
-  host: host_dia3,
-  stationMeta: stationMeta_dia3,
-  heatmapData: heatmapData_dia3,
-  hotData: hotData_dia3,
-  leftSelect,
-  rightSelect 
-});
-
-```
+  <div class="card weatherstation-card">
+    <h2 class="weatherstation-title">${right}</h2>
+    <div class="map-wrap">
+      ${html.fragment`<img style="object-fit: cover;" src=${arials[right]}>`}
+    </div> <!-- .map-wrap -->
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50&#x202f;m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(right, "gebaeude", "Gebäude", "#b3b3b3")}
+        ${surface(right, "asphalt", "Asphalt", "#333333")}
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(right, "kies", "Kies", "#ffd7aa")}
+        ${surface(right, "gruen", "Grünflächen", "#b1d49a")}
+        ${surface(right, "wasser", "Wasser", "#5a8ebf")}
+      </div>
+      <p>Beschattung durch Bäume</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        ${surface(right, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
+      </div>
+    </div> <!-- .box -->
+    <div class="box" style="grid-column: span 2;">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      ${resize(rightStripes)}
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value">${kpi(right)["maxTemp"]}&#x202f;℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value">${kpi(right)["nHotDays"]}</span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
+</div> <!-- .grid -->
 
 Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
 In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.
