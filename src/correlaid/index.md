@@ -380,9 +380,11 @@ ${leftSelect} ${rightSelect}
         ${surface(right, "gruen", "Grünflächen", "#b1d49a")}
         ${surface(right, "wasser", "Wasser", "#5a8ebf")}
       </div>
-      <p>Beschattung durch Bäume</p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Beschattung durch Bäume</div>
       <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
-        ${surface(right, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
+        ${surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
       </div>
     </div> <!-- .box -->
     <div class="box" style="grid-column: span 2;">
