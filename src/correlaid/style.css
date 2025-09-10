@@ -39,24 +39,14 @@
     display: none;
 }
 
-.correlaid-page .weatherstation-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    grid-auto-rows: min-content;
-}
-
 .correlaid-page .weatherstation-title {
-    grid-column: span 2;
     text-align: center;
     font-size: 28px;
     font-weight: bold;
 }
 
 .correlaid-page .map-wrap {
-    max-height: 80%;
-    grid-row: span 2;
-    place-self: center;
+    width: 77%;
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;

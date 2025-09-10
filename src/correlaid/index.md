@@ -317,12 +317,14 @@ const rightStripes = width => Stripes(heatmapData_dia3[right], width);
 <strong>Welche zwei Stationen willst du vergleichen?</strong>
 ${leftSelect} ${rightSelect}
 
-<div class="grid">
-  <div class="card weatherstation-card">
+<div class="grid grid-cols-2">
+  <div class="card grid">
     <h2 class="weatherstation-title">${left}</h2>
-    <div class="map-wrap">
-      ${html.fragment`<img style="object-fit: cover;" src=${arials[left]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
-    </div> <!-- .map-wrap -->
+    <div>
+      <center>
+        ${html.fragment`<img class="map-wrap" src=${arials[left]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
+      </center>
+    </div>
     <div class="box">
       <div class="card-title">Oberflächenbeschaffenheit</div>
       <div class="muted">im Umkreis von 50&#x202f;m um die Station</div>
@@ -344,7 +346,7 @@ ${leftSelect} ${rightSelect}
         ${surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
       </div>
     </div> <!-- .box -->
-    <div class="box" style="grid-column: span 2;">
+    <div class="box">
       <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
       <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
       ${resize(leftStripes)}
@@ -361,11 +363,13 @@ ${leftSelect} ${rightSelect}
     </div> <!-- .box -->
   </div> <!-- .card -->
 
-  <div class="card weatherstation-card">
+  <div class="card grid">
     <h2 class="weatherstation-title">${right}</h2>
-    <div class="map-wrap">
-      ${html.fragment`<img style="object-fit: cover;" src=${arials[right]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
-    </div> <!-- .map-wrap -->
+    <div>
+      <center>
+        ${html.fragment`<img class="map-wrap" src=${arials[right]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
+      </center>
+    </div>
     <div class="box">
       <div class="card-title">Oberflächenbeschaffenheit</div>
       <div class="muted">im Umkreis von 50&#x202f;m um die Station</div>
@@ -384,10 +388,10 @@ ${leftSelect} ${rightSelect}
     <div class="box">
       <div class="card-title">Beschattung durch Bäume</div>
       <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
-        ${surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
+        ${surface(right, "baeume", "Baumkronen", "rgb(0, 128, 0)")}
       </div>
     </div> <!-- .box -->
-    <div class="box" style="grid-column: span 2;">
+    <div class="box">
       <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
       <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
       ${resize(rightStripes)}
