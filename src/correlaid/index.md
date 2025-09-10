@@ -321,7 +321,7 @@ ${leftSelect} ${rightSelect}
   <div class="card weatherstation-card">
     <h2 class="weatherstation-title">${left}</h2>
     <div class="map-wrap">
-      ${html.fragment`<img style="object-fit: cover;" src=${arials[left]}>`}
+      ${html.fragment`<img style="object-fit: cover;" src=${arials[left]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
     </div> <!-- .map-wrap -->
     <div class="box">
       <div class="card-title">Oberflächenbeschaffenheit</div>
@@ -364,7 +364,7 @@ ${leftSelect} ${rightSelect}
   <div class="card weatherstation-card">
     <h2 class="weatherstation-title">${right}</h2>
     <div class="map-wrap">
-      ${html.fragment`<img style="object-fit: cover;" src=${arials[right]}>`}
+      ${html.fragment`<img style="object-fit: cover;" src=${arials[right]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`}
     </div> <!-- .map-wrap -->
     <div class="box">
       <div class="card-title">Oberflächenbeschaffenheit</div>
