@@ -14,13 +14,12 @@
 <link rel="stylesheet" type="text/css" href="../_import/correlaid/style.af9da693.css">
 <link rel="stylesheet" type="text/css" href="../_observablehq/stdlib/inputs.ea9fd553.css">
 <link rel="stylesheet" type="text/css" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
-<link rel="modulepreload" href="../_observablehq/client.9b30a29c.js">
+<link rel="modulepreload" href="../_observablehq/client.8280b9a4.js">
 <link rel="modulepreload" href="../_observablehq/runtime.e080113b.js">
 <link rel="modulepreload" href="../_observablehq/stdlib.7b2b7180.js">
-<link rel="modulepreload" href="../_import/assets/layout.c10123db.js">
+<link rel="modulepreload" href="../_import/assets/layout.b0763dd2.js">
 <link rel="modulepreload" href="../_import/correlaid/charts/chart1_weather_trends.2f0ad057.js">
 <link rel="modulepreload" href="../_import/correlaid/charts/chart2_sensor_map.0953c018.js">
-<link rel="modulepreload" href="../_import/correlaid/charts/chart3_station_comparison.507cea6e.js">
 <link rel="modulepreload" href="../_npm/d3@7.9.0/e780feca.js">
 <link rel="modulepreload" href="../_npm/htl@0.3.1/72f4716c.js">
 <link rel="modulepreload" href="../_observablehq/stdlib/inputs.cfc5c45e.js">
@@ -70,33 +69,33 @@
   
 <script type="module">
 
-import {define} from "../_observablehq/client.9b30a29c.js";
+import {define} from "../_observablehq/client.8280b9a4.js";
 import {registerFile} from "../_observablehq/stdlib.7b2b7180.js";
 
-registerFile("../assets/sponsor-BMWSB.svg", {"name":"../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1757510819219,"size":88024});
-registerFile("../assets/sponsor-KFW.png", {"name":"../assets/sponsor-KFW.png","mimeType":"image/png","path":"../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1757510819219,"size":5944});
-registerFile("../dwd/dwd/Jahreswerte.csv", {"name":"../dwd/dwd/Jahreswerte.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Jahreswerte.ba43a6b9.csv","lastModified":1757510941033,"size":4158});
-registerFile("./arials/dobele.png", {"name":"./arials/dobele.png","mimeType":"image/png","path":"../_file/correlaid/arials/dobele.7636758d.png","lastModified":1757510819224,"size":714109});
-registerFile("./arials/europapark.png", {"name":"./arials/europapark.png","mimeType":"image/png","path":"../_file/correlaid/arials/europapark.a298ec9d.png","lastModified":1757510819227,"size":658530});
-registerFile("./arials/fahre_staad.png", {"name":"./arials/fahre_staad.png","mimeType":"image/png","path":"../_file/correlaid/arials/fahre_staad.3126855c.png","lastModified":1757510819230,"size":742293});
-registerFile("./arials/friedrichstrasse.png", {"name":"./arials/friedrichstrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/friedrichstrasse.c140c1f9.png","lastModified":1757510819233,"size":721843});
-registerFile("./arials/herose_fahrradbrucke.png", {"name":"./arials/herose_fahrradbrucke.png","mimeType":"image/png","path":"../_file/correlaid/arials/herose_fahrradbrucke.0674a2f2.png","lastModified":1757510819236,"size":571328});
-registerFile("./arials/herose_park.png", {"name":"./arials/herose_park.png","mimeType":"image/png","path":"../_file/correlaid/arials/herose_park.7dc3af5c.png","lastModified":1757510819239,"size":703271});
-registerFile("./arials/hornle.png", {"name":"./arials/hornle.png","mimeType":"image/png","path":"../_file/correlaid/arials/hornle.a6952c70.png","lastModified":1757510819242,"size":712474});
-registerFile("./arials/mainaustrasse.png", {"name":"./arials/mainaustrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/mainaustrasse.a966cb84.png","lastModified":1757510819245,"size":703662});
-registerFile("./arials/marktstatte.png", {"name":"./arials/marktstatte.png","mimeType":"image/png","path":"../_file/correlaid/arials/marktstatte.93243653.png","lastModified":1757510819248,"size":712333});
-registerFile("./arials/riedstrasse.png", {"name":"./arials/riedstrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/riedstrasse.5e81cef6.png","lastModified":1757510819251,"size":678362});
-registerFile("./arials/stadtgarten.png", {"name":"./arials/stadtgarten.png","mimeType":"image/png","path":"../_file/correlaid/arials/stadtgarten.9f926492.png","lastModified":1757510819254,"size":721146});
-registerFile("./arials/stephansplatz.png", {"name":"./arials/stephansplatz.png","mimeType":"image/png","path":"../_file/correlaid/arials/stephansplatz.8e0d01db.png","lastModified":1757510819257,"size":748959});
-registerFile("./arials/uni_eichbergstraße.png", {"name":"./arials/uni_eichbergstraße.png","mimeType":"image/png","path":"../_file/correlaid/arials/uni_eichbergstraße.1d9eabe0.png","lastModified":1757510819260,"size":697736});
-registerFile("./data/dia3_stationen_heatmap.csv", {"name":"./data/dia3_stationen_heatmap.csv","mimeType":"text/csv","path":"../_file/correlaid/data/dia3_stationen_heatmap.e44e5c4b.csv","lastModified":1757510819261,"size":20257});
-registerFile("./data/hot_data.csv", {"name":"./data/hot_data.csv","mimeType":"text/csv","path":"../_file/correlaid/data/hot_data.ca0eedb9.csv","lastModified":1757510819261,"size":412});
-registerFile("./data/konstanz_flaechenanalyse.csv", {"name":"./data/konstanz_flaechenanalyse.csv","mimeType":"text/csv","path":"../_file/correlaid/data/konstanz_flaechenanalyse.d6b701d1.csv","lastModified":1757510819261,"size":1579});
-registerFile("./stationen.geo.json", {"name":"./stationen.geo.json","mimeType":"application/json","path":"../_file/correlaid/stationen.geo.7b6c9a47.json","lastModified":1757510819644,"size":4684});
-registerFile("./tagesverlauf.csv", {"name":"./tagesverlauf.csv","mimeType":"text/csv","path":"../_file/correlaid/tagesverlauf.370d2e69.csv","lastModified":1757510941404,"size":10995});
+registerFile("../assets/sponsor-BMWSB.svg", {"name":"../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1757518336450,"size":88024});
+registerFile("../assets/sponsor-KFW.png", {"name":"../assets/sponsor-KFW.png","mimeType":"image/png","path":"../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1757518336451,"size":5944});
+registerFile("../dwd/dwd/Jahreswerte.csv", {"name":"../dwd/dwd/Jahreswerte.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Jahreswerte.ba43a6b9.csv","lastModified":1757518485638,"size":4158});
+registerFile("./arials/dobele.png", {"name":"./arials/dobele.png","mimeType":"image/png","path":"../_file/correlaid/arials/dobele.7636758d.png","lastModified":1757518336455,"size":714109});
+registerFile("./arials/europapark.png", {"name":"./arials/europapark.png","mimeType":"image/png","path":"../_file/correlaid/arials/europapark.a298ec9d.png","lastModified":1757518336458,"size":658530});
+registerFile("./arials/fahre_staad.png", {"name":"./arials/fahre_staad.png","mimeType":"image/png","path":"../_file/correlaid/arials/fahre_staad.3126855c.png","lastModified":1757518336462,"size":742293});
+registerFile("./arials/friedrichstrasse.png", {"name":"./arials/friedrichstrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/friedrichstrasse.c140c1f9.png","lastModified":1757518336465,"size":721843});
+registerFile("./arials/herose_fahrradbrucke.png", {"name":"./arials/herose_fahrradbrucke.png","mimeType":"image/png","path":"../_file/correlaid/arials/herose_fahrradbrucke.0674a2f2.png","lastModified":1757518336467,"size":571328});
+registerFile("./arials/herose_park.png", {"name":"./arials/herose_park.png","mimeType":"image/png","path":"../_file/correlaid/arials/herose_park.7dc3af5c.png","lastModified":1757518336470,"size":703271});
+registerFile("./arials/hornle.png", {"name":"./arials/hornle.png","mimeType":"image/png","path":"../_file/correlaid/arials/hornle.a6952c70.png","lastModified":1757518336473,"size":712474});
+registerFile("./arials/mainaustrasse.png", {"name":"./arials/mainaustrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/mainaustrasse.a966cb84.png","lastModified":1757518336476,"size":703662});
+registerFile("./arials/marktstatte.png", {"name":"./arials/marktstatte.png","mimeType":"image/png","path":"../_file/correlaid/arials/marktstatte.93243653.png","lastModified":1757518336479,"size":712333});
+registerFile("./arials/riedstrasse.png", {"name":"./arials/riedstrasse.png","mimeType":"image/png","path":"../_file/correlaid/arials/riedstrasse.5e81cef6.png","lastModified":1757518336482,"size":678362});
+registerFile("./arials/stadtgarten.png", {"name":"./arials/stadtgarten.png","mimeType":"image/png","path":"../_file/correlaid/arials/stadtgarten.9f926492.png","lastModified":1757518336485,"size":721146});
+registerFile("./arials/stephansplatz.png", {"name":"./arials/stephansplatz.png","mimeType":"image/png","path":"../_file/correlaid/arials/stephansplatz.8e0d01db.png","lastModified":1757518336488,"size":748959});
+registerFile("./arials/uni_eichbergstraße.png", {"name":"./arials/uni_eichbergstraße.png","mimeType":"image/png","path":"../_file/correlaid/arials/uni_eichbergstraße.1d9eabe0.png","lastModified":1757518336492,"size":697736});
+registerFile("./data/dia3_stationen_heatmap.csv", {"name":"./data/dia3_stationen_heatmap.csv","mimeType":"text/csv","path":"../_file/correlaid/data/dia3_stationen_heatmap.e44e5c4b.csv","lastModified":1757518336493,"size":20257});
+registerFile("./data/hot_data.csv", {"name":"./data/hot_data.csv","mimeType":"text/csv","path":"../_file/correlaid/data/hot_data.ca0eedb9.csv","lastModified":1757518336493,"size":412});
+registerFile("./data/konstanz_flaechenanalyse.csv", {"name":"./data/konstanz_flaechenanalyse.csv","mimeType":"text/csv","path":"../_file/correlaid/data/konstanz_flaechenanalyse.d6b701d1.csv","lastModified":1757518336493,"size":1579});
+registerFile("./stationen.geo.json", {"name":"./stationen.geo.json","mimeType":"application/json","path":"../_file/correlaid/stationen.geo.7b6c9a47.json","lastModified":1757518336882,"size":4684});
+registerFile("./tagesverlauf.csv", {"name":"./tagesverlauf.csv","mimeType":"text/csv","path":"../_file/correlaid/tagesverlauf.370d2e69.csv","lastModified":1757518486010,"size":10995});
 
 define({id: "4963b2ae", outputs: ["layout"], body: async () => {
-const layout = await import("../_import/assets/layout.c10123db.js");
+const layout = await import("../_import/assets/layout.b0763dd2.js");
 
 return {layout};
 }});
@@ -228,7 +227,7 @@ define({id: "ce67f74a", inputs: ["updateSensorMap","map","station_meta","station
 updateSensorMap(map, station_meta, station, set_station, tagesverlauf, stunde);
 }});
 
-define({id: "01337a78", inputs: ["FileAttachment"], outputs: ["stationMeta_dia3","heatmapRaw_dia3","hotData_dia3"], body: (FileAttachment) => {
+define({id: "3d951ed1", inputs: ["FileAttachment"], outputs: ["stationMeta_dia3","heatmapRaw_dia3","hotData_dia3"], body: (FileAttachment) => {
 // Flächendaten (Koordinaten + %-Anteile)
 const stationMeta_dia3 = FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({ typed: true });
 
@@ -237,11 +236,10 @@ const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv(
 
 // Klima-Daten (Max-Temp, heiße Tage)
 const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
-
 return {stationMeta_dia3,heatmapRaw_dia3,hotData_dia3};
 }});
 
-define({id: "185fb5af", inputs: ["d3","heatmapRaw_dia3"], outputs: ["heatmapData_dia3"], body: (d3,heatmapRaw_dia3) => {
+define({id: "c7b618ce", inputs: ["d3","heatmapRaw_dia3","Inputs","stations","Generators","FileAttachment","hotData_dia3","Plot","stationMeta_dia3","html"], outputs: ["heatmapData_dia3","leftSelect","rightSelect","left","right","arials","kpi","surface","Stripes"], body: (d3,heatmapRaw_dia3,Inputs,stations,Generators,FileAttachment,hotData_dia3,Plot,stationMeta_dia3,html) => {
 // Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
 const heatmapData_dia3 = {
   ...Object.fromEntries(
@@ -251,14 +249,105 @@ const heatmapData_dia3 = {
     ])
   )
 }
-return {heatmapData_dia3};
-}});
 
-define({id: "da99c173", inputs: ["Inputs","stations"], outputs: ["leftSelect","rightSelect"], body: (Inputs,stations) => {
 // UI: Überschrift + zwei Dropdowns nebeneinander
 const leftSelect  = Inputs.select(stations,  { label: "Station A", value: "Stadtgarten" });
 const rightSelect = Inputs.select(stations,  { label: "Station B", value: "Friedrichstrasse" });
-return {leftSelect,rightSelect};
+const left = Generators.input(leftSelect);
+const right = Generators.input(rightSelect);
+
+const arials = {
+    "Döbele": FileAttachment("./arials/dobele.png").href,
+    "Europapark": FileAttachment("./arials/europapark.png").href,
+    "Fähre Staad": FileAttachment("./arials/fahre_staad.png").href,
+    "Friedrichstrasse": FileAttachment("./arials/friedrichstrasse.png").href,
+    "Fahrradbrucke": FileAttachment("./arials/herose_fahrradbrucke.png").href,
+    "Herose-Park": FileAttachment("./arials/herose_park.png").href,
+    "Hörnle": FileAttachment("./arials/hornle.png").href,
+    "Mainaustrasse": FileAttachment("./arials/mainaustrasse.png").href,
+    "Marktstätte": FileAttachment("./arials/marktstatte.png").href,
+    "Riedstrasse": FileAttachment("./arials/riedstrasse.png").href,
+    "Stadtgarten": FileAttachment("./arials/stadtgarten.png").href,
+    "Stephansplatz": FileAttachment("./arials/stephansplatz.png").href,
+    "Uni Eichbergstraße": FileAttachment("./arials/uni_eichbergstraße.png").href,
+};
+
+function kpi(stationName){
+  const row = hotData_dia3.find(d => d.name === stationName);
+  return {
+    maxTemp: Plot.formatNumber('de-DE')(row['Hottest_Day'].toFixed(1)),
+    nHotDays: Plot.formatNumber('de-DE')(row['Hot_Days_Count'])
+  };
+}
+
+function surface(station, kind, label, color){
+  const value = stationMeta_dia3.find(d => d.name == station)[kind + "_%"]; 
+  return html.fragment`
+    <div class="card-label">${label}</div>
+    <div class="bar-outer">
+      <div class="bar-inner" style="width:${value}%; background:${color};" title="${value} %">
+    </div>
+  `
+}
+
+function Stripes(values, width, {
+    height = 100,
+    domain = [-1, 0, 1],
+    range = ["#2166AC", "#F7F7F7", "#C70039"]
+} = {}) {
+    const data = values.map((v, i) => ({ hour: i + 1, value: v, row: "r" }));
+    const hours = Array.from({ length: 24 }, (_, i) => i + 1);
+
+    return Plot.plot({
+        height,
+        width,
+        style: "font-size: 14px;",
+        marginBottom: 40,           // space for hour numbers
+        inset: 10,
+        x: {
+            domain: hours,
+            ticks: [1, 6, 12, 18, 24],              // only multiples of 6
+            //tickFormat: d => String(d).padStart(2, "0") + ":00",            // show 1..24
+            tickSize: 0,              // no tick lines
+            tickPadding: 2, // smaller distance between labels and axis
+            label: "Uhrzeit"
+        },
+        y: {
+            domain: ["r"],            // single row
+            axis: null,
+            padding: 0
+        },
+        color: {
+            type: "linear",
+            domain,
+            range
+        },
+        marks: [
+            // one cell per hour
+            Plot.cell(data, {
+                x: "hour",
+                y: "row",
+                fill: "value",
+                inset: 0,
+                title: d => {
+                    const sign = d.value > 0 ? "+" : "";
+                    return `${String(d.hour).padStart(2, "0")}Uhr: ${sign}${Plot.formatNumber("de-DE")(d.value.toFixed(2))} °C`;
+                }
+            })
+        ]
+    });
+}
+return {heatmapData_dia3,leftSelect,rightSelect,left,right,arials,kpi,surface,Stripes};
+}});
+
+define({id: "3fe20300", inputs: ["Stripes","heatmapData_dia3","left"], outputs: ["leftStripes"], body: (Stripes,heatmapData_dia3,left) => {
+const leftStripes = width => Stripes(heatmapData_dia3[left], width);
+return {leftStripes};
+}});
+
+define({id: "d035d1bc", inputs: ["Stripes","heatmapData_dia3","right"], outputs: ["rightStripes"], body: (Stripes,heatmapData_dia3,right) => {
+const rightStripes = width => Stripes(heatmapData_dia3[right], width);
+return {rightStripes};
 }});
 
 define({id: "00a847e9", mode: "inline", inputs: ["leftSelect","display"], body: async (leftSelect,display) => {
@@ -273,32 +362,136 @@ rightSelect
 ))
 }});
 
-define({id: "c0888018", outputs: ["host_dia3"], body: () => {
-// Hier hinein rendert das JS-Modul die zwei Karten/Karten + KPIs
-const host_dia3 = document.createElement("div");
-return {host_dia3};
-}});
-
-define({id: "848dc624", mode: "inline", inputs: ["host_dia3","display"], body: async (host_dia3,display) => {
+define({id: "360f8403", mode: "inline", inputs: ["left","display"], body: async (left,display) => {
 display(await(
-host_dia3
+left
 ))
 }});
 
-define({id: "cb856d8c", inputs: ["host_dia3","stationMeta_dia3","heatmapData_dia3","hotData_dia3","leftSelect","rightSelect"], outputs: ["createStationComparison"], body: async (host_dia3,stationMeta_dia3,heatmapData_dia3,hotData_dia3,leftSelect,rightSelect) => {
-const {createStationComparison} = await import("../_import/correlaid/charts/chart3_station_comparison.507cea6e.js");
-// Modul importieren und Diagramm befüllen (nach der Card)
+define({id: "810b3e4c", mode: "inline", inputs: ["html","arials","left","display"], body: async (html,arials,left,display) => {
+display(await(
+html.fragment`<img style="object-fit: cover;" src=${arials[left]}>`
+))
+}});
 
-createStationComparison({
-  host: host_dia3,
-  stationMeta: stationMeta_dia3,
-  heatmapData: heatmapData_dia3,
-  hotData: hotData_dia3,
-  leftSelect,
-  rightSelect 
-});
+define({id: "f58f78f5", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "gebaeude", "Gebäude", "#b3b3b3")
+))
+}});
 
-return {createStationComparison};
+define({id: "62798f40", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "asphalt", "Asphalt", "#333333")
+))
+}});
+
+define({id: "f59c39a0", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "kies", "Kies", "#ffd7aa")
+))
+}});
+
+define({id: "2f53bbc7", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "gruen", "Grünflächen", "#b1d49a")
+))
+}});
+
+define({id: "b906df9c", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "wasser", "Wasser", "#5a8ebf")
+))
+}});
+
+define({id: "ee39b81b", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")
+))
+}});
+
+define({id: "248d9890", mode: "inline", inputs: ["resize","leftStripes","display"], body: async (resize,leftStripes,display) => {
+display(await(
+resize(leftStripes)
+))
+}});
+
+define({id: "f4c34218", mode: "inline", inputs: ["kpi","left","display"], body: async (kpi,left,display) => {
+display(await(
+kpi(left)["maxTemp"]
+))
+}});
+
+define({id: "19c2a139", mode: "inline", inputs: ["kpi","left","display"], body: async (kpi,left,display) => {
+display(await(
+kpi(left)["nHotDays"]
+))
+}});
+
+define({id: "27042f4e", mode: "inline", inputs: ["right","display"], body: async (right,display) => {
+display(await(
+right
+))
+}});
+
+define({id: "4ca12516", mode: "inline", inputs: ["html","arials","right","display"], body: async (html,arials,right,display) => {
+display(await(
+html.fragment`<img style="object-fit: cover;" src=${arials[right]}>`
+))
+}});
+
+define({id: "c0e3b19d", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "gebaeude", "Gebäude", "#b3b3b3")
+))
+}});
+
+define({id: "f38751d4", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "asphalt", "Asphalt", "#333333")
+))
+}});
+
+define({id: "2c462af1", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "kies", "Kies", "#ffd7aa")
+))
+}});
+
+define({id: "a2c0e366", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "gruen", "Grünflächen", "#b1d49a")
+))
+}});
+
+define({id: "a5adf3dc", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "wasser", "Wasser", "#5a8ebf")
+))
+}});
+
+define({id: "64af9073", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "baeume", "Baumkronen", "rgb(0, 128, 0)")
+))
+}});
+
+define({id: "11db01cf", mode: "inline", inputs: ["resize","rightStripes","display"], body: async (resize,rightStripes,display) => {
+display(await(
+resize(rightStripes)
+))
+}});
+
+define({id: "8774528d", mode: "inline", inputs: ["kpi","right","display"], body: async (kpi,right,display) => {
+display(await(
+kpi(right)["maxTemp"]
+))
+}});
+
+define({id: "42ca85ce", mode: "inline", inputs: ["kpi","right","display"], body: async (kpi,right,display) => {
+display(await(
+kpi(right)["nHotDays"]
+))
 }});
 
 define({id: "32cc0d8f", inputs: ["Mutable"], outputs: ["yt_consent","yt_accept"], body: (Mutable) => {
@@ -474,19 +667,96 @@ Was deutlich wird: Der Klimawandel ist längst in Konstanz angekommen. Aber sein
 <p>Mit gezielten Maßnahmen zur Klimawandelanpassung kann der übermäßigen Erhitzung einzelner Gebiete vorgebeugt werden. Dafür ist es wichtig zu verstehen, welche Faktoren sogenannte Hitzeinseln in der Stadt verstärken oder abschwächen. Schauen wir uns dafür die Stationen genauer an!</p>
 <h2 id="teil-3-warum-ist-es-an-orten-unterschiedlich-heiss-obwohl-sie-nur-wenige-strassen-voneinander-entfernt-sind" tabindex="-1"><a class="observablehq-header-anchor" href="#teil-3-warum-ist-es-an-orten-unterschiedlich-heiss-obwohl-sie-nur-wenige-strassen-voneinander-entfernt-sind">Teil 3: Warum ist es an Orten unterschiedlich heiß – obwohl sie nur wenige Straßen voneinander entfernt sind?</a></h2>
 <p>Die nächste Grafik zeigt dir neben den Temperaturdaten nun auch die Umgebung der Messstationen im Radius von 50 m. Um herauszufinden, was hinter den Temperaturdifferenzen steckt, kannst du sie jetzt selbst vergleichen: Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegend Bäume und Wiesen? Und was bedeutet das für die Erwärmung der Luft rund um die Station?</p>
-<div class="observablehq observablehq--block"><!--:01337a78:--></div>
-<div class="observablehq observablehq--block"><!--:185fb5af:--></div>
-<div class="observablehq observablehq--block"><!--:da99c173:--></div>
+<div class="observablehq observablehq--block"><!--:3d951ed1:--></div>
+<div class="observablehq observablehq--block"><!--:c7b618ce:--></div>
+<div class="observablehq observablehq--block"><!--:3fe20300:--></div>
+<div class="observablehq observablehq--block"><!--:d035d1bc:--></div>
 <p><strong>Welche zwei Stationen willst du vergleichen?</strong>
 <observablehq-loading></observablehq-loading><!--:00a847e9:--> <observablehq-loading></observablehq-loading><!--:da1f7744:--></p>
-<div class="observablehq observablehq--block"><!--:c0888018:--></div>
-<div class="card"> 
-  <h2>Wie beeinflusst der Ort das lokale Klima?</h2> 
-  <h3>Vergleich zweier Wetterstationen</h3>
-<p>In der folgenden Grafik kannst du zwei Stationen auswählen – und direkt vergleichen, wie sich ihre Umgebung zusammensetzt und wie stark sie sich erhitzen.</p>
-<p><observablehq-loading></observablehq-loading><!--:848dc624:--></p>
-</div>
-<div class="observablehq observablehq--block"><!--:cb856d8c:--></div>
+<div class="grid">
+  <div class="card weatherstation-card">
+    <h2 class="weatherstation-title"><observablehq-loading></observablehq-loading><!--:360f8403:--></h2>
+    <div class="map-wrap">
+      <observablehq-loading></observablehq-loading><!--:810b3e4c:-->
+    </div> <!-- .map-wrap -->
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50 m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:f58f78f5:-->
+        <observablehq-loading></observablehq-loading><!--:62798f40:-->
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:f59c39a0:-->
+        <observablehq-loading></observablehq-loading><!--:2f53bbc7:-->
+        <observablehq-loading></observablehq-loading><!--:b906df9c:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Beschattung durch Bäume</div>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:ee39b81b:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box" style="grid-column: span 2;">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      <observablehq-loading></observablehq-loading><!--:248d9890:-->
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:f4c34218:--> ℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:19c2a139:--></span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
+  <div class="card weatherstation-card">
+    <h2 class="weatherstation-title"><observablehq-loading></observablehq-loading><!--:27042f4e:--></h2>
+    <div class="map-wrap">
+      <observablehq-loading></observablehq-loading><!--:4ca12516:-->
+    </div> <!-- .map-wrap -->
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50 m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:c0e3b19d:-->
+        <observablehq-loading></observablehq-loading><!--:f38751d4:-->
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:2c462af1:-->
+        <observablehq-loading></observablehq-loading><!--:a2c0e366:-->
+        <observablehq-loading></observablehq-loading><!--:a5adf3dc:-->
+      </div>
+      <p>Beschattung durch Bäume</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:64af9073:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box" style="grid-column: span 2;">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      <observablehq-loading></observablehq-loading><!--:11db01cf:-->
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:8774528d:--> ℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:42ca85ce:--></span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
+</div> <!-- .grid -->
 <p>Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
 In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.</p>
 <p>Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die Wetterstation ist mit Grünflächen und hellem Kies bedeckt. Dichter Kies ist deutlich durchlässiger als Beton oder Asphalt und speichert insgesamt weniger Wärme. Einige ältere Bäume mit großen Kronen spenden Schatten und verhindern, dass die Sonne direkt auf den Boden scheint. Durch die Lage direkt am Wasser wird die Luft während heißer Nachmittage zusätzlich gekühlt. Zusammen sorgen diese Faktoren dafür, dass es hier merklich kühler ist als an anderen Wetterstationen. Im Sommer 2024 kletterte das Thermometer hier zu keinem Zeitpunkt über 30 °C.</p>
@@ -515,7 +785,7 @@ Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konst
 <div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:251151aa:--></div>
 </main>
 <footer id="observablehq-footer">
-<div>Seite erstellt am 10.9.2025 um 13:28 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/pull/44/merge" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/4b674f433cb0621aa2a7bffff743d3fd917d7174" target="_blank" rel="noopener noreferrer">Version: 4b674f43</a></div>
+<div>Seite erstellt am 10.9.2025 um 15:33 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/pull/44/merge" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/6a3d1869b789d850054a63cc5c3edeeefa270a41" target="_blank" rel="noopener noreferrer">Version: 6a3d1869</a></div>
 </footer>
 </div>
 </body>
