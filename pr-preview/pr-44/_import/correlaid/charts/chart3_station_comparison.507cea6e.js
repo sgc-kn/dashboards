@@ -1,5 +1,6 @@
 // charts/chart3_station_comparison.js
 import * as Plot from "../../../_npm/@observablehq/plot@0.6.17/d761ef9b.js";
+import { FileAttachment } from "../../../_observablehq/stdlib.7b2b7180.js";
 
 // =====================
 // Konfiguration
@@ -19,6 +20,22 @@ const flaechenKategorien = [
 const canopyKeys = ["baeume_%", "baumkronen_%", "baumkronenflaeche_%"];
 const maxTempKeys = ["Hottest_Day"];     // deine Spaltennamen
 const hotDaysKeys = ["Hot_Days_Count"];
+
+const arials = {
+    "Döbele": FileAttachment({"name":"../../../correlaid/arials/dobele.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/dobele.7636758d.png","lastModified":1757510819224,"size":714109}, import.meta.url).href,
+    "Europapark": FileAttachment({"name":"../../../correlaid/arials/europapark.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/europapark.a298ec9d.png","lastModified":1757510819227,"size":658530}, import.meta.url).href,
+    "Fähre Staad": FileAttachment({"name":"../../../correlaid/arials/fahre_staad.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/fahre_staad.3126855c.png","lastModified":1757510819230,"size":742293}, import.meta.url).href,
+    "Friedrichstrasse": FileAttachment({"name":"../../../correlaid/arials/friedrichstrasse.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/friedrichstrasse.c140c1f9.png","lastModified":1757510819233,"size":721843}, import.meta.url).href,
+    "Fahrradbrucke": FileAttachment({"name":"../../../correlaid/arials/herose_fahrradbrucke.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/herose_fahrradbrucke.0674a2f2.png","lastModified":1757510819236,"size":571328}, import.meta.url).href,
+    "Herose-Park": FileAttachment({"name":"../../../correlaid/arials/herose_park.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/herose_park.7dc3af5c.png","lastModified":1757510819239,"size":703271}, import.meta.url).href,
+    "Hörnle": FileAttachment({"name":"../../../correlaid/arials/hornle.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/hornle.a6952c70.png","lastModified":1757510819242,"size":712474}, import.meta.url).href,
+    "Mainaustrasse": FileAttachment({"name":"../../../correlaid/arials/mainaustrasse.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/mainaustrasse.a966cb84.png","lastModified":1757510819245,"size":703662}, import.meta.url).href,
+    "Marktstätte": FileAttachment({"name":"../../../correlaid/arials/marktstatte.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/marktstatte.93243653.png","lastModified":1757510819248,"size":712333}, import.meta.url).href,
+    "Riedstrasse": FileAttachment({"name":"../../../correlaid/arials/riedstrasse.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/riedstrasse.5e81cef6.png","lastModified":1757510819251,"size":678362}, import.meta.url).href,
+    "Stadtgarten": FileAttachment({"name":"../../../correlaid/arials/stadtgarten.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/stadtgarten.9f926492.png","lastModified":1757510819254,"size":721146}, import.meta.url).href,
+    "Stephansplatz": FileAttachment({"name":"../../../correlaid/arials/stephansplatz.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/stephansplatz.8e0d01db.png","lastModified":1757510819257,"size":748959}, import.meta.url).href,
+    "Uni Eichbergstraße": FileAttachment({"name":"../../../correlaid/arials/uni_eichbergstraße.png","mimeType":"image/png","path":"../../../_file/correlaid/arials/uni_eichbergstraße.1d9eabe0.png","lastModified":1757510819260,"size":697736}, import.meta.url).href,
+}
 
 // =====================
 // Öffentliche API
@@ -180,7 +197,8 @@ function renderSide(side, stationName, metaRows, heatmapData, hotRows) {
 
     // TODO pkel: Lizenz für die Luftbilder ist:
     // LGL-BW (2024) Datenlizenz Deutschland - Namensnennung - Version 2.0, www.lgl-bw.de
-    side.map.src = "/_file/assets/correlaid/images/" + slug(stationName) + ".png";
+    side.map.src = arials[stationName];
+    console.log(stationName)
 
     // Steckbrief: Oberflächen
     renderSurfaceBars(side.surfBox, meta);
@@ -348,4 +366,3 @@ function percent01(v) {
     if (Number.isNaN(v) || v == null) return 0;
     return v > 1 ? clamp0_100(v) / 100 : Math.max(0, Math.min(1, v));
 }
-function slug(s) { return String(s).toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-"); }
