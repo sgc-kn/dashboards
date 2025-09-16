@@ -423,12 +423,12 @@ const yt_accept = () => yt_consent.value = true;
 
 ```js
 layout.card({
-  title: 'Never Gonna Give You Up',
-  subtitle: 'Rick Astley',
+  title: 'Video: Wie kommt es zu den Temperaturunterschieden innherhalb der Stadt?',
+  subtitle: 'Tim Tewes, Experte für klimaresiliente Stadtplanung',
   body: yt_consent ? html.fragment`
-    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/E4WlUXrJgy4"></iframe></p>
+    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/uyQGpEJSOpM"></iframe></p>
     ` : html.fragment`
-    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=E4WlUXrJgy4">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
+    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=uyQGpEJSOpM">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
     <center>
     <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
     </center>
