@@ -423,7 +423,7 @@ const yt_accept = () => yt_consent.value = true;
 
 ```js
 layout.card({
-  title: 'Video: Wie kommt es zu den Temperaturunterschieden innherhalb der Stadt?',
+  title: 'Video: Wie kommt es zu den Temperaturunterschieden innerhalb der Stadt?',
   subtitle: 'Tim Tewes, Experte für klimaresiliente Stadtplanung',
   body: yt_consent ? html.fragment`
     <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/uyQGpEJSOpM"></iframe></p>
@@ -436,8 +436,6 @@ layout.card({
 })
 ```
 
-<!-- Video noch nicht verfügbar ...
-
 ## Teil 4: Und jetzt?
 
 Was wir aus unserer Reise durch Konstanz mitnehmen können: Der Klimawandel ist nicht nur eine globale, sondern auch eine lokale Herausforderung. Denn die baulichen Bedingungen unserer Stadt prägen entscheidend, in welchem Ausmaß wir den zunehmenden Klimaveränderungen ausgesetzt sind. Gleichzeitig zeigt sich, dass wir unsere Stadt widerstandsfähiger machen können. Mit gezielten Maßnahmen wie mehr Grünflächen, schattenspendenden Bäumen und kluger Stadtplanung tragen wir aktiv dazu bei, das Mikroklima spürbar zu verbessern.
@@ -446,7 +444,22 @@ Was wir aus unserer Reise durch Konstanz mitnehmen können: Der Klimawandel ist 
 
 Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konstanz. Sie geht auf bereits bestehende Ansätze ein und erläutert, welche Pläne es in puncto Klimawandelanpassung in der Stadtverwaltung gibt:
 
--->
+```js
+layout.card({
+  title: 'Video: Was plant die Stadt Konstanz, um die Stadt klimaresilienter zu gestalten?',
+  subtitle: 'Jana Schirrmacher, Beauftragte für Klimawandelanpassung der Stadt Konstanz',
+  body: yt_consent ? html.fragment`
+    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/eapX_nh1MvM"></iframe></p>
+    ` : html.fragment`
+    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=eapX_nh1MvM">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
+    <center>
+    <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
+    </center>
+  `,
+})
+```
+
+---
 
 <div class="card"> 
   <h2> CorrelAid e.V. </h2> 
@@ -459,7 +472,6 @@ Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konst
 
 </div> <!--Ende class="correlaid-page"-->
 
----
 
 ```js
 layout.sponsors()
