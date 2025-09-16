@@ -19,5 +19,5 @@ dev = [
 
 [tool.ruff]
 exclude = [
-    "src/correlaid/drafts"
+    "src/stadtklima/drafts"
 ]

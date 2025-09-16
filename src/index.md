@@ -29,7 +29,7 @@ Konstanz][od].
 Das Team zeigt, wie Daten lebendig werden können:
 Die Datengeschichte lädt dazu ein, das Stadtklima in Konstanz interaktiv zu erkunden und neue Perspektiven auf die Zusammenhänge von Daten und Klima zu gewinnen.
 
-[➜ Hier geht's zur Story !](correlaid/index.html)
+[➜ Hier geht's zur Story !](stadtklima/index.html)
 
 
 ## Juli 2025

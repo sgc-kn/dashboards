@@ -71,7 +71,7 @@ export default {
     {
       name: "Stories",
       pages: [
-        { name: "Stadtklima", path: "/correlaid/" },
+        { name: "Stadtklima", path: "/stadtklima/" },
       ]
     },
     { name: "Rechtliche Hinweise", path: "/legal/" },
