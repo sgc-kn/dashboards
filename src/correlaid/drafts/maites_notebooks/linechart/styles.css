@@ -1,0 +1,81 @@
+:root {
+  --main-font: 'Playfair Display', serif;
+  --primary-color: #333;
+  --accent-color: #ff7f0e;
+  --background-color: white;
+}
+
+body {
+  font-family: var(--main-font);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 40px 20px;
+  color: var(--primary-color);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 27px;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-left: 30px;
+}
+
+#yearSelector {
+  display: block;
+  margin-left: 30px;
+  padding: 6px 10px;
+  font-size: 16px;
+  font-family: var(--main-font);
+  font-weight: 400;
+  border: 0.5px solid black;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+#yearSelector:hover {
+  border-color: var(--accent-color);
+  cursor: pointer;
+}
+
+#lineplot {
+  display: block;
+  margin-left: 250px;
+  margin-top: 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+text {
+  font-family: var(--main-font);
+}
+
+.tick text {
+  font-size: 16px;
+}
+
+.axis path,
+.axis line,
+.axis text {
+  display: none;
+}
+
+.marker-line {
+  stroke: black;
+  stroke-dasharray: 4;
+  stroke-width: 1;
+}
+
+.marker-label {
+  font-size: 16px;
+  fill: black;
+}

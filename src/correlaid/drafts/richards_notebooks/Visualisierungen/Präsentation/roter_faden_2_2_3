@@ -1,0 +1,8 @@
+digraph roter_faden_2_2_3 {
+	nodesep=0.1 rankdir=TB
+	D [label="Teil 2: Interpretation der Stadtteiltemperaturunterschiede" fillcolor=lightgreen shape=box style=filled]
+	F [label=<<TABLE BORDER="0"><TR><TD><B>Teil 2.2: Satellitendaten</B></TD></TR><TR><TD ALIGN="LEFT">100m-Radius um Messstationen.</TD></TR></TABLE>> fillcolor=lightgreen shape=box style=filled]
+	D -> F [color=black style=dashed]
+	G [label=<<TABLE BORDER="0"><TR><TD><B>Teil 2.3: Räumliche Faktoren</B></TD></TR><TR><TD ALIGN="LEFT">Baumdichte, Wassernähe, Straßenbelag (..).</TD></TR></TABLE>> fillcolor=lightgreen shape=box style=filled]
+	D -> G [color=black style=dashed]
+}

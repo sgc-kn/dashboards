@@ -1,0 +1,6 @@
+digraph roter_faden_1_1 {
+	nodesep=0.1 rankdir=TB
+	A [label="Teil 1: Die Stadt in der Klimakrise" fillcolor=lightblue shape=box style=filled]
+	B [label=<<TABLE BORDER="0"><TR><TD><B>Teil 1.1: im Längsschnitt</B></TD></TR><TR><TD ALIGN="LEFT">DWD Daten: Erwärmung über die Jahrzehnte.</TD></TR></TABLE>> fillcolor=lightblue shape=box style=filled]
+	A -> B [color=black style=dashed]
+}

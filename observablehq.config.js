@@ -68,20 +68,27 @@ export default {
         { name: "Luftqualität", path: "/lubw/" },
       ]
     },
+    {
+      name: "Stories",
+      pages: [
+        { name: "Stadtklima", path: "/correlaid/" },
+      ]
+    },
     { name: "Rechtliche Hinweise", path: "/legal/" },
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:
   head: `
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/assets/style.css">
     <script src="/assets/logic.js" defer></script>
   `,
 
-  globalStylesheets: [],
+  style: '/assets/style-blog.css', // over-rule default theme
+
+  globalStylesheets: [
+    "https://rsms.me/inter/inter.css",
+  ],
 
   toc: {
     label: 'Inhaltsverzeichnis',

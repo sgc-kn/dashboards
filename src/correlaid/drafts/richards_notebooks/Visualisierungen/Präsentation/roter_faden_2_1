@@ -1,0 +1,6 @@
+digraph roter_faden_2_1 {
+	nodesep=0.1 rankdir=TB
+	D [label="Teil 2: Interpretation der Stadtteiltemperaturunterschiede" fillcolor=lightgreen shape=box style=filled]
+	E [label=<<TABLE BORDER="0"><TR><TD><B>Teil 2.1: Local Climate Zones</B></TD></TR><TR><TD ALIGN="LEFT">Analyse der LCZs der Stadtteile mit Messstationen.</TD></TR></TABLE>> fillcolor=lightgreen shape=box style=filled]
+	D -> E [color=black style=dashed]
+}

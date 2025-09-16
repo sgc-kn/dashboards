@@ -1,5 +1,5 @@
 ---
-theme: dashboard
+style: ../assets/style-dashboard.css
 toc: false
 ---
 
