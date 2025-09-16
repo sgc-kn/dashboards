@@ -133,7 +133,7 @@ export function createMapLegend(width) {
     const values = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
 
     const mapLegend = Plot.plot({
-        subtitle: "Abweichung von der Durschnittstemperatur aller Wetterstationen",
+        subtitle: "Abweichung von der Durchschnittstemperatur aller Wetterstationen",
         style: { fontSize: 12, fontFamily: "sans-serif" },
         r: { type: "identity" }, // radius is in pixels, not scaled
         width,
