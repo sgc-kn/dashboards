@@ -1,0 +1,95 @@
+publiccodeYmlVersion: 0.4.0
+name: City Data Dashboards
+url: https://github.com/sgc-kn/dashboards
+landingURL: https://stadtdaten.konstanz.digital
+isBasedOn: https://observablehq.com/framework/
+platforms:
+  - web
+categories:
+  - data-analytics
+  - data-visualization
+  - blog
+developmentStatus: stable
+softwareType: standalone/web
+description:
+  de:
+    localisedName: Stadtdaten-Dashboards Konstanz
+    shortDescription: >
+      Öffentliche Website mit Dashboards und Data Stories zum Thema Stadtdaten
+      Konstanz
+    longDescription: >-
+      Die „Stadtdaten-Dashboards Konstanz“ sind eine öffentliche, statische
+      Website für Bürgerinnen und Bürger. Sie bieten datenbasierte Einblicke zu
+      Luftqualität, Wetter und Klimaindikatoren und werden automatisch
+      wöchentlich aktualisiert. Die Dashboards sind datensparsam umgesetzt,
+      verzichten auf Tracking und Cookies und sind für mobile Endgeräte
+      optimiert. Maßnahmen zur Barrierefreiheit umfassen responsives Design,
+      leichte Sprache und Screen-Reader-Support. Die Website ist produktiv
+      erreichbar unter: https://stadtdaten.konstanz.digital
+
+      Technisch basieren die Dashboards auf modernen Webtechnologien: Die
+      Aufbereitung der Daten erfolgt mit Python, die Visualisierung mit
+      Observable Plot, die Seitengenerierung mit dem Observable Framework; die
+      Veröffentlichung geschieht automatisiert über GitHub Actions. Datenquellen
+      sind u. a. LUBW (Luftqualität), Copernicus Climate Data Store
+      (Klimamodelldaten), der Deutsche Wetterdienst DWD (Wetterdaten) sowie
+      eigene Wetterstationen der Stadt. Der Quellcode ist offen unter EUPL 1.2
+      lizenziert und auf GitHub verfügbar: https://github.com/sgc-kn/dashboards
+    features:
+      - Öffentliche Website
+      - Statische Website
+      - Mobile Website
+      - Datenbasierte Dashboards
+      - Automatische Aktualisierung der dargestellten Daten
+      - Aufbereitung von Daten mit Python
+      - Darstellung von Daten mit Observable Plot
+      - Generierung der Website mit Observable Framework
+      - Automatische Veröffentlichung der Website mit Github Actions
+      - Datensparsame Umsetzung ohne Tracking und Cookies
+    screenshots:
+      - screenshot.png
+  en:
+    localisedName: Konstanz City Data Dashboards
+    shortDescription: |
+      Public website with dashboards and data stories on Konstanz city data
+    longDescription: >-
+      The “Konstanz City Data Dashboards” are a public, static website for
+      residents. They provide data-driven insights on air quality, weather, and
+      climate indicators and are automatically updated on a weekly basis. The
+      dashboards are designed with data minimization in mind, use no tracking or
+      cookies, and are optimized for mobile devices. Accessibility measures
+      include responsive design, plain language, and screen reader support. The
+      website is live at: https://stadtdaten.konstanz.digital
+
+      Technically, the dashboards are built with modern web technologies: data
+      processing is done with Python, visualization with Observable Plot, site
+      generation with the Observable Framework, and publication is automated via
+      GitHub Actions. Data sources include LUBW (air quality), the Copernicus
+      Climate Data Store (climate model data), the German Weather Service DWD
+      (weather data), and the city’s own weather stations. The source code is
+      open, licensed under EUPL 1.2, and available on GitHub:
+      https://github.com/sgc-kn/dashboards
+    features:
+      - Public website
+      - Static website
+      - Mobile-friendly website
+      - Data-driven dashboards
+      - Automatic weekly updates of displayed data
+      - Data processing with Python
+      - Data visualization with Observable Plot
+      - Site generation with Observable Framework
+      - Automated publication via GitHub Actions
+      - Privacy-friendly implementation without tracking or cookies
+legal:
+  license: EUPL-1.2
+maintenance:
+  type: internal
+  contacts:
+    - name: Patrik Keller
+      email: patrik.keller@konstanz.de
+    - name: Wilfried Baumgartner
+      email: wilfried.baumgartner@konstanz.de
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - de
