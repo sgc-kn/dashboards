@@ -127,8 +127,8 @@ export function plot(args) {
 }
 
 export function sponsors() {
-    const bmwsb = FileAttachment({"name":"../../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1758546005367,"size":88024}, import.meta.url).href
-    const kfw = FileAttachment({"name":"../../assets/sponsor-KFW.png","mimeType":"image/png","path":"../../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1758546005367,"size":5944}, import.meta.url).href
+    const bmwsb = FileAttachment({"name":"../../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1758546073901,"size":88024}, import.meta.url).href
+    const kfw = FileAttachment({"name":"../../assets/sponsor-KFW.png","mimeType":"image/png","path":"../../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1758546073901,"size":5944}, import.meta.url).href
     return html.fragment`
         <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <img
