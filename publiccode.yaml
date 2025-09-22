@@ -80,6 +80,8 @@ description:
       - Site generation with Observable Framework
       - Automated publication via GitHub Actions
       - Privacy-friendly implementation without tracking or cookies
+    screenshots:
+      - screenshot.png
 legal:
   license: EUPL-1.2
 maintenance:
