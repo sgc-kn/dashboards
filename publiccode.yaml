@@ -1,8 +1,8 @@
-publiccodeYmlVersion: 0.4.0
-name: City Data Dashboards
-url: https://github.com/sgc-kn/dashboards
-landingURL: https://stadtdaten.konstanz.digital
-isBasedOn: https://observablehq.com/framework/
+publiccodeYmlVersion: '0.2'
+name: Public City Data Dashboards
+url: 'https://github.com/sgc-kn/dashboards'
+landingURL: 'https://stadtdaten.konstanz.digital'
+isBasedOn: 'https://observablehq.com/framework/'
 platforms:
   - web
 categories:
@@ -11,13 +11,31 @@ categories:
   - blog
 developmentStatus: stable
 softwareType: standalone/web
+releaseDate: '2025-09-01'
+usedBy:
+  - Stadt Konstanz
+maintenance:
+  type: internal
+  contacts:
+    - name: Patrik Keller
+      email: patrik.keller@konstanz.de
+    - name: Wilfried Baumgartner
+      email: wilfried.baumgartner@konstanz.de
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Stadt Konstanz
+  repoOwner: Stadt Konstanz
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - de
 description:
   de:
-    localisedName: Stadtdaten-Dashboards Konstanz
+    localisedName: Öffentliche Stadtdaten-Dashboards Konstanz
     shortDescription: >
       Öffentliche Website mit Dashboards und Data Stories zum Thema Stadtdaten
       Konstanz
-    longDescription: >-
+    longDescription: |
       Die „Stadtdaten-Dashboards Konstanz“ sind eine öffentliche, statische
       Website für Bürgerinnen und Bürger. Sie bieten datenbasierte Einblicke zu
       Luftqualität, Wetter und Klimaindikatoren und werden automatisch
@@ -26,6 +44,7 @@ description:
       optimiert. Maßnahmen zur Barrierefreiheit umfassen responsives Design,
       leichte Sprache und Screen-Reader-Support. Die Website ist produktiv
       erreichbar unter: https://stadtdaten.konstanz.digital
+
 
       Technisch basieren die Dashboards auf modernen Webtechnologien: Die
       Aufbereitung der Daten erfolgt mit Python, die Visualisierung mit
@@ -36,7 +55,6 @@ description:
       eigene Wetterstationen der Stadt. Der Quellcode ist offen unter EUPL 1.2
       lizenziert und auf GitHub verfügbar: https://github.com/sgc-kn/dashboards
     features:
-      - Öffentliche Website
       - Statische Website
       - Mobile Website
       - Datenbasierte Dashboards
@@ -48,11 +66,12 @@ description:
       - Datensparsame Umsetzung ohne Tracking und Cookies
     screenshots:
       - screenshot.png
+    genericName: Öffentliche Dashboards
   en:
-    localisedName: Konstanz City Data Dashboards
+    localisedName: Public Konstanz City Data Dashboards
     shortDescription: |
       Public website with dashboards and data stories on Konstanz city data
-    longDescription: >-
+    longDescription: |
       The “Konstanz City Data Dashboards” are a public, static website for
       residents. They provide data-driven insights on air quality, weather, and
       climate indicators and are automatically updated on a weekly basis. The
@@ -82,16 +101,8 @@ description:
       - Privacy-friendly implementation without tracking or cookies
     screenshots:
       - screenshot.png
-legal:
-  license: EUPL-1.2
-maintenance:
-  type: internal
-  contacts:
-    - name: Patrik Keller
-      email: patrik.keller@konstanz.de
-    - name: Wilfried Baumgartner
-      email: wilfried.baumgartner@konstanz.de
-localisation:
-  localisationReady: false
-  availableLanguages:
-    - de
+    genericName: Public Dashboards
+intendedAudience:
+  scope:
+    - environment
+    - local-authorities
