@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.3">
+<title>Stadtdaten | Stadt Konstanz</title>
+
+<link rel="preload" as="style" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="preload" as="style" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="preload" as="style" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="stylesheet" type="text/css" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="stylesheet" type="text/css" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="modulepreload" href="../_observablehq/client.17f4b988.js">
+<link rel="modulepreload" href="../_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="../_observablehq/stdlib.576a058a.js">
+<link rel="modulepreload" href="../_import/assets/layout.0c2cebed.js">
+<link rel="modulepreload" href="../_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="../_npm/leaflet@1.9.4/721623d8.js">
+<link rel="modulepreload" href="../_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="../_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="../_observablehq/stdlib/zip.0fd845b2.js">
+<link rel="modulepreload" href="../_npm/jszip@3.10.1/74d78a45.js">
+<link rel="modulepreload" href="../_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="../_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="../_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="../_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="../_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="../_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="../_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="../_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="../_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="../_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="../_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="../_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="../_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="../_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="../_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="../_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="../_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="../_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="../_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="../_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="../_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="../_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="../_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="../_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="../_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="../_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="../_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="../_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="../_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="../_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="../_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="../_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="../_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="../_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="../_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="../_npm/robust-predicates@3.0.2/aa00730b.js">
+
+    <link rel="icon" type="image/svg+xml" href="../_file/assets/favicon.6372ae97.svg">
+    <link rel="icon" type="image/png" href="../_file/assets/favicon.aef23c64.png">
+    <script src="../_import/assets/logic.58d92551.js" defer=""></script>
+  
+<script type="module">
+
+import {define} from "../_observablehq/client.17f4b988.js";
+import {registerFile} from "../_observablehq/stdlib.576a058a.js";
+
+registerFile("../assets/sponsor-BMWSB.svg", {"name":"../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1758540146995,"size":88024});
+registerFile("../assets/sponsor-KFW.png", {"name":"../assets/sponsor-KFW.png","mimeType":"image/png","path":"../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1758540146996,"size":5944});
+registerFile("./lubw.zip", {"name":"./lubw.zip","mimeType":"application/zip","path":"../_file/lubw/lubw.112867f7.zip","lastModified":1758540271584,"size":18590});
+registerFile("./lubw/Auszug_Stundenwerte.csv", {"name":"./lubw/Auszug_Stundenwerte.csv","mimeType":"text/csv","path":"../_file/lubw/lubw/Auszug_Stundenwerte.33e9cc7e.csv","lastModified":1758540271667,"size":7986});
+registerFile("./lubw/Jährliche_Statistik.csv", {"name":"./lubw/Jährliche_Statistik.csv","mimeType":"text/csv","path":"../_file/lubw/lubw/Jährliche_Statistik.61c3912c.csv","lastModified":1758540282759,"size":2880});
+registerFile("./lubw/Monatliche_Statistik.csv", {"name":"./lubw/Monatliche_Statistik.csv","mimeType":"text/csv","path":"../_file/lubw/lubw/Monatliche_Statistik.07d8f3d8.csv","lastModified":1758540282754,"size":33437});
+
+define({id: "4963b2ae", outputs: ["layout"], body: async () => {
+const layout = await import("../_import/assets/layout.0c2cebed.js");
+
+return {layout};
+}});
+
+define({id: "935aa80a", inputs: ["layout"], outputs: ["map_div","position_card"], body: (layout) => {
+const map_div = document.createElement('div');
+const position_card = layout.card({
+    title : 'Messstation Konstanz',
+    subtitle : 'Ecke Zasiusstraße und Wallgutstraße',
+    body : map_div,
+})
+return {map_div,position_card};
+}});
+
+define({id: "3973b83a", inputs: ["map_div","L","ResizeObserver"], outputs: ["map","points_to_fit","pos","mapResizeObserver"], body: (map_div,L,ResizeObserver) => {
+map_div.style = "flex-grow:1";
+
+const map = L.map(map_div, {
+  scrollWheelZoom: false,
+  dragging: false,
+  doubleClickZoom: false,
+  boxZoom: false,
+  keyboard: false,
+  zoomControl: false,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+const points_to_fit = [ [47.65671712249894, 9.179873031082293], [ 47.6962128027911, 9.139355745114335], [47.66589663744094, 9.221408794229172] ]
+
+const pos = [47.6643739 , 9.1680143]
+
+L.circleMarker(pos, {radius: 5, color: 'var(--theme-blue)'})
+.addTo(map)
+.openTooltip()
+
+points_to_fit.push(pos)
+
+const mapResizeObserver = new ResizeObserver(() => {
+  map.invalidateSize();
+  map.fitBounds(points_to_fit, {padding: [11, 11]});
+});
+mapResizeObserver.observe(map_div);
+return {map,points_to_fit,pos,mapResizeObserver};
+}});
+
+define({id: "ae80de33", inputs: ["FileAttachment","layout","html"], outputs: ["zip_data","dataset_card"], body: (FileAttachment,layout,html) => {
+const zip_data = FileAttachment("./lubw.zip");
+
+const dataset_card = layout.card({
+    title : "Datengrundlage",
+    subtitle: html.fragment`<a href='https://www.lubw.baden-wuerttemberg.de/en/luft/messwerte-immissionswerte?id=DEBW052#diagramm>'>lubw.baden-wuerttemberg.de</a>`,
+    download: zip_data.href,
+    body : html.fragment`
+    <p>Die Landesanstalt für Umwelt Baden-Württemberg (LUBW) betreibt ein landesweites Messnetz zur Überwachung der Luftqualität.</p>
+
+    <p>Dieses Dashboard basiert auf historischen Aufzeichnungen der Messtation Konstanz. Die Daten werden seit 2008 aufgezeichnet.</p>
+
+    <p>Die Messstation Konstanz befindet sich im Stadtgebiet: im Paradies an der Ecke Zasiusstraße und Wallgutstraße, direkt beim Ellenrieder Gymnasium.</p>
+    `,
+})
+return {zip_data,dataset_card};
+}});
+
+define({id: "8597476b", inputs: ["html"], outputs: ["o3","no2","pm25","pm10"], body: (html) => {
+const o3 = {
+        name: "o3",
+        title: "Ozon",
+        short: html`O<sub>3</sub>`,
+        unit: "µg/m³",
+    };
+
+const no2 = {
+        name: "no2",
+        title: "Stickstoffdioxid",
+        short: html`NO<sub>2</sub>`,
+        unit: "µg/m³",
+    };
+
+const pm25 = {
+        name: "pm25",
+        title: "Feinstaub mit 2,5 µm Durchmesser",
+        short: html`PM<sub>2,5</sub>`,
+        unit: "µg/m³",
+    };
+
+const pm10 = {
+        name: "pm10",
+        title: "Feinstaub mit 10 µm Durchmesser",
+        short: html`PM<sub>10</sub>`,
+        unit: "µg/m³",
+    };
+return {o3,no2,pm25,pm10};
+}});
+
+define({id: "27753eb7", inputs: ["FileAttachment"], outputs: ["recent_data","monthly_data","yearly_data"], body: (FileAttachment) => {
+const recent_data = FileAttachment("./lubw/Auszug_Stundenwerte.csv").csv({typed: true})
+const monthly_data = FileAttachment("./lubw/Monatliche_Statistik.csv").csv({typed: true})
+const yearly_data = FileAttachment("./lubw/Jährliche_Statistik.csv").csv({typed: true})
+return {recent_data,monthly_data,yearly_data};
+}});
+
+define({id: "47024b95", inputs: ["recent_data","layout","Plot","monthly_data","yearly_data"], outputs: ["recent_times","recent_start","recent_range","range","recent_card","monthly_card","yearly_card"], body: (recent_data,layout,Plot,monthly_data,yearly_data) => {
+const recent_times = recent_data.map(row => row['startZeit'])
+const recent_start =  new Date(Math.min(...recent_times))
+const recent_range = `die Woche ab Montag, dem ${recent_start.toLocaleDateString('de-DE', {year: 'numeric', month: 'long', day: 'numeric'})}`
+
+// TODO move to global utils.js
+function range(data, column, extraValues = []){
+    var min = Math.min(...data.map(row => +row[column]), ...extraValues);
+    var max = Math.max(...data.map(row => +row[column]), ...extraValues);
+    return [min, max]
+};
+
+function recent_card(variable, { thresholds = [], info, align_values = [] } = {}) {
+    const var_name = variable.name;
+    return layout.card({
+        title : "Stündliche Aufzeichnung " + variable.title,
+        subtitle: `Datenauszug für ${recent_range}`,
+        body : layout.plot({
+                x: {
+                    label: 'Zeit',
+                },
+                y: {
+                    domain: range(recent_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
+                    label: variable.unit,
+                    tickFormat: Plot.formatNumber("de-DE"),
+                },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
+                marks: [
+                    Plot.line(recent_data, {
+                        x: "startZeit", // TODO fix time zone offset in GUI
+                        y: var_name,
+                        stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
+                    }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    }),
+                    // mouseover
+                    Plot.dot(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE'),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
+                ]
+            }),
+        info,
+    })
+}
+
+function monthly_card(variable, { thresholds = [], info, align_values = [] } = {}){
+    const var_name = variable.name + "_mean"
+    return layout.card({
+        title : "Langfristige Entwicklung " + variable.title,
+        subtitle: `Monatsmittelwerte seit Beginn der Aufzeichnung`,
+        body : layout.plot({
+                x: {
+                    label: 'Monat',
+                },
+                y: {
+                    domain: range(monthly_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
+                    label: variable.unit,
+                    tickFormat: Plot.formatNumber("de-DE"),
+                },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
+                marks: [
+                    Plot.line(monthly_data, {
+                        x: "start",
+                        y: var_name,
+                        stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
+                    }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    }),
+                    // mouseover
+                    Plot.dot(monthly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(monthly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE', {year: 'numeric', month: 'long'}),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
+                ]
+            }),
+        info,
+    })
+}
+
+function yearly_card(variable, { thresholds = [], info, align_values = [] } = {}){
+    const var_name = variable.name + "_mean";
+    return layout.card({
+        title : "Langfristige Entwicklung " + variable.title,
+        subtitle: `Jahresmittelwerte seit Beginn der Aufzeichnung`,
+        body : layout.plot({
+                x: {
+                    label: 'Jahr',
+                },
+                y: {
+                    domain: range(yearly_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
+                    label: variable.unit,
+                    tickFormat: Plot.formatNumber("de-DE"),
+                },
+                color: {
+                    label: "",
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
+                marks: [
+                    Plot.line(yearly_data, {
+                        x: "start",
+                        y: var_name,
+                        stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
+                    }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    }),
+                    // mouseover
+                    Plot.dot(yearly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(yearly_data, Plot.pointerX({
+                        x: "start",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE', {year: 'numeric'}),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
+                ]
+            }),
+        info,
+    })
+}
+return {recent_times,recent_start,recent_range,range,recent_card,monthly_card,yearly_card};
+}});
+
+define({id: "14d81086", inputs: ["layout","html","recent_card","o3"], outputs: ["o3_info_card","o3_recent_card"], body: (layout,html,recent_card,o3) => {
+const o3_info_card = layout.card({
+    title: 'Informationen',
+    subtitle: 'zur Ozon-Messung der LUBW',
+    info: html.fragment`
+    <p><strong>Ozon (O<sub>3</sub>)</strong> ist ein chemisch reaktives Gas. In der Stratosphäre schützt die Ozonschicht oberhalb von 20 km Höhe vor schädlicher Ultraviolettstrahlung der Sonne. Bodennah kommt Ozon ebenfalls natürlich vor, mit einer durchschnittlichen Hintergrundkonzentration von etwa 50 µg/m³.</p>
+
+    <p><strong>Quellen:</strong> Bodennahes Ozon entsteht größtenteils durch photochemische Reaktionen von Vorläufersubstanzen wie Stickstoffdioxid und flüchtigen organischen Verbindungen (VOC) bei intensiver Sonneneinstrahlung. Ein kleiner Teil stammt aus dem vertikalen Transport aus der Stratosphäre. Ozon wird nicht direkt emittiert, sondern bildet sich in der Atmosphäre.</p>
+
+    <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Erhöhte Ozonkonzentrationen wirken reizend auf die Atemwege und können entzündliche Prozesse im Lungengewebe fördern, insbesondere bei tiefer Inhalation (z.B. beim Sport). Die Empfindlichkeit gegenüber Ozon ist individuell unterschiedlich. Zudem kann Ozon in Bodennähe das Pflanzenwachstum beeinträchtigen.</p>
+
+    <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/relevante-luftschadstoffe">Weiterführende Informationen finden Sie auf den Seiten der LUBW.</a></p>
+`
+});
+
+const o3_recent_card = recent_card(o3, {
+    thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Informationsschwelle</strong> bei 180 µg/m³: Bei Überschreitung besteht bereits bei kurzfristiger Exposition ein Risiko für die Gesundheit insbesondere empfindlicher Bevölkerungsgruppen. Es müssen unverzüglich Informationen bereitgestellt werden.</p>
+        <p><strong>Alarmschwelle</strong> bei 240 µg/m³: Bei Überschreitung besteht selbst bei kurzfristiger Exposition ein Risiko für die Gesundheit der Gesamtbevölkerung. Es müssen unverzüglich Maßnahmen ergriffen werden.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `
+})
+return {o3_info_card,o3_recent_card};
+}});
+
+define({id: "f6293f35", inputs: ["monthly_card","o3"], outputs: ["o3_monthly_card"], body: (monthly_card,o3) => {
+const o3_monthly_card = monthly_card(o3, {});
+return {o3_monthly_card};
+}});
+
+define({id: "ed5450cf", inputs: ["yearly_card","o3","range","monthly_data"], outputs: ["o3_yearly_card"], body: (yearly_card,o3,range,monthly_data) => {
+const o3_yearly_card = yearly_card(o3, {
+    align_values: range(monthly_data, 'o3_mean'),
+});
+return {o3_yearly_card};
+}});
+
+define({id: "197be322", inputs: ["layout","html"], outputs: ["no2_info_card"], body: (layout,html) => {
+const no2_info_card = layout.card({
+    title: 'Informationen',
+    subtitle: 'zur Stickstoffdioxid-Messung der LUBW',
+    info: html.fragment`
+    <p><strong>Stickstoffdioxid (NO<sub>2</sub>)</strong> entsteht bei Verbrennungsprozessen unter hohen Temperaturen. Bedeutende Emissionsquellen sind der Kraftfahrzeugverkehr und die Verbrennung fossiler Brennstoffe. Zu den natürlichen Quellen zählen Blitze in Gewitterwolken. In der Atmosphäre wird das überwiegend freigesetzte Stickstoffmonoxid vergleichsweise schnell in Stickstoffdioxid umgewandelt. Die Umwandlungszeit hängt von der Tages- und Jahreszeit sowie von der Ozonkonzentration ab. Tagsüber und im Sommer erfolgt die Umwandlung rasch, nachts und im Winter wesentlich langsamer.</p>
+
+    <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Stickstoffoxide wirken reizend auf die Schleimhäute sowie die Atemwege des Menschen und können Pflanzen schädigen. Auch eine Zunahme von Herz-Kreislauferkrankungen kann beobachtet werden. Stickstoffdioxid ist zusammen mit den flüchtigen organischen Verbindungen (VOC) eine der Vorläufersubstanzen für die Bildung von bodennahem Ozon.</p>
+
+    <p>Stickstoffoxide tragen durch die langfristige Umwandlung in Nitrat und nachfolgende Deposition zur Überdüngung der Böden in empfindlichen Ökosystemen und Gewässern bei. Über die Umwandlung zu Salpetersäure leisten sie einen Beitrag zur Versauerung.</p>
+
+    <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/relevante-luftschadstoffe">Weiterführende Informationen finden Sie auf den Seiten der LUBW.</a></p>
+`
+});
+return {no2_info_card};
+}});
+
+define({id: "3448e648", inputs: ["recent_card","no2","html"], outputs: ["no2_recent_card"], body: (recent_card,no2,html) => {
+const no2_recent_card = recent_card(no2, {
+    thresholds: [ [200, "Grenzwert"], [400, "Alarmschwelle"] ],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Grenzwert</strong> bei 200 µg/m³: Ein Wert, der aufgrund wissenschaftlicher Erkenntnisse mit dem Ziel festgelegt wurde, schädliche Auswirkungen auf die menschliche Gesundheit zu vermeiden, zu verhüten oder zu verringern.</p>
+        <p><strong>Alarmschwelle</strong> bei 400 µg/m³: Bei Überschreitung besteht selbst bei kurzfristiger Exposition ein Risiko für die Gesundheit der Gesamtbevölkerung. Es müssen unverzüglich Maßnahmen ergriffen werden.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `
+});
+return {no2_recent_card};
+}});
+
+define({id: "e2a4a92b", inputs: ["monthly_card","no2","range","yearly_data"], outputs: ["no2_monthly_card"], body: (monthly_card,no2,range,yearly_data) => {
+const no2_monthly_card = monthly_card(no2, {
+    align_values: [...range(yearly_data, 'no2_mean'), 40],
+});
+return {no2_monthly_card};
+}});
+
+define({id: "3e755d0d", inputs: ["yearly_card","no2","html","range","monthly_data"], outputs: ["no2_yearly_card"], body: (yearly_card,no2,html,range,monthly_data) => {
+const no2_yearly_card = yearly_card(no2, {
+    thresholds: [ [40, "Grenzwert"] ],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Grenzwert</strong> bei 40 µg/m³: Ein Wert, der aufgrund wissenschaftlicher Erkenntnisse mit dem Ziel festgelegt wurde, schädliche Auswirkungen auf die menschliche Gesundheit zu vermeiden, zu verhüten oder zu verringern.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `,
+    align_values: range(monthly_data, 'no2_mean'),
+});
+return {no2_yearly_card};
+}});
+
+define({id: "061dba27", inputs: ["layout","html","pm10"], outputs: ["pm10_info_card"], body: (layout,html,pm10) => {
+const pm10_info_card = layout.card({
+    title: 'Informationen',
+    subtitle: 'zur Feinstaub-Messung der LUBW',
+    info: html.fragment`
+    <p><strong>Feinstaub (Particulate Matter, PM)</strong> bezeichnet luftgetragene feste oder flüssige Teilchen, die nicht unmittelbar zu Boden sinken, sondern mehrere Tage in der Atmosphäre verweilen und über große Distanzen transportiert werden können. Die Größe und Zusammensetzung der Partikel bestimmen ihre chemischen, physikalischen Eigenschaften und ihre Wirkung auf Mensch und Umwelt.</p>
+
+    <p>In diesem Abschnitt werden speziell die Werte für
+    <strong>${pm10.short}</strong> angezeigt. Dieser Wert bezeichnet inhalierbare
+    Partikel mit einem Durchmesser von ≤ 10 µm, die gesundheitlich relevant sind.</p>
+
+    <p><strong>Quellen:</strong> Es gibt primäre und sekundäre Partikel. Primäre Partikel werden direkt in die Umwelt emittiert und können natürlichen Ursprungs (z. B. durch Bodenerosion) oder durch menschliches Handeln (z. B. Verkehr und Feuerungsanlagen) freigesetzt werden. Sekundäre Partikel entstehen erst in der Atmosphäre durch chemische Reaktionen aus gasförmigen Vorläufersubstanzen wie Schwefeldioxid, Stickstoffoxiden oder Ammoniak.</p>
+
+    <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Feinstaub Partikel sind gesundheitsgefährdend. Sie können tief in den Organismus eindringen und Beschwerden des Atemtraktes sowie des Herz-Kreislaufsystems verursachen.</p>
+
+    <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/relevante-luftschadstoffe">Weiterführende Informationen finden Sie auf den Seiten der LUBW.</a></p>
+`
+});
+return {pm10_info_card};
+}});
+
+define({id: "dda9b7c5", inputs: ["recent_card","pm10"], outputs: ["pm10_recent_card"], body: (recent_card,pm10) => {
+const pm10_recent_card = recent_card(pm10, {});
+return {pm10_recent_card};
+}});
+
+define({id: "90634a3f", inputs: ["monthly_card","pm10"], outputs: ["pm10_monthly_card"], body: (monthly_card,pm10) => {
+const pm10_monthly_card = monthly_card(pm10, {});
+return {pm10_monthly_card};
+}});
+
+define({id: "073c2fb4", inputs: ["yearly_card","pm10","html","range","monthly_data"], outputs: ["pm10_yearly_card"], body: (yearly_card,pm10,html,range,monthly_data) => {
+const pm10_yearly_card = yearly_card(pm10, {
+    thresholds : [ [40, "Grenzwert"]],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Grenzwert</strong> bei 40 µg/m³: Ein Wert, der aufgrund wissenschaftlicher Erkenntnisse mit dem Ziel festgelegt wurde, schädliche Auswirkungen auf die menschliche Gesundheit zu vermeiden, zu verhüten oder zu verringern.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `,
+    align_values: range(monthly_data, 'pm10_mean')
+});
+return {pm10_yearly_card};
+}});
+
+define({id: "171d0844", inputs: ["layout","html","pm25"], outputs: ["pm25_info_card"], body: (layout,html,pm25) => {
+const pm25_info_card = layout.card({
+    title: 'Informationen',
+    subtitle: 'zur Feinstaub-Messung der LUBW',
+    info: html.fragment`
+    <p><strong>Feinstaub (Particulate Matter, PM)</strong> bezeichnet luftgetragene feste oder flüssige Teilchen, die nicht unmittelbar zu Boden sinken, sondern mehrere Tage in der Atmosphäre verweilen und über große Distanzen transportiert werden können. Die Größe und Zusammensetzung der Partikel bestimmen ihre chemischen, physikalischen Eigenschaften und ihre Wirkung auf Mensch und Umwelt.</p>
+
+    <p>In diesem Abschnitt werden speziell die Werte für
+    <strong>${pm25.short}</strong> angezeigt.
+    Dieser Wert bezeichnet inhalierbare
+    Partikel mit einem Durchmesser von ≤ 2,5 µm, die gesundheitlich relevant sind.</p>
+
+    <p><strong>Quellen:</strong> Es gibt primäre und sekundäre Partikel. Primäre Partikel werden direkt in die Umwelt emittiert und können natürlichen Ursprungs (z. B. durch Bodenerosion) oder durch menschliches Handeln (z. B. Verkehr und Feuerungsanlagen) freigesetzt werden. Sekundäre Partikel entstehen erst in der Atmosphäre durch chemische Reaktionen aus gasförmigen Vorläufersubstanzen wie Schwefeldioxid, Stickstoffoxiden oder Ammoniak.</p>
+
+    <p><strong>Wirkungen auf Mensch und Umwelt:</strong> Feinstaub Partikel sind gesundheitsgefährdend. Sie können tief in den Organismus eindringen und Beschwerden des Atemtraktes sowie des Herz-Kreislaufsystems verursachen.</p>
+
+    <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/relevante-luftschadstoffe">Weiterführende Informationen finden Sie auf den Seiten der LUBW.</a></p>
+`
+});
+return {pm25_info_card};
+}});
+
+define({id: "3d7578c1", inputs: ["recent_card","pm25"], outputs: ["pm25_recent_card"], body: (recent_card,pm25) => {
+const pm25_recent_card = recent_card(pm25, {});
+return {pm25_recent_card};
+}});
+
+define({id: "7758b51b", inputs: ["monthly_card","pm25"], outputs: ["pm25_monthly_card"], body: (monthly_card,pm25) => {
+const pm25_monthly_card = monthly_card(pm25, {});
+return {pm25_monthly_card};
+}});
+
+define({id: "41b7b24d", inputs: ["yearly_card","pm25","html","range","monthly_data"], outputs: ["pm25_yearly_card"], body: (yearly_card,pm25,html,range,monthly_data) => {
+const pm25_yearly_card = yearly_card(pm25, {
+    thresholds : [ [25, "Grenzwert"]],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Grenzwert</strong> bei 40 µg/m³: Ein Wert, der aufgrund wissenschaftlicher Erkenntnisse mit dem Ziel festgelegt wurde, schädliche Auswirkungen auf die menschliche Gesundheit zu vermeiden, zu verhüten oder zu verringern.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `,
+    align_values: range(monthly_data, 'pm25_mean')
+});
+return {pm25_yearly_card};
+}});
+
+define({id: "8d2b3832", inputs: ["layout","display"], body: async (layout,display) => {
+display(await(
+layout.title('Luftqualität', 'Messung der Landesanstalt für Umwelt Baden-Württemberg')
+))
+}});
+
+define({id: "50fa32d4", mode: "inline", inputs: ["position_card","display"], body: async (position_card,display) => {
+display(await(
+ position_card 
+))
+}});
+
+define({id: "c8615f63", mode: "inline", inputs: ["dataset_card","display"], body: async (dataset_card,display) => {
+display(await(
+ dataset_card 
+))
+}});
+
+define({id: "7ed61680", mode: "inline", inputs: ["o3_info_card","display"], body: async (o3_info_card,display) => {
+display(await(
+ o3_info_card 
+))
+}});
+
+define({id: "b1f3ffa3", mode: "inline", inputs: ["o3_recent_card","display"], body: async (o3_recent_card,display) => {
+display(await(
+ o3_recent_card 
+))
+}});
+
+define({id: "a3ae237c", mode: "inline", inputs: ["o3_monthly_card","display"], body: async (o3_monthly_card,display) => {
+display(await(
+ o3_monthly_card 
+))
+}});
+
+define({id: "674789ad", mode: "inline", inputs: ["o3_yearly_card","display"], body: async (o3_yearly_card,display) => {
+display(await(
+ o3_yearly_card 
+))
+}});
+
+define({id: "cdbbf8c6", mode: "inline", inputs: ["no2_info_card","display"], body: async (no2_info_card,display) => {
+display(await(
+ no2_info_card 
+))
+}});
+
+define({id: "fe109870", mode: "inline", inputs: ["no2_recent_card","display"], body: async (no2_recent_card,display) => {
+display(await(
+ no2_recent_card 
+))
+}});
+
+define({id: "497dd717", mode: "inline", inputs: ["no2_monthly_card","display"], body: async (no2_monthly_card,display) => {
+display(await(
+ no2_monthly_card 
+))
+}});
+
+define({id: "05d57d58", mode: "inline", inputs: ["no2_yearly_card","display"], body: async (no2_yearly_card,display) => {
+display(await(
+ no2_yearly_card 
+))
+}});
+
+define({id: "2e67b96f", mode: "inline", inputs: ["pm10_info_card","display"], body: async (pm10_info_card,display) => {
+display(await(
+ pm10_info_card 
+))
+}});
+
+define({id: "db2e72b3", mode: "inline", inputs: ["pm10_recent_card","display"], body: async (pm10_recent_card,display) => {
+display(await(
+ pm10_recent_card 
+))
+}});
+
+define({id: "1ecee93b", mode: "inline", inputs: ["pm10_monthly_card","display"], body: async (pm10_monthly_card,display) => {
+display(await(
+ pm10_monthly_card 
+))
+}});
+
+define({id: "2a413703", mode: "inline", inputs: ["pm10_yearly_card","display"], body: async (pm10_yearly_card,display) => {
+display(await(
+ pm10_yearly_card 
+))
+}});
+
+define({id: "a2004980", mode: "inline", inputs: ["pm25_info_card","display"], body: async (pm25_info_card,display) => {
+display(await(
+ pm25_info_card 
+))
+}});
+
+define({id: "9df27664", mode: "inline", inputs: ["pm25_recent_card","display"], body: async (pm25_recent_card,display) => {
+display(await(
+ pm25_recent_card 
+))
+}});
+
+define({id: "eca49bb1", mode: "inline", inputs: ["pm25_monthly_card","display"], body: async (pm25_monthly_card,display) => {
+display(await(
+ pm25_monthly_card 
+))
+}});
+
+define({id: "c8c483e3", mode: "inline", inputs: ["pm25_yearly_card","display"], body: async (pm25_yearly_card,display) => {
+display(await(
+ pm25_yearly_card 
+))
+}});
+
+define({id: "251151aa", inputs: ["layout","display"], body: async (layout,display) => {
+display(await(
+layout.sponsors()
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="../">Startseite</a></li>
+  </ol>
+  <section class="observablehq-section-active">
+    <summary>Dashboards</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../dwd/">Wetterbeobachtungen</a></li>
+    <li class="observablehq-link"><a href="../cds/">Klimaprojektionen</a></li>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Luftqualität</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Stories</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../stadtklima/">Stadtklima</a></li>
+    </ol>
+  </section>
+  <ol>
+    <li class="observablehq-link"><a href="../legal/">Rechtliche Hinweise</a></li>
+    <li class="observablehq-link"><a href="../leichte-sprache/">Leichte Sprache</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+
+<div style="display: flex; justify-content: space-between; width: 100%">
+  <a href="../" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem" src="../_file/assets/skn-logo.123f9c0a.svg" alt="Logo der Stadtverwaltung Konstanz"><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
+  <div>
+    <a href="https://github.com/sgc-kn/dashboards" target="_blank" rel="noopener noreferrer">
+      <img style="height: 1.5rem" src="../_file/assets/github-logo.9cd1a180.svg" alt="Github Logo">
+    </a>
+  </div>
+</div>
+
+</header>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Inhaltsverzeichnis</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#ozon">Ozon</a></li>
+<li class="observablehq-secondary-link"><a href="#stickstoffdioxid">Stickstoffdioxid</a></li>
+<li class="observablehq-secondary-link"><a href="#feinstaub-10-m">Feinstaub 10 µm</a></li>
+<li class="observablehq-secondary-link"><a href="#feinstaub-2-5-m">Feinstaub 2,5 µm</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:4963b2ae:--></div>
+<div class="observablehq observablehq--block"><!--:935aa80a:--></div>
+<div class="observablehq observablehq--block"><!--:3973b83a:--></div>
+<div class="observablehq observablehq--block"><!--:ae80de33:--></div>
+<div class="observablehq observablehq--block"><!--:8597476b:--></div>
+<div class="observablehq observablehq--block"><!--:27753eb7:--></div>
+<div class="observablehq observablehq--block"><!--:47024b95:--></div>
+<div class="observablehq observablehq--block"><!--:14d81086:--></div>
+<div class="observablehq observablehq--block"><!--:f6293f35:--></div>
+<div class="observablehq observablehq--block"><!--:ed5450cf:--></div>
+<div class="observablehq observablehq--block"><!--:197be322:--></div>
+<div class="observablehq observablehq--block"><!--:3448e648:--></div>
+<div class="observablehq observablehq--block"><!--:e2a4a92b:--></div>
+<div class="observablehq observablehq--block"><!--:3e755d0d:--></div>
+<div class="observablehq observablehq--block"><!--:061dba27:--></div>
+<div class="observablehq observablehq--block"><!--:dda9b7c5:--></div>
+<div class="observablehq observablehq--block"><!--:90634a3f:--></div>
+<div class="observablehq observablehq--block"><!--:073c2fb4:--></div>
+<div class="observablehq observablehq--block"><!--:171d0844:--></div>
+<div class="observablehq observablehq--block"><!--:3d7578c1:--></div>
+<div class="observablehq observablehq--block"><!--:7758b51b:--></div>
+<div class="observablehq observablehq--block"><!--:41b7b24d:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:8d2b3832:--></div>
+<div class="grid grid-cols-4">
+    <observablehq-loading></observablehq-loading><!--:50fa32d4:-->
+    <observablehq-loading></observablehq-loading><!--:c8615f63:-->
+</div>
+<h2 id="ozon" tabindex="-1"><a class="observablehq-header-anchor" href="#ozon">Ozon</a></h2>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:7ed61680:-->
+    <observablehq-loading></observablehq-loading><!--:b1f3ffa3:-->
+</div>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:a3ae237c:-->
+    <observablehq-loading></observablehq-loading><!--:674789ad:-->
+</div>
+<h2 id="stickstoffdioxid" tabindex="-1"><a class="observablehq-header-anchor" href="#stickstoffdioxid">Stickstoffdioxid</a></h2>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:cdbbf8c6:-->
+    <observablehq-loading></observablehq-loading><!--:fe109870:-->
+</div>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:497dd717:-->
+    <observablehq-loading></observablehq-loading><!--:05d57d58:-->
+</div>
+<h2 id="feinstaub-10-m" tabindex="-1"><a class="observablehq-header-anchor" href="#feinstaub-10-m">Feinstaub 10 µm</a></h2>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:2e67b96f:-->
+    <observablehq-loading></observablehq-loading><!--:db2e72b3:-->
+</div>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:1ecee93b:-->
+    <observablehq-loading></observablehq-loading><!--:2a413703:-->
+</div>
+<h2 id="feinstaub-2-5-m" tabindex="-1"><a class="observablehq-header-anchor" href="#feinstaub-2-5-m">Feinstaub 2,5 µm</a></h2>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:a2004980:-->
+    <observablehq-loading></observablehq-loading><!--:9df27664:-->
+</div>
+<div class="grid grid-cols-2">
+    <observablehq-loading></observablehq-loading><!--:eca49bb1:-->
+    <observablehq-loading></observablehq-loading><!--:c8c483e3:-->
+</div>
+<hr>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:251151aa:--></div>
+</main>
+<footer id="observablehq-footer">
+<div>Seite erstellt am 22.9.2025 um 11:24 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/pull/45/merge" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/b72ba5ebe2656d7fef2eaa077e550ef7809a05ff" target="_blank" rel="noopener noreferrer">Version: b72ba5eb</a></div>
+</footer>
+</div>
+</body>
+</html>
