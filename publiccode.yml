@@ -48,11 +48,11 @@ description:
   de:
     genericName: Öffentliche Dashboards
     localisedName: Öffentliche Stadtdaten-Dashboards Konstanz
-    shortDescription: >-
+    shortDescription: >
       Öffentliche Website mit Dashboards und Data Stories zum Thema Stadtdaten
       Konstanz
 
-    longDescription: >-
+    longDescription: >
       Die *„Stadtdaten-Dashboards Konstanz“* sind eine öffentliche, statische
       Website für Bürgerinnen und Bürger. Sie bieten datenbasierte Einblicke zu
       Luftqualität, Wetter und Klimaindikatoren und werden automatisch
@@ -62,6 +62,7 @@ description:
       leichte Sprache und Screen-Reader-Support. Die Website ist produktiv
       erreichbar unter:
       [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
+
 
       Technisch basieren die Dashboards auf modernen Webtechnologien: Die
       Aufbereitung der Daten erfolgt mit Python, die Visualisierung mit
@@ -90,9 +91,9 @@ description:
   en:
     genericName: Public Dashboards
     localisedName: Public Konstanz City Data Dashboards
-    shortDescription: >-
+    shortDescription: >
       Public website with dashboards and data stories on Konstanz city data
-    longDescription: |
+    longDescription: >
       The *“Konstanz City Data Dashboards”* are a public, static website for
       residents. They provide data-driven insights on air quality, weather, and
       climate indicators and are automatically updated on a weekly basis. The
@@ -101,6 +102,7 @@ description:
       include responsive design, plain language, and screen reader support. The
       website is live at:
       [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
+
 
       Technically, the dashboards are built with modern web technologies: data
       processing is done with Python, visualization with Observable Plot, site
