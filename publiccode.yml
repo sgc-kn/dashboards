@@ -55,15 +55,15 @@ description:
       eigene Wetterstationen der Stadt. Der Quellcode ist offen unter EUPL 1.2
       lizenziert und auf GitHub verfügbar: https://github.com/sgc-kn/dashboards
     features:
-      - "Statische Website"
-      - "Mobile Website"
-      - "Datenbasierte Dashboards"
-      - "Automatische Aktualisierung der dargestellten Daten"
-      - "Aufbereitung von Daten mit Python"
-      - "Darstellung von Daten mit Observable Plot"
-      - "Generierung der Website mit Observable Framework"
-      - "Automatische Veröffentlichung der Website mit Github Actions"
-      - "Datensparsame Umsetzung ohne Tracking und Cookies"
+      - Statische Website
+      - Mobile Website
+      - Datenbasierte Dashboards
+      - Automatische Aktualisierung der dargestellten Daten
+      - Aufbereitung von Daten mit Python
+      - Darstellung von Daten mit Observable Plot
+      - Generierung der Website mit Observable Framework
+      - Automatische Veröffentlichung der Website mit Github Actions
+      - Datensparsame Umsetzung ohne Tracking und Cookies
     screenshots:
       - screenshot.png
     genericName: Öffentliche Dashboards
@@ -89,16 +89,16 @@ description:
       open, licensed under EUPL 1.2, and available on GitHub:
       https://github.com/sgc-kn/dashboards
     features:
-      - "Public website"
-      - "Static website"
-      - "Mobile-friendly website"
-      - "Data-driven dashboards"
-      - "Automatic weekly updates of displayed data"
-      - "Data processing with Python"
-      - "Data visualization with Observable Plot"
-      - "Site generation with Observable Framework"
-      - "Automated publication via GitHub Actions"
-      - "Privacy-friendly implementation without tracking or cookies"
+      - Public website
+      - Static website
+      - Mobile-friendly website
+      - Data-driven dashboards
+      - Automatic weekly updates of displayed data
+      - Data processing with Python
+      - Data visualization with Observable Plot
+      - Site generation with Observable Framework
+      - Automated publication via GitHub Actions
+      - Privacy-friendly implementation without tracking or cookies
     screenshots:
       - screenshot.png
     genericName: Public Dashboards
