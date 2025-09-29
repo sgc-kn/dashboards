@@ -2,7 +2,7 @@ publiccodeYmlVersion: '0.2'
 name: Public Dashboards
 url: 'https://github.com/sgc-kn/dashboards'
 landingURL: 'https://stadtdaten.konstanz.digital'
-logo: 'src/assets/skn-logo.svg'
+logo: src/assets/skn-logo.svg
 
 softwareType: standalone/web
 platforms:
