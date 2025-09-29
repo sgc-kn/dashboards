@@ -1,19 +1,29 @@
 publiccodeYmlVersion: '0.2'
-name: Public City Data Dashboards
+name: Public Dashboards
 url: 'https://github.com/sgc-kn/dashboards'
 landingURL: 'https://stadtdaten.konstanz.digital'
-isBasedOn: 'https://observablehq.com/framework/'
+
+softwareType: standalone/web
 platforms:
   - web
 categories:
   - data-analytics
   - data-visualization
   - blog
-developmentStatus: stable
-softwareType: standalone/web
+
 releaseDate: '2025-09-01'
+softwareVersion: 'rolling'
+developmentStatus: stable
+
 usedBy:
   - Stadt Konstanz
+isBasedOn: 'https://observablehq.com/framework/'
+
+intendedAudience:
+  scope:
+    - environment
+    - local-authorities
+
 maintenance:
   type: internal
   contacts:
@@ -21,21 +31,28 @@ maintenance:
       email: patrik.keller@konstanz.de
     - name: Wilfried Baumgartner
       email: wilfried.baumgartner@konstanz.de
+    - name: Smart Green City Konstanz
+      email: smartgreencity@konstanz.de
+
 legal:
   license: EUPL-1.2
   mainCopyrightOwner: Stadt Konstanz
   repoOwner: Stadt Konstanz
+
 localisation:
   localisationReady: false
   availableLanguages:
     - de
+
 description:
   de:
+    genericName: Öffentliche Dashboards
     localisedName: Öffentliche Stadtdaten-Dashboards Konstanz
-    shortDescription: >
+    shortDescription: >-
       Öffentliche Website mit Dashboards und Data Stories zum Thema Stadtdaten
       Konstanz
-    longDescription: |
+
+    longDescription: >
       Die „Stadtdaten-Dashboards Konstanz“ sind eine öffentliche, statische
       Website für Bürgerinnen und Bürger. Sie bieten datenbasierte Einblicke zu
       Luftqualität, Wetter und Klimaindikatoren und werden automatisch
@@ -43,8 +60,8 @@ description:
       verzichten auf Tracking und Cookies und sind für mobile Endgeräte
       optimiert. Maßnahmen zur Barrierefreiheit umfassen responsives Design,
       leichte Sprache und Screen-Reader-Support. Die Website ist produktiv
-      erreichbar unter: https://stadtdaten.konstanz.digital
-
+      erreichbar unter:
+      [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
 
       Technisch basieren die Dashboards auf modernen Webtechnologien: Die
       Aufbereitung der Daten erfolgt mit Python, die Visualisierung mit
@@ -53,7 +70,9 @@ description:
       sind u. a. LUBW (Luftqualität), Copernicus Climate Data Store
       (Klimamodelldaten), der Deutsche Wetterdienst DWD (Wetterdaten) sowie
       eigene Wetterstationen der Stadt. Der Quellcode ist offen unter EUPL 1.2
-      lizenziert und auf GitHub verfügbar: https://github.com/sgc-kn/dashboards
+      lizenziert und auf GitHub verfügbar:
+      [https://github.com/sgc-kn/dashboards](https://github.com/sgc-kn/dashboards)
+
     features:
       - Statische Website
       - Mobile Website
@@ -64,21 +83,24 @@ description:
       - Generierung der Website mit Observable Framework
       - Automatische Veröffentlichung der Website mit Github Actions
       - Datensparsame Umsetzung ohne Tracking und Cookies
+
     screenshots:
       - screenshot.png
-    genericName: Öffentliche Dashboards
+
   en:
+    genericName: Public Dashboards
     localisedName: Public Konstanz City Data Dashboards
-    shortDescription: |
+    shortDescription: >-
       Public website with dashboards and data stories on Konstanz city data
-    longDescription: |
-      The “Konstanz City Data Dashboards” are a public, static website for
+    longDescription: >
+      The *“Konstanz City Data Dashboards”* are a public, static website for
       residents. They provide data-driven insights on air quality, weather, and
       climate indicators and are automatically updated on a weekly basis. The
       dashboards are designed with data minimization in mind, use no tracking or
       cookies, and are optimized for mobile devices. Accessibility measures
       include responsive design, plain language, and screen reader support. The
-      website is live at: https://stadtdaten.konstanz.digital
+      website is live at:
+      [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
 
       Technically, the dashboards are built with modern web technologies: data
       processing is done with Python, visualization with Observable Plot, site
@@ -87,7 +109,8 @@ description:
       Climate Data Store (climate model data), the German Weather Service DWD
       (weather data), and the city’s own weather stations. The source code is
       open, licensed under EUPL 1.2, and available on GitHub:
-      https://github.com/sgc-kn/dashboards
+      [https://github.com/sgc-kn/dashboards](https://github.com/sgc-kn/dashboards)
+
     features:
       - Public website
       - Static website
@@ -99,10 +122,6 @@ description:
       - Site generation with Observable Framework
       - Automated publication via GitHub Actions
       - Privacy-friendly implementation without tracking or cookies
+
     screenshots:
       - screenshot.png
-    genericName: Public Dashboards
-intendedAudience:
-  scope:
-    - environment
-    - local-authorities
