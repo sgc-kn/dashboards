@@ -63,7 +63,6 @@ description:
       erreichbar unter:
       [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
 
-
       Technisch basieren die Dashboards auf modernen Webtechnologien: Die
       Aufbereitung der Daten erfolgt mit Python, die Visualisierung mit
       Observable Plot, die Seitengenerierung mit dem Observable Framework; die
@@ -102,7 +101,6 @@ description:
       include responsive design, plain language, and screen reader support. The
       website is live at:
       [https://stadtdaten.konstanz.digital](https://stadtdaten.konstanz.digital)
-
 
       Technically, the dashboards are built with modern web technologies: data
       processing is done with Python, visualization with Observable Plot, site
