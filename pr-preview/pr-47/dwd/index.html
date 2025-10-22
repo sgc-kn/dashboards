@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.3">
+<title>Stadtdaten | Stadt Konstanz</title>
+
+<link rel="preload" as="style" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="preload" as="style" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="preload" as="style" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="stylesheet" type="text/css" href="../_import/assets/style-dashboard.baf91798.css">
+<link rel="stylesheet" type="text/css" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="modulepreload" href="../_observablehq/client.1c22faed.js">
+<link rel="modulepreload" href="../_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="../_observablehq/stdlib.c41ec614.js">
+<link rel="modulepreload" href="../_import/dwd/lib.f7c00516.js">
+<link rel="modulepreload" href="../_npm/leaflet@1.9.4/721623d8.js">
+<link rel="modulepreload" href="../_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="../_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="../_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="../_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="../_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="../_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="../_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="../_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="../_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="../_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="../_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="../_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="../_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="../_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="../_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="../_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="../_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="../_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="../_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="../_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="../_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="../_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="../_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="../_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="../_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="../_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="../_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="../_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="../_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="../_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="../_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="../_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="../_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="../_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="../_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="../_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="../_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="../_npm/robust-predicates@3.0.2/aa00730b.js">
+
+    <link rel="icon" type="image/svg+xml" href="../_file/assets/favicon.6372ae97.svg">
+    <link rel="icon" type="image/png" href="../_file/assets/favicon.aef23c64.png">
+    <script src="../_import/assets/logic.58d92551.js" defer=""></script>
+  
+<script type="module">
+
+import {define} from "../_observablehq/client.1c22faed.js";
+import {registerFile} from "../_observablehq/stdlib.c41ec614.js";
+
+registerFile("./dwd/Jahreswerte.csv", {"name":"./dwd/Jahreswerte.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Jahreswerte.ba43a6b9.csv","lastModified":1761145443471,"size":4158});
+registerFile("./dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv", {"name":"./dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.22079fac.csv","lastModified":1761145443476,"size":5112});
+registerFile("./dwd/Referenzperiode_1973_2000.csv", {"name":"./dwd/Referenzperiode_1973_2000.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Referenzperiode_1973_2000.3ad53dc2.csv","lastModified":1761145443485,"size":601});
+registerFile("./dwd/Standort.csv", {"name":"./dwd/Standort.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Standort.fa82742d.csv","lastModified":1761145443481,"size":140});
+
+define({id: "16fecb84", inputs: ["FileAttachment"], outputs: ["geo","ref_tab","ma30y","points","plot"], body: async (FileAttachment) => {
+const {plot} = await import("../_import/dwd/lib.f7c00516.js");
+const geo = FileAttachment("./dwd/Standort.csv").csv({typed: true})
+const ref_tab = FileAttachment("./dwd/Referenzperiode_1973_2000.csv").csv({typed: true})
+
+const ma30y = FileAttachment("./dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+const points = FileAttachment("./dwd/Jahreswerte.csv").csv({typed: true})
+
+
+return {geo,ref_tab,ma30y,points,plot};
+}});
+
+define({id: "41db55d7", inputs: ["points","ref_tab","Plot"], outputs: ["years","minYear","maxYear","ref","klindex_change","klindex_abs","klindex_rel"], body: (points,ref_tab,Plot) => {
+const years = points.map(row => row['Jahr'])
+const minYear = Math.min(...years)
+const maxYear = Math.max(...years)
+
+const ref = ref_tab[0]
+
+function klindex_change(X, v){
+  let x = X/ref[v] * 100 - 100;
+  if (x >= 0) {
+    return '+ ' + Plot.formatNumber('de-DE')(x.toFixed(0)) + '%'
+  } else {
+    return '− ' + Plot.formatNumber('de-DE')((-x).toFixed(0)) + '%'
+  }
+}
+
+const klindex_abs = []
+const klindex_rel = []
+for (var r of points) {
+  if (r['Jahr'] > maxYear - 4) {
+    const abs = { Jahr: r['Jahr'] };
+    const rel = { Jahr: r['Jahr'] };
+    for (var k of ['Tropennaechte_Anzahl', 'Heisse_Tage_Anzahl', 'Sommertage_Anzahl', 'Eistage_Anzahl', 'Frosttage_Anzahl']) {
+      abs[k] = r[k];
+      rel[k] = klindex_change(r[k], k);
+    }
+    klindex_abs.push(abs);
+    klindex_rel.push(rel);
+  }
+}
+return {years,minYear,maxYear,ref,klindex_change,klindex_abs,klindex_rel};
+}});
+
+define({id: "9d9810ff", outputs: ["map_div"], body: () => {
+const map_div = document.createElement("div");
+map_div.style = "flex-grow:1";
+return {map_div};
+}});
+
+define({id: "7604163c", mode: "inline", inputs: ["map_div","display"], body: async (map_div,display) => {
+display(await(
+map_div
+))
+}});
+
+define({id: "5db027ae", mode: "inline", inputs: ["minYear","display"], body: async (minYear,display) => {
+display(await(
+minYear
+))
+}});
+
+define({id: "fb0a202a", mode: "inline", inputs: ["maxYear","display"], body: async (maxYear,display) => {
+display(await(
+maxYear
+))
+}});
+
+define({id: "88626d1e", mode: "inline", inputs: ["Plot","ref","display"], body: async (Plot,ref,display) => {
+display(await(
+Plot.formatNumber('de-DE')(ref['Eistage_Anzahl'].toFixed(2))
+))
+}});
+
+define({id: "f9f4252f", mode: "inline", inputs: ["Plot","ref","display"], body: async (Plot,ref,display) => {
+display(await(
+Plot.formatNumber('de-DE')(ref['Frosttage_Anzahl'].toFixed(2))
+))
+}});
+
+define({id: "8d52cf5b", mode: "inline", inputs: ["Plot","ref","display"], body: async (Plot,ref,display) => {
+display(await(
+Plot.formatNumber('de-DE')(ref['Sommertage_Anzahl'].toFixed(2))
+))
+}});
+
+define({id: "15e2df23", mode: "inline", inputs: ["Plot","ref","display"], body: async (Plot,ref,display) => {
+display(await(
+Plot.formatNumber('de-DE')(ref['Heisse_Tage_Anzahl'].toFixed(2))
+))
+}});
+
+define({id: "405dec73", mode: "inline", inputs: ["Plot","ref","display"], body: async (Plot,ref,display) => {
+display(await(
+Plot.formatNumber('de-DE')(ref['Tropennaechte_Anzahl'].toFixed(2))
+))
+}});
+
+define({id: "578c0ecb", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Jahr']
+))
+}});
+
+define({id: "2037b17a", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Jahr']
+))
+}});
+
+define({id: "068860c2", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Jahr']
+))
+}});
+
+define({id: "80ce76ec", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Jahr']
+))
+}});
+
+define({id: "392b4e28", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Eistage_Anzahl']
+))
+}});
+
+define({id: "f0af89d0", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Eistage_Anzahl']
+))
+}});
+
+define({id: "49462c73", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Eistage_Anzahl']
+))
+}});
+
+define({id: "f882d607", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Eistage_Anzahl']
+))
+}});
+
+define({id: "59c468b3", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "998b5cb6", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "18656ca0", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "14b13a9a", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "dd06412b", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "c3bd9809", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "71357d1a", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "a8f0ca9e", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "188e07c5", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "d524092c", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "4a4ccc18", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "61b0c288", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "5bf9d718", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[0]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "bd36f6e7", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[1]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "5197d921", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[2]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "862715bd", mode: "inline", inputs: ["klindex_abs","display"], body: async (klindex_abs,display) => {
+display(await(
+klindex_abs[3]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "1082f741", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Jahr']
+))
+}});
+
+define({id: "d1a1ae78", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Jahr']
+))
+}});
+
+define({id: "9b93bd50", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Jahr']
+))
+}});
+
+define({id: "5f509cc3", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Jahr']
+))
+}});
+
+define({id: "9297bf07", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Eistage_Anzahl']
+))
+}});
+
+define({id: "11a8b9eb", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Eistage_Anzahl']
+))
+}});
+
+define({id: "87044d0e", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Eistage_Anzahl']
+))
+}});
+
+define({id: "381a0708", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Eistage_Anzahl']
+))
+}});
+
+define({id: "af59cb19", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "a686c94a", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "cd64a585", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "a5a6dad6", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Frosttage_Anzahl']
+))
+}});
+
+define({id: "42932d22", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "a2c45a8a", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "9811709c", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "b7c657b3", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Sommertage_Anzahl']
+))
+}});
+
+define({id: "29b320f5", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "62b989b2", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "3aa91c72", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "e277d1d9", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Heisse_Tage_Anzahl']
+))
+}});
+
+define({id: "84639412", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[0]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "18d98f78", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[1]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "8f488a27", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[2]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "99365cc9", mode: "inline", inputs: ["klindex_rel","display"], body: async (klindex_rel,display) => {
+display(await(
+klindex_rel[3]['Tropennaechte_Anzahl']
+))
+}});
+
+define({id: "17e50420", inputs: ["L","map_div","geo","ResizeObserver"], outputs: ["map","label_geo","points_to_fit","mapResizeObserver"], body: (L,map_div,geo,ResizeObserver) => {
+const map = L.map(map_div, {
+  scrollWheelZoom: false,
+  dragging: false,
+  doubleClickZoom: false,
+  boxZoom: false,
+  keyboard: false,
+  zoomControl: false,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a> & OpenStreetMap contributors',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+function label_geo(row) {
+  const opt = {day: 'numeric', month: 'short', year: 'numeric'};
+  const von = (new Date(row['Von'])).toLocaleDateString(undefined, opt);
+  if (row['Bis']) {
+    const bis = (new Date(row['Bis'])).toLocaleDateString(undefined, opt);
+    return `${von} – ${bis}`
+  } else {
+    return `seit ${von}`
+  }
+}
+
+const points_to_fit = [ [47.66033, 9.17582] ]
+
+geo.forEach(row => {
+  const pos = [
+    row['Geografische_Breite_WGS84_Dezimal'],
+    row['Geografische_Laenge_WGS84_Dezimal'],
+  ];
+  points_to_fit.push(pos)
+  L.circleMarker(pos, {radius: 5, color: 'var(--theme-blue)'})
+   .addTo(map)
+   .bindTooltip(label_geo(row), {permanent: true})
+   .openTooltip()
+});
+
+const mapResizeObserver = new ResizeObserver(() => {
+  map.invalidateSize();
+  map.fitBounds(points_to_fit, {padding: [13, 13]});
+});
+mapResizeObserver.observe(map_div);
+return {map,label_geo,points_to_fit,mapResizeObserver};
+}});
+
+define({id: "96968c39", outputs: ["temperature_variables"], body: () => {
+const temperature_variables = [
+  'Temperatur_Celsius_Mittel_Tagesminimum',
+  'Temperatur_Celsius_Mittel_Tagesdurchschnitt',
+  'Temperatur_Celsius_Mittel_Tagesmaximum'
+];
+return {temperature_variables};
+}});
+
+define({id: "12999b17", mode: "inline", inputs: ["resize","plot","points","ma30y","temperature_variables","display"], body: async (resize,plot,points,ma30y,temperature_variables,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, temperature_variables))
+))
+}});
+
+define({id: "788864c0", mode: "inline", inputs: ["resize","plot","points","ma30y","display"], body: async (resize,plot,points,ma30y,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, "Temperatur_Celsius_Maximum"))
+))
+}});
+
+define({id: "2d42d336", mode: "inline", inputs: ["resize","plot","points","ma30y","display"], body: async (resize,plot,points,ma30y,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, "Temperatur_Celsius_Minimum"))
+))
+}});
+
+define({id: "2b3b0dd8", mode: "inline", inputs: ["resize","plot","points","ma30y","display"], body: async (resize,plot,points,ma30y,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, "Sonnenscheindauer_Stunden_Summe"))
+))
+}});
+
+define({id: "61956192", mode: "inline", inputs: ["resize","plot","points","ma30y","display"], body: async (resize,plot,points,ma30y,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, "Niederschlag_Millimeter_Summe"))
+))
+}});
+
+define({id: "6271907c", mode: "inline", inputs: ["resize","plot","points","ma30y","display"], body: async (resize,plot,points,ma30y,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, "Niederschlag_Millimeter_Maximum_Tagesmaximum"))
+))
+}});
+
+define({id: "63668a19", outputs: ["klindex_kalt_variables","klindex_warm_variables","klindex_nacht_variables"], body: () => {
+const klindex_kalt_variables = [
+  'Eistage_Anzahl',
+  'Frosttage_Anzahl',
+];
+
+const klindex_warm_variables = [
+  'Sommertage_Anzahl',
+  'Heisse_Tage_Anzahl',
+];
+
+const klindex_nacht_variables = [
+  'Tropennaechte_Anzahl',
+];
+return {klindex_kalt_variables,klindex_warm_variables,klindex_nacht_variables};
+}});
+
+define({id: "24e1f910", mode: "inline", inputs: ["resize","plot","points","ma30y","klindex_kalt_variables","display"], body: async (resize,plot,points,ma30y,klindex_kalt_variables,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, klindex_kalt_variables))
+))
+}});
+
+define({id: "55075b4d", mode: "inline", inputs: ["resize","plot","points","ma30y","klindex_warm_variables","display"], body: async (resize,plot,points,ma30y,klindex_warm_variables,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, klindex_warm_variables))
+))
+}});
+
+define({id: "e5be46c0", mode: "inline", inputs: ["resize","plot","points","ma30y","klindex_nacht_variables","display"], body: async (resize,plot,points,ma30y,klindex_nacht_variables,display) => {
+display(await(
+resize((width) => plot(points, ma30y, width, klindex_nacht_variables))
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="../">Startseite</a></li>
+  </ol>
+  <section class="observablehq-section-active">
+    <summary>Dashboards</summary>
+    <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Wetterbeobachtungen</a></li>
+    <li class="observablehq-link"><a href="../cds/">Klimaprojektionen</a></li>
+    <li class="observablehq-link"><a href="../lubw/">Luftqualität</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Stories</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../stadtklima/">Stadtklima</a></li>
+    </ol>
+  </section>
+  <ol>
+    <li class="observablehq-link"><a href="../legal/">Rechtliche Hinweise</a></li>
+    <li class="observablehq-link"><a href="../leichte-sprache/">Leichte Sprache</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+
+<div style="display: flex; justify-content: space-between; width: 100%">
+  <a href="../" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem" src="../_file/assets/skn-logo.123f9c0a.svg" alt="Logo der Stadtverwaltung Konstanz"><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
+  <div>
+    <a href="https://github.com/sgc-kn/dashboards" target="_blank" rel="noopener noreferrer">
+      <img style="height: 1.5rem" src="../_file/assets/github-logo.9cd1a180.svg" alt="Github Logo">
+    </a>
+  </div>
+</div>
+
+</header>
+<main id="observablehq-main" class="observablehq">
+<h1>Wetterbeobachtungen</h1>
+<h2>des Deutschen Wetterdienstes in Konstanz</h2>
+<div class="observablehq observablehq--block"><!--:16fecb84:--></div>
+<div class="observablehq observablehq--block"><!--:41db55d7:--></div>
+<div class="observablehq observablehq--block"><!--:9d9810ff:--></div>
+<div class="grid grid-cols-4">
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Messstation Konstanz</h2>
+<h3>Position der Station im Laufe der Zeit</h3>
+</div> <!-- title -->
+</div> <!-- header -->
+<observablehq-loading></observablehq-loading><!--:7604163c:-->
+</div> <!-- card -->
+<div class="card grid-colspan-1">
+<div class="header">
+<div class="title">
+<h2>Datenquelle</h2>
+<h3><a href="https://opendata.dwd.de/climate_environment/CDC/observations_germany/" target="_blank" rel="noopener noreferrer">opendata.dwd.de</a></h3>
+</div> <!-- title -->
+<div class="tools"><a href="../_file/dwd/dwd.4eae4163.zip" class="download-button" title="Download" aria-label="Download" download=""></a></div>
+</div> <!-- header -->
+<div id="map_height">
+<p>Der deutsche Wetterdienst stellt
+<a href="https://www.dwd.de/DE/leistungen/opendata/opendata.html" target="_blank" rel="noopener noreferrer">
+historische Messdaten</a>
+zu allen offiziellen Messstationen bereit.</p>
+<p>Dieses Dashboard basiert auf Jahreswerten zur Station Nummer 2712 in
+Konstanz. Die Daten decken die Zeitspanne <b><observablehq-loading></observablehq-loading><!--:5db027ae:--> bis <observablehq-loading></observablehq-loading><!--:fb0a202a:--></b> ab.</p>
+<p>Die Messstation Konstanz befindet sich seit Oktober 2020 westlich der
+L221 in einem landwirtschaftlich genutzten Gebiet. Nach internationalen
+Richtlinien ist der Standort nahezu ideal – die dort gemessenen Werte
+sind aber nicht repräsentativ für das Stadtklima, denn die Temperaturen
+in der Stadt sind meist höher als im ländlichen Raum.</p>
+</div> <!-- #map_height -->
+</div> <!-- card -->
+<div class="card grid-colspan-2">
+<h2>Klimakenntage</h2>
+<h3>Definition und Referenzwerte</h3>
+<table style="max-width:100%">
+<thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th></th>
+<th><span class="muted">Referenzperiode</span></th>
+</tr>
+<tr>
+<th><span class="muted">Bezeichnung</span></th>
+<th><span class="muted">Definition</span></th>
+<th>1973–2000 (⌀)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Eistage</th>
+<td>nicht über 0°C</td>
+<td><observablehq-loading></observablehq-loading><!--:88626d1e:--></td>
+</tr>
+<tr>
+<th>Frosttage</th>
+<td>unter 0°C</td>
+<td><observablehq-loading></observablehq-loading><!--:f9f4252f:--></td>
+</tr>
+<tr>
+<th>Sommertage</th>
+<td>über 25°C</td>
+<td><observablehq-loading></observablehq-loading><!--:8d52cf5b:--></td>
+</tr>
+<tr>
+<th>Heiße Tage</th>
+<td>über 30°C</td>
+<td><observablehq-loading></observablehq-loading><!--:15e2df23:--></td>
+</tr>
+<tr>
+<th>Tropennächte</th>
+<td>nicht unter 20°C</td>
+<td><observablehq-loading></observablehq-loading><!--:405dec73:--></td>
+</tr>
+</tbody>
+</table>
+<p><span class="muted">Die Referenzwerte ergeben sich aus dem Durchschnitt
+der Jahre 1973 bis 2000.</span></p>
+<!-- Üblicherweise werden als Referenzperiode die Jahre
+1971 bis 2000 heran gezogen. Die Aufzeichnung für die Station Konstanz
+beginnen aber erst 1973. -->
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="grid grid-cols-4">
+<div class="card grid-colspan-2">
+<h2>Klimakenntage</h2>
+<h3>Anzahl pro Jahr</h3>
+<table style="max-width:100%">
+<thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th colspan="4"><span class="muted">Anzahl</span></th>
+</tr>
+<tr>
+<th><span class="muted">Bezeichnung</span></th>
+<th><observablehq-loading></observablehq-loading><!--:578c0ecb:--></th>
+<th><observablehq-loading></observablehq-loading><!--:2037b17a:--></th>
+<th><observablehq-loading></observablehq-loading><!--:068860c2:--></th>
+<th><observablehq-loading></observablehq-loading><!--:80ce76ec:--></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Eistage</th>
+<td><observablehq-loading></observablehq-loading><!--:392b4e28:--></td>
+<td><observablehq-loading></observablehq-loading><!--:f0af89d0:--></td>
+<td><observablehq-loading></observablehq-loading><!--:49462c73:--></td>
+<td><observablehq-loading></observablehq-loading><!--:f882d607:--></td>
+</tr>
+<tr>
+<th>Frosttage</th>
+<td><observablehq-loading></observablehq-loading><!--:59c468b3:--></td>
+<td><observablehq-loading></observablehq-loading><!--:998b5cb6:--></td>
+<td><observablehq-loading></observablehq-loading><!--:18656ca0:--></td>
+<td><observablehq-loading></observablehq-loading><!--:14b13a9a:--></td>
+</tr>
+<tr>
+<th>Sommertage</th>
+<td><observablehq-loading></observablehq-loading><!--:dd06412b:--></td>
+<td><observablehq-loading></observablehq-loading><!--:c3bd9809:--></td>
+<td><observablehq-loading></observablehq-loading><!--:71357d1a:--></td>
+<td><observablehq-loading></observablehq-loading><!--:a8f0ca9e:--></td>
+</tr>
+<tr>
+<th>Heiße Tage</th>
+<td><observablehq-loading></observablehq-loading><!--:188e07c5:--></td>
+<td><observablehq-loading></observablehq-loading><!--:d524092c:--></td>
+<td><observablehq-loading></observablehq-loading><!--:4a4ccc18:--></td>
+<td><observablehq-loading></observablehq-loading><!--:61b0c288:--></td>
+</tr>
+<tr>
+<th>Tropennächte</th>
+<td><observablehq-loading></observablehq-loading><!--:5bf9d718:--></td>
+<td><observablehq-loading></observablehq-loading><!--:bd36f6e7:--></td>
+<td><observablehq-loading></observablehq-loading><!--:5197d921:--></td>
+<td><observablehq-loading></observablehq-loading><!--:862715bd:--></td>
+</tr>
+</tbody>
+</table>
+</div> <!-- card -->
+<div class="card grid-colspan-2">
+<h2>Klimakenntage</h2>
+<h3>im Vergleich zur Referenzperiode 1973–2000</h3>
+<table style="max-width:100%">
+<thead>
+<tr style="border-bottom:0px">
+<th></th>
+<th colspan="4"><span class="muted">Änderung zur Referenzperiode</span></th>
+</tr>
+<tr>
+<th><span class="muted">Bezeichnung</span></th>
+<th><observablehq-loading></observablehq-loading><!--:1082f741:--></th>
+<th><observablehq-loading></observablehq-loading><!--:d1a1ae78:--></th>
+<th><observablehq-loading></observablehq-loading><!--:9b93bd50:--></th>
+<th><observablehq-loading></observablehq-loading><!--:5f509cc3:--></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Eistage</th>
+<td><observablehq-loading></observablehq-loading><!--:9297bf07:--></td>
+<td><observablehq-loading></observablehq-loading><!--:11a8b9eb:--></td>
+<td><observablehq-loading></observablehq-loading><!--:87044d0e:--></td>
+<td><observablehq-loading></observablehq-loading><!--:381a0708:--></td>
+</tr>
+<tr>
+<th>Frosttage</th>
+<td><observablehq-loading></observablehq-loading><!--:af59cb19:--></td>
+<td><observablehq-loading></observablehq-loading><!--:a686c94a:--></td>
+<td><observablehq-loading></observablehq-loading><!--:cd64a585:--></td>
+<td><observablehq-loading></observablehq-loading><!--:a5a6dad6:--></td>
+</tr>
+<tr>
+<th>Sommertage</th>
+<td><observablehq-loading></observablehq-loading><!--:42932d22:--></td>
+<td><observablehq-loading></observablehq-loading><!--:a2c45a8a:--></td>
+<td><observablehq-loading></observablehq-loading><!--:9811709c:--></td>
+<td><observablehq-loading></observablehq-loading><!--:b7c657b3:--></td>
+</tr>
+<tr>
+<th>Heiße Tage</th>
+<td><observablehq-loading></observablehq-loading><!--:29b320f5:--></td>
+<td><observablehq-loading></observablehq-loading><!--:62b989b2:--></td>
+<td><observablehq-loading></observablehq-loading><!--:3aa91c72:--></td>
+<td><observablehq-loading></observablehq-loading><!--:e277d1d9:--></td>
+</tr>
+<tr>
+<th>Tropennächte</th>
+<td><observablehq-loading></observablehq-loading><!--:84639412:--></td>
+<td><observablehq-loading></observablehq-loading><!--:18d98f78:--></td>
+<td><observablehq-loading></observablehq-loading><!--:8f488a27:--></td>
+<td><observablehq-loading></observablehq-loading><!--:99365cc9:--></td>
+</tr>
+</tbody>
+</table>
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="observablehq observablehq--block"><!--:17e50420:--></div>
+<div class="observablehq observablehq--block"><!--:96968c39:--></div>
+<div class="grid grid-cols-2">
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Jahresmittel mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:12999b17:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt den Temperaturverlauf in Form von Jahresmittelwerten der Lufttemperatur über mehrere Jahrzehnte, basierend auf drei unterschiedlichen Berechnungsarten:</p>
+<ol>
+<li><strong>Jahresmittel aus Tagesminimum (blaue Punkte):</strong> Der Durchschnitt der täglichen Minimaltemperaturen im Jahr.</li>
+<li><strong>Jahresmittel aus Tagesdurchschnitt (gelbe Punkte):</strong> Der Durchschnitt der täglichen Durchschnittstemperaturen im Jahr.</li>
+<li><strong>Jahresmittel aus Tagesmaximum (rote Punkte):</strong> Der Durchschnitt der täglichen Maximaltemperaturen im Jahr.</li>
+</ol>
+<h4 id="eigenschaften" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die Temperaturen in Grad Celsius (°C).</li>
+<li><strong>Punkte:</strong> Beziehen sich auf ein einzelnes Jahr.</li>
+<li><strong>Linien:</strong> Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Jahresmittelwerte verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen">Beobachtungen:</a></h4>
+<ul>
+<li>Die Minimaltemperaturen (blau) sind die niedrigsten Werte und zeigen einen relativ langsamen Anstieg.</li>
+<li>Die Durchschnittstemperaturen (gelb) liegen zwischen den Minimal- und Maximaltemperaturen und weisen ebenfalls einen deutlichen Aufwärtstrend auf.</li>
+<li>Die Maximaltemperaturen (rot) sind die höchsten Werte und zeigen den steilsten Anstieg, was auf eine Erwärmung der heißeren Tage hinweist.</li>
+<li>Der gleitende 30-jährige Durchschnitt verdeutlicht die langfristigen Trends und minimiert jährliche Schwankungen.</li>
+</ul>
+<h4 id="interpretation" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation">Interpretation:</a></h4>
+<p>Insgesamt ist eine zunehmende Erwärmung im Lauf der Jahre erkennbar.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Maximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:788864c0:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt das <strong>absolute Maximum der Lufttemperatur</strong> im Laufe der Jahre, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, um langfristige Trends darzustellen.</p>
+<h4 id="eigenschaften-1" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-1">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die maximal erreichten Temperaturen in Grad Celsius (°C).</li>
+<li><strong>Punkte:</strong> Repräsentieren die jährlichen absoluten Maximaltemperaturen.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Maximaltemperaturen verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-1" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-1">Beobachtungen:</a></h4>
+<ul>
+<li>Die jährlichen absoluten Maximaltemperaturen zeigen große Schwankungen zwischen den Jahren.</li>
+<li>Seit den 1990er-Jahren ist ein deutlicher Trend zu steigenden Maximaltemperaturen erkennbar.</li>
+<li>Der gleitende 30-jährige Durchschnitt zeigt einen konstanten Anstieg, insbesondere ab den 2000er-Jahren.</li>
+<li>Die höchsten absoluten Maximaltemperaturen liegen über 36 °C.</li>
+</ul>
+<h4 id="interpretation-1" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-1">Interpretation:</a></h4>
+<p>Das Diagramm verdeutlicht, dass die maximalen Temperaturen in den letzten
+Jahrzehnten deutlich gestiegen sind, was auf eine Zunahme von
+Extremhitze-Ereignissen hindeutet.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="grid grid-cols-2">
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Temperatur der Luft</h2>
+<h3>Absolutes Minimum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:2d42d336:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt das <strong>absolute Minimum der Lufttemperatur</strong> im Laufe der Jahre, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, um langfristige Trends darzustellen.</p>
+<h4 id="eigenschaften-2" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-2">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die minimal erreichten Temperaturen in Grad Celsius (°C).</li>
+<li><strong>Punkte:</strong> Repräsentieren die jährlichen absoluten Minimaltemperaturen.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Minimaltemperaturen verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-2" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-2">Beobachtungen:</a></h4>
+<ul>
+<li>Die jährlichen absoluten Minimaltemperaturen schwanken stark, liegen jedoch durchweg unter 0 °C.</li>
+<li>In den 1970er- und 1980er-Jahren traten teilweise extrem niedrige Minimaltemperaturen bis unter -18 °C auf.</li>
+<li>Seit den 2000er-Jahren ist der gleitende 30-jährige Durchschnitt leicht ansteigend, was auf mildere Winter hindeutet.</li>
+<li>Die absoluten Minimaltemperaturen zeigen eine Tendenz zu weniger extrem kalten Werten.</li>
+</ul>
+<h4 id="interpretation-2" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-2">Interpretation:</a></h4>
+<p>Die Daten deutet darauf hin, dass die tiefsten Temperaturen in den
+letzten Jahrzehnten weniger extrem geworden sind, was auf eine
+allgemeine Erwärmung, insbesondere in den kältesten Perioden des Jahres,
+hindeutet.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Sonnenstunden</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:2b3b0dd8:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt die <strong>Jahressumme der Sonnenstunden</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends in der Sonnenscheindauer darstellt.</p>
+<h4 id="eigenschaften-3" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-3">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die jährliche Gesamtdauer der Sonnenstunden in Stunden (h).</li>
+<li><strong>Punkte:</strong> Repräsentieren die jährliche Summe der Sonnenstunden.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Sonnenstunden verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-3" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-3">Beobachtungen:</a></h4>
+<ul>
+<li>Die jährliche Summe der Sonnenstunden zeigt im Verlauf der Jahrzehnte Schwankungen.</li>
+<li>Bis etwa 1995 sind die Sonnenstunden relativ konstant oder leicht rückläufig.</li>
+<li>Ab den 2000er-Jahren ist ein deutlicher Anstieg in der Anzahl der Sonnenstunden zu erkennen.</li>
+<li>Der 30-jährige gleitende Durchschnitt zeigt einen kontinuierlichen Anstieg ab den 2000er-Jahren.</li>
+</ul>
+<h4 id="interpretation-3" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-3">Interpretation:</a></h4>
+<p>Der Anstieg der Jahressumme der Sonnenstunden könnte auf veränderte Wetterbedingungen hinweisen, wie beispielsweise eine Abnahme der Bewölkung oder eine längere Dauer von Hochdruckwetterlagen.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="grid grid-cols-2">
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahressumme mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:61956192:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt die <strong>Jahressumme des Niederschlags</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends darstellt.</p>
+<h4 id="eigenschaften-4" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-4">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die jährliche Gesamtsumme des Niederschlags in Millimetern (mm).</li>
+<li><strong>Punkte:</strong> Repräsentieren die jährliche Niederschlagsmenge.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung des Niederschlags verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-4" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-4">Beobachtungen:</a></h4>
+<ul>
+<li>Die jährliche Niederschlagsmenge schwankt stark von Jahr zu Jahr, mit Werten zwischen etwa 650 mm und 1.000 mm.</li>
+<li>Bis Mitte der 1990er-Jahre ist keine klare Tendenz erkennbar.</li>
+<li>Ab den 2000er-Jahren zeigt der 30-jährige gleitende Durchschnitt einen leichten Rückgang, der sich auf einem stabilen Niveau einzupendeln scheint.</li>
+</ul>
+<h4 id="interpretation-4" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-4">Interpretation:</a></h4>
+<p>Das Diagramm deutet auf eine leichte Abnahme der durchschnittlichen jährlichen Niederschlagsmenge hin, wobei die jährlichen Schwankungen weiterhin groß bleiben.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Niederschlag</h2>
+<h3>Jahresmaximum mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:6271907c:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt das <strong>Jahresmaximum des täglichen Niederschlags</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends darstellt.</p>
+<h4 id="eigenschaften-5" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-5">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die höchste an einem Tag gemessene Niederschlagsmenge in Millimetern (mm).</li>
+<li><strong>Punkte:</strong> Repräsentieren das jeweilige Jahresmaximum des täglichen Niederschlags.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung des Niederschlags verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-5" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-5">Beobachtungen:</a></h4>
+<ul>
+<li>Die Jahresmaxima des täglichen Niederschlags schwanken stark, mit Spitzenwerten von über 80 mm.</li>
+<li>Ein leichter Rückgang des gleitenden Durchschnitts ist von den frühen 2000er-Jahren bis etwa 2010 erkennbar.</li>
+<li>In den letzten Jahren bleibt der gleitende Durchschnitt auf einem relativ konstanten Niveau.</li>
+</ul>
+<h4 id="interpretation-5" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-5">Interpretation:</a></h4>
+<p>Das Diagramm zeigt, dass die Spitzenwerte des täglichen Niederschlags Schwankungen unterliegen, ohne dass ein klarer langfristiger Auf- oder Abwärtstrend erkennbar ist.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+</div> <!-- grid -->
+<div class="observablehq observablehq--block"><!--:63668a19:--></div>
+<div class="grid grid-cols-2">
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Eis- und Frosttage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:24e1f910:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt die <strong>Anzahl der Tage pro Jahr mit Frost- und Eistagen</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends darstellt.</p>
+<h4 id="eigenschaften-6" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-6">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die Anzahl der Tage.</li>
+<li><strong>Gelbe Punkte:</strong> Repräsentieren die Anzahl der Frosttage (Tage mit einem Minimum unter 0 °C).</li>
+<li><strong>Blaue Punkte:</strong> Repräsentieren die Anzahl der Eistage (Tage mit einem Maximum unter 0 °C).</li>
+<li><strong>Linien:</strong> Stellen den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Klimakenntage verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-6" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-6">Beobachtungen:</a></h4>
+<ul>
+<li>Die Anzahl der Frosttage (gelb) ist deutlich höher als die Anzahl der Eistage (blau).</li>
+<li>Beide Zeitreihen zeigen eine abnehmende Tendenz im gleitenden Durchschnitt, wobei der Rückgang bei den Eistagen stärker ausgeprägt ist.</li>
+<li>Besonders ab den 2000er-Jahren ist der Rückgang der Eistage deutlicher sichtbar.</li>
+</ul>
+<h4 id="interpretation-6" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-6">Interpretation:</a></h4>
+<p>Das Diagramm zeigt, dass die Anzahl der Frost- und Eistage im Laufe der Jahre abnimmt, was auf mildere Winterbedingungen hindeutet.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Sommertage und Heiße Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:55075b4d:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt die <strong>Anzahl der Sommertage und Heißen Tage pro Jahr</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends darstellt.</p>
+<h4 id="eigenschaften-7" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-7">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die Anzahl der Tage.</li>
+<li><strong>Blaue Punkte:</strong> Repräsentieren die Sommertage (Tage mit einem Maximum über 25 °C).</li>
+<li><strong>Gelbe Punkte:</strong> Repräsentieren die Heißen Tage (Tage mit einem Maximum über 30 °C).</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Klimakenntage verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-7" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-7">Beobachtungen:</a></h4>
+<ul>
+<li>Die Anzahl der Sommertage (blau) ist deutlich höher als die der Heißen Tage (gelb).</li>
+<li>Beide Zeitreihen zeigen einen ansteigenden Trend im gleitenden Durchschnitt, besonders deutlich ab den 1990er-Jahren.</li>
+<li>Der Anstieg der Heißen Tage (gelb) ist steiler als der der Sommertage (blau).</li>
+</ul>
+<h4 id="interpretation-7" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-7">Interpretation:</a></h4>
+<p>Das Diagramm verdeutlicht, dass Sommertage und besonders Heiße Tage im Verlauf der Jahre häufiger geworden sind.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+<div class="card">
+<div class="header">
+<div class="title">
+<h2>Klimakenntage</h2>
+<h3>Anzahl Tropennächte pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+</div> <!-- title -->
+<div class="tools"><button class="info-button" aria-label="Info" title="Info"></button></div>
+</div> <!-- header -->
+<div class="with-info">
+<div class="body">
+<observablehq-loading></observablehq-loading><!--:e5be46c0:-->
+</div> <!-- body -->
+<div class="info">
+<p>Dieses Diagramm zeigt die <strong>Anzahl der Tropennächte pro Jahr</strong> über mehrere Jahrzehnte, ergänzt durch einen <strong>30-jährigen gleitenden Durchschnitt</strong>, der langfristige Trends darstellt.</p>
+<h4 id="eigenschaften-8" tabindex="-1"><a class="observablehq-header-anchor" href="#eigenschaften-8">Eigenschaften:</a></h4>
+<ul>
+<li><strong>X-Achse:</strong> Stellt die Zeit (Jahre) dar, beginnend in den 1970er-Jahren bis in die 2020er-Jahre.</li>
+<li><strong>Y-Achse:</strong> Zeigt die Anzahl der Tropennächte an (Nächte mit einem Minimum über 20 °C).</li>
+<li><strong>Blaue Punkte:</strong> Repräsentieren die jährliche Anzahl der Tropennächte.</li>
+<li><strong>Linie:</strong> Stellt den 30-jährigen gleitenden Durchschnitt dar, der die langfristige Entwicklung der Tropennächte verdeutlicht.</li>
+</ul>
+<h4 id="beobachtungen-8" tabindex="-1"><a class="observablehq-header-anchor" href="#beobachtungen-8">Beobachtungen:</a></h4>
+<ul>
+<li>Tropennächte waren bis in die 1990er-Jahre nahezu nicht vorhanden.</li>
+<li>Ab den 2000er-Jahren treten Tropennächte häufiger auf, mit einem deutlichen Anstieg nach 2010.</li>
+<li>Der 30-jährige gleitende Durchschnitt zeigt seit den 2000er-Jahren eine leicht ansteigende Tendenz.</li>
+</ul>
+<h4 id="interpretation-8" tabindex="-1"><a class="observablehq-header-anchor" href="#interpretation-8">Interpretation:</a></h4>
+<p>Das Diagramm zeigt, dass Tropennächte in den letzten Jahrzehnten häufiger geworden sind, obwohl sie insgesamt noch selten auftreten.</p>
+</div> <!-- info -->
+</div> <!-- with-info -->
+</div> <!-- card -->
+</div> <!-- grid -->
+<hr>
+<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <img style="flex: 0 1 auto; max-width: 20rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen" src="../_file/assets/sponsor-BMWSB.11139330.svg">
+  <img style="flex: 0 1 auto; max-width: 15rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)" src="../_file/assets/sponsor-KFW.ce8a7236.png">
+</div>
+</main>
+<footer id="observablehq-footer">
+<div>Seite erstellt am 22.10.2025 um 15:03 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/pull/47/merge" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/19420f58a67e42a539b67433af51944d12f01fe2" target="_blank" rel="noopener noreferrer">Version: 19420f58</a></div>
+</footer>
+</div>
+</body>
+</html>
