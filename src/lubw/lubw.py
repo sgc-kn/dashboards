@@ -1,6 +1,9 @@
 import datetime
+import httpx
 import pandas
 import pytz
+
+from io import BytesIO
 
 # --- load raw data
 
@@ -8,28 +11,33 @@ timezone = "Europe/Berlin"
 
 
 def load_raw_data():
-    this_year = datetime.date.today().year
-    years = range(2008, this_year + 1)
+    r = httpx.get(
+        "https://api.udp-kn.de/postgrest/lubw/etraw_lubw?select=entity_id,startzeit,wert",
+        headers={
+            "Accept": "text/csv",
+        },
+    )
+    r.raise_for_status()
+    raw_data = pandas.read_csv(BytesIO(r.content))
 
-    tables = list()
-    for year in years:
-        url = f"https://sgc-public-prod-de-wu5va7ls.s3-eu-central-1.ionoscloud.com/share/lubw/hourly/lubw-hourly-{year}.csv"
-        df = pandas.read_csv(url)
-        tables.append(df)
+    long_data = raw_data.copy()
+    long_data["startZeit"] = pandas.to_datetime(long_data["startzeit"])
+    long_data["sensor"] = (
+        long_data["entity_id"].astype(str).str.removeprefix("urn:raw:lubw:konstanz:")
+    )
+    del long_data["startzeit"]
+    del long_data["entity_id"]
 
-    df = pandas.concat(tables)
+    wide_data = long_data.pivot_table(
+        index="startZeit", columns="sensor", values="wert", aggfunc="first"
+    )
 
-    # parse startZeit, use as index; delete redundant endZeit column
-    df["startZeit"] = pandas.to_datetime(df["startZeit"])
-    df.set_index("startZeit", inplace=True)
-    del df["endZeit"]
-
-    if df.index.tz is None:
-        df.index = df.index.tz_localize(timezone)
+    if wide_data.index.tz is None:
+        wide_data.index = wide_data.index.tz_localize(timezone)
     else:
-        df.index = df.index.tz_convert(timezone)
+        wide_data.index = wide_data.index.tz_convert(timezone)
 
-    return df
+    return wide_data
 
 
 # ---
