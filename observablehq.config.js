@@ -76,6 +76,7 @@ export default {
     },
     { name: "Rechtliche Hinweise", path: "/legal/" },
     { name: "Leichte Sprache", path: "/leichte-sprache/" },
+    { name: "Barrierefreiheit", path: "/barrierefreiheit/" },
   ],
 
   // Content to add to the head of the page, e.g. for a favicon:
