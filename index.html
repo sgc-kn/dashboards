@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.3">
+<title>Stadtdaten | Stadt Konstanz</title>
+
+<link rel="preload" as="style" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="preload" as="style" href="./_import/assets/style-blog.2c19547c.css">
+<link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/assets/style-blog.2c19547c.css">
+<link rel="modulepreload" href="./_observablehq/client.8fcfdc7b.js">
+<link rel="modulepreload" href="./_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.c41ec614.js">
+<link rel="modulepreload" href="./_import/assets/layout.ab72fe97.js">
+<link rel="modulepreload" href="./_import/cds/lib.8b140d0c.js">
+<link rel="modulepreload" href="./_import/dwd/lib.f7c00516.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+
+    <link rel="icon" type="image/svg+xml" href="./_file/assets/favicon.6372ae97.svg">
+    <link rel="icon" type="image/png" href="./_file/assets/favicon.aef23c64.png">
+    <script src="./_import/assets/logic.58d92551.js" defer=""></script>
+  
+<script type="module">
+
+import {define} from "./_observablehq/client.8fcfdc7b.js";
+import {registerFile} from "./_observablehq/stdlib.c41ec614.js";
+
+registerFile("./assets/sponsor-BMWSB.svg", {"name":"./assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"./_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1763355153957,"size":88024});
+registerFile("./assets/sponsor-KFW.png", {"name":"./assets/sponsor-KFW.png","mimeType":"image/png","path":"./_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1763355153957,"size":5944});
+registerFile("./cds/cds/Zeitscheiben_30Jahre.csv", {"name":"./cds/cds/Zeitscheiben_30Jahre.csv","mimeType":"text/csv","path":"./_file/cds/cds/Zeitscheiben_30Jahre.e9b53a33.csv","lastModified":1763355259536,"size":25916});
+registerFile("./dwd/dwd/Jahreswerte.csv", {"name":"./dwd/dwd/Jahreswerte.csv","mimeType":"text/csv","path":"./_file/dwd/dwd/Jahreswerte.ba43a6b9.csv","lastModified":1763355266151,"size":4158});
+registerFile("./dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv", {"name":"./dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv","mimeType":"text/csv","path":"./_file/dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.22079fac.csv","lastModified":1763355266158,"size":5112});
+registerFile("./lubw/lubw/Auszug_Stundenwerte.csv", {"name":"./lubw/lubw/Auszug_Stundenwerte.csv","mimeType":"text/csv","path":"./_file/lubw/lubw/Auszug_Stundenwerte.85adb623.csv","lastModified":1763355258512,"size":8128});
+
+define({id: "d4f5d96d", inputs: ["FileAttachment"], outputs: ["layout","recent_data"], body: async (FileAttachment) => {
+const layout = await import("./_import/assets/layout.ab72fe97.js");
+
+const recent_data = FileAttachment("./lubw/lubw/Auszug_Stundenwerte.csv").csv({typed: true})
+return {layout,recent_data};
+}});
+
+define({id: "b68382df", inputs: ["recent_data","layout","Plot","html"], outputs: ["recent_times","recent_start","recent_range","range","recent_card","o3"], body: (recent_data,layout,Plot,html) => {
+const recent_times = recent_data.map(row => row['startZeit'])
+const recent_start =  new Date(Math.min(...recent_times))
+const recent_range = `die Woche ab Montag, dem ${recent_start.toLocaleDateString('de-DE', {year: 'numeric', month: 'long', day: 'numeric'})}`
+
+// TODO move to global utils.js
+function range(data, column, extraValues = []){
+    var min = Math.min(...data.map(row => +row[column]), ...extraValues);
+    var max = Math.max(...data.map(row => +row[column]), ...extraValues);
+    return [min, max]
+};
+
+function recent_card(variable, { thresholds = [], info, align_values = [] } = {}) {
+    const var_name = variable.name;
+    return layout.card({
+        title : "Stündliche Aufzeichnung " + variable.title,
+        subtitle: `Datenauszug für ${recent_range}`,
+        body : layout.plot({
+                x: {
+                    label: 'Zeit',
+                },
+                y: {
+                    domain: range(recent_data, var_name, [0, ...(thresholds.map(x => x[0])), ...align_values]),
+                    label: variable.unit,
+                    tickFormat: Plot.formatNumber("de-DE"),
+                },
+                color: {
+                    domain: ["Messwert"].concat(thresholds.map((x) => x[1])),
+                    legend: true,
+                },
+                marks: [
+                    Plot.line(recent_data, {
+                        x: "startZeit", // TODO fix time zone offset in GUI
+                        y: var_name,
+                        stroke: () => "Messwert", // use first color of palette
+                        marker: "circle",
+                    }),
+                    Plot.ruleY(thresholds, {
+                        y : x => x[0],
+                        stroke: x => x[1],
+                    }),
+                    // mouseover
+                    Plot.dot(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        stroke: "var(--theme-foreground-focus)",
+                        fill: "var(--theme-foreground-focus)",
+                    })),
+                    Plot.tip(recent_data, Plot.pointerX({
+                        x: "startZeit",
+                        y: var_name,
+                        format: {
+                            x: x => x.toLocaleString('de-DE'),
+                            y: Plot.formatNumber("de-DE"),
+                        }
+                    })),
+                ]
+            }),
+        info,
+    })
+}
+
+const o3 = {
+        name: "o3",
+        title: "Ozon",
+        short: html`O<sub>3</sub>`,
+        unit: "µg/m³",
+    };
+return {recent_times,recent_start,recent_range,range,recent_card,o3};
+}});
+
+define({id: "13a3da14", inputs: ["recent_card","o3","html"], outputs: ["o3_recent_card"], body: (recent_card,o3,html) => {
+const o3_recent_card = recent_card(o3, {
+    thresholds: [ [180, "Informationsschwelle"], [240, "Alarmschwelle"] ],
+    info: html.fragment`
+        <p>Beurteilungswerte nach dem Bundes-Immissionsschutzgesetz:</p>
+        <p><strong>Informationsschwelle</strong> bei 180 µg/m³: Bei Überschreitung besteht bereits bei kurzfristiger Exposition ein Risiko für die Gesundheit insbesondere empfindlicher Bevölkerungsgruppen. Es müssen unverzüglich Informationen bereitgestellt werden.</p>
+        <p><strong>Alarmschwelle</strong> bei 240 µg/m³: Bei Überschreitung besteht selbst bei kurzfristiger Exposition ein Risiko für die Gesundheit der Gesamtbevölkerung. Es müssen unverzüglich Maßnahmen ergriffen werden.</p>
+        <p><a href="https://www.lubw.baden-wuerttemberg.de/en/luft/grenzwerte/rechtlichegrundlagen">Weiterführende Informationen zu den Beurteilungswerten finden Sie auf den Seiten der LUBW.</a></p>
+    `
+})
+return {o3_recent_card};
+}});
+
+define({id: "23f91548", inputs: ["o3_recent_card","display"], body: async (o3_recent_card,display) => {
+display(await(
+o3_recent_card
+))
+}});
+
+define({id: "dfffbb91", inputs: ["FileAttachment"], outputs: ["cds_plot","cds_data"], body: async (FileAttachment) => {
+const {plot: cds_plot} = await import("./_import/cds/lib.8b140d0c.js");
+
+const cds_data = FileAttachment("./cds/cds/Zeitscheiben_30Jahre.csv").csv({typed: true});
+return {cds_plot,cds_data};
+}});
+
+define({id: "5177aa9b", mode: "inline", inputs: ["resize","cds_plot","cds_data","display"], body: async (resize,cds_plot,cds_data,display) => {
+display(await(
+resize((width) => cds_plot(cds_data, width, "Heisse_Tage_Anzahl"))
+))
+}});
+
+define({id: "1ac8b04b", inputs: ["FileAttachment"], outputs: ["dwd_plot","dwd_points","dwd_ma30y","klindex_warm_variables"], body: async (FileAttachment) => {
+const {plot: dwd_plot} = await import("./_import/dwd/lib.f7c00516.js");
+
+const dwd_points = FileAttachment("./dwd/dwd/Jahreswerte.csv").csv({typed: true})
+const dwd_ma30y = FileAttachment("./dwd/dwd/Jahreswerte_30Jahre_gleitender_Durchschnitt.csv").csv({typed: true})
+
+const klindex_warm_variables = [
+  'Sommertage_Anzahl',
+  'Heisse_Tage_Anzahl',
+];
+return {dwd_plot,dwd_points,dwd_ma30y,klindex_warm_variables};
+}});
+
+define({id: "ec4aa6fb", mode: "inline", inputs: ["resize","dwd_plot","dwd_points","dwd_ma30y","klindex_warm_variables","display"], body: async (resize,dwd_plot,dwd_points,dwd_ma30y,klindex_warm_variables,display) => {
+display(await(
+resize((width) => dwd_plot(dwd_points, dwd_ma30y, width, klindex_warm_variables))
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Startseite</a></li>
+  </ol>
+  <section>
+    <summary>Dashboards</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./dwd/">Wetterbeobachtungen</a></li>
+    <li class="observablehq-link"><a href="./cds/">Klimaprojektionen</a></li>
+    <li class="observablehq-link"><a href="./lubw/">Luftqualität</a></li>
+    </ol>
+  </section>
+  <section>
+    <summary>Stories</summary>
+    <ol>
+    <li class="observablehq-link"><a href="./stadtklima/">Stadtklima</a></li>
+    </ol>
+  </section>
+  <ol>
+    <li class="observablehq-link"><a href="./legal/">Rechtliche Hinweise</a></li>
+    <li class="observablehq-link"><a href="./leichte-sprache/">Leichte Sprache</a></li>
+    <li class="observablehq-link"><a href="./barrierefreiheit/">Barrierefreiheit</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+
+<div style="display: flex; justify-content: space-between; width: 100%">
+  <a href="./" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem" src="./_file/assets/skn-logo.123f9c0a.svg" alt="Logo der Stadtverwaltung Konstanz"><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
+  <div>
+    <a href="https://github.com/sgc-kn/dashboards" target="_blank" rel="noopener noreferrer">
+      <img style="height: 1.5rem" src="./_file/assets/github-logo.9cd1a180.svg" alt="Github Logo">
+    </a>
+  </div>
+</div>
+
+</header>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Neuigkeiten</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#september-2025">September 2025</a></li>
+<li class="observablehq-secondary-link"><a href="#juli-2025">Juli 2025</a></li>
+<li class="observablehq-secondary-link"><a href="#februar-2025">Februar 2025</a></li>
+<li class="observablehq-secondary-link"><a href="#oktober-2024">Oktober 2024</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<h1>Willkommen</h1>
+<h2>bei den Stadtdaten Konstanz</h2>
+<p>Hier entstehen öffentlich zugängliche Auswertungen zu interessanten
+Daten mit Bezug zur Stadt Konstanz. Unser Fokus liegt auf Klima- und
+Umweltdaten. Diese Aufbereitungen sind Teil des Projektes
+<a href="https://smart-green-city-konstanz.de/klimadatenplattform" target="_blank" rel="noopener noreferrer">Klimadatenplattform</a> im Rahmen des Programms <a href="https://smart-green-city-konstanz.de/" target="_blank" rel="noopener noreferrer">Smart Green
+City</a> der Stadt Konstanz.</p>
+<p>Weitere Daten zur Stadt Konstanz finden Sie auf dem Portal <a href="https://offenedaten-konstanz.de/" target="_blank" rel="noopener noreferrer">Offene Daten
+Konstanz</a>.</p>
+<hr>
+<h1>Neuigkeiten</h1><h2></h2>
+<h2 id="september-2025" tabindex="-1"><a class="observablehq-header-anchor" href="#september-2025">September 2025</a></h2>
+<p><a href="https://correlaid.org/" target="_blank" rel="noopener noreferrer">CorrelAid e.V.</a> hat für Smart Green City eine Datenstory zum Thema Stadtklima entwickelt.
+Das Team zeigt, wie Daten lebendig werden können:
+Die Datengeschichte lädt dazu ein, das Stadtklima in Konstanz interaktiv zu erkunden und neue Perspektiven auf die Zusammenhänge von Daten und Klima zu gewinnen.</p>
+<p><a href="./stadtklima/">➜ Hier geht's zur Story !</a></p>
+<h2 id="juli-2025" tabindex="-1"><a class="observablehq-header-anchor" href="#juli-2025">Juli 2025</a></h2>
+<p>Wir haben ein Dashboard zur Luftqualität in Konstanz veröffentlicht.
+Die Daten stammen aus dem Messnetz der Landesanstalt für
+Umwelt Baden-Württemberg (LUBW).</p>
+<p><a href="./lubw/">➜ Hier geht's zum Dashboard !</a></p>
+<div class="observablehq observablehq--block"><!--:d4f5d96d:--></div>
+<div class="observablehq observablehq--block"><!--:b68382df:--></div>
+<div class="observablehq observablehq--block"><!--:13a3da14:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:23f91548:--></div>
+<h2 id="februar-2025" tabindex="-1"><a class="observablehq-header-anchor" href="#februar-2025">Februar 2025</a></h2>
+<p>Wir haben ein Dashboard mit Klimaprojektionen für Konstanz
+veröffentlicht. Die Daten stammen vom europäischen Klimawandeldienst
+Copernicus und basieren auf zwei Szenarien für den künftigen
+Treibhausgasausstoß:</p>
+<ul>
+<li><strong>RCP 4.5</strong>: Die Emissionen werden deutlich reduziert.</li>
+<li><strong>RCP 8.5</strong>: Die Emissionen steigen ungebremst weiter.</li>
+</ul>
+<p><a href="./cds/">➜ Hier geht's zum Dashboard !</a></p>
+<div class="observablehq observablehq--block"><!--:dfffbb91:--></div>
+<div class="card">
+  <h2>Heiße Tage</h2>
+  <h3>über 30℃, Anzahl pro Jahr</h3>
+<observablehq-loading></observablehq-loading><!--:5177aa9b:-->
+</div> <!-- card -->
+<h2 id="oktober-2024" tabindex="-1"><a class="observablehq-header-anchor" href="#oktober-2024">Oktober 2024</a></h2>
+<p>Wir arbeiten an einem Dashboard zu den langjährigen Beobachtungsdaten
+des deutschen Wetterdienstes (DWD) in Konstanz.</p>
+<p>Wusstest du, dass es zunehmend mehr heiße Tage in Konstanz gibt?
+Der 30-jährige gleitende Durchschnitt von heißen Tagen über 30° Celsius
+ist angestiegen von durchschnittlich 9 heißen Tagen zwischen 1973 und
+2003 auf 16 Tagen zwischen 1993 und 2023. Das ist eine Steigerung
+um 83%.</p>
+<p><a href="./dwd/">➜ Hier geht's zum Dashboard !</a></p>
+<div class="observablehq observablehq--block"><!--:1ac8b04b:--></div>
+<div class="card">
+  <h2>Klimakenntage</h2>
+  <h3>Anzahl Tage pro Jahr mit 30-jährigem gleitendem Durchschnitt</h3>
+<observablehq-loading></observablehq-loading><!--:ec4aa6fb:-->
+</div> <!-- card -->
+<hr>
+<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <img style="flex: 0 1 auto; max-width: 20rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch das Bundensministerium für Wohnen, Stadtentwicklung und Bauwesen" src="./_file/assets/sponsor-BMWSB.11139330.svg">
+  <img style="flex: 0 1 auto; max-width: 15rem; width: 100%;" title="Smart City Sponsor" alt="Gefördert durch die Kreditanstalt für Wiederaufbau (KFW)" src="./_file/assets/sponsor-KFW.ce8a7236.png">
+</div>
+</main>
+<footer id="observablehq-footer">
+<div>Seite erstellt am 17.11.2025 um 04:54 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/heads/main" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/c7279f9afedfab954a09b6ad3a2aa9f5d312ad36" target="_blank" rel="noopener noreferrer">Version: c7279f9a</a></div>
+</footer>
+</div>
+</body>
+</html>

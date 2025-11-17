@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.3">
+<title>Das Stadtklima unter der Lupe | Stadtdaten | Stadt Konstanz</title>
+
+<link rel="preload" as="style" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="preload" as="style" href="../_import/stadtklima/style.41bdbe4d.css">
+<link rel="preload" as="style" href="../_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="preload" as="style" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" crossorigin>
+<link rel="stylesheet" type="text/css" href="../_import/stadtklima/style.41bdbe4d.css">
+<link rel="stylesheet" type="text/css" href="../_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="../_npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="modulepreload" href="../_observablehq/client.8fcfdc7b.js">
+<link rel="modulepreload" href="../_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="../_observablehq/stdlib.c41ec614.js">
+<link rel="modulepreload" href="../_import/assets/layout.ab72fe97.js">
+<link rel="modulepreload" href="../_import/stadtklima/charts/chart1_weather_trends.2f0ad057.js">
+<link rel="modulepreload" href="../_import/stadtklima/charts/chart2_sensor_map.5607dc15.js">
+<link rel="modulepreload" href="../_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="../_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="../_observablehq/stdlib/inputs.881fca65.js">
+<link rel="modulepreload" href="../_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="../_npm/leaflet@1.9.4/721623d8.js">
+<link rel="modulepreload" href="../_node/htl@0.3.1/index.0caf36e7.js">
+<link rel="modulepreload" href="../_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="../_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="../_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="../_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="../_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="../_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="../_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="../_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="../_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="../_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="../_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="../_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="../_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="../_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="../_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="../_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="../_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="../_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="../_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="../_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="../_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="../_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="../_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="../_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="../_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="../_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="../_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="../_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="../_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="../_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="../_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="../_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="../_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="../_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="../_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="../_npm/robust-predicates@3.0.2/aa00730b.js">
+
+    <link rel="icon" type="image/svg+xml" href="../_file/assets/favicon.6372ae97.svg">
+    <link rel="icon" type="image/png" href="../_file/assets/favicon.aef23c64.png">
+    <script src="../_import/assets/logic.58d92551.js" defer=""></script>
+  
+<script type="module">
+
+import {define} from "../_observablehq/client.8fcfdc7b.js";
+import {registerFile} from "../_observablehq/stdlib.c41ec614.js";
+
+registerFile("../assets/sponsor-BMWSB.svg", {"name":"../assets/sponsor-BMWSB.svg","mimeType":"image/svg+xml","path":"../_file/assets/sponsor-BMWSB.11139330.svg","lastModified":1763355153957,"size":88024});
+registerFile("../assets/sponsor-KFW.png", {"name":"../assets/sponsor-KFW.png","mimeType":"image/png","path":"../_file/assets/sponsor-KFW.ce8a7236.png","lastModified":1763355153957,"size":5944});
+registerFile("../dwd/dwd/Jahreswerte.csv", {"name":"../dwd/dwd/Jahreswerte.csv","mimeType":"text/csv","path":"../_file/dwd/dwd/Jahreswerte.ba43a6b9.csv","lastModified":1763355266151,"size":4158});
+registerFile("./arials/dobele.png", {"name":"./arials/dobele.png","mimeType":"image/png","path":"../_file/stadtklima/arials/dobele.7636758d.png","lastModified":1763355153963,"size":714109});
+registerFile("./arials/europapark.png", {"name":"./arials/europapark.png","mimeType":"image/png","path":"../_file/stadtklima/arials/europapark.a298ec9d.png","lastModified":1763355153966,"size":658530});
+registerFile("./arials/fahre_staad.png", {"name":"./arials/fahre_staad.png","mimeType":"image/png","path":"../_file/stadtklima/arials/fahre_staad.3126855c.png","lastModified":1763355153970,"size":742293});
+registerFile("./arials/friedrichstrasse.png", {"name":"./arials/friedrichstrasse.png","mimeType":"image/png","path":"../_file/stadtklima/arials/friedrichstrasse.c140c1f9.png","lastModified":1763355153973,"size":721843});
+registerFile("./arials/herose_fahrradbrucke.png", {"name":"./arials/herose_fahrradbrucke.png","mimeType":"image/png","path":"../_file/stadtklima/arials/herose_fahrradbrucke.0674a2f2.png","lastModified":1763355153975,"size":571328});
+registerFile("./arials/herose_park.png", {"name":"./arials/herose_park.png","mimeType":"image/png","path":"../_file/stadtklima/arials/herose_park.7dc3af5c.png","lastModified":1763355153978,"size":703271});
+registerFile("./arials/hornle.png", {"name":"./arials/hornle.png","mimeType":"image/png","path":"../_file/stadtklima/arials/hornle.a6952c70.png","lastModified":1763355153982,"size":712474});
+registerFile("./arials/mainaustrasse.png", {"name":"./arials/mainaustrasse.png","mimeType":"image/png","path":"../_file/stadtklima/arials/mainaustrasse.a966cb84.png","lastModified":1763355153985,"size":703662});
+registerFile("./arials/marktstatte.png", {"name":"./arials/marktstatte.png","mimeType":"image/png","path":"../_file/stadtklima/arials/marktstatte.93243653.png","lastModified":1763355153988,"size":712333});
+registerFile("./arials/riedstrasse.png", {"name":"./arials/riedstrasse.png","mimeType":"image/png","path":"../_file/stadtklima/arials/riedstrasse.5e81cef6.png","lastModified":1763355153991,"size":678362});
+registerFile("./arials/stadtgarten.png", {"name":"./arials/stadtgarten.png","mimeType":"image/png","path":"../_file/stadtklima/arials/stadtgarten.9f926492.png","lastModified":1763355153994,"size":721146});
+registerFile("./arials/stephansplatz.png", {"name":"./arials/stephansplatz.png","mimeType":"image/png","path":"../_file/stadtklima/arials/stephansplatz.8e0d01db.png","lastModified":1763355153997,"size":748959});
+registerFile("./arials/uni_eichbergstraße.png", {"name":"./arials/uni_eichbergstraße.png","mimeType":"image/png","path":"../_file/stadtklima/arials/uni_eichbergstraße.1d9eabe0.png","lastModified":1763355154000,"size":697736});
+registerFile("./data/dia3_stationen_heatmap.csv", {"name":"./data/dia3_stationen_heatmap.csv","mimeType":"text/csv","path":"../_file/stadtklima/data/dia3_stationen_heatmap.e44e5c4b.csv","lastModified":1763355154001,"size":20257});
+registerFile("./data/hot_data.csv", {"name":"./data/hot_data.csv","mimeType":"text/csv","path":"../_file/stadtklima/data/hot_data.ca0eedb9.csv","lastModified":1763355154001,"size":412});
+registerFile("./data/konstanz_flaechenanalyse.csv", {"name":"./data/konstanz_flaechenanalyse.csv","mimeType":"text/csv","path":"../_file/stadtklima/data/konstanz_flaechenanalyse.d6b701d1.csv","lastModified":1763355154001,"size":1579});
+registerFile("./stationen.geo.json", {"name":"./stationen.geo.json","mimeType":"application/json","path":"../_file/stadtklima/stationen.geo.7b6c9a47.json","lastModified":1763355154392,"size":4684});
+registerFile("./tagesverlauf.csv", {"name":"./tagesverlauf.csv","mimeType":"text/csv","path":"../_file/stadtklima/tagesverlauf.370d2e69.csv","lastModified":1763355266565,"size":10995});
+
+define({id: "4963b2ae", outputs: ["layout"], body: async () => {
+const layout = await import("../_import/assets/layout.ab72fe97.js");
+
+return {layout};
+}});
+
+define({id: "c5d83b62", inputs: ["FileAttachment"], outputs: ["yearly"], body: (FileAttachment) => {
+// Was wollt ihr hier für Daten nutzen? Eine Idee wäre, die Jahreswerte aus dem DWD Dashboard wiederzuverwenden.
+// Es gäbe dort auch noch 30-jährige gleitende Durchschnitte
+const yearly =  FileAttachment("../dwd/dwd/Jahreswerte.csv").csv({typed: true})
+// Diese Datei wird von ../../dwd/dwd.zip.py erstellt. Das Python Skript bündelt meherere Dateien in ein ZIP-Archiv (u.a. Jahreswerte.csv);
+// Observable Framework stellt diese dann einzeln oder gebündelt zum Download bereit.
+return {yearly};
+}});
+
+define({id: "2fe5f527", inputs: ["yearly","Inputs"], outputs: ["computeYears","createWeatherTrendContainer","minYear","maxYear","allYears","options","arrivalInput"], body: async (yearly,Inputs) => {
+const {computeYears, createWeatherTrendContainer} = await import("../_import/stadtklima/charts/chart1_weather_trends.2f0ad057.js");
+const { minYear, maxYear, allYears } = computeYears(yearly);
+
+const options = ["Bitte Jahr wählen…", ...allYears];
+const arrivalInput = Inputs.select(options, { label: "Jahr" });
+return {computeYears,createWeatherTrendContainer,minYear,maxYear,allYears,options,arrivalInput};
+}});
+
+define({id: "b4324d38", mode: "inline", inputs: ["arrivalInput","display"], body: async (arrivalInput,display) => {
+display(await(
+arrivalInput
+))
+}});
+
+define({id: "07229b8c", inputs: ["view","createWeatherTrendContainer","yearly","arrivalInput"], body: (view,createWeatherTrendContainer,yearly,arrivalInput) => {
+view(createWeatherTrendContainer(yearly, arrivalInput));
+}});
+
+define({id: "e791208f", inputs: ["FileAttachment"], outputs: ["station_meta","tagesverlauf"], body: (FileAttachment) => {
+// Daten der Stationen und Tagesverlauf laden
+const station_meta = FileAttachment("./stationen.geo.json").json()
+const tagesverlauf = FileAttachment("./tagesverlauf.csv").csv({typed: true})
+return {station_meta,tagesverlauf};
+}});
+
+define({id: "7d8c1ae2", inputs: ["tagesverlauf","station_meta"], outputs: ["station_set_a","station_set_b","station_set","stations"], body: (tagesverlauf,station_meta) => {
+// Ermittle, für welche Stationen Daten vorliegen und filtere stationen_meta
+const station_set_a = new Set(tagesverlauf.map(x => x.Station))
+const station_set_b = new Set(station_meta.features.map(x => x.properties.name))
+const station_set = station_set_a.intersection(station_set_b)
+station_meta.features = station_meta.features.filter(x => station_set.has(x.properties.name))
+const stations = [...station_set]
+return {station_set_a,station_set_b,station_set,stations};
+}});
+
+define({id: "ade7ae10", inputs: ["Mutable","stations","html","Generators"], outputs: ["station","set_station","stunde_input","stunde"], body: (Mutable,stations,html,Generators) => {
+const station = Mutable(stations[0]);
+const set_station = x => station.value = x;
+
+// Uhrzeit-Slider
+const stunde_input = html`<input type="range" min="0" max="23" step="1" name="range">`
+const stunde = Generators.input(stunde_input);
+return {station,set_station,stunde_input,stunde};
+}});
+
+define({id: "7de7e729", outputs: ["createSensorLineChart","createSensorMap","updateSensorMap","createReactiveSensorChart","createMapLegend"], body: async () => {
+const {createSensorLineChart, createSensorMap, updateSensorMap, createReactiveSensorChart, createMapLegend} = await import("../_import/stadtklima/charts/chart2_sensor_map.5607dc15.js");
+// Import der ausgelagerten Funktionen
+
+return {createSensorLineChart,createSensorMap,updateSensorMap,createReactiveSensorChart,createMapLegend};
+}});
+
+define({id: "9c5761d6", outputs: ["map_div"], body: () => {
+// Karten-Div vorbereiten - wird im Markdown verwendet
+const map_div = document.createElement("div");
+map_div.style.aspectRatio = "1.5";
+map_div.style.maxWidth = "640px";
+//map_div.style = "max-widths: 640px;";
+map_div
+return {map_div};
+}});
+
+define({id: "8b3d70f1", mode: "inline", inputs: ["stunde","display"], body: async (stunde,display) => {
+display(await(
+stunde
+))
+}});
+
+define({id: "7604163c", mode: "inline", inputs: ["map_div","display"], body: async (map_div,display) => {
+display(await(
+map_div
+))
+}});
+
+define({id: "64f8c093", mode: "inline", inputs: ["resize","createMapLegend","display"], body: async (resize,createMapLegend,display) => {
+display(await(
+resize(width => createMapLegend(width))
+))
+}});
+
+define({id: "9b4ef3e5", mode: "inline", inputs: ["station","display"], body: async (station,display) => {
+display(await(
+station
+))
+}});
+
+define({id: "f7b2a0ee", mode: "inline", inputs: ["resize","createSensorLineChart","tagesverlauf","station","stunde","display"], body: async (resize,createSensorLineChart,tagesverlauf,station,stunde,display) => {
+display(await(
+resize(width => createSensorLineChart(tagesverlauf, station, stunde, width))
+))
+}});
+
+define({id: "c8a31fd9", mode: "inline", inputs: ["stunde_input","display"], body: async (stunde_input,display) => {
+display(await(
+stunde_input
+))
+}});
+
+define({id: "8b3d70f1-1", mode: "inline", inputs: ["stunde","display"], body: async (stunde,display) => {
+display(await(
+stunde
+))
+}});
+
+define({id: "afd2dfd6", inputs: ["createSensorMap","map_div","station_meta"], outputs: ["map"], body: (createSensorMap,map_div,station_meta) => {
+// Die Karte wurde oben bereits ins HTML / DOM eingebettet. Hier wird sie befüllt.
+// ausgelagert in charts/chart2_sensor_map.js
+const map = createSensorMap(map_div, station_meta);
+return {map};
+}});
+
+define({id: "ce67f74a", inputs: ["updateSensorMap","map","station_meta","station","set_station","tagesverlauf","stunde"], body: (updateSensorMap,map,station_meta,station,set_station,tagesverlauf,stunde) => {
+// This block is re-evaluated whenever the input 'station' or 'stunde' changes.
+// ausgelagert in charts/chart2_sensor_map.js
+updateSensorMap(map, station_meta, station, set_station, tagesverlauf, stunde);
+}});
+
+define({id: "3d951ed1", inputs: ["FileAttachment"], outputs: ["stationMeta_dia3","heatmapRaw_dia3","hotData_dia3"], body: (FileAttachment) => {
+// Flächendaten (Koordinaten + %-Anteile)
+const stationMeta_dia3 = FileAttachment("./data/konstanz_flaechenanalyse.csv").csv({ typed: true });
+
+// Heatmap-Rohdaten (24h-Abweichungen)
+const heatmapRaw_dia3 = FileAttachment("./data/dia3_stationen_heatmap.csv").csv({ typed: true });
+
+// Klima-Daten (Max-Temp, heiße Tage)
+const hotData_dia3 = FileAttachment("./data/hot_data.csv").csv({ typed: true });
+return {stationMeta_dia3,heatmapRaw_dia3,hotData_dia3};
+}});
+
+define({id: "c7b618ce", inputs: ["d3","heatmapRaw_dia3","Inputs","stations","Generators","FileAttachment","hotData_dia3","Plot","stationMeta_dia3","html"], outputs: ["heatmapData_dia3","leftSelect","rightSelect","left","right","arials","kpi","surface","Stripes"], body: (d3,heatmapRaw_dia3,Inputs,stations,Generators,FileAttachment,hotData_dia3,Plot,stationMeta_dia3,html) => {
+// Umwandeln in: { "Stationenname": [24 Werte mit Abweichung] }
+const heatmapData_dia3 = {
+  ...Object.fromEntries(
+    d3.groups(heatmapRaw_dia3, d => d.name).map(([name, rows]) => [
+      name,
+      rows.sort((a, b) => +a.hour - +b.hour).map(d => +d.temperature_deviation)
+    ])
+  )
+}
+
+// UI: Überschrift + zwei Dropdowns nebeneinander
+const leftSelect  = Inputs.select(stations,  { label: "Station A", value: "Stadtgarten" });
+const rightSelect = Inputs.select(stations,  { label: "Station B", value: "Friedrichstrasse" });
+const left = Generators.input(leftSelect);
+const right = Generators.input(rightSelect);
+
+const arials = {
+    "Döbele": FileAttachment("./arials/dobele.png").href,
+    "Europapark": FileAttachment("./arials/europapark.png").href,
+    "Fähre Staad": FileAttachment("./arials/fahre_staad.png").href,
+    "Friedrichstrasse": FileAttachment("./arials/friedrichstrasse.png").href,
+    "Fahrradbrucke": FileAttachment("./arials/herose_fahrradbrucke.png").href,
+    "Herose-Park": FileAttachment("./arials/herose_park.png").href,
+    "Hörnle": FileAttachment("./arials/hornle.png").href,
+    "Mainaustrasse": FileAttachment("./arials/mainaustrasse.png").href,
+    "Marktstätte": FileAttachment("./arials/marktstatte.png").href,
+    "Riedstrasse": FileAttachment("./arials/riedstrasse.png").href,
+    "Stadtgarten": FileAttachment("./arials/stadtgarten.png").href,
+    "Stephansplatz": FileAttachment("./arials/stephansplatz.png").href,
+    "Uni Eichbergstraße": FileAttachment("./arials/uni_eichbergstraße.png").href,
+};
+
+function kpi(stationName){
+  const row = hotData_dia3.find(d => d.name === stationName);
+  return {
+    maxTemp: Plot.formatNumber('de-DE')(row['Hottest_Day'].toFixed(1)),
+    nHotDays: Plot.formatNumber('de-DE')(row['Hot_Days_Count'])
+  };
+}
+
+function surface(station, kind, label, color){
+  const value = stationMeta_dia3.find(d => d.name == station)[kind + "_%"]; 
+  return html.fragment`
+    <div class="card-label">${label}</div>
+    <div class="bar-outer">
+      <div class="bar-inner" style="width:${value}%; background:${color};" title="${value} %">
+    </div>
+  `
+}
+
+function Stripes(values, width, {
+    height = 100,
+    domain = [-1, 0, 1],
+    range = ["#2166AC", "#F7F7F7", "#C70039"]
+} = {}) {
+    const data = values.map((v, i) => ({ hour: i + 1, value: v, row: "r" }));
+    const hours = Array.from({ length: 24 }, (_, i) => i + 1);
+
+    return Plot.plot({
+        height,
+        width,
+        style: "font-size: 14px;",
+        marginBottom: 40,           // space for hour numbers
+        inset: 10,
+        x: {
+            domain: hours,
+            ticks: [1, 6, 12, 18, 24],              // only multiples of 6
+            //tickFormat: d => String(d).padStart(2, "0") + ":00",            // show 1..24
+            tickSize: 0,              // no tick lines
+            tickPadding: 2, // smaller distance between labels and axis
+            label: "Uhrzeit"
+        },
+        y: {
+            domain: ["r"],            // single row
+            axis: null,
+            padding: 0
+        },
+        color: {
+            type: "linear",
+            domain,
+            range
+        },
+        marks: [
+            // one cell per hour
+            Plot.cell(data, {
+                x: "hour",
+                y: "row",
+                fill: "value",
+                inset: 0,
+                title: d => {
+                    const sign = d.value > 0 ? "+" : "";
+                    return `${String(d.hour).padStart(2, "0")}Uhr: ${sign}${Plot.formatNumber("de-DE")(d.value.toFixed(2))} °C`;
+                }
+            })
+        ]
+    });
+}
+return {heatmapData_dia3,leftSelect,rightSelect,left,right,arials,kpi,surface,Stripes};
+}});
+
+define({id: "3fe20300", inputs: ["Stripes","heatmapData_dia3","left"], outputs: ["leftStripes"], body: (Stripes,heatmapData_dia3,left) => {
+const leftStripes = width => Stripes(heatmapData_dia3[left], width);
+return {leftStripes};
+}});
+
+define({id: "d035d1bc", inputs: ["Stripes","heatmapData_dia3","right"], outputs: ["rightStripes"], body: (Stripes,heatmapData_dia3,right) => {
+const rightStripes = width => Stripes(heatmapData_dia3[right], width);
+return {rightStripes};
+}});
+
+define({id: "00a847e9", mode: "inline", inputs: ["leftSelect","display"], body: async (leftSelect,display) => {
+display(await(
+leftSelect
+))
+}});
+
+define({id: "da1f7744", mode: "inline", inputs: ["rightSelect","display"], body: async (rightSelect,display) => {
+display(await(
+rightSelect
+))
+}});
+
+define({id: "360f8403", mode: "inline", inputs: ["left","display"], body: async (left,display) => {
+display(await(
+left
+))
+}});
+
+define({id: "030bc270", mode: "inline", inputs: ["html","arials","left","display"], body: async (html,arials,left,display) => {
+display(await(
+html.fragment`<img class="map-wrap" src=${arials[left]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`
+))
+}});
+
+define({id: "f58f78f5", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "gebaeude", "Gebäude", "#b3b3b3")
+))
+}});
+
+define({id: "62798f40", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "asphalt", "Asphalt", "#333333")
+))
+}});
+
+define({id: "f59c39a0", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "kies", "Kies", "#ffd7aa")
+))
+}});
+
+define({id: "2f53bbc7", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "gruen", "Grünflächen", "#b1d49a")
+))
+}});
+
+define({id: "b906df9c", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "wasser", "Wasser", "#5a8ebf")
+))
+}});
+
+define({id: "ee39b81b", mode: "inline", inputs: ["surface","left","display"], body: async (surface,left,display) => {
+display(await(
+surface(left, "baeume", "Baumkronen", "rgb(0, 128, 0)")
+))
+}});
+
+define({id: "248d9890", mode: "inline", inputs: ["resize","leftStripes","display"], body: async (resize,leftStripes,display) => {
+display(await(
+resize(leftStripes)
+))
+}});
+
+define({id: "f4c34218", mode: "inline", inputs: ["kpi","left","display"], body: async (kpi,left,display) => {
+display(await(
+kpi(left)["maxTemp"]
+))
+}});
+
+define({id: "19c2a139", mode: "inline", inputs: ["kpi","left","display"], body: async (kpi,left,display) => {
+display(await(
+kpi(left)["nHotDays"]
+))
+}});
+
+define({id: "27042f4e", mode: "inline", inputs: ["right","display"], body: async (right,display) => {
+display(await(
+right
+))
+}});
+
+define({id: "32e820b9", mode: "inline", inputs: ["html","arials","right","display"], body: async (html,arials,right,display) => {
+display(await(
+html.fragment`<img class="map-wrap" src=${arials[right]} alt="Luftbild" title="Quelle: Landesamt für Geoinformation und Landesentwicklung Baden-Württemberg (LGL-BW) (2024) (dl-by-de/2.0 Lizenz)">`
+))
+}});
+
+define({id: "c0e3b19d", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "gebaeude", "Gebäude", "#b3b3b3")
+))
+}});
+
+define({id: "f38751d4", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "asphalt", "Asphalt", "#333333")
+))
+}});
+
+define({id: "2c462af1", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "kies", "Kies", "#ffd7aa")
+))
+}});
+
+define({id: "a2c0e366", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "gruen", "Grünflächen", "#b1d49a")
+))
+}});
+
+define({id: "a5adf3dc", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "wasser", "Wasser", "#5a8ebf")
+))
+}});
+
+define({id: "64af9073", mode: "inline", inputs: ["surface","right","display"], body: async (surface,right,display) => {
+display(await(
+surface(right, "baeume", "Baumkronen", "rgb(0, 128, 0)")
+))
+}});
+
+define({id: "11db01cf", mode: "inline", inputs: ["resize","rightStripes","display"], body: async (resize,rightStripes,display) => {
+display(await(
+resize(rightStripes)
+))
+}});
+
+define({id: "8774528d", mode: "inline", inputs: ["kpi","right","display"], body: async (kpi,right,display) => {
+display(await(
+kpi(right)["maxTemp"]
+))
+}});
+
+define({id: "42ca85ce", mode: "inline", inputs: ["kpi","right","display"], body: async (kpi,right,display) => {
+display(await(
+kpi(right)["nHotDays"]
+))
+}});
+
+define({id: "32cc0d8f", inputs: ["Mutable"], outputs: ["yt_consent","yt_accept"], body: (Mutable) => {
+const yt_consent = Mutable(false);
+const yt_accept = () => yt_consent.value = true;
+return {yt_consent,yt_accept};
+}});
+
+define({id: "92cb3c5c", inputs: ["layout","yt_consent","html","yt_accept","display"], body: async (layout,yt_consent,html,yt_accept,display) => {
+display(await(
+layout.card({
+  title: 'Video: Wie kommt es zu den Temperaturunterschieden innerhalb der Stadt?',
+  subtitle: 'Tim Tewes, Experte für klimaresiliente Stadtplanung',
+  body: yt_consent ? html.fragment`
+    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/uyQGpEJSOpM"></iframe></p>
+    ` : html.fragment`
+    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=uyQGpEJSOpM">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
+    <center>
+    <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
+    </center>
+  `,
+})
+))
+}});
+
+define({id: "e5eafe5b", inputs: ["layout","yt_consent","html","yt_accept","display"], body: async (layout,yt_consent,html,yt_accept,display) => {
+display(await(
+layout.card({
+  title: 'Video: Was plant die Stadt Konstanz, um die Stadt klimaresilienter zu gestalten?',
+  subtitle: 'Jana Schirrmacher, Beauftragte für Klimawandelanpassung der Stadt Konstanz',
+  body: yt_consent ? html.fragment`
+    <p><iframe style="width:100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/eapX_nh1MvM"></iframe></p>
+    ` : html.fragment`
+    <p><strong>Externe Inhalte:</strong> Dieses Video wird über YouTube bereit gestellt. Sie können das Video <a href="https://www.youtube.com/watch?v=eapX_nh1MvM">dort</a> anschauen oder hier fortfahren. In beiden Fällen wird eine Verbindung zu YouTube aufgebaut und es gelten deren Nutzungsbedingungen und Regelungen zum Datenschutz.</p>
+    <center>
+    <p><button onclick=${yt_accept}>Ich will externe Inhalte von YouTube laden und das Video hier anschauen !</button></p>
+    </center>
+  `,
+})
+))
+}});
+
+define({id: "251151aa", inputs: ["layout","display"], body: async (layout,display) => {
+display(await(
+layout.sponsors()
+))
+}});
+
+</script>
+</head>
+<body>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="../">Startseite</a></li>
+  </ol>
+  <section>
+    <summary>Dashboards</summary>
+    <ol>
+    <li class="observablehq-link"><a href="../dwd/">Wetterbeobachtungen</a></li>
+    <li class="observablehq-link"><a href="../cds/">Klimaprojektionen</a></li>
+    <li class="observablehq-link"><a href="../lubw/">Luftqualität</a></li>
+    </ol>
+  </section>
+  <section class="observablehq-section-active">
+    <summary>Stories</summary>
+    <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./">Stadtklima</a></li>
+    </ol>
+  </section>
+  <ol>
+    <li class="observablehq-link"><a href="../legal/">Rechtliche Hinweise</a></li>
+    <li class="observablehq-link"><a href="../leichte-sprache/">Leichte Sprache</a></li>
+    <li class="observablehq-link"><a href="../barrierefreiheit/">Barrierefreiheit</a></li>
+  </ol>
+</nav>
+<script>{const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<div id="observablehq-center">
+<header id="observablehq-header">
+
+<div style="display: flex; justify-content: space-between; width: 100%">
+  <a href="../" style="color: inherit">
+    <div style="display: flex; align-items: center">
+      <img style="height: 2rem" src="../_file/assets/skn-logo.123f9c0a.svg" alt="Logo der Stadtverwaltung Konstanz"><b>Stadt Konstanz | Stadtdaten</b>
+    </div>
+  </a>
+  <div>
+    <a href="https://github.com/sgc-kn/dashboards" target="_blank" rel="noopener noreferrer">
+      <img style="height: 1.5rem" src="../_file/assets/github-logo.9cd1a180.svg" alt="Github Logo">
+    </a>
+  </div>
+</div>
+
+</header>
+<aside id="observablehq-toc" data-selector="h1:not(:first-of-type)[id], h2:first-child[id], :not(h1) + h2[id]">
+<nav>
+<div>Kapitel</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#teil-1-wie-hat-sich-die-temperatur-in-konstanz-ueber-die-jahrzehnte-entwickelt">Teil 1: Wie hat sich die Temperatur in Konstanz über die Jahrzehnte entwickelt?</a></li>
+<li class="observablehq-secondary-link"><a href="#teil-2-wo-spuert-man-die-zunehmende-hitze-in-konstanzer-sommern-besonders-heftig">Teil 2: Wo spürt man die zunehmende Hitze in Konstanzer Sommern besonders heftig?</a></li>
+<li class="observablehq-secondary-link"><a href="#teil-3-warum-ist-es-an-orten-unterschiedlich-heiss-obwohl-sie-nur-wenige-strassen-voneinander-entfernt-sind">Teil 3: Warum ist es an Orten unterschiedlich heiß – obwohl sie nur wenige Straßen voneinander entfernt sind?</a></li>
+<li class="observablehq-secondary-link"><a href="#teil-4-und-jetzt">Teil 4: Und jetzt?</a></li>
+</ol>
+</nav>
+</aside>
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:4963b2ae:--></div>
+<!--brauche ich damit ich in style.css z.B. die Schriftbreite ändern kann -->
+<div class="correlaid-page"> 
+<h1 id="das-stadtklima-unter-der-lupe" tabindex="-1"><a class="observablehq-header-anchor" href="#das-stadtklima-unter-der-lupe">Das Stadtklima unter der Lupe</a></h1>
+<h2 id="wie-ein-paar-meter-den-unterschied-machen-beim-klima-vor-deiner-tuer" tabindex="-1"><a class="observablehq-header-anchor" href="#wie-ein-paar-meter-den-unterschied-machen-beim-klima-vor-deiner-tuer">Wie ein paar Meter den Unterschied machen – beim Klima vor deiner Tür</a></h2>
+<p>Ein heißer Sommertag in Konstanz, du läufst über den Stephansplatz und spürst, wie die Hitze über dem Pflaster flimmert. Dann machst du ein paar Schritte in den Stadtgarten – plötzlich wirkt es kühler, angenehmer. Dabei bist du nur ein paar hundert Meter gelaufen. Wie kann das sein?
+In dieser interaktiven Story nehmen wir das Konstanzer Stadtklima unter die Lupe. Wir werfen einen Blick auf die Klimaveränderungen der letzten Jahrzehnte und analysieren überraschende Temperaturunterschiede innerhalb der Stadt. Außerdem findest du selbst heraus, welche Faktoren Orte innerhalb der Stadt besonders heiß oder angenehm kühl machen.
+Was deutlich wird: Der Klimawandel ist längst in Konstanz angekommen. Aber seinen Auswirkungen sind wir in unterschiedlichem Maß ausgesetzt – je nachdem, wie die Stadtteile gestaltet sind, in denen wir wohnen, arbeiten oder uns gerne aufhalten.</p>
+<h2 id="teil-1-wie-hat-sich-die-temperatur-in-konstanz-ueber-die-jahrzehnte-entwickelt" tabindex="-1"><a class="observablehq-header-anchor" href="#teil-1-wie-hat-sich-die-temperatur-in-konstanz-ueber-die-jahrzehnte-entwickelt">Teil 1: Wie hat sich die Temperatur in Konstanz über die Jahrzehnte entwickelt?</a></h2>
+<p>Um nachzuvollziehen, wie sich das Klima in Konstanz bis heute entwickelt hat, werfen wir einen Blick auf Daten des Deutschen Wetterdienstes (DWD). Seit 1973 erfasst die Wetterstation des DWD kontinuierlich die wichtigsten Wetterparameter in Konstanz. Hier abgebildet siehst du die seither dokumentierte Entwicklung der jährlichen Durchschnittstemperatur. Um herauszufinden, wie sich die Temperatur während deiner Zeit in Konstanz verändert hat, kannst du im Dropdownmenü dein Zuzugsjahr auswählen.</p>
+<div class="observablehq observablehq--block"><!--:c5d83b62:--></div>
+<div class="observablehq observablehq--block"><!--:2fe5f527:--></div>
+<p><strong>Seit wann lebst du in Konstanz?</strong>
+<observablehq-loading></observablehq-loading><!--:b4324d38:--></p>
+<div class="card">
+  <h2>Jahresdurchschnittstemperatur</h2>
+  <h3>DWD Station Konstanz</h3>
+<p>In der folgenden Grafik kannst du sehen, wie sich die Temperatur seit <strong>1973</strong> verändert hat. Die Regressionsgerade bezieht sich auf den gesamten Zeitraum seit 1973.</p>
+<div class="observablehq observablehq--block"><!--:07229b8c:--></div>
+</div> <!-- card -->
+<p>Wenn wir den kompletten Zeitraum betrachten, wird deutlich: Die durchschnittliche Lufttemperatur in Konstanz ist über die Jahrzehnte trotz einiger Schwankungen kontinuierlich angestiegen. Zum einen wird es generell wärmer – zum anderen nimmt die Zahl der Extremwettertage zu: Das sehen wir beispielsweise an tropischen Nächten und Hitzetagen mit Temperaturen über 30 Grad.</p>
+<p><strong>Tipp:</strong> Wenn du mehr zum Klima in Konstanz wissen willst, dann schau doch mal bei den Dashboards vorbei! Da gibt es viele interessante Diagramme zu sehen:
+<a href="https://stadtdaten.konstanz.digital/dwd/" target="_blank" rel="noopener noreferrer">Wetterbeobachtungen</a>,
+<a href="https://stadtdaten.konstanz.digital/cds/" target="_blank" rel="noopener noreferrer">Klimaprojektionen</a>, und
+<a href="https://stadtdaten.konstanz.digital/lubw/" target="_blank" rel="noopener noreferrer">Luftqualität</a>.</p>
+<p>Ohne effektive globale Klimaschutzmaßnahmen wird dieser Trend weiter zunehmen. Damit rückt immer mehr die Frage in den Fokus, wie widerstandsfähig unsere Wohnorte gegenüber zunehmenden Extremen sind. Wie also fühlen sich solche Hitzetage in Konstanz an?</p>
+<h2 id="teil-2-wo-spuert-man-die-zunehmende-hitze-in-konstanzer-sommern-besonders-heftig" tabindex="-1"><a class="observablehq-header-anchor" href="#teil-2-wo-spuert-man-die-zunehmende-hitze-in-konstanzer-sommern-besonders-heftig">Teil 2: Wo spürt man die zunehmende Hitze in Konstanzer Sommern besonders heftig?</a></h2>
+<p>An heißen Sommertagen scheint es besonders darauf anzukommen, wo man seine Zeit verbringt: Während es in den engen Gassen der Innenstadt heiß und stickig ist, lässt es sich im Herosé-Park oder am Hörnle deutlich besser aushalten. Auch im Stadtgarten oder im Lorettowald ist die Hitze oft weniger spürbar. Aber ist das tatsächlich messbar – oder nur Gefühlssache?</p>
+<p>Die Stadt Konstanz betreibt seit 2024 mehrere Wetterstationen, die quer über das Stadtgebiet verteilt sind. Und diese Stationen liefern spannende ergänzende Daten zur Station des Deutschen Wetterdienstes: Denn während die DWD-Wettersonde einen einzigen Temperaturwert für die gesamte Stadt erhebt, zeigen die Messstationen der Stadt deutlich differenziertere Werte. Sie machen sichtbar, welche Orte sich morgens besonders schnell oder langsam erwärmen, die Hitze am Abend lange speichern – oder aber rasch wieder abkühlen.</p>
+<p>In der linken Karte sind diese städtischen Wetterstationen verzeichnet. Die Grafik daneben zeigt die Temperaturentwicklung dieser Stationen am heißesten Tag des vergangenen Jahres – dem 11. August 2024. Mit dem Slider kannst du dich stundenweise durch den Tag bewegen und sehen, wie warm es zu einer bestimmten Uhrzeit an den einzelnen Stationen war. Je größer und intensiver der Blauton des Kreises um eine Station, desto kühler war es dort im Vergleich zum stündlichen Durchschnitt aller Stationen. Je größer und intensiver der Rotton des Kreises, desto wärmer war es.</p>
+<p>Verschaff dir einen Überblick: An welchen Standorten ist es besonders heiß oder kühl über den Tag? Findest du ein Muster?</p>
+<p>Klickst du auf einen Standort in der Karte, so wird die individuelle Temperaturkurve der zugehörigen Wetterstation in der Grafik hervorgehoben.</p>
+<center>
+<h3 id="temperaturverlauf-am-11-august-2024" tabindex="-1"><a class="observablehq-header-anchor" href="#temperaturverlauf-am-11-august-2024">Temperaturverlauf am 11. August 2024</a></h3>
+</center>
+<!-- Learning: 
+  Erst in separaten JavaScript-Zellen den Inhalt vorbereiten.
+  Dann im Markdown die Anzeige steuern.
+-->
+<div class="observablehq observablehq--block"><!--:e791208f:--></div>
+<div class="observablehq observablehq--block"><!--:7d8c1ae2:--></div>
+<!-- UI-Inputs chart2 -->
+<div class="observablehq observablehq--block"><!--:ade7ae10:--></div>
+<div class="observablehq observablehq--block"><!--:7de7e729:--></div>
+<div class="observablehq observablehq--block"><!--:9c5761d6:--></div>
+<!-- Layout Dia 2 (2 Charts)-->
+<div class="grid grid-cols-2 gap-4">
+<!-- Zeigen der Karte-->
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <h2>Messstationen</h2>
+      <h3>Temperatur an Konstanzer Wetterstationen im Vergleich zum Durchschnitt um <observablehq-loading></observablehq-loading><!--:8b3d70f1:-->:00 Uhr</h3>
+    </div>
+  </div>
+  <div class="body">
+    <p><observablehq-loading></observablehq-loading><!--:7604163c:--></p>
+    <p><observablehq-loading></observablehq-loading><!--:64f8c093:--></p>
+  </div>
+</div> 
+<!-- Ende Card - Map -->
+<!-- Zeigen der Sensorliniendiagramme-->
+<!-- Line Plot der Stationen-->
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <h2>Temperatur</h2>
+      <h3>Tagesverlauf an der Wetterstationen <observablehq-loading></observablehq-loading><!--:9b4ef3e5:--></h3>
+    </div>
+  </div>
+  <div class="body">
+    <p><observablehq-loading></observablehq-loading><!--:f7b2a0ee:--></p>
+    <center>
+    <observablehq-loading></observablehq-loading><!--:c8a31fd9:-->
+    <p>Uhrzeit: <observablehq-loading></observablehq-loading><!--:8b3d70f1-1:-->:00</p>
+    </center>
+  </div>
+</div> <!-- card -->
+</div> <!-- Grid mit 2 Spalten Ende -->
+<!--Layout kommt zuerst (HTML/Markdown darüber), Inhalt kommt danach (befüllen der Karte und Interaktivität hier drunter.-->
+<div class="observablehq observablehq--block"><!--:afd2dfd6:--></div>
+<div class="observablehq observablehq--block"><!--:ce67f74a:--></div>
+<p>Die Grafik zeigt eindrücklich, dass tatsächlich nicht alle Orte innerhalb der Stadt gleichermaßen von der Hitze betroffen sind. Gegen 12:00 Uhr sind es beispielsweise mehr als 5 °C, die die beiden kühlsten Orte (Herosé Park und Fähre Staad) vom heißesten Ort (Riedstraße) unterscheiden.</p>
+<p>Hitzespitzen wie die in der Riedstraße – hier wurden 31,3 °C gemessen – bleiben nicht ohne Folgen: für das persönliche Wohlbefinden von allen, aber insbesondere für die Gesundheit älterer Menschen, Kinder und Menschen ohne Zugang zu kühlen Rückzugsorten. Tagsüber steigt die Gefahr von Dehydrierung und Hitzestress, während die Nächte kaum Möglichkeit zur Erholung lassen. Auch für viele Pflanzen und Tiere sind die erhöhten Temperaturen ein Stressfaktor.</p>
+<p>Mit gezielten Maßnahmen zur Klimawandelanpassung kann der übermäßigen Erhitzung einzelner Gebiete vorgebeugt werden. Dafür ist es wichtig zu verstehen, welche Faktoren sogenannte Hitzeinseln in der Stadt verstärken oder abschwächen. Schauen wir uns dafür die Stationen genauer an!</p>
+<h2 id="teil-3-warum-ist-es-an-orten-unterschiedlich-heiss-obwohl-sie-nur-wenige-strassen-voneinander-entfernt-sind" tabindex="-1"><a class="observablehq-header-anchor" href="#teil-3-warum-ist-es-an-orten-unterschiedlich-heiss-obwohl-sie-nur-wenige-strassen-voneinander-entfernt-sind">Teil 3: Warum ist es an Orten unterschiedlich heiß – obwohl sie nur wenige Straßen voneinander entfernt sind?</a></h2>
+<p>Die nächste Grafik zeigt dir neben den Temperaturdaten nun auch die Umgebung der Messstationen im Radius von 50 m. Um herauszufinden, was hinter den Temperaturdifferenzen steckt, kannst du sie jetzt selbst vergleichen: Gibt es dort viele Gebäude? Asphaltierte Flächen? Oder überwiegend Bäume und Wiesen? Und was bedeutet das für die Erwärmung der Luft rund um die Station?</p>
+<div class="observablehq observablehq--block"><!--:3d951ed1:--></div>
+<div class="observablehq observablehq--block"><!--:c7b618ce:--></div>
+<div class="observablehq observablehq--block"><!--:3fe20300:--></div>
+<div class="observablehq observablehq--block"><!--:d035d1bc:--></div>
+<p><strong>Welche zwei Stationen willst du vergleichen?</strong>
+<observablehq-loading></observablehq-loading><!--:00a847e9:--> <observablehq-loading></observablehq-loading><!--:da1f7744:--></p>
+<div class="grid grid-cols-2">
+  <div class="card grid">
+    <h2 class="weatherstation-title"><observablehq-loading></observablehq-loading><!--:360f8403:--></h2>
+    <div>
+      <center>
+        <observablehq-loading></observablehq-loading><!--:030bc270:-->
+      </center>
+    </div>
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50 m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:f58f78f5:-->
+        <observablehq-loading></observablehq-loading><!--:62798f40:-->
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:f59c39a0:-->
+        <observablehq-loading></observablehq-loading><!--:2f53bbc7:-->
+        <observablehq-loading></observablehq-loading><!--:b906df9c:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Beschattung durch Bäume</div>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:ee39b81b:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      <observablehq-loading></observablehq-loading><!--:248d9890:-->
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:f4c34218:--> ℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:19c2a139:--></span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
+  <div class="card grid">
+    <h2 class="weatherstation-title"><observablehq-loading></observablehq-loading><!--:27042f4e:--></h2>
+    <div>
+      <center>
+        <observablehq-loading></observablehq-loading><!--:32e820b9:-->
+      </center>
+    </div>
+    <div class="box">
+      <div class="card-title">Oberflächenbeschaffenheit</div>
+      <div class="muted">im Umkreis von 50 m um die Station</div>
+      <p>Versiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:c0e3b19d:-->
+        <observablehq-loading></observablehq-loading><!--:f38751d4:-->
+      </div>
+      <p>Unversiegelte Flächen</p>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:2c462af1:-->
+        <observablehq-loading></observablehq-loading><!--:a2c0e366:-->
+        <observablehq-loading></observablehq-loading><!--:a5adf3dc:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Beschattung durch Bäume</div>
+      <div style="display:grid; grid-template-columns:70px 1fr;gap:8px;">
+        <observablehq-loading></observablehq-loading><!--:64af9073:-->
+      </div>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Wie warm war es hier im Vergleich zu den anderen Stationen im Tagesverlauf?</div>
+      <div class="muted">Tägliches Erwärmungsmuster – blau = kühler, rot = wärmer (Abweichung vom Mittel)</div>
+      <observablehq-loading></observablehq-loading><!--:11db01cf:-->
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Maximaltemperatur</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:8774528d:--> ℃</span></p>
+    </div> <!-- .box -->
+    <div class="box">
+      <div class="card-title">Anzahl heißer Tage</div>
+      <div class="muted">im Jahresverlauf</div>
+      <p><span class="kpi-value"><observablehq-loading></observablehq-loading><!--:42ca85ce:--></span></p>
+    </div> <!-- .box -->
+  </div> <!-- .card -->
+</div> <!-- .grid -->
+<p>Hier zeigt sich, wie stark der Einfluss der Umgebung wirklich ist:
+In der Konstanzer Innenstadt sind große Flächen durch Asphalt, Beton oder Bebauung versiegelt. Solche Flächen können kein Regenwasser aufnehmen, welches ansonsten durch Verdunstung die Luft kühlen würde. Außerdem speichern sie lange die Hitze, welche dann nur langsam an die Umgebung wieder abgegeben wird. Das kannst du gut in den Erwärmungsmustern erkennen. Auch die Abwärme von Gebäuden und die erschwerte Luftzirkulation heizen die Luft in den engen Gässchen zusätzlich auf.</p>
+<p>Ganz anders sieht es beispielsweise im Stadtgarten aus. Der Boden rund um die Wetterstation ist mit Grünflächen und hellem Kies bedeckt. Dichter Kies ist deutlich durchlässiger als Beton oder Asphalt und speichert insgesamt weniger Wärme. Einige ältere Bäume mit großen Kronen spenden Schatten und verhindern, dass die Sonne direkt auf den Boden scheint. Durch die Lage direkt am Wasser wird die Luft während heißer Nachmittage zusätzlich gekühlt. Zusammen sorgen diese Faktoren dafür, dass es hier merklich kühler ist als an anderen Wetterstationen. Im Sommer 2024 kletterte das Thermometer hier zu keinem Zeitpunkt über 30 °C.</p>
+<p>Im Video sehen wir Tim Tewes, Experte für klimaresiliente Stadtplanung. Er fasst zusammen, welche Faktoren die städtische Hitzeentwicklung im Vergleich zum Umland bestimmen und wie es zu Temperaturunterschieden innerhalb von Städten wie Konstanz kommt:</p>
+<div class="observablehq observablehq--block"><!--:32cc0d8f:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:92cb3c5c:--></div>
+<h2 id="teil-4-und-jetzt" tabindex="-1"><a class="observablehq-header-anchor" href="#teil-4-und-jetzt">Teil 4: Und jetzt?</a></h2>
+<p>Was wir aus unserer Reise durch Konstanz mitnehmen können: Der Klimawandel ist nicht nur eine globale, sondern auch eine lokale Herausforderung. Denn die baulichen Bedingungen unserer Stadt prägen entscheidend, in welchem Ausmaß wir den zunehmenden Klimaveränderungen ausgesetzt sind. Gleichzeitig zeigt sich, dass wir unsere Stadt widerstandsfähiger machen können. Mit gezielten Maßnahmen wie mehr Grünflächen, schattenspendenden Bäumen und kluger Stadtplanung tragen wir aktiv dazu bei, das Mikroklima spürbar zu verbessern.</p>
+<h3 id="ausblick-was-plant-die-stadt-konstanz-um-die-stadt-klimaresilienter-zu-gestalten" tabindex="-1"><a class="observablehq-header-anchor" href="#ausblick-was-plant-die-stadt-konstanz-um-die-stadt-klimaresilienter-zu-gestalten">Ausblick: Was plant die Stadt Konstanz, um die Stadt klimaresilienter zu gestalten?</a></h3>
+<p>Im Video sehen wir Jana Schirrmacher, Klimaanpassungsbeauftragte der Stadt Konstanz. Sie geht auf bereits bestehende Ansätze ein und erläutert, welche Pläne es in puncto Klimawandelanpassung in der Stadtverwaltung gibt:</p>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:e5eafe5b:--></div>
+<hr>
+<div class="card"> 
+  <h2> CorrelAid e.V. </h2> 
+  <h3>Diese Data Story wurde in einem Data4Good Projekt von CorrelAid erstellt</h3>
+<p>CorrelAid ist ein gemeinnütziges Netzwerk von ehrenamtlichen Data Scientists, das Datenkompetenz für das Gemeinwohl einsetzt. Es verbindet NGOs und zivilgesellschaftliche Initiativen mit Datentalenten, realisiert Pro-bono-Projekte und bietet Community-Formate sowie Weiterbildung rund um datengetriebene Arbeit.</p>
+<p><img src="../_file/stadtklima/correlaid_logo.65da8258.png" width="200px"></p>
+</div>
+</div> <!--Ende class="correlaid-page"-->
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:251151aa:--></div>
+</main>
+<footer id="observablehq-footer">
+<div>Seite erstellt am 17.11.2025 um 04:54 UTC. <a href="https://github.com/sgc-kn/dashboards/tree/refs/heads/main" target="_blank" rel="noopener noreferrer">Quellcode auf Github.</a> <a href="https://github.com/sgc-kn/dashboards/tree/c7279f9afedfab954a09b6ad3a2aa9f5d312ad36" target="_blank" rel="noopener noreferrer">Version: c7279f9a</a></div>
+</footer>
+</div>
+</body>
+</html>
