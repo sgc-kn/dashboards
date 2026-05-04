@@ -1,0 +1,200 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.14705786,
+          47.6819759
+        ]
+      },
+      "properties": {
+        "name": "Riedstrasse",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f64-sn24020759",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.1877523,
+          47.67050958
+        ]
+      },
+      "properties": {
+        "name": "Mainaustrasse",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d345b-sn24020749",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.16282324,
+          47.66721463
+        ]
+      },
+      "properties": {
+        "name": "Europapark",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f2c-sn24020753",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.21448949,
+          47.66702444
+        ]
+      },
+      "properties": {
+        "name": "Hörnle",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f47-sn24020748",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17723865,
+          47.6604731
+        ]
+      },
+      "properties": {
+        "name": "Marktstätte",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d3507-sn24020758",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17457428,
+          47.66905485
+        ]
+      },
+      "properties": {
+        "name": "Herose-Park",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f5b-sn24030050",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.20933772,
+          47.68211852
+        ]
+      },
+      "properties": {
+        "name": "Fähre Staad",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d34c6-sn24020750",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.18375494,
+          47.67557538
+        ]
+      },
+      "properties": {
+        "name": "Friedrichstrasse",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f50-sn24020754",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.183485,
+          47.688727
+        ]
+      },
+      "properties": {
+        "name": "Uni Eichbergstraße",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:wintersense-107381",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.16889836,
+          47.65823856
+        ]
+      },
+      "properties": {
+        "name": "Döbele",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d4bdc-sn24030049",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17889136,
+          47.66241869
+        ]
+      },
+      "properties": {
+        "name": "Stadtgarten",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d5119-sn24020755",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.174062,
+          47.668392
+        ]
+      },
+      "properties": {
+        "name": "Herose Fahrradbrücke",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:wintersense-107383",
+        "entity_type": "WeatherObserved"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.17386062,
+          47.661866440000004
+        ]
+      },
+      "properties": {
+        "name": "Stephansplatz",
+        "entity_id": "urn:ngsi-ld:WeatherObserved:eui-8cf95720000d2f46-sn24020757",
+        "entity_type": "WeatherObserved"
+      }
+    }
+  ]
+}
